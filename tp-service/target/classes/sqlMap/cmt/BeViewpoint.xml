@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cmt.BeViewpointDao">
+	<resultMap type="com.tp.model.cmt.BeViewpoint" id="beViewpoint">
+				<id column="id" property="id"/>
+				<result column="barcode" property="barcode"/>
+				<result column="spu" property="spu"/>
+				<result column="item_title" property="itemTitle"/>
+				<result column="content" property="content"/>
+				<result column="score" property="score"/>
+				<result column="sort" property="sort"/>
+				<result column="viewpoint_time" property="viewpointTime"/>
+				<result column="stick_sign" property="stickSign"/>
+				<result column="hide_sign" property="hideSign"/>
+				<result column="user_id" property="userId"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_user_id" property="modifyUserId"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<meta charset="utf-8" />
+	<title>我的首页管理</title>
+	<meta name="Keywords" content="商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../css/frozen.css" />
+	<link rel="stylesheet" href="css/hotcommodity.css" />
+	<link rel="stylesheet" type="text/css" href="../css/dropload.css"/>
+	<script src="../js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../dss/js/dropload.js" ></script>
+</head>
+<body ng-controller="customersCtrl">
+<!-- <div class="ui-header" style = "height:45px;">
+	<h1>选品上架</h1>
+	<a href="hotcommodity.html?from=brandList" class="goBack"></a>
+</div> -->
+<ul class="tab-content" style = "margin-top:50px;">
+	<li class = "lists"><ul class = "all-content"></ul></li>
+
+</ul>
+<div class="cartnull">
+	<img src="../img/cartnull.jpg" style="width: 27%;margin: 0 auto;display: block;margin-top: 145px;">
+	<p style="text-align: center;color: #999;margin-top: 25px;">还没有商品哟~</p>
+</div>
+<div class="item_detail">
+	<div class="item-header">
+		<div>商品详情</div>
+		<div href="" onclick="hideItemDetail()" class="goBack"></div>
+	</div>
+	<div class="content">
+		<section id="sliderlist">
+		</section>
+		<section style="padding: 0 12px;">
+			<p><span class="iem-price1" id="iem-price">¥<span class="iem-price2"></span></span></p>
+			<p class="space_price_div">
+				<!--<span class="cheap">特价</span>-->
+				<span><del id="old_price"></del></span>
+				<span id = "fy_price" style = "display: none;">返佣:<span></span></span>
+				<span class="sale-count"></span>
+			</p>
+			<p class="dec-title"></p>
+			<p class="dec-info"></p>
+			<p class="country clearfix"></p>
+			<image id="contry-img" src=''></image>
+			<span class="country-name"></span>
+			<span class="warehouse"></span>
+			<div class="div_promotion">
+				<div>促销:</div>
+				<div class="div_promotion_desc">
+				</div>
+			</div>
+			<div class="div_desc"></div>
+			<div class="notes_clearfix">
+				<div class="notes1"></div>
+					<span>
+						全球购商城所有商品均由正规渠道进货，由海外认证的供货商或品牌商直供，坚决杜绝货源不清，中间环节转手的商品。
+					</span>
+				<div class="notes2"></div>
+					<span>
+						西客采取海外直采保税仓发货（4-10个工作日左右到货）和海外直邮（15个工作日左右到货）两种模式，其商品品质都是相同的。由于商品所在的仓库不同，您的订单可能会分拆为多个包裹寄出，到货时间可能亦有差异。
+					</span>
+				<div class="notes3"></div>
+					<span>
+						· 国内货品最快时间：3天发货客户收到货品+7天无理由退换时间=10天；<br />
+						· 国内货品最慢时间：15天系统自动确认收货+7天无理由退换货=22天；<br />
+						· 国外货品最快时间：6天清关+3天配送+7天无理由退换时间=16天；<br />
+						· 国外货品最慢时间：30天系统自动确认收货+7天无理由退换货=37天。<br />
+						由于退货所产生的运费将由买家自行承担。
+					</span>
+				<div class="notes4"></div>
+					<span>
+						您不仅可以通过我们的网站、微信、APP在线选购我们的商品，更可以亲身光临位于杭州跨贸小镇的西客商场和其他实体门店，享受挑选的乐趣。
+					</span>
+			</div>
+			<div class="div_detail">
+				<div class="div_show_detail up"></div>
+				<div class="detail-content">
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="../js/xigou.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/thirdshop.js"></script>
+<script type="text/javascript" src="js/modules/promoter.js"></script>
+<script type="text/javascript" src="../js/modules/item.js"></script>
+<script type="text/javascript" src="../js/modules/user.js"></script>
+<script type="text/javascript" src="js/brandList.js"></script>
+</html>

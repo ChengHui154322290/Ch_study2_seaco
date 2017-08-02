@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>西客商城</title>
+	<meta name="Keywords" content="西客商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="css/frozen.css" />
+	<link rel="stylesheet" href="css/aboutus.css" />
+	<link rel="stylesheet" href="css/dss.css" />
+	<link rel="stylesheet" href="css/dssinvite.css" />
+	<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+	<div class="ui-header">
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+		<div class="title_desc">加入西客屋</div>
+	</div>
+	<div class="div_content">
+		<section id="slider">
+			<div class="ui-slider">
+				<ul class="ui-slider-content" style="width: 300%; transition-property: transform; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+					<!--<li class="current" style="position: relative;">-->
+						<!--<div style="text-align: center;vertical-align: bottom;position: absolute;top: 28%;width: 100%;"><font style="font-size:20px;font-weight: bold;" id="role"></font>邀请您加入西客屋</div>-->
+						<!--<a href="#">-->
+							<!--<img src='./dss/img/invite1.png'>-->
+						<!--</a>-->
+					<!--</li>-->
+					<li class="current">
+						<a href="#">
+							<img src='./dss/img/invite4.png'/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src='./dss/img/invite5.png'/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src='./dss/img/invite6.png'/>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src='./dss/img/invite7.png'/>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+	<div class="ui-btn-wrap">
+    	<button class="ui-btn-lg ui-btn-danger">点击注册西客屋</button>
+	</div>
+	<div class="share_friends" style="display: none;">
+		<a href ="index.html"></a>
+		<img style="width: 80%;margin-top: 40px;" src="img/i_tips.png">
+	</div>
+	<script class="demo-script">
+		(function (){
+			var slider = new fz.Scroll('.ui-slider', {
+				role: 'slider',
+				indicator: true,
+				autoplay: false,
+				interval: 3000
+			});
+		})();
+	</script>
+</body>
+
+<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/common/statistics.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/static_data.js"></script>
+<script type="text/javascript" src="./js/modules/user.js"></script>
+<script type="text/javascript">
+	$(function() {
+		if(isWeiXin()){
+			$(".ui-header").hide();
+			$("title").html("加入西客屋");
+			$('.div_content').css({
+				"padding-top":"0"
+			})
+		}
+		$(".ui-btn-danger").click(function() {
+			var inviter = xigou.getQueryString("i");
+			if(inviter != null && inviter != "undefined" && inviter != ""){
+				window.location.href = "dssregister.html?i=" + inviter;
+			}
+			else {
+				window.location.href = "dssregister.html";
+			}
+		});
+		getDssUserInfo();
+	});
+	
+	
+	function getDssUserInfo(){
+		xigou.getDssUserInfo({
+			requestBody: {'inviter' : xigou.getQueryString("i")},
+			callback: function(response, status) {
+				console.log(response);
+				if (status == xigou.dictionary.success) {
+					if (response != null) {
+						if (response.name) {
+							$(".title_desc").html(response.name + "邀请您加入西客屋");
+						}
+						else if(response.nickname){
+							$(".title_desc").html(response.nickname + "邀请您加入西客屋");
+						}
+					}
+				}
+			}
+		});
+	}
+</script>
+</html>

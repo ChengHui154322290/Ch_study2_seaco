@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.TempleDao">
+	<resultMap type="com.tp.model.cms.Temple" id="temple">
+				<id column="id" property="id"/>
+				<result column="page_id" property="pageId"/>
+				<result column="page_name" property="pageName"/>
+				<result column="temple_name" property="templeName"/>
+				<result column="temple_code" property="templeCode"/>
+				<result column="status" property="status"/>
+				<result column="seq" property="seq"/>
+				<result column="element_type" property="elementType"/>
+				<result column="element_num" property="elementNum"/>
+	</resultMap>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_temple WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<select id="selectIsExists" resultType="long" parameterType="java.util.List">
+	     select count(*) from cms_temple l where  l.status = 0
+	     	and l.page_id in 
+	     	<foreach collection="list" item="announceId" index="index"
+	            open="(" close=")" separator=",">
+	            #{announceId}
+	        </foreach>
+ 	</select>
+</mapper>

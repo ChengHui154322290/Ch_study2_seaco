@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.RejectInfoDao">
+	<resultMap type="com.tp.model.ord.RejectInfo" id="rejectInfo">
+				<id column="reject_id" property="rejectId"/>
+				<result column="reject_type" property="rejectType"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="reject_code" property="rejectCode"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="points" property="points"/>
+				<result column="offset_amount" property="offsetAmount"/>
+				<result column="reject_status" property="rejectStatus"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="reject_reason" property="rejectReason"/>
+				<result column="link_mobile" property="linkMobile"/>
+				<result column="link_man" property="linkMan"/>
+				<result column="buyer_img_url" property="buyerImgUrl"/>
+				<result column="seller_img_url" property="sellerImgUrl"/>
+				<result column="buyer_remarks" property="buyerRemarks"/>
+				<result column="seller_remarks" property="sellerRemarks"/>
+				<result column="remarks" property="remarks"/>
+				<result column="refund_code" property="refundCode"/>
+				<result column="offset_code" property="offsetCode"/>
+				<result column="custom_code" property="customCode"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="user_id" property="userId"/>
+				<result column="return_address" property="returnAddress"/>
+				<result column="express_no" property="expressNo"/>
+				<result column="company_name" property="companyName"/>
+				<result column="company_code" property="companyCode"/>
+				<result column="post_kuaidi100" property="postKuaidi100"/>
+				<result column="post_kuaidi100_times" property="postKuaidi100Times"/>
+				<result column="return_contact" property="returnContact"/>
+				<result column="return_mobile" property="returnMobile"/>
+	</resultMap>
+	<sql id="all_column_fields">
+		reject_id,reject_type,order_code,reject_code,refund_amount,offset_amount,points,reject_status,audit_status,reject_reason,link_mobile,link_man,buyer_img_url,seller_img_url,buyer_remarks,seller_remarks,remarks,refund_code,offset_code,custom_code,create_time,create_user,update_time,update_user,supplier_name,supplier_id,user_id,return_address,express_no,company_name,company_code,post_kuaidi100,post_kuaidi100_times,return_contact,return_mobile
+	</sql>
+ 	
+ 	<sql id="rejectQueryWhere">
+		<where>
+			<if test="orderCode != null"> AND order_code=#{orderCode} </if>
+			<if test="rejectCode != null"> AND reject_code=#{rejectCode} </if>
+			<if test="rejectStatus != null "> AND reject_status=#{rejectStatus} </if>
+			<if test="auditStatus !=null "> AND audit_status =#{auditStatus}</if>
+			<if test="userId !=null "> AND user_id =#{userId}</if>
+			<if test="supplierId !=null "> AND supplier_id =#{supplierId}</if>
+			<if test="refundCodeList !=null">
+				<foreach collection="refundCodeList" close=")" index="refundCode" item="refundCode" open="(" separator=",">
+	 				#{refundCode}
+	 			</foreach>
+			</if>
+			<if test="offsetCodeList !=null">
+				<foreach collection="offsetCodeList" close=")" index="offsetCode" item="offsetCode" open="(" separator=",">
+	 				#{offsetCode}
+	 			</foreach>
+			</if>
+			<if test="orderTypeList!=null">
+				 and exists( select 1 from ord_sub_order o where o.order_code=r.order_code and o.type in 
+				 <foreach collection="orderTypeList" close=")" index="orderType" item="orderType" open="(" separator=",">
+	 				#{orderType}
+	 			 </foreach>
+	 			 <if test="channelCode!=null">
+				 and o.channel_code=#{channelCode})
+				 </if>
+				 )
+			</if>
+			<if test="orderTypeList==null and channelCode!=null">
+				 and exists( select 1 from ord_sub_order o where  o.order_code=r.order_code and o.channel_code=#{channelCode})
+			</if>
+		</where>
+	</sql>
+	
+	 <!--  根据退货单号和快递单号查询物流信息列表 -->
+	<select id="selectListByRejectNoAndPackageNo" resultMap="rejectInfo" parameterType="map">
+		SELECT
+		<include refid="all_column_fields" />
+		FROM
+			ord_reject_info
+		WHERE
+			express_no is not null and reject_code = #{rejectCode}
+			<if test="packageNo != null  and packageNo != '' "> and express_no=#{packageNo} </if>
+	</select>
+	<!-- 批量 更新推送快递100平台信息 -->
+	<update id="batchUpdatePostKuaidi100"  parameterType="list">
+          <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update ord_reject_info 
+	                set post_kuaidi100=#{item.postKuaidi100},post_kuaidi100_times=post_kuaidi100_times+1,update_time=now() 
+	                where reject_id = ${item.rejectId}
+         </foreach>
+    </update>
+    <update id="updateForAudit"  parameterType="RejectInfo">
+ 		UPDATE ord_reject_info
+		<set>
+			<if test="rejectStatus != null">reject_status=#{rejectStatus},</if>
+			<if test="auditStatus != null">audit_status=#{auditStatus},</if>
+			<if test="updateTime != null">update_time=now(),</if>
+			<if test="refundCode != null">refund_code=#{refundCode},</if>
+			<if test="refundAmount != null ">refund_amount=#{refundAmount},</if>
+			<if test="sellerImgUrl != null and sellerImgUrl != '' ">seller_img_url=#{sellerImgUrl},</if>
+			<if test="sellerRemarks != null and sellerRemarks != '' ">seller_remarks=#{sellerRemarks},</if>
+			<if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+			<if test="remarks != null  and remarks != '' ">remarks=#{remarks},</if>
+		</set>
+		WHERE reject_code=#{rejectCode}
+ 	</update>
+ 	<!--  查询没有成功推送给快递100平台的列表 -->
+	<select id="queryNotSuccessPostKuaidi100List" resultMap="rejectInfo" parameterType="RejectInfo">
+		SELECT
+		<include refid="all_column_fields" />
+		FROM
+			ord_reject_info
+		WHERE
+			post_kuaidi100 = #{postKuaidi100} and post_kuaidi100_times &lt;= #{postKuaidi100Times} 
+			 and update_time &lt; date_sub(now(),interval 15 minute) 
+			 and express_no is not null and company_code is not null 
+			limit #{start},#{pageSize}
+	</select>
+	
+	<select id="queryPageListByRejectQueryCount" resultType="int"  parameterType="com.tp.query.ord.RejectQuery">
+		 SELECT
+	     	count(1)
+		 FROM
+		 	ord_reject_info r
+		 <include refid="rejectQueryWhere" />
+	</select>
+	
+	<select id="queryPageListByRejectQuery" resultMap="rejectInfo" parameterType="com.tp.query.ord.RejectQuery">
+	     SELECT
+	     	<include refid="all_column_fields" />
+		 FROM
+		 	ord_reject_info r
+	 	<include refid="rejectQueryWhere" />
+	 	order by ${orderByParams} ${orderBy}
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	 	
+ 	<!-- by zhs  -->
+ 	<select id="queryPageListByRejectQueryCount_DistinctByOrdercode" resultType="int"  parameterType="com.tp.query.ord.RejectQuery">
+		 SELECT
+	     	count(1)
+		 FROM
+		 	(select * from ord_reject_info 	r	 	
+		 <include refid="rejectQueryWhere" />
+		 group by order_code) a
+	</select>
+ 	 	
+ 	<select id="queryPageListByRejectQuery_DistinctByOrdercode" resultMap="rejectInfo" parameterType="com.tp.query.ord.RejectQuery">
+	     SELECT
+	     	<include refid="all_column_fields" />
+		 FROM		 
+		  ( select * from ord_reject_info r
+	 	<include refid="rejectQueryWhere" />	 	
+	 	order by ${orderByParams} ${orderBy}
+	 	) a group by a.order_code 
+	 	order by ${orderByParams} ${orderBy}	 		 	
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	
+ 	<select id="selectByRejectNo" resultMap="rejectInfo" parameterType="String">
+ 		SELECT
+ 			<include refid="all_column_fields"/>
+ 			FROM
+ 				ord_reject_info
+ 			WHERE
+ 				reject_code in
+ 			<foreach collection="list" item="rejectCode" index="rejectCode" open="(" close=")" separator=",">
+ 				#{rejectCode}
+ 			</foreach>
+ 			order by create_time desc	
+ 	</select>
+ 	
+</mapper>

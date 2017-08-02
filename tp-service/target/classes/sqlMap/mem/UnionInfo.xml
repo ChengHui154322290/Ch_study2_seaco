@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.UnionInfoDao">
+	<resultMap type="com.tp.model.mem.UnionInfo" id="unionInfo">
+				<id column="id" property="id"/>
+				<result column="mem_id" property="memId"/>
+				<result column="union_val" property="unionVal"/>
+				<result column="type" property="type"/>
+				<result column="is_deleted" property="isDeleted"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

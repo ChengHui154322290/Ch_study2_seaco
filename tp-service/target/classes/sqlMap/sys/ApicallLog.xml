@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sys.ApicallLogDao">
+	<resultMap type="com.tp.model.sys.ApicallLog" id="apicallLog">
+				<id column="id" property="id"/>
+				<result column="uri" property="uri"/>
+				<result column="ip" property="ip"/>
+				<result column="content_type" property="contentType"/>
+				<result column="content_len" property="contentLen"/>
+				<result column="method_name" property="methodName"/>
+				<result column="request_time" property="requestTime"/>
+				<result column="return_time" property="returnTime"/>
+				<result column="param" property="param"/>
+				<result column="header" property="header"/>
+				<result column="content" property="content"/>
+				<result column="method" property="method"/>
+				<result column="result" property="result"/>
+				<result column="timelapse" property="timelapse"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,uri,ip,content_type,content_len,method_name,request_time,return_time,param,header,content,method,result,timelapse,create_time
+	</sql>
+</mapper>

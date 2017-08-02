@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemTagsDao">
+	<resultMap type="com.tp.model.prd.ItemTags" id="itemTags">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="prdid" property="prdid"/>
+				<result column="spu" property="spu"/>
+				<result column="sort_no" property="sortNo"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,detail_id,prdid,spu,sort_no,create_user,create_time
+	</sql>
+</mapper>

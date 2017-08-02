@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.DynamicConfigurationDao">
+	<resultMap type="com.tp.model.app.DynamicConfiguration" id="dynamicConfiguration">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="content" property="content"/>
+				<result column="versionFrom" property="version_from"/>
+				<result column="versionTo" property="version_to"/>
+				<result column="status" property="status"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,name,content,version_from,version_to,status,create_user,create_time,update_user,update_time
+	</sql>
+
+	<select id="queryByVersion" parameterType="com.tp.model.app.DynamicConfiguration" resultMap="dynamicConfiguration">
+		SELECT <include refid="columns"></include>
+		FROM app_dynamic_configuration
+		WHERE  status=#{status}
+		<if test="versionFrom !=null">
+			AND  version_from <![CDATA[<=]]> #{versionFrom}
+		</if>
+		<if test="versionTo !=null" >
+			AND  version_to <![CDATA[>=]]> #{versionTo}
+		</if>
+		ORDER BY id desc limit 0,1
+
+
+	</select>
+</mapper>

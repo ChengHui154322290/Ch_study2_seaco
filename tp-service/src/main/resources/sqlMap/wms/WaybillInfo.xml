@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.logistics.WaybillInfoDao">
+	<resultMap type="com.tp.model.wms.WaybillInfo" id="waybillInfo">
+				<id column="id" property="id"/>
+				<result column="logistics_code" property="logisticsCode"/>
+				<result column="logistics_name" property="logisticsName"/>
+				<result column="type" property="type"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="waybill_no" property="waybillNo"/>
+				<result column="main_goods_name" property="mainGoodsName"/>
+				<result column="gross_weight" property="grossWeight"/>
+				<result column="net_weight" property="netWeight"/>
+				<result column="pack_amount" property="packAmount"/>
+				<result column="worth" property="worth"/>
+				<result column="is_postage_pay" property="isPostagePay"/>
+				<result column="is_delivery_pay" property="isDeliveryPay"/>
+				<result column="send_province" property="sendProvince"/>
+				<result column="send_city" property="sendCity"/>
+				<result column="send_area" property="sendArea"/>
+				<result column="send_address" property="sendAddress"/>
+				<result column="send_rough_area" property="sendRoughArea"/>
+				<result column="consignee" property="consignee"/>
+				<result column="post_code" property="postCode"/>
+				<result column="province" property="province"/>
+				<result column="city" property="city"/>
+				<result column="area" property="area"/>
+				<result column="address" property="address"/>
+				<result column="mobile" property="mobile"/>
+				<result column="tel" property="tel"/>
+				<result column="status" property="status"/>
+				<result column="fail_times" property="failTimes"/>
+				<result column="error_msg" property="errorMsg"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="remark" property="remark"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,logistics_code,logistics_name,type,order_code,waybill_no,main_goods_name,gross_weight,net_weight,pack_amount,worth,is_postage_pay,is_delivery_pay,send_province,send_city,send_area,send_address,send_rough_area,consignee,post_code,province,city,area,address,mobile,tel,status,fail_times,error_msg,create_time,update_time,remark
+	</sql>
+</mapper>

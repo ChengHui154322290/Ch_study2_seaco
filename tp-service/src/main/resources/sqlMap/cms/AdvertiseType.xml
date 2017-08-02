@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.AdvertiseTypeDao">
+	<resultMap type="com.tp.model.cms.AdvertiseType" id="AdvertiseTypeResultMap">
+				<id column="id" property="id"/>
+				<result column="ident" property="ident"/>
+				<result column="name" property="name"/>
+				<result column="status" property="status"/>
+	</resultMap>
+	<sql id="allColumnFields">
+	      id,name,ident,status
+ 	</sql>
+ 	
+	<sql id="dynamicWhereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="name != null  and name != '' "> AND name like concat(concat('%', #{name}),'%') </if>
+			<if test="ident != null "> AND ident=#{ident} </if>
+			<if test="status != null  and status != '' "> AND status=#{status} </if>
+		</where>
+ 	</sql>
+
+	<select id="selectById" parameterType="long" resultMap="AdvertiseTypeResultMap">
+	SELECT
+		<include refid="allColumnFields" />
+	FROM
+		cms_advertise_type
+	WHERE
+		 id = #{id}
+	</select>
+
+	<update id="update" parameterType="long">
+		UPDATE cms_advertise_type
+		SET
+					name = #{name},
+					ident = #{ident},
+					status = #{status}
+		WHERE
+			id = #{id}
+	</update>
+
+
+	<update id="updateDynamic" parameterType="com.tp.model.cms.AdvertiseType">
+		UPDATE cms_advertise_type
+		<set>
+			<if test="name != null  and name != '' ">name=#{name},</if>
+			<if test="ident != null  and ident != '' ">ident=#{ident},</if>
+			<if test="status != null  and status != '' ">status=#{status},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+ 	<select id="selectDynamic" resultMap="AdvertiseTypeResultMap" parameterType="com.tp.model.cms.AdvertiseType">
+	     SELECT
+	     	<include refid="allColumnFields" />
+		 FROM
+		 	cms_advertise_type
+			<include refid="dynamicWhereFields" />
+ 	</select>
+ 	
+ 	<select id="selectCountDynamic" resultType="long" parameterType="com.tp.model.cms.AdvertiseType">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_advertise_type
+	 	<include refid="dynamicWhereFields" />
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="AdvertiseTypeResultMap" parameterType="com.tp.model.cms.AdvertiseType">
+	     SELECT
+	     	<include refid="allColumnFields" />
+		 FROM
+		 	cms_advertise_type
+	 	<include refid="dynamicWhereFields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectByIds" parameterType="long" resultMap="AdvertiseTypeResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			cms_advertise_type
+		WHERE
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_advertise_type WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<!-- 判断接口标识是否存在 -->
+	<select id="selectIsIdentExist" resultType="long" parameterType="com.tp.model.cms.AdvertiseType">
+	SELECT
+		count(1)
+	FROM
+		cms_advertise_type
+	WHERE
+		 ident = #{ident}
+		 <if test="id != null  and id != '' "> <![CDATA[ AND id <> #{id} ]]> </if>
+	</select>
+</mapper>

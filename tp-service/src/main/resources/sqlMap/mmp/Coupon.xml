@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponDao">
+	<resultMap type="com.tp.model.mmp.Coupon" id="coupon">
+				<id column="id" property="id"/>
+				<result column="coupon_name" property="couponName"/>
+				<result column="coupon_use_stime" property="couponUseStime"/>
+				<result column="batch_num" property="batchNum"/>
+				<result column="face_value" property="faceValue"/>
+				<result column="need_over_mon" property="needOverMon"/>
+				<result column="coupon_type" property="couponType"/>
+				<result column="coupon_release_stime" property="couponReleaseStime"/>
+				<result column="coupon_release_etime" property="couponReleaseEtime"/>
+				<result column="coupon_use_type" property="couponUseType"/>
+				<result column="coupon_use_etime" property="couponUseEtime"/>
+				<result column="use_receive_day" property="useReceiveDay"/>
+				<result column="need_validate" property="needValidate"/>
+				<result column="use_range" property="useRange"/>
+				<result column="active_status" property="activeStatus"/>
+				<result column="just_scan" property="justScan"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="update_user_id" property="updateUserId"/>
+				<result column="remark" property="remark"/>
+				<result column="use_plantform" property="usePlantform"/>
+				<result column="coupon_count" property="couponCount"/>
+				<result column="hitao_sign" property="hitaoSign"/>
+				<result column="source_type" property="sourceType"/>
+				<result column="source_id" property="sourceId"/>
+				<result column="source_name" property="sourceName"/>
+				<result column="code" property="code"/>
+				<result column="offer_type" property="offerType"/>
+				<result column="just_scan" property="justScan"/>
+				<result column="exchange_xg_money" property="exchangeXgMoney"/>
+				<result column="use_scope" property="useScope"/>
+				<result column="is_show_receive" property="isShowReceive"/>
+				<result column="coupon_image_path" property="couponImagePath"/>
+				
+	</resultMap>
+	<sql id="columns">
+		id,coupon_name,coupon_use_stime,batch_num,face_value,need_over_mon,coupon_type,coupon_release_stime,coupon_release_etime,coupon_use_type,coupon_use_etime,use_receive_day,need_validate,use_range,status,active_status,create_time,modify_time,create_user_id,update_user_id,remark,use_plantform,coupon_count,hitao_sign,source_type,source_id,source_name,code,offer_type,just_scan,exchange_xg_money,use_scope,is_show_receive,coupon_image_path
+	</sql>
+
+
+	<select id="getCouponInfosById" resultType="com.tp.dto.mmp.CouponDto" parameterType="long">
+		select
+		id id,
+		batch_num batchNum,
+		face_value faceValue,
+		need_over_mon needOverMon,
+		coupon_name couponName,
+		coupon_type couponType,
+		date_format(coupon_release_stime,'%Y-%m-%d')  couponReleaseStime,
+		date_format(coupon_release_etime,'%Y-%m-%d')  couponReleaseEtime,
+		coupon_use_type couponUseType,
+		date_format(coupon_use_stime,'%Y-%m-%d')  couponUseStime,
+		date_format(coupon_use_etime,'%Y-%m-%d')  couponUseEtime,
+		need_validate needValidate,
+		use_range useRange,
+		status status,
+		active_status activeStatus,
+		remark remark,
+		use_plantform usePlantform,
+		use_receive_day useReceiveDay,
+		coupon_count couponCount,
+		hitao_sign hitaoSign,
+		source_type sourceType,
+		source_id sourceId,
+		source_name sourceName,
+		offer_type offerType,
+		just_scan justScan,
+		exchange_xg_money exchangeXgMoney,
+		use_scope useScope,
+		is_show_receive isShowReceive,
+		coupon_image_path couponImagePath
+		from mmp_coupon
+		where id = #{id}
+	</select>
+
+
+	<select id="queryCouponForBackend" resultType="com.tp.dto.mmp.CouponUserInfoDTO" parameterType="java.util.Map">
+		select C.id as couponId,
+		C.coupon_name as couponName,
+		C.coupon_type as couponType,
+		C.face_value as faceValue,
+		C.need_over_mon as needOverMon,
+		C.coupon_use_stime as couponUseStime,
+		C.coupon_use_etime as couponUseEtime,
+		C.use_plantform as usePlantform,
+		C.use_range as useRange,
+		C.coupon_use_type as couponUseType,
+		C.use_receive_day as useReceiveDay,
+		C.hitao_sign as hitaoSign,
+		C.exchange_xg_money exchangeXgMoney,
+		CU.id as couponUserId,
+		CU.number as number,
+		CU.source as source,
+		CU.source_name as sourceName,
+		CU.ref_code as refCode,
+		CU.status as couponUserStatus,
+		CU.to_user_id as toUserId,
+		CU.to_user_login as toUserLogin,
+
+		CU.create_user_id as sendEmpId,
+		CU.create_user_name as sendEmp,
+		CU.create_time as sendTime
+		from mmp_coupon C , mmp_coupon_user CU
+		where
+		C.id = CU.batch_id
+		and CU.status != 4
+		<if test="couponId != null"> AND C.id = #{couponId} </if>
+		<if test="couponUserId != null"> AND CU.id = #{couponUserId} </if>
+		<if test="userLogin != null  and userLogin !=''"> AND ( CU.to_user_login = #{userLogin} OR CU.to_user_mobile=#{userLogin} )</if>
+		<if test="couponName != null  and couponName != '' "> AND C.coupon_name like '%${couponName}%' </if>
+		<if test="number != null  and number != '' "> AND CU.number = #{number} </if>
+		<if test="status != null "> AND CU.status = #{status} </if>
+
+		order by CU.id desc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countCouponForBackend" resultType="int" parameterType="java.util.Map">
+		select count(1)
+		from mmp_coupon C , mmp_coupon_user CU
+		where
+		C.id = CU.batch_id
+		and CU.status != 4
+		<if test="couponId != null  and couponId != '' "> AND C.id = #{couponId} </if>
+		<if test="couponName != null  and couponName != '' "> AND C.coupon_name like '%${couponName}%' </if>
+		<if test="number != null  and number != '' "> AND CU.number = #{number} </if>
+		<if test="status != null  and status != '' "> AND CU.status = #{status} </if>
+		<if test="userLogin != null and userLogin !='' "> AND CU.to_user_login = #{userLogin} </if>
+	</select>
+
+	<sql id="like_fields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+	<where>
+		<if test="id != null  and id != '' "> AND id=#{id} </if>
+		<if test="batchNum != null  and batchNum != '' "> AND batch_num=#{batchNum} </if>
+		<if test="faceValue != null  and faceValue != '' "> AND face_value=#{faceValue} </if>
+		<if test="needOverMon != null  and needOverMon != '' "> AND need_over_mon=#{needOverMon} </if>
+		<if test="couponName != null  and couponName != '' "> AND coupon_name  like "%"#{couponName}"%" </if>
+		<if test="couponType != null  and couponType != '' "> AND coupon_type=#{couponType} </if>
+		<if test="couponUseType != null  and couponUseType != '' "> AND coupon_use_type=#{couponUseType} </if>
+		<if test="needValidate != null  and needValidate != '' "> AND need_validate=#{needValidate} </if>
+		<if test="useRange != null  and useRange != '' "> AND use_range=#{useRange} </if>
+		<if test="status != null  and status != '' "> AND status=#{status} </if>
+		<if test="remark != null  and remark != '' "> AND remark=#{remark} </if>
+		<if test="usePlantform != null  and usePlantform != '' "> AND ( use_plantform  like '%${usePlantform}%'  or use_plantform like '%1%' )</if>
+		<if test="hitaoSign != null  and hitaoSign != '' "> AND (hitao_sign  like '%${hitaoSign}%'  or hitao_sign like '%0%' )</if>
+		<if test="sourceType != null  and sourceType  != '' "> AND source_type =#{sourceType}   </if>
+		<if test="sourceId != null  and sourceId != '' "> AND source_id=#{sourceId}   </if>
+		<if test="sourceName != null  and sourceName != '' "> AND source_name like '%${sourceName}%'   </if>
+		<if test="isShowReceive != null  and isShowReceive != '' "> AND is_show_receive = '${isShowReceive}'   </if>
+		<if test="couponReleaseEtime != null  and couponReleaseEtime != '' "> AND coupon_release_etime &gt;= SYSDATE()   </if>
+		<if test="exchangeXgMoney != null  and exchangeXgMoney != '' "> AND exchange_xg_money != '${exchangeXgMoney}' </if>
+		
+	</where>
+	</sql>
+
+	<select id="queryByObjectWithLikeCount" resultType="long" parameterType="com.tp.model.mmp.Coupon">
+		SELECT
+		count(1)
+		FROM
+		mmp_coupon
+		<include refid="like_fields" />
+	</select>
+
+	<select id="queryByObjectWithLike" resultMap="coupon" parameterType="com.tp.model.mmp.Coupon">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_coupon
+		<include refid="like_fields" />
+		order by id desc
+		Limit #{start},#{pageSize}
+	</select>
+
+</mapper>

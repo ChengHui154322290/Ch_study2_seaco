@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TopicItemChangeDao">
+	<resultMap type="com.tp.model.mmp.TopicItemChange" id="topicItemChange">
+				<id column="id" property="id"/>
+				<result column="topic_change_id" property="topicChangeId"/>
+				<result column="item_id" property="itemId"/>
+				<result column="sort_index" property="sortIndex"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="quotation_id" property="quotationId"/>
+				<result column="sku" property="sku"/>
+				<result column="name" property="name"/>
+				<result column="item_color" property="itemColor"/>
+				<result column="item_size" property="itemSize"/>
+				<result column="topic_image" property="topicImage"/>
+				<result column="topic_price" property="topicPrice"/>
+				<result column="limit_amount" property="limitAmount"/>
+				<result column="limit_total" property="limitTotal"/>
+				<result column="stock_amount" property="stockAmount"/>
+				<result column="saled_amount" property="saledAmount"/>
+				<result column="stock_location" property="stockLocation"/>
+				<result column="remark" property="remark"/>
+				<result column="deletion" property="deletion"/>
+				<result column="stock_location_id" property="stockLocationId"/>
+				<result column="item_spec" property="itemSpec"/>
+				<result column="bar_code" property="barCode"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="picture_size" property="pictureSize"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="stock" property="stock"/>
+				<result column="sale_price" property="salePrice"/>
+				<result column="spu" property="spu"/>
+				<result column="input_source" property="inputSource"/>
+				<result column="oper_status" property="operStatus"/>
+				<result column="change_topic_item_id" property="changeTopicItemId"/>
+				<result column="source_limit_total" property="sourceLimitTotal"/>
+				<result column="bonded_area" property="bondedArea"/>
+				<result column="wh_type" property="whType"/>
+				<result column="country_id" property="countryId"/>
+				<result column="country_name" property="countryName"/>
+				<result column="purchase_method" property="purchaseMethod"/>
+				<result column="is_hot" property="isHot"/>
+				<result column="prdid" property="prdid"/>
+				<result column="apply_age_id" property="applyAgeId"/>
+				<result column="listing_time" property="listingTime"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="item_status" property="itemStatus"/>
+				<result column="large_cateory_id" property="largeCateoryId"/>
+				<result column="middle_category_id" property="middleCategoryId"/>
+				<result column="hot_title" property="hotTitle"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="put_sign" property="putSign"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_change_id,item_id,sort_index,supplier_id,quotation_id,sku,name,item_color,item_size,topic_image,topic_price,limit_amount,limit_total,stock_amount,saled_amount,stock_location,remark,deletion,stock_location_id,item_spec,bar_code,supplier_name,picture_size,category_id,brand_id,stock,sale_price,spu,input_source,oper_status,change_topic_item_id,source_limit_total,bonded_area,wh_type,country_id,country_name,purchase_method,is_hot,prdid,apply_age_id,listing_time,detail_id,item_status,large_cateory_id,middle_category_id,hot_title,create_time,create_user,update_time,update_user
+	</sql>
+
+	<select id="getTopicItemChangeByIds" resultMap="topicItemChange" parameterType="list">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_item_change
+		WHERE
+		id in
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+
+
+</mapper>

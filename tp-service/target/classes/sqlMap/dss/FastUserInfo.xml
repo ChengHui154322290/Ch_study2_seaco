@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.FastUserInfoDao">
+	<resultMap type="com.tp.model.dss.FastUserInfo" id="fastUserInfo">
+				<id column="fast_user_id" property="fastUserId"/>
+				<result column="user_name" property="userName"/>
+				<result column="mobile" property="mobile"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="user_type" property="userType"/>
+				<result column="shop_type" property="shopType"/>
+				<result column="enabled" property="enabled"/>
+				<result column="remark" property="remark"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		fast_user_id,user_name,mobile,warehouse_id,user_type,shop_type,enabled,remark,
+		create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

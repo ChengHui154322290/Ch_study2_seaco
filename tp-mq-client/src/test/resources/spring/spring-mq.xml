@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:loxia="http://loxia.benjamin.cn/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<bean id="mq_base_config" class="com.tp.mq.domain.MqBaseConfig"
+		init-method="init" lazy-init="false">
+		<property name="hosts" value="172.16.100.43:5672,172.16.100.44:5672" /><!-- 
+			ip hosts -->
+		<property name="username" value="xg" /><!-- 用户名 -->
+		<property name="password" value="123456" /><!-- 密码 -->
+		<property name="productConnectionCount" value="4" /><!-- 生产者连接数,具体数值视应用 -->
+		<property name="productThreadCount" value="10" /><!-- 生产者线程数,具体数值视应用 -->
+		<property name="consumerConnectionCount" value="2" /><!-- 消费者连接数,具体数值视应用 -->
+		<property name="consumerThreadCount" value="4" /><!-- 消费者线程数,具体数值视应用 -->
+	</bean>
+
+	<bean id="task_queue_p2p" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="order_task_queue_p2p" /><!-- 
+			队列名,以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="task_queue_p2p_2" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="order_task_queue_p2p_2" /><!-- 
+			队列名,以应用名开头 -->
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+		<!-- <property name="autoAck" value="false"></property> -->
+	</bean>
+
+	<bean id="task_queue_topic_1" class="com.tp.mq.domain.MqTopicConfig"><!-- 主题订阅消息配置对象 -->
+		<property name="queueName" value="order_task_queue_topic_1" /><!-- 
+			队列名,以应用名开头 -->
+		<property name="exchangeDurable" value="true" /><!-- exchange是否持久化 -->
+		<property name="sendMessageType" value="pub_sub" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="messageConfigs" class="com.tp.mq.domain.MqMessageConfigs">
+		<property name="p2pConfigMap"><!-- 所有点对点消息 map key为队列名,value为MqP2pConfig对象实例 -->
+			<map>
+				<entry key="order_task_queue_p2p" value-ref="task_queue_p2p"></entry>
+				<entry key="order_task_queue_p2p_2" value-ref="task_queue_p2p_2"></entry>
+			</map>
+		</property>
+		<property name="topicConfigsMap"><!-- 所有主题订阅消息 map key为队列名,value为MqTopicConfig对象实例 -->
+			<map>
+				<entry key="order_task_queue_topic_1" value-ref="task_queue_topic_1"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="rabbitMqProducer" class="com.tp.mq.RabbitMqProducer"><!-- 生产者实例 -->
+		<property name="messageConfigs" ref="messageConfigs"></property>
+	</bean>
+
+	<bean id="orderService" class="com.tp.mq.bean.test.OrderService"><!-- 普通业务bean -->
+	</bean>
+
+	<bean id="orderAO" class="com.tp.mq.bean.test.OrderAO"><!-- 实现 MqMessageCallBack 回调接口的类 -->
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+
+	<bean id="itemAO" class="com.tp.mq.bean.test.ItemAO"><!-- 实现 MqMessageCallBack 回调接口的类 -->
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+
+	<bean id="p2p_order_schuedul_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费队列对象 -->
+		<property name="p2pConfig" ref="task_queue_p2p"></property>
+		<property name="messageCallBack" ref="orderAO"></property>
+	</bean>
+
+	<bean id="topic_item_schuedul_config" class="com.tp.mq.domain.MqConsumerTopicConfig"><!-- 一个topic消费队列对象 -->
+		<property name="topicConfig" ref="task_queue_topic_1"></property>
+		<property name="messageCallBack" ref="itemAO"></property>
+	</bean>
+
+	<bean id="consumerSchedulQueueConfigs" class="com.tp.mq.domain.ConsumerSchedulQueueConfigs"><!-- 所有消费队列对象 -->
+		<property name="p2pConfigListeners">
+			<list>
+				<ref bean="p2p_order_schuedul_config" />
+			</list>
+		</property>
+		<property name="topicConfigListeners">
+			<list>
+				<ref bean="topic_item_schuedul_config" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

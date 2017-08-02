@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.WithdrawLogDao">
+	<resultMap type="com.tp.model.dss.WithdrawLog" id="withdrawLog">
+				<id column="withdraw_log_id" property="withdrawLogId"/>
+				<result column="withdraw_detail_id" property="withdrawDetailId"/>
+				<result column="withdraw_detail_code" property="withdrawDetailCode"/>
+				<result column="active_type" property="activeType"/>
+				<result column="old_status" property="oldStatus"/>
+				<result column="current_status" property="currentStatus"/>
+				<result column="remark" property="remark"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		withdraw_log_id,withdraw_detail_id,withdraw_detail_code,active_type,old_status,current_status,remark,create_user,create_time
+	</sql>
+</mapper>

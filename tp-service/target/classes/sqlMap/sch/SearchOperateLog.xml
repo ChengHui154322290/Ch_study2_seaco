@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.SearchOperateLogDao">
+	<resultMap type="com.tp.model.sch.SearchOperateLog" id="searchOperateLog">
+				<id column="id" property="id"/>
+				<result column="operate_type" property="operateType"/>
+				<result column="content" property="content"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,operate_type,content,create_user,create_time
+	</sql>
+</mapper>

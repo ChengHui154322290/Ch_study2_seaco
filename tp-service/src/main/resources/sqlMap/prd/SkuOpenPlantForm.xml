@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.SkuOpenPlantFormDao">
+	<resultMap type="com.tp.dto.prd.SkuOpenDto" id="skuOpenDto">
+				<result column="sku" property="sku"/>
+				<result column="detail_name" property="detailName"/>
+				<result column="barcode" property="barcode"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="status" property="status"/>
+	</resultMap>
+	<select id="getSkuInfoForSellerValidationWithBarCode" resultMap="skuOpenDto" parameterType="map"> 
+		SELECT	sku,detail_name,barcode,detail_id,status
+		  FROM prd_item_sku
+		 WHERE barcode =#{barCode} 
+		   AND sp_id = #{spId}
+	</select>
+	<select id="getProductDetailInfoForSellerValidationWithBarCode" resultType="com.tp.dto.prd.SkuOpenDto" parameterType="map"> 
+		SELECT
+		id detailId,
+		main_title name,
+		barcode  barCode,
+		status status
+		from prd_item_detail
+		WHERE barcode =#{barCode} 
+	</select>
+	
+	<select id="querySpuByNameForSeller" resultType="com.tp.dto.prd.InfoOpenDto" parameterType="String"> 
+		SELECT
+		id id,
+		spu spu,
+		main_title spuName 
+		from prd_item_info  
+		WHERE main_title  like concat('%',#{spuName},'%')
+		order by create_time desc
+		Limit 100
+	</select>
+	
+	
+	<select id="checkSellerBarcodeList" resultType="String">          
+		SELECT barcode 
+		  from prd_item_detail 
+		 WHERE barcode in
+		<foreach item="bcode" index="index" collection="list" open="("
+			separator="," close=")">
+			#{bcode}
+		</foreach>  
+	</select>	
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:loxia="http://loxia.benjamin.cn/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+					
+	<bean id="emaySms" class="com.tp.common.util.mem.EmaySms">
+		<!-- 用户名 -->
+		<property name="name" value="#{settings['emay.name']}" />
+		<!-- 密码 -->
+		<property name="password" value="#{settings['emay.pwd']}" />
+		<!-- 扩展吗 -->
+		<property name="extNo" value="#{settings['sms.extNo']}" />
+		<!-- 短信优先级 -->
+		<property name="smsPriority" value="#{settings['emay.smsPriority']}" />
+		<!-- 编码格式 -->
+		<property name="srcCharset" value="#{settings['emay.srcCharset']}" />
+		<!-- 签名 -->
+		<property name="sign" value="#{settings['sms.sign']}" />
+		<!-- 发送地址 -->
+		<property name="sendUrl" value="#{settings['emay.sendUrl']}" />
+	</bean>
+	
+	
+	<bean id="smsList" class="java.util.ArrayList">
+	 <constructor-arg>
+	   <list>
+		    <ref bean="emaySms" />
+	   </list>
+	  </constructor-arg>
+	</bean>
+	<tx:annotation-driven />
+</beans>

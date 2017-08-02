@@ -1,0 +1,75 @@
+header {
+	height: 50px;
+	position: fixed;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	top: 0px;
+	width: 100%;
+	z-index: 100;
+	display:none;
+}
+
+.hd-back{
+    background: url("../img/common/back.png") no-repeat center;
+    background-size: 10px 15px;
+    left: 0;
+ }
+
+.date{
+	color:#aaa;
+	font-size:9px;
+	margin-left:10px;
+	margin-bottom:7px;
+}
+
+.time{
+	margin-left:5px;
+}
+
+.history_item{
+	height:55px;
+	background:#fff;
+	padding-left:10px;
+	padding-top:10px;
+}
+
+.goods_name{
+	font-size:15px;
+	color:#333;
+}
+
+.goods_num{
+	font-size:11px;
+	margin-top:5px;
+}
+
+.cust{
+	float:right;
+	color:#999;
+	margin-right:10px;
+}
+
+.history_record{
+	margin-top: 15px;
+}
+
+.nothing{
+	margin-top:90px;
+ 	display:none; 
+}
+
+.nothing_img{
+	width:102px;
+	margin:0 auto;
+}
+
+.nothing_img img{
+	width:100%;
+}
+
+.nothing_word{
+	margin-top:25px;
+	font-size:14px;
+	color:#999;
+	text-align:center;
+}

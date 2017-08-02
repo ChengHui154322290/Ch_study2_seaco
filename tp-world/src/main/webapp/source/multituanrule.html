@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西客商城</title>
+		<meta name="Keywords" content="西客商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/tuanrule.css" />
+	</head>
+	<body>
+	<div class="ui-header">
+		<a href="javascript:history.go(-1)" class="goBack"></a>
+		<div class="title_desc">多人团活动规则</div>
+
+	</div>
+	<ul>
+		<li>团购活动为移动端会员专享，用户注册/登录西客商城即可参与。</li>
+		<li>同一用户可发起或参与不同商品的团购，单一活动商品限购一件。</li>
+		<li>同一用户的判定原则，包括但不限于注册账户、身份证号、设备号、支付宝账号等。</li>
+		<li>团购活动组团成功后获得的该商品的优先购买权，由于商品库存有限，以先付款先得原则，所以请尽快支付。</li>
+		<li>团购活动参团后将不能退出组团，但是组团成功后不强制购买。</li>
+		<li>团购活动不参与其他优惠活动，付款后不支持修改订单地址。</li>
+		<li>团购活动是基于好友的转发扩散，获得团购优惠，为了保证广大消费者的权益，西客商城有权判定为恶意倒货的团购解散并取消订单。如在活动期间发现违规行为（重复购买、无效手机号参与等），西客商城有权取消违规订单，封闭账号。</li>
+		<li>在法律允许范围内，西客商城保留最终解释权。</li>
+	</ul>
+	</body>
+	<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="./js/base.js"></script>
+	<script>
+		$(function() {
+			if(isWeiXin()){
+				$(".ui-header").hide();
+				$("ul").css({
+					"margin-top":"0"
+				})
+				$("title").html("多人团活动规则");
+			}
+			var Type = xigou.getQueryString("type");
+			if (1 != Type) {
+				return;
+			}
+		
+			$('.ui-header').hide();
+			$("ul").css({
+				"margin-top":"0"
+			})
+		});
+		
+	</script>
+</html>

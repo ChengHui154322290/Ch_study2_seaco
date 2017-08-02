@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>西客屋跨境微店</title>
+<meta name="Keywords" content="账户详情">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="icon" href="/modifiable/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/css/frozen_6b1c8d5.css" />
+<link rel="stylesheet" href="/css/demo_810378f.css" />
+<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+<link rel="stylesheet" type="text/css" href="/dss/css/dsshome_78f00d3.css" />
+
+<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/frozen_2363f40.js" type="text/javascript" charset="utf-8"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body>
+	<!-- <header class="main-body">
+		<a href="../home.html" class="goBack"></a>
+		<div class = "top_menu"></div>
+		<div class=" main-info">
+			<div class="main-avtar detailinfo">
+				<img class="main-avtarimg" src="img/main-icon.png" />
+			</div>
+			<div class="main-title">
+				<div class="dss-name"><span id="shopName"></span></div>
+				<div class="main-normal" id = "normalStatusDiv" > 正常显示					
+					<div class="user-info">
+						<div class="info-div"><span id="userName"></span></div>
+						<div class="info-div"><span id="mobile"></span></div>
+					</div>
+					
+					<div class="auth-info yrz" style = "display: none;">
+						<div class="auth-text"><span>已认证</span></div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-id.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-bank.png" />
+						</div>
+					</div>
+					
+					<div class="auth-info wrz" style = "display: none;">
+						<div class="auth-text"><span>还未认证</span></div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/bank-auth.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/identify-auth.png" />
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="main-normal" id="unpayStatusDiv" style="display:none"> 未开通状态
+					<div class="pass_btn" ordercode="" id="orders_btn_pay">
+						开通我的店铺
+					</div>
+				</div>
+				
+				<div class="main-normal" id="forbiddenStatusDiv" style="display:none"> 被禁用状态显示					
+					<div class="user-info">
+						<div class="info-div"><span id="fuserName"></span></div>
+						<div class="info-div"><span id="fmobile"></span></div>
+					</div>
+					<div class="auth-info">
+						<div class="auth-text"><span>该店铺已被禁用(请联系西客商城客服)</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header> -->
+<!-- 	<div class="content-info"> -->
+
+		<div class="top_div top_div1">
+			<div class="div_name">
+				<a href="../home.html" class="goBack_w"></a>
+			</div>
+			<div class="qrtip">
+				<div style="margin: 0 auto; text-align: center;">
+					立即扫描进入店铺
+				</div>
+			</div>
+			
+			<div class="div_dsslogo">
+			</div>
+			
+			<div class="but-box">
+			    <a class="share_button" href="#"></a>
+				<a class="invite_button" href="#"></a>
+			</div>
+			
+			<div class="main-normal" id="unpayStatusDiv" style="display:none">
+				<div class="pass_btn" ordercode="" id="orders_btn_pay">
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="share_friends">
+			<div class="share_tip"></div>
+			<div class="nowx_tip"></div>
+		</div>
+		
+		
+		<div class="money-info">
+			<div class="money-income">
+				<div class="money-box">
+					<div class="money-text"><span>累计收入(元)</span></div>
+					<div class="money-number"><span id="accumulatedAmount"></span></div>
+				</div>
+				<div class="money-split"></div>
+				<div class="money-box">
+					<div class="money-text"><span>客户总数(个)</span></div>
+					<div class="money-number"><span id="totalCustomers"></span></div>
+				</div>
+				<div class="money-split"></div>
+				<div class="money-box">
+					<div class="money-text"><span>账户余额(元)</span></div>
+					<div class="money-number"><span id="surplusAmount"></span></div>
+				</div>
+			</div>
+			<div class="money-withdraw" >
+				<div class="withdraw-button" id="canWithdrawBtn">
+				<!-- <div class="withdraw-button"> -->
+					<div class="withdraw-div">
+						<img class="btnicon" src="/dss/img/time-icon.png"></img>
+						提现
+					</div>
+				</div>
+				<div class="withdraw-button-grey" id="withdrawDisableBtn" style="display:none">
+					<div class="withdraw-div">
+						<img class="btnicon" src="/dss/img/time-icon.png"></img>
+						提现 
+					</div>
+				</div>
+				<div  class="withdraw-button-disable" id="withdrawingBtn" style="display:none">
+					<div class="withdraw-div">
+						<img class="btnicon" src="/dss/img/time-icon.png"></img>
+						提现中
+					</div>
+				</div> 
+			</div>
+			<div class="money-account">
+				<div class="money-box">
+					<div class="money-text"><span>新用户培训费(元)</span></div>
+					<div class="money-number-black"><span id="referralFees"></span></div>
+				</div>
+				<div class="money-split"></div>
+				<div class="money-box">
+					<div class="money-text"><span>已提现金额(元)</span></div>
+					<div class="money-number"><span id="withdrawedAmount"></span></div>
+				</div>
+				<div class="money-split"></div>
+				<div class="money-box">
+					<div class="money-text"><span>店铺销售额(元)</span></div>
+					<div class="money-number"><span id="orderAmount"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="operation-list">
+			<div class="operation-item" id="myDsshome">
+				<a href = "../shop.html?from=dsshome">
+					<div class="operation-item-box">
+						<img class="operation-item-img-account" src="/dss/img/myDsshome.png"/>
+						<div class="operation-item-text"><span>我的店铺</span></div>
+					</div>
+				</a>
+			</div>
+			<div class="operation-item" id="shopQuery">
+				<div class="operation-item-box">
+					<img src="/dss/img/shopinfo.png" class="operation-item-img-shop"/>
+					<div class="operation-item-text"><span>选品上架</span></div>
+				</div>
+			</div>
+			<div class="operation-item" id="partnerQuery">
+				<div class="operation-item-box">
+					<img src="/dss/img/partnerinfo.png" class="operation-item-img-partner"/>
+					<div class="operation-item-text"><span>分销查询</span></div>
+				</div>
+			</div>
+			<div class="operation-item operation-bottom-split" id="accountFlowQuery">
+				<div class="operation-item-box">
+					<img class="operation-item-img-account" src="/dss/img/accountflow.png"/>
+					<div class="operation-item-text"><span>账单查询</span></div>
+				</div>
+			</div>
+		<!-- 	<div class="operation-item-split"></div> -->
+			<div class="operation-item operation-bottom-split"  id="orderQuery">
+				<div class="operation-item-box">
+					<img src="/dss/img/orderinfo.png" class="operation-item-img-order"/>
+					<div class="operation-item-text"><span>订单查询</span></div>
+				</div>
+			</div>
+
+			<!-- <div class="operation-item-split"></div> -->
+
+			<!-- 	<div class="operation-item-split"></div> -->
+			<div class="operation-item operation-bottom-split"  id="">
+				<a href="help.html">
+					<div class="operation-item-box">
+						<img src="/dss/img/helpinfo.png" class="operation-item-img-order"/>
+						<div class="operation-item-text"><span>帮助中心</span></div>
+					</div>
+				</a>
+			</div>
+
+			<!-- <div class="operation-item-split"></div> -->
+
+		</div>
+<!-- 	</div> -->
+		<!-- <div class = "pop" id = "zf" style = "display: none;">
+			<div class ="pop_bg" style ="width: 100%;height: 100%;"></div>
+			<div class ="s3"></div>
+			<div class ="zf_pop"></div>
+		</div>
+		<div class = "pop" id = "wd" style = "display: none;">
+				<div class ="pop_bg" style ="width: 100%;height: 50px;"></div>
+				<div class = "opacityBox" style ="width: 100%;height:107px;">
+					<div class = "oL"></div>
+					<div class = "oR"></div>
+				</div>
+				<div class ="pop_bg" style ="width: 100%;height: 100%;"></div>
+				<div class = "dp_pop"></div>
+		</div> -->
+		<!--<div class = "pop" id = "xq" style = "display: none;">-->
+			<!--<div class ="pop_bg" style ="width: 100%;height: 100%;"></div>-->
+			<!--<div class ="s1"></div>-->
+			<!--<div class ="xq_pop"></div>-->
+		<!--</div>-->
+		<!--<div class = "pop" id = "sm" style = "display: none;">-->
+			<!--<div class ="pop_bg" style ="width: 100%;height: 100%;"></div>-->
+			<!--<div class ="s2"></div>-->
+			<!--<div class ="sm_pop"></div>-->
+		<!--</div>-->
+		<form class="hide" id="submit_pay" name="alipaysubmit" action="" method="post"></form>
+		
+		
+		<!--  弹出提示框    -->
+		<div class = "cover" id = "tips">
+			
+			
+		</div>
+		<div class ="cover_pop">
+			<div class ="cover_s3"></div>
+			<a class="btn-app"></a>
+		</div>
+</body>
+
+<script src="/js/xigou_b90d4fc.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" src="/js/base_7878327.js"></script>
+
+<script type="text/javascript" src="/js/static_data_413e835.js"></script>
+
+<script type="text/javascript" src="/dss/js/dsshome_11d0631.js"></script>
+
+<script type="text/javascript" src="/js/modules/user_a5be69e.js"></script>
+<script type="text/javascript" src="/dss/js/modules/promoter_84b0df4.js"></script>
+<script type="text/javascript" src="/js/modules/orderspay_30dd541.js"></script>
+<script type="text/javascript" src="/js/pages/dsspay_7d698de.js"></script>
+<script type="text/javascript" src="/dss/js/dssInvisterRegisterSuccess_a851472.js"></script>
+
+</html>

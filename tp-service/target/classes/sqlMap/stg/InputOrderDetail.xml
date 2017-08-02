@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InputOrderDetailDao">
+	<resultMap type="com.tp.model.stg.InputOrderDetail" id="inputOrderDetail">
+				<id column="id" property="id"/>
+				<result column="input_order_id" property="inputOrderId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="barcode" property="barcode"/>
+				<result column="item_name" property="itemName"/>
+				<result column="item_count" property="itemCount"/>
+				<result column="item_value" property="itemValue"/>
+				<result column="remark" property="remark"/>
+				<result column="item_brand_name" property="itemBrandName"/>
+	</resultMap>
+	<!-- by zhs  01182243 insert时增加item_brand_name字段 -->
+	<insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO stg_input_order_detail(
+				input_order_id,
+				sku_code,
+				barcode,
+				item_name,
+				item_count,
+				item_value,
+				remark,
+				item_brand_name
+		)values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+				#{item.inputOrderId},
+				#{item.skuCode},
+				#{item.barcode},
+				#{item.itemName},
+				#{item.itemCount},
+				#{item.itemValue},
+				#{item.remark},
+				#{item.itemBrandName}
+		)
+		</foreach>
+    </insert>	
+</mapper>

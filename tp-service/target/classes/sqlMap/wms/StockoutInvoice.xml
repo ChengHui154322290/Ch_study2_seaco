@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockoutInvoiceDao">
+	<resultMap type="com.tp.model.wms.StockoutInvoice" id="stockoutInvoice">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="invoice_code" property="invoiceCode"/>
+				<result column="invoice_no" property="invoiceNo"/>
+				<result column="invoice_type" property="invoiceType"/>
+				<result column="invoice_title" property="invoiceTitle"/>
+				<result column="invoice_amount" property="invoiceAmount"/>
+				<result column="invoice_content" property="invoiceContent"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,invoice_code,invoice_no,invoice_type,invoice_title,invoice_amount,invoice_content,create_time
+	</sql>
+</mapper>

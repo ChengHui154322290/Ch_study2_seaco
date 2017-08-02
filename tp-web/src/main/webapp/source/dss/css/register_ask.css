@@ -1,0 +1,112 @@
+
+/*
+* @Author: dongqian
+* @Date:   2017-05-09 09:39:25
+* @Last Modified by:   dongqian
+* @Last Modified time: 2017-05-11 11:04:02
+*/
+
+body{
+    overflow-x:hidden;
+    background-color:#EEEEEE;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+.header2{
+    height:50px;
+    color:#333333;
+    font-size:15px;
+    text-align: left;
+    line-height:50px;
+    border:none;
+    border-bottom:1px solid #ccc;
+    padding-left:37px;
+    background:#fff;
+}
+
+.goBack {
+    display: block;
+    position: absolute;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../img/back2.png) no-repeat 20px center;
+    background-size: 10px;
+}
+.goBack span{
+    margin-left: 40px;
+    color:#000;
+}
+.count{
+    float:right;
+    font-size:12px;
+    line-height:20px;
+    text-align:right;
+    padding:5px 10px;
+}
+
+.num{
+    color:#ee3e54;
+    font-size:11px;
+}
+
+.member-box{
+    background-color:#fff;
+}
+
+.item_title{
+    padding-left:20px;
+    height:39px;
+    line-height:39px;
+    color:#999999;
+    font-size:15px;
+    border-bottom:1px solid #eee;
+}
+
+.name, .user_name{
+    width:65px;
+    display:inline-block;
+    height:49px;
+}
+.user_name{
+    text-overflow:ellipsis;
+    white-space:nowrap;
+     overflow:hidden;
+     float:left;
+}
+.phone, .user_phone{
+    width:115px;
+    display:inline-block;
+    padding-left: 10px;
+}
+
+.time, .user_time{
+    width:155px;
+    display:inline-block;
+}
+
+.item_lists{
+    margin-left:20px;
+}
+
+.item_list{
+    line-height:49px;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+
+.item_list:last-child{
+    border-bottom:none;
+}
+.order_empty {
+    width: 100%;
+    background:#eee url(../img/order-null.png) no-repeat center 70px;
+    background-size: 102px;
+    padding-top: 190px;
+    text-align: center;
+}

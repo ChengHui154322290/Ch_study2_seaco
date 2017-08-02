@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.IndexFeedbackDao">
+	<resultMap type="com.tp.model.cms.IndexFeedback" id="IndexFeedbackResultMap">
+				<id column="id" property="id"/>
+				<result column="user_id" property="userId"/>
+				<result column="user_name" property="userName"/>
+				<result column="mobile" property="mobile"/>
+				<result column="email" property="email"/>
+				<result column="feedback_info" property="feedbackInfo"/>
+				<result column="feedback_date" property="feedbackDate"/>
+	</resultMap>
+	
+	<sql id="MybatisCmsIndexFeedbackDAO_all_column_fields">
+	      id,user_id,user_name,feedback_info,feedback_date,mobile,email
+ 	</sql>
+	<!-- 只有varchar char text类型 做 !='' 判断，生成代码时,其他类型时只做!=null 决断 0或fasle与空''是相同的，在mybatis中的动态语句中 -->
+	<sql id="MybatisCmsIndexFeedbackDAO_dynamic_where_fields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="userId != null and userId != ''"> AND user_id=#{userId} </if>
+			<if test="userName != null  and userName != '' "> AND user_name=#{userName} </if>
+			<if test="feedbackInfo != null  and feedbackInfo != '' "> AND feedback_info=#{feedbackInfo} </if>
+			<if test="mobile != null  and mobile != '' "> AND mobile=#{mobile} </if>
+			<if test="email != null  and email != '' "> AND email=#{email} </if>
+		</where>
+ 	</sql>
+
+	<select id="selectCountDynamic" resultType="long" parameterType="com.tp.model.cms.IndexFeedback">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_index_feedback
+	 	<include refid="MybatisCmsIndexFeedbackDAO_dynamic_where_fields" />
+ 	</select>
+	<update id="updateDynamic" parameterType="com.tp.model.cms.IndexFeedback">
+		UPDATE cms_index_feedback
+		<set>
+					<if test="userId != null and userId != ''">user_id=#{userId},</if>
+					<if test="userName != null  and userName != '' ">user_name=#{userName},</if>
+					<if test="feedbackInfo != null  and feedbackInfo != '' ">feedback_info=#{feedbackInfo},</if>
+					<if test="feedbackDate != null ">feedback_date=#{feedbackDate},</if>
+					<if test="mobile != null  and mobile != '' ">mobile=#{mobile},</if>
+					<if test="email != null  and email != '' ">email=#{email},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+ 	<select id="selectDynamic" resultMap="IndexFeedbackResultMap" parameterType="com.tp.model.cms.IndexFeedback">
+	     SELECT
+	     	<include refid="MybatisCmsIndexFeedbackDAO_all_column_fields" />
+		 FROM
+		 	cms_index_feedback
+			<include refid="MybatisCmsIndexFeedbackDAO_dynamic_where_fields" />
+ 	</select>
+
+	<select id="selectFeedbackPageQuery" resultType="com.tp.dto.cms.CmsIndexFeedbackDTO" parameterType="java.util.Map">
+	     SELECT
+	     	id,user_id as userId,user_name as userName,
+	     	feedback_info as feedbackInfo,feedback_date as feedbackDate,mobile,email
+		 FROM
+		 	cms_index_feedback
+	 	<include refid="MybatisCmsIndexFeedbackDAO_dynamic_where_fields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectDynamicCount" resultType="long" parameterType="com.tp.model.cms.IndexFeedback">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_index_feedback
+	 	<include refid="MybatisCmsIndexFeedbackDAO_dynamic_where_fields" />
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="IndexFeedbackResultMap" parameterType="com.tp.model.cms.IndexFeedback">
+	     SELECT
+	     	<include refid="MybatisCmsIndexFeedbackDAO_all_column_fields" />
+		 FROM
+		 	cms_index_feedback
+	 	<include refid="MybatisCmsIndexFeedbackDAO_dynamic_where_fields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_index_feedback WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+</mapper>

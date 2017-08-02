@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.CategoryCertLinkDao">
+	<resultMap type="com.tp.model.bse.CategoryCertLink" id="categoryCertLink">
+				<id column="id" property="id"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="dictionary_info_id" property="dictionaryInfoId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<insert id="batchInsert" parameterType="CategoryCertLink">
+		INSERT INTO bse_category_cert_link(
+				category_id,
+				dictionary_info_id,
+				create_time
+		)values
+		<foreach collection="list" separator="," item="link">
+			(#{link.categoryId},
+			#{link.dictionaryInfoId},
+			#{link.createTime})
+		</foreach>
+	</insert>
+</mapper>

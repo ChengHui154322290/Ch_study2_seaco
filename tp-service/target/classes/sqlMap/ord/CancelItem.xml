@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.CancelItemDao">
+<resultMap type="com.tp.model.ord.CancelItem" id="cancelItem">
+				<id column="cancel_item_id" property="cancelItemId"/>
+				<result column="cancel_id" property="cancelId"/>
+				<result column="cancel_code" property="cancelCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="order_item_id" property="orderItemId"/>
+				<result column="item_refund_quantity" property="itemRefundQuantity"/>
+				<result column="item_refund_amount" property="itemRefundAmount"/>
+				<result column="remarks" property="remarks"/>
+				<result column="item_sku_code" property="itemSkuCode"/>
+				<result column="item_name" property="itemName"/>
+				<result column="item_quantity" property="itemQuantity"/>
+				<result column="item_unit_price" property="itemUnitPrice"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		cancel_item_id,cancel_id,cancel_code,order_code,order_item_id,item_refund_quantity,item_refund_amount,remarks,item_sku_code,item_name,item_quantity,item_unit_price,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

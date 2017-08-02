@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.WarehouseDao">
+	<resultMap type="com.tp.model.stg.Warehouse" id="warehouse">
+				<id column="id" property="id"/>
+				<result column="sp_id" property="spId"/>
+				<result column="district_id" property="districtId"/>
+				<result column="address" property="address"/>
+				<result column="name" property="name"/>
+				<result column="code" property="code"/>
+				<result column="sp_name" property="spName"/>
+				<result column="zip_code" property="zipCode"/>
+				<result column="linkman" property="linkman"/>
+				<result column="phone" property="phone"/>
+				<result column="deliver_addr" property="deliverAddr"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="main_warehouse_id" property="mainWarehouseId" />
+				<result column="main_warehouse_name" property="mainWarehouseName" />
+				<result column="main_sp_id" property="mainSpId" />
+				<result column="main_sp_name" property="mainSpName" />
+				<result column="main_type" property="mainType" />
+ 				<result column="type" property="type"/>
+				<result column="bonded_area" property="bondedArea"/>
+				<result column="put_sign" property="putSign"/>
+				<result column="import_type" property="importType"/>
+				<result column="wms_name" property="wmsName"/>
+				<result column="wms_code" property="wmsCode"/>
+				<result column="io_seaport" property="ioSeaport"/>
+				<result column="decl_seaport" property="declSeaport"/>
+				<result column="customs_field" property="customsField"/>
+				<result column="logistics" property="logistics"/>
+				<result column="logistics_code" property="logisticsCode"/>
+				<result column="logistics_name" property="logisticsName"/>
+				<result column="goods_owner" property="goodsOwner"/>
+				<result column="account_book_no" property="accountBookNo"/>
+				<result column="storage_name" property="storageName"/>
+				<result column="storage_code" property="storageCode"/>
+				<result column="declare_type" property="declareType"/>
+				<result column="declare_company_name" property="declareCompanyName"/>
+				<result column="declare_company_code" property="declareCompanyCode"/>
+				<result column="post_mode" property="postMode"/>
+				<result column="sender_name" property="senderName"/>
+				<result column="sender_country_code" property="senderCountryCode"/>
+				<result column="sender_city" property="senderCity"/>
+				<result column="application_form_no" property="applicationFormNo" />
+				<result column="email" property="email"/>
+				<result column="operator_user_id" property="operatorUserId"/>
+				<result column="operator_user_name" property="operatorUserName"/>
+				<result column="trade_mode" property="tradeMode"/>
+				<result column="trade_country" property="tradeCountry"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,sp_id,district_id,address,name,code,sp_name,zip_code,linkman,phone,deliver_addr,create_time,modify_time,main_warehouse_id,main_warehouse_name,main_sp_id, main_sp_name,type,bonded_area,put_sign,import_type,wms_name,wms_code,io_seaport,decl_seaport,customs_field,logistics,logistics_code,logistics_name,goods_owner,account_book_no,storage_name,storage_code,declare_type,declare_company_name,declare_company_code,email,operator_user_id,operator_user_name,trade_mode,trade_country
+	</sql>
+</mapper>

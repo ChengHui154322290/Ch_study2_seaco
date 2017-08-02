@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.PersonalgoodsDeclareInfoDao">
+	<resultMap type="com.tp.model.ord.PersonalgoodsDeclareInfo" id="personalgoodsDeclareInfo">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="declare_customs" property="declareCustoms"/>
+				<result column="declare_no" property="declareNo"/>
+				<result column="pre_entry_no" property="preEntryNo"/>
+				<result column="company_no" property="companyNo"/>
+				<result column="company_name" property="companyName"/>
+				<result column="express_no" property="expressNo"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="import_type" property="importType" />
+				<result column="voyage_no" property="voyageNo" />
+				<result column="traf_no" property="trafNo" />
+				<result column="bill_no" property="billNo" />
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,declare_customs,declare_no,pre_entry_no,company_no,company_name,express_no,create_time,update_time,import_type,voyage_no,traf_no,bill_no
+	</sql>
+	<select id="queryUndeclaredPersonalGoods" resultMap="personalgoodsDeclareInfo" parameterType="map">
+		SELECT
+			<include refid="columns" />
+		FROM ord_personalgoods_declare_info 
+		WHERE put_status = 0 
+		ORDER BY create_time 
+		LIMIT #{start},#{pagesize}
+	</select>
+	
+	<update id="updateDirectmailPersonalgoodsDeclareInfos">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			update ord_personalgoods_declare_info  
+			<set>
+				voyage_no = #{item.voyageNo},traf_no = #{item.trafNo},bill_no = #{item.billNo},
+				update_time = now()
+			</set>
+			<where>
+				<if test="item.id != null  and item.id != '' ">and id=#{item.id}</if>
+				<if test="item.orderCode != null">and order_code=#{item.orderCode}</if>
+			</where>	
+		</foreach>
+	</update>
+</mapper>

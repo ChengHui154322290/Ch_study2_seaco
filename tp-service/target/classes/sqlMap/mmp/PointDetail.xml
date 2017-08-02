@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PointDetailDao">
+	<resultMap type="com.tp.model.mmp.PointDetail" id="pointDetail">
+				<id column="point_detail_id" property="pointDetailId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="point" property="point"/>
+				<result column="point_type" property="pointType"/>
+				<result column="biz_type" property="bizType"/>
+				<result column="biz_id" property="bizId"/>
+				<result column="org_total_point" property="orgTotalPoint"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="channel_code" property="channelCode"/>
+	</resultMap>
+	
+	<sql id="columns">
+		point_detail_id,member_id,point,point_type,org_total_point,biz_type,biz_id,create_time,create_user,channel_code
+	</sql>
+</mapper>

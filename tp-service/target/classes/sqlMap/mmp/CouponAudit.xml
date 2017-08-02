@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponAuditDao">
+	<resultMap type="com.tp.model.mmp.CouponAudit" id="couponAudit">
+				<id column="id" property="id"/>
+				<result column="coupon_id" property="couponId"/>
+				<result column="audit_id" property="auditId"/>
+				<result column="audit_name" property="auditName"/>
+				<result column="audit_operation" property="auditOperation"/>
+				<result column="remark" property="remark"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_id" property="createId"/>
+	</resultMap>
+	<sql id="columns">
+		id,coupon_id,audit_id,audit_name,audit_operation,remark,create_time,create_id
+	</sql>
+</mapper>

@@ -1,0 +1,1 @@
+function countDown(n){$("#endtime").html(n),0==n&&(location.href="index.html"),--n>=0&&setTimeout("countDown("+n+")",1e3)}$(function(){$(".ui-layer").click(function(){location.href="index.html"}),countDown(5)});

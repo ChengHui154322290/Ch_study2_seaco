@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/task  
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	default-autowire="byName">
+	<task:scheduled-tasks>
+		<task:scheduled ref="cancelOrderJob" method="run" cron="#{config['cancelorder.cron']}" />
+		<task:scheduled ref="pushToKuaidi100Job" method="run" cron="#{config['pushExpressToKuaidi100.cron']}" />
+		<task:scheduled ref="mobileMessageRemindJob" method="run" cron="#{config['sendmobilemessage.cron']}" />
+		<task:scheduled ref="receivedGoodsJob" method="run" cron="#{config['receivedgoods.cron']}" />
+		<task:scheduled ref="seaWashesDeliveryJob" method="run" cron="#{config['seawashesdelivery.cron']}" />		
+		<task:scheduled ref="putPayedUnPutSubOrderJob" method="run" cron="#{config['putpayedunputsuborderjob.cron']}" />		
+		<task:scheduled ref="pushOrderToCMBCJob" method="run" cron="#{config['pushordertocmbcjob.cron']}" />
+		<task:scheduled ref="fastOrderMonitorJob" method="run" cron="#{config['FastOrderMonitorJob.cron']}" />	
+	    <task:scheduled ref="cancelOrderRedeemJob" method="execute" cron="#{config['cancelOverDueOrderRedeemJob.cron']}" />	
+	    <task:scheduled ref="searchDirectOrderJob" method="execute" cron="#{config['searchdirectorderjob.cron']}" />	
+	    <task:scheduled ref="pushDirectOrderJob" method="execute" cron="#{config['pushdirectorderjob.cron']}" />
+	</task:scheduled-tasks>
+</beans>

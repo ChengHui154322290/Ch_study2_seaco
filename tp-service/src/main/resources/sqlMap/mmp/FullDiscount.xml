@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.FullDiscountDao">
+	<resultMap type="com.tp.model.mmp.FullDiscount" id="fullDiscount">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="type" property="type"/>
+				<result column="status" property="status"/>
+				<result column="start_time" property="startTime"/>
+				<result column="end_time" property="endTime"/>
+				<result column="use_range" property="useRange"/>
+				<result column="hitao_symbol" property="hitaoSymbol"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="overlay" property="overlay"/>
+				<result column="platform" property="platform"/>
+				<result column="area" property="area"/>
+				<result column="use_all_item" property="useAllItem"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,type,status,start_time,end_time,use_range,hitao_symbol,supplier_id,overlay,platform,area,use_all_item,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

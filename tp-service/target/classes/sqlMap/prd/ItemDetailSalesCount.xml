@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemDetailSalesCountDao">
+	<resultMap type="com.tp.model.prd.ItemDetailSalesCount" id="itemDetailSalesCount">
+				<id column="id" property="id"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="prdid" property="prdid"/>
+				<result column="main_title" property="mainTitle"/>
+				<result column="barcode" property="barcode"/>
+				<result column="default_sales_count" property="defaultSalesCount"/>
+				<result column="rel_sales_count" property="relSalesCount"/>
+				<result column="update_default_count_time" property="updateDefaultCountTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<select id="getDetailSalesCountByDetailIds"   resultType="int">
+		SELECT
+			 ifnull(sum(case when rel_sales_count is null then 0 else rel_sales_count end + case when default_sales_count is null then 0 else default_sales_count end ),0) as salescount  
+		FROM 
+			prd_item_detail_sales_count  
+				WHERE 1=1 and detail_id in 
+		<foreach item="detailId" index="index" collection="list" open="("
+			separator="," close=")">
+				#{detailId}
+		</foreach>
+	</select>
+	
+	<select id="checkDetailIdExist" parameterType="long" resultType="int">
+			select count(1) from prd_item_detail_sales_count where detail_id = #{id}
+	</select>
+	<update id="updateRealSalesCount" parameterType="com.tp.model.prd.ItemDetailSalesCount">
+			UPDATE prd_item_detail_sales_count
+			SET
+					rel_sales_count =  case when rel_sales_count is null then 0 else rel_sales_count end + #{relSalesCount},
+					update_time = #{updateTime}
+			WHERE
+				detail_id = #{detailId} 
+	</update>
+	
+	<update id="updateDefaultCountByDetailId" parameterType="com.tp.model.prd.ItemDetailSalesCount">
+		UPDATE prd_item_detail_sales_count
+			SET
+						default_sales_count = #{defaultSalesCount},
+						update_default_count_time = #{updateDefaultCountTime},
+						update_user = #{updateUserId}
+			WHERE
+				detail_id = #{detailId}
+	</update>
+	
+	<update id="updateDetailSalesCountDefaultCount" parameterType="com.tp.dto.prd.ItemDetailSalesCountDto">
+		UPDATE prd_item_detail_sales_count
+			SET
+						default_sales_count = #{defaultSalesCount},
+						update_default_count_time = #{updateDefaultCountTime},
+						update_user = #{updateUserId}
+			WHERE
+				id = #{id}
+	</update>
+</mapper>

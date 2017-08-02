@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.AnnounceInfoDao">
+	<resultMap type="com.tp.model.cms.AnnounceInfo" id="AnnounceResultMap">
+				<id column="id" property="id"/>
+				<result column="title" property="title"/>
+				<result column="content" property="content"/>
+				<result column="status" property="status"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="sort" property="sort"/>
+				<result column="type" property="type"/>
+				<result column="link" property="link"/>
+	</resultMap>
+	
+	<sql id="allColumnFields">
+	      id,title,content,status,sort,creater,create_time,modifier,modify_time,type,link
+ 	</sql>
+
+	<sql id="dynamicWhereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="title != null  and title != '' "> AND title like concat(concat('%', #{title}),'%') </if>
+			<if test="content != null  and content != '' "> AND content=#{content} </if>
+			<if test="status != null  "> AND status=#{status} </if>
+			<if test="type != null  and type != '' "> AND type=#{type} </if>
+		</where>
+ 	</sql>
+
+	<select id="selectById" parameterType="long" resultMap="AnnounceResultMap">
+	SELECT
+		<include refid="allColumnFields" />
+	FROM
+		cms_announce_info
+	WHERE
+		 id = #{id}
+	</select>
+
+	<update id="update" parameterType="long">
+		UPDATE cms_announce_info
+		SET
+					title = #{title},
+					content = #{content},
+					status = #{status},
+					sort = #{sort},
+					create_time = #{create_time},
+					modifier = #{modifier},
+					modify_time = #{modify_time},
+					type = #{type},
+					link = #{link}
+		WHERE
+			id = #{id}
+	</update>
+
+	<update id="updateDynamic" parameterType="com.tp.model.cms.AnnounceInfo">
+		UPDATE cms_announce_info
+		<set>
+			<if test="title != null  and title != '' ">title=#{title},</if>
+			<if test="creater != null  ">creater=#{creater},</if>
+			<if test="create_time != null  and create_time != '' ">create_time=#{create_time},</if>
+			<if test="modifier != null ">modifier=#{modifier},</if>
+			<if test="modify_time != null  and modify_time != '' ">modify_time=#{modify_time},</if>
+			<if test="type != null  and type != '' ">type=#{type},</if>
+			<if test="link != null  ">link=#{link},</if>
+			<if test="content != null ">content=#{content},</if>
+			<if test="status != null">status=#{status},</if>
+			<if test="sort != null ">sort=#{sort},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+ 	<select id="selectDynamic" resultMap="AnnounceResultMap" parameterType="com.tp.model.cms.AnnounceInfo">
+	     SELECT
+	     	<include refid="allColumnFields" />
+		 FROM
+		 	cms_announce_info
+			<include refid="dynamicWhereFields" />
+			order by type,sort
+ 	</select>
+
+ 	<select id="selectCountDynamic" resultType="long" parameterType="com.tp.model.cms.AnnounceInfo">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_announce_info
+	 	<include refid="dynamicWhereFields" />
+ 	</select>
+ 	
+ 	<select id="selectAnnouncePageQuery" resultType="com.tp.dto.cms.CmsAnnounceInfoDTO" parameterType="java.util.Map">
+	     SELECT
+	     	id,
+	     	title,
+	     	content,type,link,status,sort,creater,create_time,modifier,modify_time
+		 FROM
+		 	cms_announce_info
+	 	<include refid="dynamicWhereFields" />
+	 	order by type,sort
+	 	Limit #{start},#{pageSize}
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="AnnounceResultMap" parameterType="com.tp.model.cms.AnnounceInfo">
+	     SELECT
+	     	<include refid="allColumnFields" />
+		 FROM
+		 	cms_announce_info
+	 	<include refid="dynamicWhereFields" />
+	 	order by type,sort
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectByIds" parameterType="long" resultMap="AnnounceResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			cms_announce_info
+		WHERE
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_announce_info WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+</mapper>

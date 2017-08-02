@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+>
+	<util:properties id="meta" location="classpath*:metainfo*.properties"></util:properties>
+	
+	<context:component-scan base-package="com.tp.service"/>
+	<bean id="springBeanProxy" class="com.tp.common.spring.SpringBeanProxy"></bean>
+	<bean id="settings" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+           <list>
+				<value>classpath*:*.properties</value>
+			</list>
+        </property>
+    </bean>
+    <task:annotation-driven />
+    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="settings" />
+	</bean>
+	<bean id="xgConfigUtil" class="com.tp.common.config.XgConfigUtil" init-method="init" lazy-init="false">
+		<property name="appConfigDir" value="soa"></property>
+	</bean>
+    <bean id="certConfigUtil" class="com.tp.common.config.CertConfigUtil" init-method="init" lazy-init="false">
+	</bean>
+	
+   <bean id="MASTER_SALE_ORDER_DATA_SOURCE" class="com.mchange.v2.c3p0.ComboPooledDataSource">  
+          <property name="user" value="${db.user}"/>  
+          <property name="password" value="${db.password}"/>  
+          <property name="driverClass" value="${db.driver}"/>  
+          <property name="jdbcUrl" value="${db.driverUrl}"/>  
+          <property name="maxPoolSize" value="${proxool.maximumConnectionCount}"/>  
+          <property name="minPoolSize" value="${proxool.minimumConnectionCount}"/>  
+          <property name="initialPoolSize" value="${proxool.prototypeCount}"/>  
+          <property name="maxIdleTime" value="60"/>  
+          <property name="acquireRetryAttempts" value="5"/>  
+          <property name="idleConnectionTestPeriod" value="60"/>  
+          <property name="testConnectionOnCheckin" value="true"/>
+          <property name="automaticTestTable" value="c3p0Table"/>  
+          <property name="numHelperThreads" value="20"/>  
+          <property name="debugUnreturnedConnectionStackTraces" value="true" />
+          <property name="unreturnedConnectionTimeout" value="180" />
+          <property name="preferredTestQuery" value="SELECT 1" />
+     </bean>  
+
+	<bean id="SLAVE_SALE_ORDER_DATA_SOURCE" class="com.mchange.v2.c3p0.ComboPooledDataSource">  
+          <property name="user" value="${db1.user}"/>  
+          <property name="password" value="${db1.password}"/>  
+          <property name="driverClass" value="${db1.driver}"/>  
+          <property name="jdbcUrl" value="${db1.driverUrl}"/>  
+          <property name="maxPoolSize" value="${proxool.maximumConnectionCount}"/>  
+          <property name="minPoolSize" value="${proxool.minimumConnectionCount}"/>  
+          <property name="initialPoolSize" value="${proxool.prototypeCount}"/>  
+          <property name="maxIdleTime" value="60"/>  
+          <property name="acquireRetryAttempts" value="5"/>  
+          <property name="idleConnectionTestPeriod" value="60"/>  
+          <property name="testConnectionOnCheckin" value="true"/>
+          <property name="automaticTestTable" value="c3p0Table"/>  
+          <property name="numHelperThreads" value="20"/>  
+          <property name="debugUnreturnedConnectionStackTraces" value="true" />
+          <property name="unreturnedConnectionTimeout" value="180" /> 
+          <property name="preferredTestQuery" value="SELECT 1" />
+     </bean> 
+	<bean id="dataSource" class="com.tp.datasource.XgDataSource" >
+        <property name="targetDataSources">  
+            <map key-type="java.lang.String">  
+                <entry value-ref="MASTER_SALE_ORDER_DATA_SOURCE" key="MASTER_SALE_ORDER_DATA_SOURCE"></entry>  
+                <entry value-ref="SLAVE_SALE_ORDER_DATA_SOURCE" key="SLAVE_SALE_ORDER_DATA_SOURCE"></entry>  
+            </map>  
+        </property>  
+        <property name="defaultTargetDataSource" ref="MASTER_SALE_ORDER_DATA_SOURCE" >  
+        </property>  
+    </bean>  
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" name="sqlSessionFactory">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:sqlMap/*/*.xml"></property>
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
+        <property name="config">  
+            <bean class="com.google.code.kaptcha.util.Config">  
+                <constructor-arg>  
+                    <props>  
+                        <prop key="kaptcha.border">yes</prop>  
+                        <prop key="kaptcha.border.color">105,179,90</prop>  
+                        <prop key="kaptcha.noise.color">255,0,0</prop>  
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>  
+                        <prop key="kaptcha.image.width">125</prop>  
+                        <prop key="kaptcha.image.height">45</prop>  
+                        <prop key="kaptcha.textproducer.font.size">35</prop>  
+                        <prop key="kaptcha.textproducer.char.length">4</prop>  
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>  
+                    </props>  
+                </constructor-arg>  
+            </bean>  
+        </property>  
+    </bean>
+    <bean id="applicationContext" class="com.tp.redis.ApplicationContextBeans"></bean>
+	<import resource="spring/*.xml"/> 
+</beans>

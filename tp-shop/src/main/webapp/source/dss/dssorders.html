@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>订单查询</title>
+	<meta name="Keywords" content="全球购商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../css/frozen.css" />
+	<link rel="stylesheet" href="../css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+	<link rel="stylesheet" href="./css/orders.css" />
+	<script src="../js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/xigou.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/dropload.min.js"></script>
+	<style>
+		.ui-tab-nav {
+			border-bottom: 1px solid #ccc;
+		}
+		.order_incomes {
+			border-top: 1px solid #e8e8e8;
+		}
+		.ui-tab-content {
+			margin-top: 0px;
+		}
+		.orders-item {
+			margin-bottom: 10px;
+			margin-top:0px;
+		}
+
+	</style>
+</head>
+
+<body>
+	<!-- <header style = "border-bottom: 1px solid #929292;">
+		<h1>订单查询</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+	</header> -->
+	
+	<div class="ui-tab">
+		<ul class="ui-tab-nav ui-border-b">
+			<li>全部订单</li>
+			<li>待付款</li>
+			<li>待收货</li>
+			<li>已完成</li>
+		</ul>
+		<ul class="ui-tab-content" style="width:300%; transition-property: transform; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 300ms; transform: translate(-375px, 0px) translateZ(0px);">
+			<li>
+				<div class="orders-list">
+					<!-- <div class="order_empty"><div class="empty-tip">还木有订单哟~</div></div> -->	
+					<!-- <div class="orders-item" ordercode="123">
+						<div class="order_time_status">2015-10-11
+							<span class="order_status">交易成功</span>
+						</div>
+						<div class="order_info" sku="123" tid="123" >
+							<div class="order_image">
+								<img src="" >
+							</div>
+							<div class="oder_info2">
+								<div class="order_name_price">
+									<div class="order_price">¥110.00</div>
+									<div class="order_name">不知道</div>
+								</div>
+								<div class="order_size_count">
+									<div class="order_count">×1</div>
+								</div>
+							</div>
+						</div>
+						<div class="order_totle_count_price">
+							<span class="float_right ">共 1件 实付：<span class="order_lineprice">¥100</span></span>
+						</div>
+						<div class="order_incomes">
+							<div class="bottom_income">
+								<span class="bottom_income_text">收入：</span>
+								<span class="bottom_income_value">+52.00</span>
+							</div>
+						</div>					
+					</div>	 					       		
+					<div class="orders-item" ordercode="123">
+						<div class="order_time_status">2015-10-11
+							<span class="order_status">交易成功</span>
+						</div>
+						<div class="order_info" sku="123" tid="123" >
+							<div class="order_image">
+								<img src="" >
+							</div>
+							<div class="oder_info2">
+								<div class="order_name_price">
+									<div class="order_price">¥110.00</div>
+									<div class="order_name">我不知道</div>
+								</div>
+								<div class="order_size_count">
+									<div class="order_count">×1</div>
+								</div>
+							</div>
+						</div>
+						<div class="order_totle_count_price">
+							<span class="float_right ">共 1件 实付：<span class="order_lineprice">¥100</span></span>
+						</div>
+						<div class="order_incomes">
+							<div class="bottom_income">
+								<span class="bottom_income_text">收入：</span>
+								<span class="bottom_income_value">+52.00</span>
+							</div>
+						</div>					
+					</div> -->
+				</div>
+			</li>
+			<li>
+				<div class="orders-pending">
+					<!-- <div class="order_empty"><div class="empty-tip">还木有订单哟~</div></div> -->
+				</div>
+			</li>
+			<li>
+				<div class="orders-ship">
+					<!-- <div class="order_empty"><div class="empty-tip">还木有订单哟~</div></div> -->
+				</div>
+			</li>
+			<li>
+				<div class="orders-finish">
+					<!-- <div class="order_empty"><div class="empty-tip">还木有订单哟~</div></div> -->
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<script class="demo-script">
+		(function (){
+			var tab = new fz.Scroll('.ui-tab', {
+				role: 'tab',
+				autoplay: false,
+				interval: 3000
+			});
+
+		})();
+	</script>
+</body>
+
+<script type="text/javascript" src="../js/static_data.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/thirdshop.js"></script>
+<script type="text/javascript" src="./js/modules/promoter.js"></script>
+<script type="text/javascript" src="./js/orders.js"></script>
+<script type="text/javascript" src="./js/deliveryorders.js"></script>
+<script type="text/javascript" src="./js/finishorders.js"></script>
+<script type="text/javascript" src="./js/unpayorders.js"></script>
+</html>

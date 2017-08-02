@@ -1,0 +1,1 @@
+(function(){var a=this;a.withdrawFunc=a.withdrawFunc||{},a.withdrawFunc.withdrawalsRecord=function(t){if(a.locationData);else{var i=a.activeHost+a.activeUrl.withdrawals.getWithdrawDetail;ajaxPost(t,i)}}}).call(xigou,Zepto);

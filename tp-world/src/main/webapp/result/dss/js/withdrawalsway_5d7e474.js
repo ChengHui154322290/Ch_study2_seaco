@@ -1,0 +1,1 @@
+function selectWay(){$(".div_sel_way")[xigou.events.click](function(){var a=xigou.getSessionStorage("withdrawalsParam",!0);if(a){var t=$(this);a.payway=t.attr("way"),xigou.setSessionStorage("withdrawalsParam",a,!0),setTimeout(window.location.href="withdrawals.html",250)}})}$(function(){selectWay()});

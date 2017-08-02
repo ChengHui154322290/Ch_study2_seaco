@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.SubOrderDao">
+	<resultMap type="com.tp.model.ord.SubOrder" id="subOrder">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_status" property="orderStatus"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="consignee_name" property="consigneeName"/>
+				<result column="consignee_mobile" property="consigneeMobile"/>
+				<result column="pay_code" property="payCode"/>
+				<result column="sea_channel" property="seaChannel"/>
+				<result column="custom_code" property="customCode"/>
+				<result column="type" property="type"/>
+				<result column="quantity" property="quantity"/>
+				<result column="total" property="total"/>
+				<result column="original_total" property="originalTotal"/>
+				<result column="item_total" property="itemTotal"/>
+				<result column="discount" property="discount"/>
+				<result column="freight" property="freight"/>
+				<result column="balance" property="balance"/>
+				<result column="points" property="points"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="supplier_alias" property="supplierAlias"/>
+				<result column="warehouse_name" property="warehouseName"/>
+				<result column="deleted" property="deleted"/>
+				<result column="done_time" property="doneTime"/>
+				<result column="account_name" property="accountName"/>
+				<result column="remark" property="remark"/>
+				<result column="cancel_reason" property="cancelReason"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="delivered_time" property="deliveredTime"/>
+				<result column="tax_fee" property="taxFee"/>
+				<result column="pay_type" property="payType"/>
+				<result column="pay_way" property="payWay"/>
+				<result column="pay_time" property="payTime"/>
+				<result column="pay_company_code" property="payCompanyCode"/>
+				<result column="org_name" property="orgName"/>
+				<result column="put_status" property="putStatus"/>
+				<result column="sea_channel_name" property="seaChannelName"/>
+				<result column="source" property="source"/>
+				<result column="track_source" property="trackSource"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="shop_promoter_id" property="shopPromoterId"/>
+				<result column="scan_promoter_id" property="scanPromoterId"/>
+				<result column="group_id" property="groupId"/>
+				<result column="clearance_status" property="clearanceStatus"/>
+				<result column="put_order_status" property="putOrderStatus"/>
+				<result column="put_personalgoods_status" property="putPersonalgoodsStatus"/>
+				<result column="put_waybill_status" property="putWaybillStatus"/>
+				<result column="put_pay_status" property="putPayStatus"/>
+				<result column="put_customs_times" property="putCustomsTimes"/>
+				<result column="put_sign" property="putSign"/>
+				<result column="fast_user_id" property="fastUserId"/>
+				<result column="channel_code" property="channelCode"/>
+				<result column="receive_tel" property="receiveTel"/>
+				<result column="direct_order_status" property="directOrderStatus"/>
+	</resultMap>
+	<sql id="columns">
+		id,<include refid="columnsByInsert"></include>,fast_user_id
+	</sql>
+	<sql id="columnsByInsert">
+		order_code,parent_order_id,parent_order_code,order_status,supplier_id,warehouse_id,member_id,consignee_name,consignee_mobile,pay_code
+		,sea_channel,custom_code,type,quantity,total,original_total,item_total,discount,freight,balance,points,supplier_name,supplier_alias,warehouse_name
+		,deleted,done_time,account_name,remark,create_time,update_time,delivered_time,tax_fee,pay_type,pay_way,pay_time,pay_company_code
+		,org_name,put_status,sea_channel_name,source,track_source,promoter_id,shop_promoter_id,scan_promoter_id,group_id,cancel_reason
+		,put_order_status,put_personalgoods_status,put_waybill_status,put_pay_status,put_customs_times,clearance_status,put_sign,channel_code,receive_tel
+		,direct_order_status
+	</sql>
+	<sql id="SubOrderQO_Where"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="parentOrderId != null "> AND parent_order_id=#{parentOrderId} </if>
+			<if test="parentOrderCode != null"> AND parent_order_code=#{parentOrderCode} </if>
+			<if test="memberId != null  "> AND member_id=#{memberId} </if>
+			<if test="orderCode != null"> AND order_code LIKE CONCAT(#{orderCode},'%') </if>
+			<if test="supplierId != null   "> AND supplier_id=#{supplierId} </if>
+			<if test="warehouseId != null  "> AND warehouse_id=#{warehouseId} </if>
+			<if test="orderStatus != null  "> AND order_status=#{orderStatus} </if>
+			<if test="type != null  "> AND type=#{type} </if>
+			<if test="typeList != null "> 
+				AND type IN 
+		 		<foreach item="type" collection="typeList" separator="," open="(" close=")">
+		 			#{type}
+		 		</foreach>
+			</if>
+			<if test="accountName != null and accountName != '' "> AND account_name=#{accountName} </if>
+			<if test="payCode != null and payCode != ''"> AND pay_code=#{payCode} </if>
+			<if test="seaChannel != null "> AND sea_channel=#{seaChannel} </if>
+			<if test="payType != null "> AND pay_type=#{payType} </if>
+			<if test="payWay != null "> AND pay_way=#{payWay} </if>
+			<if test="quantity != null  "> AND quantity=#{quantity} </if>
+			<if test="warehouseId != null and warehouseName != '' and  warehouseName!=null"> AND warehouse_name=#{warehouseName} </if>
+			<if test="deleted != null "> AND deleted=#{deleted} </if>
+			<if test="putStatus!= null "> AND put_status=#{putStatus} </if>
+			<!-- 非原生条件 -->
+			<if test="startTime != null  and startTime != '' "> AND create_time&gt;=#{startTime} </if>
+			<if test="endTime != null  and endTime != '' "> AND create_time&lt;=#{endTime} </if>
+			<!-- <if test="payTime != null "> AND pay_time=#{payTime} </if> -->
+			<if test="consigneeName != null  and consigneeName != '' "> AND consignee_name LIKE CONCAT('%',#{consigneeName}) </if>
+			<if test="consigneeMobile != null  and consigneeMobile != '' "> AND consignee_mobile=#{consigneeMobile} </if>
+			<if test="supplierName != null  and supplierName != '' "> AND supplier_name LIKE CONCAT('%',#{supplierName}) </if>
+			<if test="statusList != null "> 
+				AND order_status IN 
+		 		<foreach item="sts" collection="statusList" separator="," open="(" close=")">
+		 			#{sts}
+		 		</foreach>
+			</if>
+			<if test="orderIdList != null "> 
+				AND parent_order_id IN 
+		 		<foreach item="oid" collection="orderIdList" separator="," open="(" close=")">
+		 			#{oid}
+		 		</foreach>
+			</if>
+			<if test="deliverBeginTime != null  and deliverBeginTime != '' "> AND delivered_time&gt;=#{deliverBeginTime} </if>
+			<if test="deliverEndTime != null  and deliverEndTime != '' "> AND delivered_time&lt;=#{deliverEndTime} </if>
+			<if test="doneBeginTime != null  and doneBeginTime != '' "> AND (done_time&gt;=#{doneBeginTime} OR done_time IS NULL)</if>
+			<if test="doneEndTime != null  and doneEndTime != '' "> AND done_time&lt;=#{doneEndTime}</if>
+			
+			<if test="hasPayCode != null and hasPayCode == 1"> AND pay_code IS NOT NULL </if>
+			<if test="hasPayCode != null and hasPayCode == 0"> AND pay_code IS NULL </if>
+			<if test="source!=null"> AND source = #{source}</if>
+			<if test="promoterId!=null"> AND promoter_id =#{promoterId}</if>
+			<if test="shopPromoterId!=null"> AND shop_promoter_id = #{shopPromoterId}</if>
+			<if test="scanPromoterId!=null"> AND scan_promoter_id = #{scanPromoterId}</if>
+			<if test="putOrderStatus!=null">AND put_order_status = #{putOrderStatus}</if>
+			<if test="putPersonalgoodsStatus!=null">AND put_personalgoods_status = #{putPersonalgoodsStatus}</if>
+			<if test="putWaybillStatus!=null">AND put_waybill_status = #{putWaybillStatus}</if>
+			<if test="putPayStatus!=null">AND put_pay_status = #{putPayStatus}</if>
+			<if test="putCustomsTimes!=null">AND put_customs_times = #{putCustomsTimes}</if>
+			<if test="clearanceStatus">AND clearance_status = #{clearanceStatus}</if>
+			<if test="putSignList !=null">
+		 		<foreach item="putSign" collection="putSignList" separator="," open="AND put_sign IN (" close=")">
+		 			#{putSign}
+		 		</foreach>
+			</if>
+			<if test="fastUserId!=null"> AND fast_user_id = #{fastUserId}</if>
+			<if test="channelCode!=null"> AND channel_code = #{channelCode}</if>
+		</where>
+ 	</sql>
+	<!-- 根据subOrderQO分页查询 -->
+	<select id="selectPageByQO" resultMap="subOrder" parameterType="com.tp.query.ord.SubOrderQO">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_sub_order
+		<include refid="SubOrderQO_Where" />
+		ORDER BY create_time DESC
+		Limit #{start},#{pageSize}
+	</select>
+	
+	
+	
+		<select id="selectPageByQO_coupons_shop_scan" resultMap="subOrder" parameterType="map">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_sub_order
+		WHERE 
+	<choose>
+		<when test="shopPromoterId != null">
+			shop_promoter_id = #{shopPromoterId}
+		</when>
+		<when test="promoterId != null ">
+			( (promoter_id = #{promoterId} and ( shop_promoter_id is null or shop_promoter_id=''))
+			<foreach collection='orderCodeList'  item="ordercode" index="index" open=" or order_code in(" separator="," close=") )" >
+				#{ordercode}
+			</foreach>			
+		</when>
+		<when test="scanPromoterId != null ">
+			( ( (
+			   <foreach collection='scanPromoterId' item="promoterId" index="index"
+				open="  scan_promoter_id in(" separator="," close=") )">
+				#{promoterId}
+              </foreach>
+			
+			 and ( shop_promoter_id is null or shop_promoter_id='') and ( promoter_id is null or promoter_id='' )) 
+			<foreach collection='orderCodeList'  item="ordercode" index="index" open=" or order_code in(" separator="," close=") )" >
+				#{ordercode}
+			</foreach>			
+		</when>
+	    <otherwise>
+      		shop_promoter_id is null
+    	</otherwise>
+	</choose>  	
+	<if test="orderStatus != null">
+		and order_status = #{orderStatus}
+	</if>	
+	<!-- 非原生条件 -->
+		<if test="createEndTime != null  and createEndTime != '' "> AND create_time&gt;=#{createBeginTime} </if>
+		<if test="createEndTime != null  and createEndTime != '' "> AND create_time&lt;=#{createEndTime} </if>
+		ORDER BY create_time DESC
+		Limit #{start},#{pageSize}
+	</select>
+	
+
+	<!-- 根据subOrderQO查询总记录数 -->
+	<select id="selectCountByQO" resultType="int" parameterType="com.tp.query.ord.SubOrderQO">
+		SELECT
+			count(1)
+		FROM
+			ord_sub_order
+		<include refid="SubOrderQO_Where" />
+	</select>
+
+	<!-- 根据subOrderQO查询总记录数 -->
+	<select id="selectCountByQO_coupons_shop_scan" resultType="int" parameterType="map">
+	SELECT
+	count(1)
+	FROM
+	ord_sub_order
+	WHERE  
+	<choose>
+		<when test="shopPromoterId != null">
+			 shop_promoter_id = #{shopPromoterId}
+		</when>
+		<when test="promoterId != null ">
+			( (promoter_id = #{promoterId} and ( shop_promoter_id is null or shop_promoter_id=''))
+			<foreach collection='orderCodeList' item="ordercode" index="index"
+				open=" or order_code in(" separator="," close=") )">
+				#{ordercode}
+			</foreach>
+		</when>
+		<when test="scanPromoterId != null ">
+		    ( ( (
+		   <foreach collection='scanPromoterId' item="promoterId" index="index"
+				open="  scan_promoter_id in(" separator="," close=") )">
+				#{promoterId}
+			</foreach>
+			 and ( shop_promoter_id is null or shop_promoter_id='') and ( promoter_id is null or promoter_id='' ))
+			<foreach collection='orderCodeList' item="ordercode" index="index"
+				open=" or order_code in(" separator="," close=") )">
+				#{ordercode}
+			</foreach>
+		</when>
+		<otherwise>
+			shop_promoter_id is null
+		</otherwise>
+	</choose>
+	<if test="orderStatus != null">
+		and order_status = #{orderStatus}
+	</if>	
+	<!-- 非原生条件 -->
+		<if test="createBeginTime != null  and createBeginTime != '' "> AND create_time&gt;=#{createBeginTime} </if>
+		<if test="createEndTime != null  and createEndTime != '' "> AND create_time&lt;=#{createEndTime} </if>
+	</select>
+	
+	
+	<!-- 根据subOrderQO查询总记录数 -->
+	<select id="selectCountByQO_coupons_shop_scan_all_child" resultType="int" parameterType="map">
+	SELECT
+	count(1)
+	FROM
+	ord_sub_order
+	WHERE 
+	<choose>
+		<when test="shopPromoterId != null">
+			shop_promoter_id = #{shopPromoterId}
+		</when>
+		<when test="promoterId != null ">
+			( (promoter_id = #{promoterId} and ( shop_promoter_id is null or shop_promoter_id=''))
+			<foreach collection='orderCodeList' item="ordercode" index="index"
+				open=" or order_code in(" separator="," close=") )">
+				#{ordercode}
+			</foreach>
+		</when>
+		<when test="scanPromoterId != null ">
+			( (scan_promoter_id = #{scanPromoterId} and ( shop_promoter_id is null or shop_promoter_id='') and ( promoter_id is null or promoter_id='' ))
+			<foreach collection='orderCodeList' item="ordercode" index="index"
+				open=" or order_code in(" separator="," close=") )">
+				#{ordercode}
+			</foreach>
+		</when>
+		<otherwise>
+			shop_promoter_id is null
+		</otherwise>
+	</choose>
+	<if test="orderStatus != null">
+		and order_status = #{orderStatus}
+	</if>	
+	</select>
+	
+	<!--  by zhs 0419-->
+	<select id="getTotalCustomersForPormoter" resultType="int" parameterType="com.tp.query.ord.SubOrderQO">
+		SELECT
+			count( distinct(member_id) ) 
+		FROM
+			ord_sub_order
+		<include refid="SubOrderQO_Where" />
+	</select>
+	
+	<select id="getShopTotalSales" resultType="double" parameterType="long">
+		select sum(total) 
+		from ord_sub_order  
+		where order_status in (4,5,6) and (shop_promoter_id = #{value} or promoter_id=#{value} or scan_promoter_id=#{value} )
+	</select>
+	
+		<select id="getShopTotalSales_coupons_shop_scan" resultType="double" parameterType="map">
+		select sum(total) 
+		from ord_sub_order  
+		where order_status in (4,5,6) 
+		<choose>
+		<when test="shopPromoterId != null">
+			and shop_promoter_id = #{shopPromoterId}
+		</when>
+		<when test="promoterId != null ">
+			and ( (promoter_id = #{promoterId} and ( shop_promoter_id is null or shop_promoter_id=''))
+			<foreach collection='orderCodeList'  item="ordercode" index="index" open=" or order_code in(" separator="," close=") )" >
+				#{ordercode}
+			</foreach>			
+		</when>
+		<when test="scanPromoterId != null ">
+			and ( (scan_promoter_id = #{scanPromoterId} and ( shop_promoter_id is null or shop_promoter_id='') and ( promoter_id is null or promoter_id='' )) 
+			<foreach collection='orderCodeList'  item="ordercode" index="index" open=" or order_code in(" separator="," close=") )" >
+				#{ordercode}
+			</foreach>			
+		</when>
+	    <otherwise>
+      		shop_promoter_id is null
+    	</otherwise>
+	</choose>  	
+		
+	</select>
+	
+	
+			
+	<select id="querySubOrderByWaitPutSeaWashes" resultMap="subOrder" parameterType="int">
+		SELECT
+			<include refid="columns" />
+		FROM
+			ord_sub_order
+		WHERE put_status = 0  
+		  AND order_status = 4
+		  <if test="clearanceStatus != null"> AND clearance_status = #{clearanceStatus} </if>
+		limit 1000
+	</select>
+	<select id="querySubOrderBySeaOrderUnPayIsExpired"  resultMap="subOrder" parameterType="int">
+		SELECT
+		<include refid="columns" />
+		FROM ord_sub_order
+		WHERE order_status = 2  
+		   AND create_time &lt;= date_sub(now(), interval #{value}+1 minute)
+		ORDER BY create_time ASC   
+		Limit 0,1000
+	</select>
+	<select id="querySubOrderToFisherAfterPayThirtyMinutes"  resultMap="subOrder" parameterType="map">
+		SELECT
+		<include refid="columns" />
+		FROM ord_sub_order
+		WHERE order_status = 4  
+		  AND sea_channel = #{channelId}
+		   AND pay_time &lt;= date_sub(now(), interval #{expired}+1 minute)
+		ORDER BY pay_time    
+		Limit 0,500
+	</select>
+	<!-- 
+		根据会员id查询“待支付”的订单数，
+		普通订单根据父订单id分组
+	 -->
+	<select id="selectPaymentCount" resultType="int" parameterType="long">
+		SELECT 
+			SUM(t.cnt)
+		FROM (
+			(
+				SELECT
+					1 AS cnt
+				FROM ord_sub_order
+				WHERE member_id = #{memberId}
+				AND order_status = 2
+				AND type in (1,2)
+				<if test="orderTypeList!=null and orderTypeList.size()>0">
+					<foreach collection="orderTypeList" close=")" index="orderType" item="orderType" open="and type in (" separator=",">
+						#{orderType}
+					</foreach>
+				</if>
+				<if test="channelCode!=null"> and channel_code=#{channelCode}</if>
+				AND deleted = 2
+				GROUP BY parent_order_id
+			) 
+		    UNION ALL (
+				SELECT
+					count(1) AS cnt
+				FROM ord_sub_order
+				WHERE member_id = #{memberId}
+				AND order_status = 2
+				AND type > 2
+				<if test="orderTypeList!=null and orderTypeList.size()>0">
+					<foreach collection="orderTypeList" close=")" index="orderType" item="orderType" open="and type in (" separator=",">
+						#{orderType}
+					</foreach>
+				</if>
+				<if test="channelCode!=null"> and channel_code=#{channelCode}</if>
+		        AND deleted = 2
+		    )
+		) t
+	</select>
+		
+	<!-- 根据code查询 -->
+	<select id="selectOneByCode" parameterType="long" resultMap="subOrder">
+		SELECT
+			<include refid="columns" />
+		FROM
+			ord_sub_order
+		WHERE
+			order_code = #{orderCode}
+	</select>	
+	
+
+	<select id="selectOrderItemsForPushCMBC" parameterType="map"  resultType="com.tp.dto.ord.OrderItemCMBC">	
+		select 
+			sub.id as orderId, sub.order_code as orderCode, sub.total as total, 
+			item.id as orderItemId, item.spu_id as spuId, item.spu_code as spuCode, item.spu_name as spuName, item.sub_total as subTotal, item.sku_code as skuCode, item.bar_code as barCode
+		from 
+			ord_order_info ord, ord_sub_order sub, ord_order_item item 
+		where 
+			ord.parent_order_code=sub.parent_order_code and sub.order_code= item.order_code 
+			and ord.order_status  in (4,5,6)  and sub.pay_time &gt;= #{startdate} and sub.pay_time &lt;#{enddate}
+	</select>	
+		
+
+	<select id="selectSubOrderForPushCMBC"  resultMap="subOrder" parameterType="map" >	
+		SELECT
+			sub.id,sub.order_code,sub.parent_order_id,sub.parent_order_code,sub.order_status,sub.supplier_id,sub.warehouse_id,sub.member_id,sub.consignee_name,sub.consignee_mobile,sub.pay_code
+			,sub.sea_channel,sub.custom_code,sub.type,sub.quantity,sub.total,sub.original_total,sub.item_total,sub.discount,sub.freight,sub.balance,sub.points,sub.supplier_name,sub.supplier_alias,sub.warehouse_name
+			,sub.deleted,sub.done_time,sub.account_name,sub.remark,sub.create_time,sub.update_time,sub.delivered_time,sub.tax_fee,sub.pay_type,sub.pay_way,sub.pay_time,sub.pay_company_code
+			,sub.org_name,sub.put_status,sub.sea_channel_name,sub.source,sub.track_source,sub.promoter_id,sub.shop_promoter_id,sub.group_id,sub.cancel_reason, info.uuid, info.channel_code as channelCode, info.tpin
+		FROM
+			ord_order_info info, ord_sub_order sub
+		WHERE 
+			info.parent_order_code=sub.parent_order_code and info.channel_code=#{channelcode}
+			and sub.order_status  in (4,5,6)  and sub.pay_time &gt;= #{startdate} and sub.pay_time &lt;#{enddate}			
+	</select>	
+	
+	
+	<select id="queryOrderCodeBySubOrderCodeAndCancelStatus" resultType="String" parameterType="long">
+		 SELECT case when count(*)=count(case when a.order_status=0 then 1 else null end) 
+		             then b.order_code 
+		             else null 
+		        end  order_code
+ 		   FROM ord_sub_order a,ord_sub_order b
+		  WHERE a.parent_order_code=b.parent_order_code 
+		    and b.order_status=0 and b.order_code=#{subOrderCode}
+	</select>
+	<!-- 根据ID批量查询 -->
+	<select id="selectListByIdList"  parameterType="list"  resultMap="subOrder">
+		SELECT
+			<include refid="columns" />
+		FROM
+			ord_sub_order
+		WHERE
+			id IN 
+		<foreach item="oid" collection="list" separator="," open="(" close=")">
+ 			#{oid}
+	 	</foreach>
+	 	ORDER BY create_time DESC
+	</select>	
+	<select id="queryOrderCountByPromoterId"  parameterType="map"  resultType="map">
+		SELECT
+			count(*) ${orderCount},IFNULL(sum(total+freight),0.00) ${orderAmount}
+		FROM
+			ord_sub_order
+		WHERE order_status!=0
+			<if test="shopPromoterId!=null"> and shop_promoter_id = #{shopPromoterId}</if>
+			<if test="promoterId!=null"> and promoter_id = #{promoterId}</if>
+	</select>
+	
+	<update id="updateSubOrderStatus" parameterType="SubOrder">
+		update ord_sub_order
+		<set>
+			<if test="orderStatus != null  ">order_status=#{orderStatus},</if>
+			<if test="deliveredTime != null ">delivered_time = #{deliveredTime},</if>
+			<if test="doneTime != null">done_time=#{doneTime},</if>
+			<if test="updateTime != null">update_time=#{updateTime},</if>
+			<if test="payTime != null  and payTime != '' ">pay_time=#{payTime},</if>
+			<if test="payCode != null  and payCode != '' ">pay_code=#{payCode},</if>
+			<if test="putStatus !=null">put_status = #{putStatus},</if>
+			<if test="payType !=null">pay_type = #{payType},</if>
+			<if test="payWay !=null">pay_way = #{payWay},</if>
+			<if test="cancelReason !=null">cancel_reason = #{cancelReason},</if>
+		</set>
+		<where>
+			<if test="id != null  and id != '' ">and id=#{id}</if>
+			<if test="orderCode != null">and order_code=#{orderCode}</if>
+			<if test="parentOrderCode != null">and parent_order_code=#{parentOrderCode}</if>
+			<if test="parentOrderId != null">and parent_order_id=#{parentOrderId}</if>
+		</where>
+	</update>
+	
+	
+	<!-- 根据父订单号删除 -->
+	<update id="deleteByOrderCode" parameterType="SubOrder">
+		UPDATE ord_sub_order
+		SET deleted = #{deleted},
+			update_time = now()
+		WHERE parent_order_code = #{parentOrderCode}
+		AND member_id = #{memberId}
+	</update>
+	<update id="deleteByCode" parameterType="SubOrder">
+		UPDATE ord_sub_order
+		SET
+					deleted = #{deleted},
+					update_time = now()
+		WHERE
+			order_code=#{orderCode}
+		AND member_id=#{memberId}
+	</update>
+	<update id="batchUpdateSubOrderStatusByCode" parameterType="map">
+		update ord_sub_order
+			<set>
+				<if test="orderStatus != null  "> order_status = #{orderStatus},</if>
+				<if test="deliveredTime!=null and deliveredTime!=''">delivered_time = #{deliveredTime},</if>
+				update_time = now() 
+			</set>
+		where 
+			order_code in
+		<foreach item="subOrderDO" collection="subOrderList" separator="," open="(" close=")">
+ 			#{subOrderDO.orderCode}
+	 	</foreach>
+	</update>	
+	
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO ord_sub_order(
+        	<include refid="columnsByInsert"></include>
+		)values
+		<foreach collection="subOrderList" item="item" index="index" separator=",">
+			(
+			#{item.orderCode},#{item.parentOrderId},#{item.parentOrderCode},#{item.orderStatus},#{item.supplierId},#{item.warehouseId}
+			,#{item.memberId},#{item.consigneeName},#{item.consigneeMobile},#{item.payCode},#{item.seaChannel},#{item.customCode},#{item.type},#{item.quantity}
+			,#{item.total},#{item.originalTotal},#{item.itemTotal},#{item.discount},#{item.freight},#{item.balance},#{item.points},#{item.supplierName},#{item.supplierAlias},#{item.warehouseName}
+			,#{item.deleted},#{item.doneTime},#{item.accountName},#{item.remark},now(),now(),#{item.deliveredTime},#{item.taxFee},#{item.payType}
+			,#{item.payWay},#{item.payTime},#{item.payCompanyCode},#{item.orgName},#{item.putStatus},#{item.seaChannelName},#{item.source},#{item.trackSource}
+			,#{item.promoterId},#{item.shopPromoterId},#{item.scanPromoterId},#{item.groupId},#{item.cancelReason}
+			,#{item.putOrderStatus},#{item.putPersonalgoodsStatus},#{item.putWaybillStatus},#{item.putPayStatus},#{item.putCustomsTimes},#{item.clearanceStatus},#{item.putSign},#{item.channelCode},#{item.receiveTel}
+			,0
+		)	
+		</foreach>
+		
+    </insert>
+    
+    <update id="updateSubOrderListByCancel" > 
+    	update ord_sub_order
+    	   set order_status = #{orderStatus},update_time = now()<if test="cancelReason!=null and cancelReason!=''">,cancel_reason=#{cancelReason}</if>
+    	   where (order_status &lt; #{currentStatus} or (type=8 and order_status!='6'))
+    	   <foreach collection="orderCodeList" item="orderCode" index="orderCode" separator="," open=" and order_code in (" close=")">
+    	   	#{orderCode}
+    	   </foreach>
+    </update>
+    <select id="queryUndeclaredSubOrders"  resultMap="subOrder" parameterType="map">
+		SELECT
+		<include refid="columns" />
+		FROM ord_sub_order
+		WHERE order_status = 4
+		   AND type in(4,5,6) 
+		   AND pay_time &lt;= date_sub(now(), interval #{minute}+1 minute) 
+		   AND clearance_status = 0 
+		ORDER BY pay_time    
+		Limit #{start},#{pagesize}
+    </select>	
+    <select id="queryUnPutWaybillSubOrders"  resultMap="subOrder" parameterType="map">
+		SELECT
+		<include refid="columns" />
+		FROM ord_sub_order
+		WHERE order_status = 4 
+		   AND type in(4,5,6) 
+		   AND pay_time &lt;= date_sub(now(), interval #{minute}+1 minute) 
+		   AND put_waybill_status = 0 
+		ORDER BY pay_time    
+		Limit #{start},#{pagesize}
+    </select>
+    
+</mapper>

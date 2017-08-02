@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.WithdrawDetailDao">
+	<resultMap type="com.tp.model.dss.WithdrawDetail" id="withdrawDetail">
+				<id column="withdraw_detail_id" property="withdrawDetailId"/>
+				<result column="withdraw_detail_code" property="withdrawDetailCode"/>
+				<result column="withdraw_time" property="withdrawTime"/>
+				<result column="withdraw_amount" property="withdrawAmount"/>
+				<result column="withdraw_status" property="withdrawStatus"/>
+				<result column="withdrawor" property="withdrawor"/>
+				<result column="withdraw_bank" property="withdrawBank"/>
+				<result column="withdraw_bank_account" property="withdrawBankAccount"/>
+				<result column="old_surplus_amount" property="oldSurplusAmount"/>
+				<result column="payed_time" property="payedTime"/>
+				<result column="paymentor" property="paymentor"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		withdraw_detail_id,withdraw_detail_code,withdraw_time,withdraw_amount,withdraw_status,withdrawor,withdraw_bank,withdraw_bank_account,old_surplus_amount,payed_time,paymentor,create_user,create_time,update_user,update_time
+	</sql>
+</mapper>

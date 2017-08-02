@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.BrandSearchDao">
+	<resultMap type="com.tp.model.sch.BrandSearch" id="brandSearch">
+		<result column="id" property="brandId"/>
+		<result column="name" property="brandName"/>
+
+	</resultMap>
+
+	<select id="getByBrandIds" resultMap="brandSearch" parameterType="java.util.List">
+		SELECT id,name
+		FROM bse_brand
+		WHERE
+		id in
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="queryById" parameterType="java.lang.Long" resultMap="brandSearch">
+		SELECT  id,name FROM  bse_brand WHERE  id = #{brandId}
+
+	</select>
+
+</mapper>

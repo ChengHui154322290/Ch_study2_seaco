@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>注册统计</title>
+    <meta name="Keywords" content="注册统计">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="icon" href="./../modifiable/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/frozen.css" />
+    <link rel="stylesheet" href="../css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+    <link rel="stylesheet" type="text/css" href="./css/register_statistical.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mobile-select.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/zepto.mdater.css"/>
+    <script src="../js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/common/zepto.deferred.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/common/zepto.callbacks.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/pages/redeemManager/dialog.js"></script>
+    <script type="text/javascript" src="../js/pages/redeemManager/mobile-select.js"></script>
+    <script type="text/javascript" src="../js/common/zepto.mdater.js"></script>
+    <script src="../js/frozen.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/xigou.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="../js/dropload.min.js" ></script>
+    <script type="text/javascript" src="../js/pages/phoneScale.js"></script>
+    <script type="text/javascript" src="./js/modules/promoter.js"></script>
+
+</head>
+<body>
+        <div class="header1">
+            <a href="javascript:history.go(-1)" class="goBack"></a>
+            注册统计
+        </div>
+        <main>
+            <div class="top">
+                <div class="list">时间跨度
+                    <span class="list_time current" datavalue="week">1周内</span>
+                    <span class="list_time" datavalue="month">1个月内</span>
+                    <span class="list_time" datavalue="quarter">3个月内</span>
+                </div>
+                <div class="list">开始日期<input type="date" maxlength="12" id="beginquerydate"  class="dates JselectDate " value="" max=""></div>
+                <div class="list">结束日期<input type="date" maxlength="12" id="endquerydate"  class="dates JselectDate" value="" max=""></div>
+            </div>
+            <button class="ask-btn">查询</button>
+        </main>
+    <script type="text/javascript" src="../js/static_data.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="./js/register_statistical.js"></script>
+</body>
+</html>

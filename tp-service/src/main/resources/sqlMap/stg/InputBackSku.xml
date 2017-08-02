@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InputBackSkuDao">
+	<resultMap type="com.tp.model.stg.InputBackSku" id="inputBackSku">
+				<id column="id" property="id"/>
+				<result column="input_back_id" property="inputBackId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="barcode" property="barcode"/>
+				<result column="received_time" property="receivedTime"/>
+				<result column="expected_qty" property="expectedQty"/>
+				<result column="received_qty" property="receivedQty"/>
+				<result column="lotatt01" property="lotatt01"/>
+				<result column="lotatt02" property="lotatt02"/>
+				<result column="lotatt03" property="lotatt03"/>
+				<result column="lotatt04" property="lotatt04"/>
+				<result column="lotatt05" property="lotatt05"/>
+				<result column="lotatt06" property="lotatt06"/>
+				<result column="lotatt07" property="lotatt07"/>
+				<result column="lotatt08" property="lotatt08"/>
+				<result column="lotatt09" property="lotatt09"/>
+				<result column="lotatt10" property="lotatt10"/>
+				<result column="lotatt11" property="lotatt11"/>
+				<result column="lotatt12" property="lotatt12"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+	     INSERT INTO stg_input_back_sku (
+				input_back_id,
+				sku_code,
+				barcode,
+				received_time,
+				expected_qty,
+				received_qty,
+				lotatt01,
+				lotatt02,
+				lotatt03,
+				lotatt04,
+				lotatt05,
+				lotatt06,
+				lotatt07,
+				lotatt08,
+				lotatt09,
+				lotatt10,
+				lotatt11,
+				lotatt12,
+				create_time
+		) values
+	    <foreach collection="list" item="item" index="index" separator="," >
+	         (  
+				#{item.inputBackId},
+				#{item.skuCode},
+				#{item.barcode},
+				#{item.receivedTime},
+				#{item.expectedQty},
+				#{item.receivedQty},
+				#{item.lotatt01},
+				#{item.lotatt02},
+				#{item.lotatt03},
+				#{item.lotatt04},
+				#{item.lotatt05},
+				#{item.lotatt06},
+				#{item.lotatt07},
+				#{item.lotatt08},
+				#{item.lotatt09},
+				#{item.lotatt10},
+				#{item.lotatt11},
+				#{item.lotatt12},
+				#{item.createTime} )  
+	    </foreach>
+	</insert>	
+</mapper>

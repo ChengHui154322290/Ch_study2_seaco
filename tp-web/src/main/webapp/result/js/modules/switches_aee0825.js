@@ -1,0 +1,1 @@
+(function(){var t=this;t.switches=t.switches||{},t.switches.swt=function(s){var i=t.activeHost+t.activeUrl.switches.swt;ajaxPost(s,i)}}).call(xigou,Zepto);

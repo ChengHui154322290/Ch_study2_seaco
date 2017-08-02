@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryOccupyDao">
+	<resultMap type="com.tp.model.stg.InventoryOccupy" id="inventoryOccupy">
+				<id column="id" property="id"/>
+				<result column="inventory_dist_id" property="inventoryDistId"/>
+				<result column="app" property="app"/>
+				<result column="biz_id" property="bizId"/>
+				<result column="sku" property="sku"/>
+				<result column="inventory" property="inventory"/>
+				<result column="order_no" property="orderNo"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

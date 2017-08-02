@@ -1,0 +1,251 @@
+.ui-header {
+	border: 0;
+	border-bottom: 1px solid #929292;
+	background-color: #fff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+
+body {
+	background-color: #eeeeee;
+}
+
+div .list-block {
+	background-color: white;
+	width: 100%;
+	margin-top: 10px;
+}
+
+div .list-block:first-child {
+	margin-top: 55px;
+}
+
+.item-block {
+	height: 47px;
+	line-height: 47px;
+	margin-left: 15px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.list-block .item-block:last-child {
+	border-bottom: none;
+}
+
+.noborder {
+	border: none;
+}
+.item-block .label {
+	min-width: 25%;
+	float: left;
+	color: #333333;
+	font-size: 15px;
+	display: inline-block;
+}
+.item-block input {
+	width: 70%;
+	border: none;
+	font-size: 14px;
+	color: #333333;
+	height: 47px;
+	float: left;
+	line-height: 17px;
+}
+.div-register {
+	margin: 10px;
+	height: 39px;
+	line-height: 39px;
+	text-align: center;
+	border-radius: 6px;
+	color: #ffffff;
+	background-color: #ee3e54;
+}
+
+.div-register:active {
+	background-color: #f08391;
+}
+
+.disable {
+	color: #ffffff;
+	background-color: #CCCCCC;
+}
+
+.disable:active {
+	color: #ffffff;
+	background-color: #CCCCCC;
+}
+
+.register_btn {
+	width: 96%;
+	height: 40px;
+	float: left;
+	margin-left: 2%;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	font-size: 1em;
+	line-height: 40px;
+	text-align: center;
+	background-color: rgb(51,51,51);
+	color: white;
+}
+
+.gender {
+	list-style: none;
+	float: left;
+	width: 30px !important;
+	display: none;
+}
+.gender-label-m1 {
+	background: url('../img/dss/gender-m-1.png') no-repeat center;
+	background-size:30px;
+	width: 30px;
+	height: 100%;
+	margin-left: 25%;
+}
+.gender-label-m2 {
+	background: url('../img/dss/gender-m-2.png') no-repeat center;
+	background-size:30px;
+	width: 30px;
+	height: 100%;
+	margin-left: 25%;
+}
+.gender-label-f1 {
+	background: url('../img/dss/gender-f-1.png') no-repeat center;
+	background-size:30px;
+	width: 30px;
+	height: 100%;
+	margin-left: 25%;
+}
+.gender-label-f2 {
+	background: url('../img/dss/gender-f-2.png') no-repeat center;
+	background-size:30px;
+	width: 30px;
+	height: 100%;
+	margin-left: 25%;
+}
+
+.rerere {
+	position: relative;
+}
+
+#div_get_code {
+	position: absolute;
+	top: 9px;
+	right: 10px;
+	width: 99px;
+	height: 30px;
+	line-height: 34px;
+	text-align: center;
+	border: 1px solid #333333;
+	border-radius: 6px;
+	color: #333333;
+}
+
+.disble {
+	color: #cccccc!important;
+	border-color: #cccccc!important;
+}
+
+.necessary {
+	position: relative;
+}
+
+.necessary:after{
+	content: " ";
+	position: absolute;
+	right: 13px;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+	background: url("../img/dss/necessary.png") center no-repeat;
+	background-size: 100%;
+}
+
+.div_agree {
+	height: 50px;
+	line-height: 50px;
+	font-size: 12px;
+	margin-left: 17px;
+	position: relative;
+}
+
+.div-checkbox {
+	position: absolute;
+	width: 13px;
+	display: inline-block;
+	height: 100%;
+}
+
+.div-checkbox > input {
+	display: inline-block;
+	width: 13px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	height: 1px;
+	position: absolute;
+	overflow: visible;
+	border: 0px;
+	background: 0 0;
+	top: 50%;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.div-checkbox > input:before{
+	content: "";
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 13px;
+	background: url("../dss/img/unsel.png") center no-repeat;
+	background-size: 100%;
+}
+
+.div-checkbox > input:checked:before{
+	content: "";
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 13px;
+	background: url("../dss/img/select.png") center no-repeat;
+	background-size: 100%;
+}
+
+.div_agree > div.desc {
+	margin-left: 20px;
+	color: #333333;
+}
+
+.div_agree > div.desc > span.read {
+	color: #ee3e54;
+}
+
+.label_m {
+	float:left;
+	color:#cccccc;
+}
+
+.label_f {
+	float:left;
+	color:#cccccc;
+	margin-left: 20px;
+}
+
+.select {
+	color: #333333;
+}

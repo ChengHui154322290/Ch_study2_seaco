@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.SearchDao">
+    <resultMap type="com.tp.model.sch.Search" id="search">
+        <id column="id" property="id"/>
+        <result column="topic_item_id" property="topicItemId"/>
+        <result column="item_name" property="itemName"/>
+        <result column="topic_id" property="topicId"/>
+        <result column="topic_type" property="topicType"/>
+        <result column="sku" property="sku"/>
+        <result column="spu" property="spu"/>
+        <result column="item_id" property="itemId"/>
+        <result column="bar_code" property="barCode"/>
+        <result column="platform" property="platform"/>
+        <result column="topic_price" property="topicPrice"/>
+        <result column="sale_price" property="salePrice"/>
+        <result column="status" property="status"/>
+        <result column="item_status" property="itemStatus"/>
+        <result column="sales_count" property="salesCount"/>
+        <result column="inventory" property="inventory"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="rating" property="rating"/>
+        <result column="hits" property="hits"/>
+        <result column="item_img" property="itemImg"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="l_category_id" property="lCategoryId"/>
+        <result column="l_category_name" property="lCategoryName"/>
+        <result column="m_category_id" property="mCategoryId"/>
+        <result column="m_category_name" property="mCategoryName"/>
+        <result column="s_category_id" property="sCategoryId"/>
+        <result column="s_category_name" property="sCategoryName"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="channel_name" property="channelName"/>
+        <result column="country_id" property="countryId"/>
+        <result column="country_name" property="countryName"/>
+        <result column="spec_ids" property="specIds"/>
+        <result column="spec_details" property="specDetails"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="limit_amount" property="limitAmount"/>
+        <result column="topic_start" property="topicStart"/>
+        <result column="topic_end" property="topicEnd"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="shop_name" property="shopName"/>
+        <result column="sales_pattern" property="salesPattern"/>
+    </resultMap>
+
+    <delete id="delAll">
+		DELETE  FROM sch_search
+	</delete>
+
+    <sql id="columns">
+         id,
+        topic_item_id,
+        item_name,
+        topic_id,
+        topic_type,
+        sku,
+        spu,
+        item_id,
+        bar_code,
+        platform,
+        topic_price,
+        sale_price,
+        status,
+        item_status,
+        inventory,
+        sales_count,
+        comment_count,
+        rating,
+        hits,
+        item_img,
+        brand_id,
+        brand_name,
+        l_category_id,
+        l_category_name,
+        m_category_id,
+        m_category_name,
+        s_category_id,
+        s_category_name,
+        channel_id,
+        channel_name,
+        country_id,
+        country_name,
+        spec_ids,
+        spec_details,
+        supplier_id,
+        limit_amount,
+        topic_start,
+        topic_end,
+        create_time,
+        update_time,
+        shop_name,
+        sales_pattern
+
+    </sql>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO sch_search (
+        topic_item_id,
+        item_name,
+        topic_id,
+        topic_type,
+        sku,
+        spu,
+        item_id,
+        bar_code,
+        platform,
+        topic_price,
+        sale_price,
+        status,
+        item_status,
+        inventory,
+        sales_count,
+        comment_count,
+        rating,
+        hits,
+        item_img,
+        brand_id,
+        brand_name,
+        l_category_id,
+        l_category_name,
+        m_category_id,
+        m_category_name,
+        s_category_id,
+        s_category_name,
+        channel_id,
+        channel_name,
+        country_id,
+        country_name,
+        spec_ids,
+        spec_details,
+        supplier_id,
+        limit_amount,
+        topic_start,
+        topic_end,
+        create_time,
+        update_time,
+        shop_name,
+        sales_pattern
+        )
+        VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (
+            #{item.topicItemId},
+            #{item.itemName},
+            #{item.topicId},
+            #{item.topicType},
+            #{item.sku},
+            #{item.spu},
+            #{item.itemId},
+            #{item.barCode},
+            #{item.platform},
+            #{item.topicPrice},
+            #{item.salePrice},
+            #{item.status},
+            #{item.itemStatus},
+            #{item.inventory},
+            #{item.salesCount},
+            #{item.commentCount},
+            #{item.rating},
+            #{item.hits},
+            #{item.itemImg},
+            #{item.brandId},
+            #{item.brandName},
+            #{item.lCategoryId},
+            #{item.lCategoryName},
+            #{item.mCategoryId},
+            #{item.mCategoryName},
+            #{item.sCategoryId},
+            #{item.sCategoryName},
+            #{item.channelId},
+            #{item.channelName},
+            #{item.countryId},
+            #{item.countryName},
+            #{item.specIds},
+            #{item.specDetails},
+            #{item.supplierId},
+            #{item.limitAmount},
+            #{item.topicStart},
+            #{item.topicEnd},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.shopName},
+            #{item.salesPattern}
+            )
+        </foreach>
+
+
+    </insert>
+
+    <select id="getAll" resultMap="search">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search
+    </select>
+
+    <select id="getAllNormal" resultMap="search">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search
+        WHERE status = 0
+    </select>
+
+    <select id="getUpdatedByUpdateTime"  resultMap="search">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search
+        WHERE status = 0
+        <if test="timestamp!=null">
+            AND  update_time>=#{timestamp}
+        </if>
+
+    </select>
+
+    <select id="getAllDel" resultMap="search">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search
+        WHERE status = -1
+    </select>
+
+    <delete id="deleteByIds" parameterType="java.util.List" >
+        DELETE FROM  sch_search
+        WHERE id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </delete>
+
+    <update id="updateStatusToDelByTopicItemIds">
+
+        UPDATE sch_search
+        SET status = -1,update_time = #{date}
+        WHERE topic_item_id IN
+        <foreach collection="ids" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+    </update>
+
+    <select id="timestamp" resultType="java.util.Date">
+        SELECT  NOW()
+    </select>
+
+    <update id="updateDataById" parameterType="com.tp.model.sch.Search">
+        UPDATE sch_search
+        SET topic_item_id=#{topicItemId},
+        item_name=#{itemName},
+        topic_id=#{topicId},
+        topic_type=#{topicType},
+        sku=#{sku},
+        spu=#{spu},
+        item_id=#{itemId},
+        bar_code=#{barCode},
+        platform=#{platform},
+        topic_price=#{topicPrice},
+        sale_price=#{salePrice},
+        status=#{status},
+        item_status=#{itemStatus},
+        inventory=#{inventory},
+        sales_count=#{salesCount},
+        comment_count=#{commentCount},
+        rating=#{rating},
+        hits=#{hits},
+        item_img=#{itemImg},
+        brand_id=#{brandId},
+        brand_name=#{brandName},
+        l_category_id=#{lCategoryId},
+        l_category_name=#{lCategoryName},
+        m_category_id=#{mCategoryId},
+        m_category_name=#{mCategoryName},
+        s_category_id=#{sCategoryId},
+        s_category_name=#{sCategoryName},
+        channel_id=#{channelId},
+        channel_name=#{channelName},
+        country_id=#{countryId},
+        country_name=#{countryName},
+        spec_ids=#{specIds},
+        spec_details=#{specDetails},
+        supplier_id=#{supplierId},
+        limit_amount=#{limitAmount},
+        topic_start=#{topicStart},
+        topic_end=#{topicEnd},
+        update_time=#{updateTime},
+        shop_name=#{shopName},
+        sales_pattern=#{salesPattern}
+        WHERE id = #{id}
+
+    </update>
+
+</mapper>

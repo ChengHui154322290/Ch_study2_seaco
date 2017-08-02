@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.SeagoorPayInfoDao">
+	<resultMap type="com.tp.model.pay.SeagoorPayInfo" id="seagoorPayInfo">
+				<id column="id" property="id"/>
+				<result column="payment_code" property="paymentCode"/>
+				<result column="biz_type" property="bizType"/>
+				<result column="status" property="status"/>
+				<result column="member_id" property="memberId"/>
+				<result column="merchant_id" property="merchantId"/>
+				<result column="mer_trade_code" property="merTradeCode"/>
+				<result column="device_info" property="deviceInfo"/>
+				<result column="total_fee" property="totalFee"/>
+				<result column="item_desc" property="itemDesc"/>
+				<result column="item_detail" property="itemDetail"/>
+				<result column="item_tag" property="itemTag"/>
+				<result column="attach" property="attach"/>
+				<result column="ip" property="ip"/>
+				<result column="pay_code" property="payCode"/>
+				<result column="rand_str" property="randStr"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,payment_code,biz_type,status,member_id,merchant_id,mer_trade_code,device_info,total_fee,item_desc,item_detail,item_tag,attach,ip,pay_code,rand_str,create_time,update_time,create_user,update_user
+	</sql>
+
+
+	<select id="queryByParamForPage" parameterType="java.util.Map" resultMap="seagoorPayInfo">
+		SELECT <include refid="columns"/>
+		FROM
+		pay_seagoor_pay_info
+		<include refid="queryByParamForPageCause"></include>
+		ORDER  BY  id desc
+		limit #{start},#{size}
+	</select>
+
+	<select id="queryByParamForPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM
+		pay_seagoor_pay_info
+		<include refid="queryByParamForPageCause"></include>
+	</select>
+
+
+	<sql id="queryByParamForPageCause">
+		<where>
+			merchant_id = #{merchantId}
+			<if test="merTradeCode!= null ">
+				AND  mer_trade_code = #{merTradeCode}
+			</if>
+
+			<if test="paymentCode!= null ">
+				AND  payment_code = #{paymentCode}
+			</if>
+
+			<if test="beginTime!= null ">
+				AND  create_time >= #{beginTime}
+			</if>
+			<if test="endTime!= null ">
+				AND  create_time  <![CDATA[ <=]]> #{endTime}
+			</if>
+			<if test="status!= null ">
+				AND  status = #{status}
+			</if>
+
+		</where>
+	</sql>
+
+</mapper>

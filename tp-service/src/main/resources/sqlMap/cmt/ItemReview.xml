@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cmt.ItemReviewDao">
+	<resultMap type="com.tp.model.cmt.ItemReview" id="itemReview">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="pid" property="pid"/>
+				<result column="spu" property="spu"/>
+				<result column="sku" property="sku"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="uid" property="uid"/>
+				<result column="user_name" property="userName"/>
+				<result column="subject" property="subject"/>
+				<result column="content" property="content"/>
+				<result column="is_check" property="isCheck"/>
+				<result column="is_anonymous" property="isAnonymous"/>
+				<result column="is_top" property="isTop"/>
+				<result column="is_hide" property="isHide"/>
+				<result column="is_import" property="isImport"/>
+				<result column="is_essence" property="isEssence"/>
+				<result column="has_img" property="hasImg"/>
+				<result column="has_reply" property="hasReply"/>
+				<result column="has_negative" property="hasNegative"/>
+				<result column="fail_reason" property="failReason"/>
+				<result column="mark" property="mark"/>
+				<result column="service_mark" property="serviceMark"/>
+				<result column="baby_age" property="babyAge"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="delete_time" property="deleteTime"/>
+				<result column="is_delete" property="isDelete"/>
+				<result column="user_img_url" property="userImgUrl"/>
+				<result column="plat_form" property="platForm"/>
+				<result column="bt_code" property="btCode"/>
+				<result column="enc_user_id" property="encUserId"/>
+				<result column="item_review_bbt_id" property="itemReviewBbtId"/>
+				<result column="source" property="source"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,81 @@
+body{
+    background:#fff;
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 26px;
+    height: 25px;
+    background: url("../img/logon/close.png") center no-repeat;
+    background-size: 26px;
+}
+
+.logon_bg {
+    position: absolute;
+    top: 10%;
+    height: 186px;
+    left: 0px;
+    right: 0px;
+    background: url("../img/logon/logo.png") center no-repeat;
+    background-size: auto 100%;
+}
+
+.div_login {
+    margin-bottom: 10px;
+    /*position: absolute;*/
+    /*bottom: 125px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*height: 44px;*/
+}
+
+.div_login > a {
+    display: block;
+    width: 274px;
+    height: 100%;
+    margin: 0px auto;
+    background-color: #333333;
+    border-radius: 44px;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 44px;
+    text-align: center;
+}
+
+.div_login > a:active {
+    background-color: #cccccc;
+}
+
+.div_register {
+    /*position: absolute;*/
+    /*bottom: 67px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*height: 44px;*/
+}
+
+.div_register > a {
+    display: block;
+    width: 274px;
+    height: 100%;
+    margin: 0px auto;
+    border-radius: 44px;
+    border: 1px solid #333333;
+    font-size: 16px;
+    color: #333333;
+    line-height: 44px;
+    text-align: center;
+}
+
+.div_register > a:active {
+    background-color: #cccccc;
+}
+.logBottom{
+    position: absolute;
+    bottom: 10%;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.ModifyMobileLogDao">
+	<resultMap type="com.tp.model.mem.ModifyMobileLog" id="modifyMobileLog">
+				<id column="id" property="id"/>
+				<result column="old_tel" property="oldTel"/>
+				<result column="new_tel" property="newTel"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,old_tel,new_tel,create_time,create_user
+	</sql>
+</mapper>

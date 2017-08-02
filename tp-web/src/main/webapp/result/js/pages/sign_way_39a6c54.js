@@ -1,0 +1,1 @@
+$(function(){var e=xigou.getQueryString("type");1==e&&($("header").hide(),$(".rules").css("margin-top","16px"))});

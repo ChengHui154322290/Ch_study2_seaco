@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>西客商城</title>
+	<meta name="Keywords" content="西客商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="/modifiable/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/frozen_6b1c8d5.css" />
+	<link rel="stylesheet" href="/css/settle_df19130.css" />
+	<link rel="stylesheet" href="/css/demo_810378f.css" />
+	<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/frozen_2363f40.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<header>
+		<h1>提交订单</h1>
+		<a href="cart.html" class="goBack"></a>
+		<a href="index.html" class="goIndex"></a>
+	</header>
+
+	<div class="content">
+		<ul class="ui-list ui-list-one ui-list-link ui-border-tb">
+			<li class="ui-border-t ui-border-address" id="li_recvaddress_info" aid="-1">
+				<div class="div_add_info">
+					<div class="div_address"></div>
+					<div class="settle-address-info">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-tb">
+			<li class="ui-border-t ui-border-tel" id="li_recvaddress_info" aid="-1">
+				<div class="sel-coupon-tel">
+					<form action="#">
+                    	<input type="text" id="telephone" class="receiveTel" placeholder="请输入手机号">
+                    	<div class="div_clear_input1"></div>
+            		</form>
+				</div>
+			</li>
+		</ul>
+		<!--<ul class="ui-list ui-list-one ui-list-link ui-border-tb">-->
+			<!--<li class="ui-border-t" id = "select_auth">-->
+				<!--<div class="settle-auth-icon">-->
+				<!--</div>-->
+				<!--<div class="settle-auth-info">-->
+				<!--</div>-->
+			<!--</li>-->
+		<!--</ul>-->
+		<ul class="ui-list ui-list-one ui-list-link ui-border-tb" id="coupon_list">
+			<li  id="li_coupon_info" cid="">
+				<div class="sel-coupon-icon">
+					优惠券
+				</div>
+				<div class="ui-list-info ui-border-t" >
+					<h4 class="ui-nowrap" id="coupon" >优惠券</h4>
+					<div class="ui-txt-info"></div>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-tb settle-list">
+
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-tb" style="margin-top:0px;">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666;">
+					   共<span class="ui-nowrap" style="font-size: 15px;color: #666666;" id="agio_nmb"></span>个西客币，
+					  本订单 可抵<span class="ui-nowrap usedpoint" style="font-size: 15px;color: #666666;" id="agio_price" usedpoint=""></span>元</h4>
+					<span class="floor_right floor_right_switch" id="switch" usedpointsign="false"><img alt="switch" src="/img/settle/close.png"></span>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-top" style="margin-top:0px;">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666;">商品金额</h4>
+					<span class="floor_right" id="productPrice"><!-- ¥80.00 --></span>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-top total-freight">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666">总运费</h4>
+					<span class="floor_right" id="freight"><!-- ¥20.00 --></span>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-top total-freight">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666">总进口税</h4>
+					<span class="floor_right" id="taxes"><!-- ¥20.00 --></span>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-top">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666">优惠券抵用金额</h4>
+					<span class="floor_right" id="couponnum">-¥0</span>
+				</div>
+			</li>
+		</ul>
+		<ul class="ui-list ui-list-one ui-border-top">
+			<li>
+				<div class="ui-list-info ui-border-t" style="line-height: 24px">
+					<h4 class="ui-nowrap" style="font-size: 15px;color: #666666">应付金额</h4>
+					<span class="floor_right" id="totalPayments"><!-- ¥90.00 --></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<section class="summitBar">
+		<ul>
+			<li class="submit-btn" ><button class="submit-btn-text">提交订单</button></li>
+			<!-- <li class="submit-btn" ><a href="javascript:void(0);" class="submit-btn-text">提交订单</a></li> -->
+		</ul>
+	</section>
+	<div class="div_tip_bg"></div>
+	<div class="div_tip">
+		<!--<div class="div_title">温馨提示</div>-->
+		<div class="div_desc">商品需办理清关手续，请您配合实名认证<a id = "closeBtn"></a></div>
+		<!--<div class="div_auth_info name_info">-->
+			<!--<div>收货人</div>-->
+			<!--<div>-->
+				<!--<input id="auth-name-input" type="text" placeholder="收货人与身份证姓名保持一致">-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="div_auth_info num_info">
+			<div>身份证号码</div>
+			<div>
+				<input id="auth-num-input" type="text" placeholder="填写后,我们将做加密处理">
+			</div>
+		</div>
+		<p class = "rz_tips" style="padding-top:20px;">请您上传身份证</p>
+		<p class = "rz_tips" style="font-weight: normal;">(只限购买直邮商品的清关手续，不做其他事宜，其他人无法查看)</p>
+		<div class = "imgBox">
+			<div class = "imgItem">
+				<input id="file_photo_1" type="file" size="10" style="display:none;" class="input_photo">
+				<img id="upload_img_itme1" src="/img/address/upload.png">
+			</div>
+			<div class = "imgItem" style="float: right;margin-left: 0px;">
+				<input id="file_photo_2" type="file" size="10" style="display:none;" class="input_photo">
+				<img id="upload_img_itme2" src="/img/address/upload.png">
+			</div>
+			<div class ="clearfl"></div>
+		</div>
+		<div class="div_btn_opt">
+			<!--<div id="cancel_submit">取消</div>-->
+			<a id="submit_auth">提交认证</a>
+		</div>
+
+	</div>
+
+
+</body>
+
+<script src="/js/xigou_b90d4fc.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/common/statistics_d41d8cd.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/base_7878327.js"></script>
+<script type="text/javascript" src="/js/static_data_413e835.js"></script>
+<script type="text/javascript" src="/js/modules/user_a5be69e.js"></script>
+<script type="text/javascript" src="/js/modules/settle_5088741.js"></script>
+<script type="text/javascript" src="/js/cmbc/tripledes_f92bce2.js"></script>
+<script type="text/javascript" src="/js/cmbc/mode-ecb_079fb6a.js"></script>
+<script type="text/javascript" src="/js/cmbc/md5_e41e772.js"></script>
+<script type="text/javascript" src="/js/pages/settle_4d2f709.js"></script>
+
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.logistics.WaybillApplicationDao">
+	<resultMap type="com.tp.model.wms.WaybillApplication" id="waybillApplication">
+				<id column="id" property="id"/>
+				<result column="logistics_code" property="logisticsCode"/>
+				<result column="logistics_name" property="logisticsName"/>
+				<result column="amount" property="amount"/>
+				<result column="waybill_low" property="waybillLow"/>
+				<result column="waybill_up" property="waybillUp"/>
+				<result column="actual_amount" property="actualAmount"/>
+				<result column="status" property="status"/>
+				<result column="result_msg" property="resultMsg"/>
+				<result column="apply_time" property="applyTime"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="remark" property="remark"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,logistics_code,logistics_name,amount,waybill_low,waybill_up,actual_amount,status,result_msg,apply_time,create_time,update_time,remark
+	</sql>
+</mapper>

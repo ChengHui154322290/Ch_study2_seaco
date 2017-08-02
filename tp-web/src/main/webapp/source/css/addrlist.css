@@ -1,0 +1,44 @@
+.goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../img/back.png) no-repeat center;
+    background-size: 13px;
+}
+.goHome {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    right: 0px;
+    background: url(../img/home.png) no-repeat center;
+    background-size: 25px;
+}
+.addrlist-list{
+    width: 100%;
+}
+
+#area div {
+    padding: 10px;
+}
+.floor_city {
+    margin-left: 10px;
+}
+
+#area >div>.addrlist-ul {
+    margin-top: 10px;
+}
+/*		.addrlist-ul {
+			margin-top: 10px;
+		}*/
+.ui-list-link > li:after {
+    font-size: 16px;
+}
+.ui-list-link >.province:after {
+    margin-right: -20px;
+    font-size: 16px;
+}

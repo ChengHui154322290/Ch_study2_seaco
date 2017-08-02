@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemPicturesDao">
+	<resultMap type="com.tp.model.prd.ItemPictures" id="itemPictures">
+				<id column="id" property="id"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="item_id" property="itemId"/>
+				<result column="picture" property="picture"/>
+				<result column="main" property="main"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,detail_id,item_id,picture,main,create_time,create_user
+	</sql>
+
+
+	<select id="queryMainPicByItemIds" resultMap="itemPictures" parameterType="java.util.List">
+		SELECT <include refid="columns"></include>
+		FROM prd_item_pictures
+		WHERE item_id IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+    <select id="queryUnUploadToQiNiu" resultMap="itemPictures" >
+		SELECT <include refid="columns"></include>
+		FROM prd_item_pictures
+		WHERE picture like 'http%'
+		order by create_time DESC
+		limit 10  
+	</select>
+    
+    
+    
+</mapper>

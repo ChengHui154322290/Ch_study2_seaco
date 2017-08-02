@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.InventorySearchDao">
+	<resultMap type="com.tp.model.sch.InventorySearch" id="inventorySearch">
+		<result column="sku" property="sku"/>
+		<result column="biz_id" property="bizId"/>
+		<result column="inventory" property="inventory"/>
+		<result column="app" property="app"/>
+	</resultMap>
+
+	<select id="getItemsInventory" resultMap="inventorySearch" parameterType="java.util.List">
+		SELECT sku,biz_id,inventory
+		FROM stg_inventory_distribute
+		WHERE
+		<foreach collection="list" separator="or" item="item">
+			(sku = #{item.sku} AND  biz_id = #{item.topicId} AND app ='PROMOTION' AND backed=0)
+		</foreach>
+	</select>
+
+</mapper>

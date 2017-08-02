@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.SearchKeyCensusDao">
+    <resultMap type="com.tp.model.sch.SearchKeyCensus" id="searchKeyCensus">
+        <id column="id" property="id"/>
+        <result column="search_type" property="searchType"/>
+        <result column="search_key" property="searchKey"/>
+        <result column="search_date" property="searchDate"/>
+        <result column="search_count" property="searchCount"/>
+    </resultMap>
+    <sql id="columns">
+		id,
+		search_type,
+		search_key,
+		search_date,
+		search_count
+	</sql>
+
+
+    <select id="multiQuery" parameterType="com.tp.dto.sch.SearchKeyCensusQuery" resultMap="searchKeyCensus">
+        SELECT
+        search_key ,SUM(search_count) search_count
+
+        FROM sch_search_key_census
+        WHERE
+        <include refid="multi-cause"></include>
+
+        ORDER BY search_count desc
+        limit #{start},#{pageSize}
+
+    </select>
+
+    <select id="multiQueryCount" parameterType="com.tp.dto.sch.SearchKeyCensusQuery" resultType="java.lang.Integer">
+        SELECT  count(1) FROM
+        (
+        SELECT
+        search_key ,SUM(search_count) search_count
+
+        FROM sch_search_key_census
+        WHERE
+       <include refid="multi-cause"></include>
+
+        ) t
+
+    </select>
+
+    <sql id="multi-cause">
+
+        search_type = #{searchType}
+
+        <if test=" startTime != null">
+            AND  search_date >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND  search_date  <![CDATA[ <=]]>  #{endTime}
+        </if>
+
+        GROUP BY search_key
+
+
+    </sql>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.StatisticScreenDao">
+	<resultMap type="com.tp.model.app.StatisticScreen" id="statisticScreen">
+				<id column="id" property="id"/>
+				<result column="orientation" property="orientation"/>
+				<result column="hold_time" property="holdTime"/>
+				<result column="current_view" property="currentView"/>
+				<result column="create_time" property="createTime"/>
+				<result column="sta_base_id" property="staBaseId"/>
+	</resultMap>
+</mapper>

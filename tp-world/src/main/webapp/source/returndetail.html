@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西客商城</title>
+		<meta name="Keywords" content="西客商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/returndetail.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+	<div class="ui-header">
+		<h1>售后详情</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+	</div>
+	<div class="whitespace returnInfo">
+		<div>
+			<span id="id_returnresult"></span>
+			<div class="returnNo">售后单号：<span id="id_returnNo"></span></div>
+		</div>
+		<div class="time">申请时间：<span id="id_time"></span></div>
+	</div>
+	<div class="whitespace div_splite complete"></div>
+	<div class="webket_box whitespace complete div_return_desc_info">
+		<div id="div_return_desc">审核通过</div>
+		<div class="webket_box_item div_add_address" id="div_return_info"></div>
+		<div class="div_tip_address">
+			<span>退货地址</span>
+		</div>
+	</div>
+	<div class="whitespace webket_box complete" id="id_opt_div">
+		<div class="webket_box_item" id="cancal_return">撤销售后申请</div>
+		<div class="webket_box_item" id="modify_return">重新提交售后申请</div>
+	</div>
+	<div class="return_item_info">
+		<div class="complete" id="tuihuo">退货商品</div>
+		<ul class="ui-list">
+			<li class="li_item_info">
+				<div class="ui-list-img">
+					<a href="javascript:void(0)">
+						<img src="" id="id_item_img" alt="" width="75" height="75">
+					</a>
+				</div>
+				<div class="ui_list_info">
+					<span class="lineprice" id="id_line_price">¥<span>100</span>.90</span>
+					<div class="ui_list_name">
+						<!--<a href="javascript:void(0)">-->
+						<!--</a>-->
+					</div>
+					<span class="lineprice" id="id_count">×2</span>
+					<div class="item_format">&nbsp;&nbsp;</div>
+					<span class="item_totle_price">¥<span>201</span>.80</span>
+				</div>
+			</li>
+		</ul>
+		<div class="total_price">
+			<div class="total_price_info">共1件 退款金额：<span class="price_fen">¥<span class="price_yuan">100.</span>90</span></div>
+		</div>
+	</div>
+	<div class="whitespace">
+		<div class="div_return_reson">
+			退货原因
+			<span id="id_span_reson"></span>
+		</div>
+		<div class="div_return_explain">
+			<div class="div_desc">退货说明</div>
+			<div id="id_span_explain"></div>
+		</div>
+		<div class="div_updata_photo_box">
+			<div class="div_updata_photo_item" id="upload_itme1">
+				<img id="id_img_photo1" width="58px" height="58px">
+			</div>
+			<div class="div_updata_photo_item" id="upload_itme2">
+				<img id="id_img_photo2" width="58px" height="58px">
+			</div>
+			<div class="div_updata_photo_item" id="upload_itme3">
+				<img id="id_img_photo3" width="58px" height="58px">
+			</div>
+			<div class="div_updata_photo_item" id="upload_itme4">
+				<img id="id_img_photo4" width="58px" height="58px">
+			</div>
+			<div class="div_updata_photo_item" id="upload_itme5">
+				<img id="id_img_photo5" width="58px" height="58px">
+			</div>
+		</div>
+		<div class="div_with_logistics" id="id_space"></div>
+	</div>
+
+	<div class="whitespace div_no_complete" id="id_logistics_info">
+		<div id="id_logistics_company">
+			<label>物流公司</label>
+			<div>
+				<input id="input_company" type="text" placeholder="请选择退货物流公司" disabled="disabled">
+			</div>
+		</div>
+		<div>
+			<label>快递单号</label>
+			<div>
+				<input id="input_no" type="text" placeholder="请填写退货物流单号" onkeyup="OnTextChange()">
+			</div>
+		</div>
+	</div>
+
+	<div class="ui-footer complete">
+		<div class="confirm">提交退货信息</div>
+	</div>
+
+	</body>
+
+	<script type="text/javascript" src="./js/xigou.js"></script>
+	<script type="text/javascript" src="./js/base.js"></script>
+	<script type="text/javascript" src="./js/modules/user.js"></script>
+	<script type="text/javascript" src="./js/modules/aftersales.js"></script>
+	<script type="text/javascript" src="./js/pages/returndetail.js"></script>
+
+</html>

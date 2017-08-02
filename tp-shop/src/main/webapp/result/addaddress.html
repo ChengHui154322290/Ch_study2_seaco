@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>添加收货地址</title>
+		<meta name="Keywords" content="全球购商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="/css/frozen_f717264.css" />
+		<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+		<link rel="stylesheet" type="text/css" href="/css/addaddress_c63007a.css" />
+		<link rel="stylesheet" type="text/css" href="/css/mobile-select-area_3d35a55.css">	
+		<!-- <script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="/js/pages/zepto.marea_549c14b.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/frozen_f33552a.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/xigou_7e7a903.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/dropload.min_d0f3d54.js"></script>
+		<script type="text/javascript" src="/js/pages/dialog_6c6aa4a.js"></script>
+		<script type="text/javascript" src="/js/pages/mobile-select-area_035b1c8.js"></script> 
+		<style type="text/css">
+			body>div{
+				line-height: 40px;
+				color:#666;
+			}
+		</style>
+	</head>
+
+	<body>
+        <!-- <div class="ui-header">
+            <h1>添加收货地址</h1>
+            <a href="recvaddress.html" class="goBack"></a>
+            <button href="" class="address-save">保存</button>
+        </div> -->
+		<div class="ui-form ui-border-t">
+            <div class="desc">收货地址信息（必填）</div>
+            <form action="#">
+                <div class="ui-form-item ui-border-b">
+                    <label>
+                        收货人
+                    </label>
+                    <input type="text" id="name" placeholder="请输入真实的姓名">
+                </div>
+                <div class="ui-form-item ui-border-b">
+                    <label>
+                        手机号码
+                    </label>
+                    <input type="text" id="telephone" placeholder="请输入11位手机号">
+                </div>
+                <div class="ui-form-item ui-border-b select_eare_div">
+                    <a class="address-select-arrow" id="provinces">
+                        <span class="span_area">所在区域</span>
+                        <input type="text" class="address-select-input" id="rela_area" value="省 市 区" readonly/>                        
+                   		<input type="hidden" id="areaidlist"/>
+                    </a>
+                </div>
+                <div class="ui-form-item ui-border-b select_eare_div">
+                    <a class="address-select-arrow">
+                        <span class="span_area">乡镇街道</span>
+                        <input type="text" class="street-select-input" id="rela_street" value="" readonly/>                        
+                   		<input type="hidden" id="streetId"/>
+                    </a>
+                </div>
+               <!--  <div class="ui-form-item ui-border-b select_eare_div">
+                    <a class="address-select-arrow" id="provinces" href="addrlist.html?showChooseArea=false&backurl=addaddress.html">
+                        <span class="span_area">所在区域</span>
+                        <textarea class="address-select-input" id="rela_area" placeholder="" disabled></textarea>
+                    </a>
+                </div> -->
+                <div class="ui-form-item ui-border-b address-area">
+                    <label>
+                        详细地址
+                    </label>
+                    <!-- <input id="addressinfo" type="text" placeholder=""> -->
+                    <textarea id="addressinfo" maxlength="50" class="detail-address" value=""></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="div_up_photo">
+            <div class="div_desc">商品需要办理清关手续，实名认证信息（必填）</div>
+            <div class="ui-form-item ui-border-b">
+                <label>
+                    身份证号码
+                </label>
+                <input type="text" id="identityCard" placeholder="填写后，我们将做加密处理">
+            </div>
+            <div class="div_desc1">请您上传身份证</div>
+            <div class="div_desc2">(只限购买直邮商品的清关手续，不做其他事宜，其他人无法查看)</div>
+            <div class="div_up_photo_area">
+                <div class="div_updata_photo_item">
+                    <input id="file_photo_1" type="file" size="10" style="display:none;" class="input_photo">
+                    <img id="upload_img_itme1" src="/img/address/upload.png">
+                </div>
+                <div class="div_updata_photo_item">
+                    <input id="file_photo_2" type="file" size="10" style="display:none;" class="input_photo">
+                    <img id="upload_img_itme2" src="/img/address/upload.png">
+                </div>
+            </div>
+        </div>
+        <section class="add_new">
+			<button class="address-save_wx">保存</button>
+		</section>
+		<!--<div class="adress-set">-->
+            <!--<p> -->
+                <!--<label class="ui-checkbox-s">-->
+                    <!--<input class="adress-set-icon" id="isdefault" type="checkbox" name="checkbox">-->
+                <!--</label>-->
+                 <!--设为默认地址-->
+            <!--</p>-->
+        <!--</div>-->
+	</body>
+
+<script type="text/javascript" src="/js/common/statistics_d41d8cd.js"></script>
+<script type="text/javascript" src="/js/common/valiformdata_d218afd.js"></script>
+<script type="text/javascript" src="/js/static_data_b6187ca.js"></script>
+<script type="text/javascript" src="/js/base_d40a5e9.js"></script>
+<script type="text/javascript" src="/js/thirdshop_9a2a34e.js"></script>
+<script type="text/javascript" src="/js/modules/user_03072ef.js"></script>
+<script type="text/javascript" src="/js/pages/addaddress_72f17e8.js"></script>
+<script type="text/javascript" src="/js/pages/addaddress1_974c992.js"></script> 
+<script type="text/javascript" src="/js/modules/area_43a68a1.js"></script>
+
+</html>

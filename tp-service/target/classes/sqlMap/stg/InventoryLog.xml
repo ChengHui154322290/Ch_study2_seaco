@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryLogDao">
+	<resultMap type="com.tp.model.stg.InventoryLog" id="inventoryLog">
+		<id column="id" property="id" />
+		<result column="wh_code" property="whCode" />
+		<result column="order_code" property="orderCode" />
+		<result column="ship_code" property="shipCode" />
+		<result column="sku" property="sku" />
+		<result column="barcode" property="barcode" />
+		<result column="sku_count" property="skuCount" />
+		<result column="inventory" property="inventory" />
+		<result column="type" property="type" />
+		<result column="district_id" property="districtId" />
+		<result column="batch_no" property="batchNo" />
+		<result column="express_id" property="expressId" />
+		<result column="express_name" property="expressName" />
+		<result column="supplier_id" property="supplierId" />
+		<result column="warehouse_id" property="warehouseId" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+	<sql id="columns">
+	      id,wh_code,order_code,ship_code,sku,barcode,sku_count,inventory,type,district_id,batch_no,create_time,warehouse_id,express_id,express_name,supplier_id
+ 	</sql>
+ 	
+	<insert id="insertBatch" parameterType="java.util.List"
+		useGeneratedKeys="true">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID() AS id
+		</selectKey>
+		INSERT INTO stg_inventory_log(
+			id,
+			wh_code,
+			order_code,
+			ship_code,
+			sku,
+			barcode,
+			sku_count,
+			inventory,
+			type,
+			district_id,
+			batch_no,
+			create_time,
+			warehouse_id,
+			express_id,
+			express_name,
+			supplier_id
+			)values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.id},
+			#{item.whCode},
+			#{item.orderCode},
+			#{item.shipCode},
+			#{item.sku},
+			#{item.barcode},
+			#{item.skuCount},
+			#{item.inventory},
+			#{item.type},
+			#{item.districtId},
+			#{item.batchNo},
+			now(),
+			#{item.warehouseId},
+			#{item.expressId},
+			#{item.expressName},
+			#{item.supplierId}
+			)
+		</foreach>
+	</insert>
+
+
+	<select id="queryDistinctWareHouseIdForExport"
+		resultType="com.tp.model.stg.InventoryLog" parameterType="com.tp.model.stg.InventoryLog">
+		SELECT
+			distinct warehouse_id warehouseId
+		FROM
+			stg_inventory_log
+		<where>
+			<if test="sku != null  and sku != '' "> AND sku=#{sku} </if>
+			<if test="createBeginTime != null  and createBeginTime != '' "> AND create_time >= #{createBeginTime} </if>
+			<if test="createEndTime != null  and createEndTime != ''">
+				AND create_time <![CDATA[<=]]>
+				#{createEndTime}
+			</if>
+		</where>
+		order by id desc
+		Limit #{exportCount}
+	</select>
+
+	<select id="queryCountByList" parameterType="java.util.List" resultType="java.lang.Integer">
+		SELECT count(1) FROM stg_inventory_log
+		WHERE
+		<foreach collection="list" separator="or" item="item">
+			order_code =#{item.orderCode} AND
+			sku = #{item.sku} AND
+			sku_count = #{item.skuCount} AND
+			type = #{item.type} AND
+			district_id = #{item.districtId} AND
+			supplier_id = #{item.supplierId} AND
+			warehouse_id = #{item.warehouseId} AND
+			inventory = #{item.inventory}
+
+		</foreach>
+
+
+	</select>
+
+</mapper>

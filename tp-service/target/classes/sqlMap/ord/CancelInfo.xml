@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.CancelInfoDao">
+	<resultMap type="com.tp.model.ord.CancelInfo" id="cancelInfo">
+				<id column="cancel_id" property="cancelId"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="cancel_code" property="cancelCode"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="cancel_status" property="cancelStatus"/>
+				<result column="remarks" property="remarks"/>
+				<result column="refund_code" property="refundCode"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="user_id" property="userId"/>
+				<result column="user_name" property="userName"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		cancel_id,order_code,cancel_code,refund_amount,cancel_status,remarks,refund_code,supplier_id,supplier_name,user_id,user_name,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

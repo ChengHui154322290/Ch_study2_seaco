@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PointPackageDetailDao">
+	<resultMap type="com.tp.model.mmp.PointPackageDetail" id="pointPackageDetail">
+				<id column="point_package_detail_id" property="pointPackageDetailId"/>
+				<result column="point_package_id" property="pointPackageId"/>
+				<result column="point_detail_id" property="pointDetailId"/>
+				<result column="point" property="point"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		point_package_detail_id,<include refid="columnsByInsert"></include>
+	</sql>
+	<sql id="columnsByInsert">
+		point_package_id,point_detail_id,point,create_time,create_user
+	</sql>
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO mmp_point_package_detail(
+        	<include refid="columnsByInsert"></include>
+		)values
+		<foreach collection="pointPackageDetailList" item="item" index="index" separator=",">
+			(
+			#{item.pointPackageId},#{item.pointDetailId},#{item.point},now(),#{item.createUser}
+			)
+		</foreach>
+    </insert>
+    <select id="queryListByPointDetailId" resultMap="pointPackageDetail" parameterType="long">
+    	select <include refid="columns"></include>
+    	  from mmp_point_package_detail
+    	 where point_detail_id = #{value}
+    </select>
+    
+</mapper>

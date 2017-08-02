@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.MemberSignPointDao">
+	<resultMap type="com.tp.model.mem.MemberSignPoint" id="memberSignPoint">
+				<id column="id" property="id"/>
+				<result column="member_id" property="memberId"/>
+				<result column="sign_date" property="signDate"/>
+				<result column="days" property="days"/>
+				<result column="point" property="point"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,member_id,sign_date,days,point,create_time,create_user
+	</sql>
+</mapper>

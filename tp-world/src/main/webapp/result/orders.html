@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>西客商城</title>
+	<meta name="Keywords" content="西客商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/frozen_850342a.css" />
+	<link rel="stylesheet" href="/css/demo_810378f.css" />
+	<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+	<link rel="stylesheet" href="/css/orders_151dde5.css" />
+	<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/frozen_2363f40.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/xigou_5203c30.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/dropload.min_d0f3d54.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1>我的订单</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+		<a href="home.html" class="goHome"></a>
+	</header>
+	<div class="ui-tab">
+		<ul class="ui-tab-nav ui-border-b top_nav_list">
+			<li>全部订单</li>
+			<li>待付款</li>
+			<li>待收货</li>
+			<li>待使用</li>
+		</ul>
+		<ul class="ui-tab-content" style="width:300%; transition-property: transform; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 300ms; transform: translate(-375px, 0px) translateZ(0px);">
+			<li>
+				<div class="orders-list">		        		
+				</div>
+			</li>
+			<li>
+				<div class="orders-pending">
+				</div>
+			</li>
+			<li>
+				<div class="orders-ship">
+				</div>
+			</li>
+			<li>
+				<div class="orders-use">
+				</div>
+			</li>
+		</ul>
+	</div>
+	<form class="hide" id="submit_pay" name="alipaysubmit" action="" method="post"></form>
+	<script class="demo-script">
+		(function (){
+			order_tab = new fz.Scroll('.ui-tab', {
+				role: 'tab',
+				autoplay: false,
+				interval: 3000
+			});
+
+
+
+		})();
+	</script>
+</body>
+
+<script type="text/javascript" src="/js/static_data_b6187ca.js"></script>
+<script type="text/javascript" src="/js/base_7a12ce8.js"></script>
+<script type="text/javascript" src="/js/modules/user_91a557a.js"></script>
+<script type="text/javascript" src="/js/modules/orderspay_30dd541.js"></script>
+<script type="text/javascript" src="/js/pages/orders_92f8996.js"></script>
+<script type="text/javascript" src="/js/pages/pendingpay_1673afc.js"></script>
+<script type="text/javascript" src="/js/pages/pendingship_249f3cf.js"></script>
+<script type="text/javascript" src="/js/pages/pendinguse_70d18fe.js"></script>
+</html>

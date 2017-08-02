@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PointPackageDao">
+	<resultMap type="com.tp.model.mmp.PointPackage" id="pointPackage">
+				<id column="point_package_id" property="pointPackageId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="package_time" property="packageTime"/>
+				<result column="sub_total_point" property="subTotalPoint"/>
+				<result column="package_status" property="packageStatus"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		point_package_id pointPackageId,member_id memberId,package_time packageTime,sub_total_point subTotalPoint,
+		package_status packageStatus,create_time createTime,create_user createUser,update_time updateTime,update_user updateUser
+	</sql>
+	
+	<select id="queryPointPackageByMemberIdAndPackageTime" resultType="PointPackage">
+		select <include refid="columns"/>
+		 from mmp_point_package 
+		where member_id=#{memberId}
+		  and package_time=#{packageTime}
+	</select>
+	
+	<update id="updateSubPointById" parameterType="PointPackage">
+		update mmp_point_package 
+		   set sub_total_point = #{subTotalPoint},
+		       update_time=now(),
+		       update_user=#{updateUser}
+		 where point_package_id=#{pointPackageId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,98 @@
+.ui-header {
+	border: none;
+	border-bottom: 1px solid #929292;
+	background-color: #ffffff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+.input_info_list {
+	background-color: #ffffff;
+	font-size: 15px;
+	color: #333;
+}
+
+.input_info {
+	height: 50px;
+	display: -webkit-box;
+}
+
+.div_input_box {
+	-webkit-box-flex: 1;
+	padding-left: 10px;
+}
+
+.div_input_box > input{
+	width: 100%;
+	height: 49px;
+	border: none;
+}
+
+.input_info_list > .input_info:first-child > .div_input_box {
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.input_info_list > .input_info:last-child > .div_input_box {
+	border-top: 1px solid #e8e8e8;
+}
+
+.register-btn {
+	margin: 10px;
+	font-size: 15px;
+	color: #333;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+	border: 1px solid #333;
+	width: 99px;
+}
+
+.div_tel_icon {
+	width: 37px;
+	background: url("../img/home/tel.png") 10px center no-repeat;
+	background-size: 17px;
+}
+
+.div_code_icon {
+	width: 37px;
+	background: url("../img/home/code.png") 10px center no-repeat;
+	background-size: 17px;
+}
+
+.div_psw_icon {
+	width: 37px;
+	background: url("../img/logon/psw.png") 10px center no-repeat;
+	background-size: 17px;
+}
+
+.register-register {
+	margin: 20px 10px 0px 10px;
+	height: 44px;
+	background-color: #333333;
+	font-size: 17px;
+	color: #ffffff;
+	line-height: 44px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.register-register:active {
+	background-color: #CCCCCC;
+}
+
+input:-webkit-autofill{
+	background-color: #fff;
+}
+.grey{
+	color: #ccc;
+	border:1px solid #ccc;
+}

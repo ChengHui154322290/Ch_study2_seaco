@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleInfoLogDao">
+	<resultMap type="com.tp.model.fin.SettleInfoLog" id="settleInfoLog">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="settle_no" property="settleNo"/>
+				<result column="settle_sub_no" property="settleSubNo"/>
+				<result column="log_type" property="logType"/>
+				<result column="action_type" property="actionType"/>
+				<result column="old_status" property="oldStatus"/>
+				<result column="current_status" property="currentStatus"/>
+				<result column="context" property="context"/>
+				<result column="user_type" property="userType"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_date" property="createDate"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.MemberInfoDao">
+	<resultMap type="com.tp.model.mem.MemberInfo" id="MemberInfoResultMap">
+				<id column="id" property="id"/>
+				<result column="mobile" property="mobile"/>
+				<result column="email" property="email"/>
+				<result column="nick_name" property="nickName"/>
+				<result column="user_name" property="userName"/>
+				<result column="password" property="password"/>
+				<result column="salt" property="salt"/>
+				<result column="sex" property="sex"/>
+				<result column="is_mobile_verified" property="isMobileVerified"/>
+				<result column="create_time" property="createTime"/>
+				<result column="ip" property="ip"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="plat_form" property="platForm"/>
+				<result column="state" property="state"/>
+				<result column="source" property="source"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="shop_promoter_id" property="shopPromoterId"/>
+				<result column="scan_promoter_id" property="scanPromoterId"/>
+				<result column="channel_code" property="channelCode"/>
+				<result column="tpin" property="tpin"/>
+				<result column="advert_from" property="advertFrom"/>
+				
+	</resultMap>
+	
+	<sql id="allColumnFields">
+	      id,nick_name,password,salt,mobile,email,sex,is_mobile_verified,create_time,modify_time,state,ip,plat_form,source,promoter_id,shop_promoter_id,scan_promoter_id,channel_code,tpin,advert_from
+ 	</sql>
+	
+	<select id="selectByIds" parameterType="list" resultMap="MemberInfoResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			mem_member_info
+		WHERE
+			 id in
+		<foreach collection="list" item="userId" index="index"
+            open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+	</select>
+	
+	<select id="selectLastUser" resultMap="MemberInfoResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			mem_member_info order by id desc limit 1; 
+	</select>
+	
+	<update id="updatePromoterIdByMemberId" parameterType="com.tp.model.mem.MemberInfo">
+		update mem_member_info
+		   set promoter_id = #{promoterId}
+		 where id = #{id} and promoter_id is null
+	</update>
+</mapper>

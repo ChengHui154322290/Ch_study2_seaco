@@ -1,0 +1,20 @@
+ 
+.bottom{
+	height: 50px; 
+	width:100%; 
+	background: #70401e; 
+	position: fixed; 
+	bottom: 0px;
+	display:none;
+}
+.open_btn{
+	width: 96%; 
+	height: 32px; 
+	background: #fed027;
+	color:#70401e;
+	font-size:17px;
+	position: absolute;
+	top: 9px;
+	left: 2%;
+	border-radius: 6px;
+}

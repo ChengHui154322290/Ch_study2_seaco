@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemDetailDao">
+	<resultMap type="com.tp.model.prd.ItemDetail" id="itemDetail">
+				<id column="id" property="id"/>
+				<result column="item_id" property="itemId"/>
+				<result column="prdid" property="prdid"/>
+				<result column="spu" property="spu"/>
+				<result column="item_title" property="itemTitle"/>
+				<result column="main_title" property="mainTitle"/>
+				<result column="storage_title" property="storageTitle"/>
+				<result column="sub_title" property="subTitle"/>
+				<result column="barcode" property="barcode"/>
+				<result column="manufacturer" property="manufacturer"/>
+				<result column="item_type" property="itemType"/>
+				<result column="basic_price" property="basicPrice"/>
+				<result column="tarrif_rate" property="tarrifRate"/>
+				<result column="sale_rate" property="saleRate"/>
+				<result column="pur_rate" property="purRate"/>
+				<result column="freight_template_id" property="freightTemplateId"/>
+				<result column="waves_sign" property="wavesSign"/>
+				<result column="return_days" property="returnDays"/>
+				<result column="exp_sign" property="expSign"/>
+				<result column="exp_days" property="expDays"/>
+				<result column="quality_goods" property="qualityGoods"/>
+				<result column="imported_sign" property="importedSign"/>
+				<result column="weight" property="weight"/>
+				<result column="weight_net" property="weightNet"/>
+				<result column="unit_quantity" property="unitQuantity"/>
+				<result column="wrap_quantity" property="wrapQuantity"/>
+				<result column="volume_width" property="volumeWidth"/>
+				<result column="volume_length" property="volumeLength"/>
+				<result column="volume_high" property="volumeHigh"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="category_code" property="categoryCode"/>
+				<result column="unit_id" property="unitId"/>
+				<result column="specifications" property="specifications"/>
+				<result column="carton_spec" property="cartonSpec"/>
+				<result column="remark" property="remark"/>
+				<result column="status" property="status"/>
+				<result column="apply_age_id" property="applyAgeId"/>
+				<result column="country_id" property="countryId"/>
+				<result column="send_type" property="sendType"/>
+				<result column="spu_name" property="spuName"/>
+				<result column="bt_pro_code" property="btProCode"/>
+				<result column="bt_last_update_time" property="btLastUpdateTime"/>
+				<result column="bt_last_update_page" property="btLastUpdatePage"/>
+				<result column="age_start_key" property="ageStartKey"/>
+				<result column="age_end_key" property="ageEndKey"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="added_value_rate" property="addedValueRate"/>
+				<result column="excise_rate" property="exciseRate"/>
+				<result column="customs_rate" property="customsRate"/>
+				
+	</resultMap>
+	
+	<resultMap type="com.tp.dto.prd.ItemResultDto" id="ItemResultMap">
+		<id column="id" property="itemId" />
+        <result column="item_id" property="itemId"/>
+        <result column="id" property="detailId"/>
+        <result column="prdid" property="prdid"/>
+        <result column="spu" property="spu"/>
+        <result column="item_title" property="itemTitle"/>
+        <result column="main_title" property="mainTitle"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="category_code" property="categoryCode"/>
+        <result column="item_type" property="itemType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="status" property="status"/>
+        <result column="apply_age_id" property="applyAgeId"/>
+        <result column="country_id" property="countryId"/>
+        <result column="send_type" property="sendType"/>
+        <result column="spu_name" property="spuName"/>
+        <result column="waves_sign" property="wavesSign"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,item_id,prdid,spu,item_title,main_title,storage_title,sub_title,barcode,manufacturer,
+		item_type,basic_price,tarrif_rate,sale_rate,pur_rate,freight_template_id,waves_sign,return_days,
+		exp_sign,exp_days,quality_goods,imported_sign,weight,weight_net,unit_quantity,wrap_quantity,volume_width,volume_length,
+		volume_high,brand_id,category_code,unit_id,specifications,carton_spec,remark,status,apply_age_id,
+		country_id,send_type,spu_name,bt_pro_code,bt_last_update_time,bt_last_update_page,age_start_key,
+		age_end_key,create_time,create_user,update_time,update_user,added_value_rate,excise_rate,customs_rate
+	</sql>
+	<update id="updatePrdInfoByItemId" parameterType="ItemDetail">
+		UPDATE prd_item_detail 
+		   set  brand_id=#{brandId},unit_id=#{unitId},category_code=#{categoryCode} ,
+		   update_time=now(),update_user=#{updateUser}
+		WHERE item_id = #{itemId}
+	</update>
+	
+	<select id="selectSkuDetailInfo" resultType="com.tp.dto.prd.SkuDto" parameterType="list">
+			SELECT
+			id  detailId,
+			main_title mainTitle,
+			sub_title subTitle,
+			waves_sign wavesSign,
+			country_id countryId,
+			send_type sendType,
+			tarrif_rate tarrifRate,
+			apply_age_id applyAgeId,
+			freight_template_id freightTemplateId,
+			item_type itemType
+			FROM
+			prd_item_detail
+			WHERE ID in
+			<foreach item="id" index="index" collection="list" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+	</select>
+	
+	<select id="selectItemDetailsByBarcodeAndName" resultMap="itemDetail" parameterType="ItemDetail">
+		SELECT
+		<include refid="columns" />
+		FROM prd_item_detail
+		WHERE 
+		<if test="barcode != null and barcode != '' "> AND barcode = #{barcode} </if>
+		<if test="mainTitle != null  and mainTitle != '' "> AND main_title like concat('%',#{mainTitle},'%') </if>
+	</select>
+	<select id="selectItemDetailsByPrdList" resultMap="itemDetail">
+		SELECT
+		<include refid="columns" />
+		FROM prd_item_detail
+		WHERE prdid in
+		<foreach item="prd" index="index" collection="list" open="("
+			separator="," close=")">
+			#{prd}
+		</foreach>
+	</select>
+	<sql id="query_where_fields">
+		<where>
+			<if test="spu != null  and spu != '' "> AND spu like concat('%',#{spu},'%')  </if>
+			<if test="prdid != null  and prdid != '' "> AND prdid like concat('%',#{prdid},'%') </if>
+			<if test="name != null  and name != '' "> AND main_title like concat('%',#{name},'%') </if>
+			<if test="barcode != null  and barcode != '' "> AND barcode like concat('%',#{barcode},'%') </if>
+			<if test="createBeginTime != null"> AND create_time &gt; #{createBeginTime}</if>
+			<if test="createEndTime != null"> AND create_time &lt; #{createEndTime}</if>
+			<if test="unitId != null   "> AND unit_id = #{unitId} </if>
+			<if test="brandId != null   "> AND brand_id = #{brandId} </if>
+			<if test="itemType != null "> AND item_type = #{itemType} </if>
+			<if test="categoryCode != null  and categoryCode != '' "> AND category_code like concat(#{categoryCode},'%')  </if>
+			<if test="status != null "> AND status = #{status} </if>
+			<if test="spuName != null  and spuName != '' "> AND spu_name like concat('%',#{spuName},'%')  </if>
+		    <if test="wavesSign != null  and wavesSign != '' "> AND waves_sign = #{wavesSign} </if>
+		    <if test="supplierId != null  and supplierId != '' "> AND supplier_id = #{supplierId} </if>
+		</where>
+	</sql>
+	<select id="queryPageByQuery" resultMap="ItemResultMap">
+		 SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	prd_item_detail
+	 	<include refid="query_where_fields" />
+	 	order by create_time desc
+	 	Limit #{start},#{pageSize}
+	    
+	</select>
+	<select id="queryCountByQuery" resultType="int">
+		 SELECT
+	     	COUNT(1)
+		 FROM
+		 	prd_item_detail
+	 	<include refid="query_where_fields" />
+	</select>
+	
+	<select id="selectListDetailIdsByItemId"  parameterType="long" resultType="com.tp.dto.prd.DetailMainInfoDto">
+		SELECT
+		id detailId
+		from prd_item_detail  where item_id=#{id} 
+	</select>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.SearchShopDao">
+    <resultMap type="com.tp.model.sch.SearchShop" id="searchShop">
+        <id column="id" property="id"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="shop_name" property="shopName"/>
+        <result column="shop_banner" property="shopBanner"/>
+        <result column="shop_logo" property="shopLogo"/>
+        <result column="shop_tag" property="shopTag"/>
+        <result column="shop_intro" property="shopIntro"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="shop_status" property="shopStatus"/>
+        <result column="record_status" property="recordStatus"/>
+        <result column="hits" property="hits"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="columns">
+		id,shop_id,shop_name,shop_banner,shop_logo,shop_tag,shop_intro,supplier_id,shop_status,record_status,hits,create_time,update_time
+	</sql>
+
+    <select id="getAll" resultMap="searchShop">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search_shop
+    </select>
+
+
+    <update id="updateRecordStatusToDel">
+        UPDATE sch_search_shop set record_status=3,update_time=#{updateTime} WHERE
+        shop_id IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+    </update>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO sch_search_shop
+        (shop_id,shop_name,shop_banner,shop_logo,shop_tag,shop_intro,supplier_id,shop_status,record_status,hits,create_time,update_time)
+        VALUE
+        <foreach collection="list" separator="," item="item">
+            (
+            #{item.shopId},
+            #{item.shopName},
+            #{item.shopBanner},
+            #{item.shopLogo},
+            #{item.shopTag},
+            #{item.shopIntro},
+            #{item.supplierId},
+            #{item.shopStatus},
+            #{item.recordStatus},
+            #{item.hits},
+            #{item.createTime},
+            #{item.updateTime}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <select id="queryByUpdateTimeAndRecordStatus" resultMap="searchShop">
+        SELECT
+        <include refid="columns"></include>
+        FROM sch_search_shop
+        WHERE record_status IN
+        <foreach collection="recordStatus" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        <if test="updateTime!=null">
+            AND update_time=#{updateTime}
+        </if>
+
+    </select>
+
+    <update id="updateRecordStatusByIds">
+        UPDATE sch_search_shop
+        SET record_status = #{recordStatus}
+        WHERE id IN
+        <foreach collection="ids" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </update>
+
+    <delete id="deleteByIds">
+        DELETE FROM sch_search_shop
+        WHERE id IN
+        <foreach collection="ids" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+    </delete>
+
+    <delete id="deleteTotal">
+        DELETE  FROM  sch_search_shop
+    </delete>
+
+</mapper>

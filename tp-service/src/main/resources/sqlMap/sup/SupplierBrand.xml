@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierBrandDao">
+	<resultMap type="com.tp.model.sup.SupplierBrand" id="supplierBrand">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="image_url" property="imageUrl"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,supplier_id,brand_id,brand_name,image_url,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ <insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_supplier_brand(
+				id,
+				supplier_id,
+				brand_id,
+				brand_name,
+				image_url,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="brand" index="index" separator="," >
+		(
+				#{brand.id},
+				#{brand.supplierId},
+				#{brand.brandId},
+				#{brand.brandName},
+				#{brand.imageUrl},
+				#{brand.status},
+				now(),
+				now(),
+				#{brand.createUser},
+				#{brand.createUser}
+		)
+		</foreach>
+    </insert>
+	<update id="updateStatusBySupplierId" parameterType="map">
+ 	    UPDATE sup_supplier_brand
+        <set>
+            <if test="status != null">status=#{status},</if>
+            update_time=now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE supplier_id = #{supplierId}
+ 	</update>
+</mapper>

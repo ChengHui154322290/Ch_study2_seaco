@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemImportLogDao">
+	<resultMap type="com.tp.model.prd.ItemImportLog" id="itemImportLog">
+				<id column="id" property="id"/>
+				<result column="real_file_name" property="realFileName"/>
+				<result column="file_name" property="fileName"/>
+				<result column="sum_count" property="sumCount"/>
+				<result column="success_count" property="successCount"/>
+				<result column="fail_count" property="failCount"/>
+				<result column="status" property="status"/>
+				<result column="delete_sign" property="deleteSign"/>
+				<result column="secret_key" property="secretKey"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,real_file_name,file_name,sum_count,success_count,fail_count,status,delete_sign,secret_key,create_user,create_time
+	</sql>
+	<select id="selectByLastOne" parameterType="ItemImportLog" resultMap="itemImportLog">
+		SELECT
+			<include refid="columns" />
+		FROM prd_item_import_log
+		where delete_sign = 1 
+		and create_user = #{importLog.createUser}
+		order by id desc  limit 1
+	</select>
+	<update id="updateCountById" parameterType="ItemImportLog">
+		UPDATE prd_item_import_log
+		<set>
+			<if test="successCount != null ">success_count=success_count+#{successCount},</if>
+			<if test="failCount != null ">fail_count=fail_count+#{failCount},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	<update id="updateByUserId" parameterType="ItemImportLog">
+		UPDATE prd_item_import_log
+		<set>
+			<if test="deleteSign != null ">delete_sign=#{deleteSign}</if>
+		</set>
+		WHERE create_user_id = #{createUserId} 
+		  and status = 4 
+	</update>
+	<update id="deleteByUserId" parameterType="com.tp.model.prd.ItemImportLog">
+		UPDATE prd_item_import_log
+		<set>
+					<if test="deleteSign != null ">delete_sign=#{deleteSign}</if>
+		</set>
+		WHERE create_user = #{createUser} and status = 4 
+	</update>
+</mapper>

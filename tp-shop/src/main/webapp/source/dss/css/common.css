@@ -1,0 +1,258 @@
+.goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../img/back.png) no-repeat center;
+    background-size: 13px;
+}
+.auth-name{
+}
+.auth-name-img{
+}
+.auth-name-input{
+}
+.auth-info{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.auth-photo{
+}
+.auth-photo-left{
+    width: 48%;
+    float: left;
+}
+.auth-photo-left-img{
+    height: 120px;
+    margin-left: 5%;
+    width: 90%;
+    margin-right: 5%;
+}
+.auth-photo-middle{
+    /*width: 3%;*/
+    float: left;
+}
+.auth-photo-right{
+    width: 48%;
+    float: right;
+}
+.auth-photo-right-img{
+    height: 120px;
+    margin-left: 5%;
+    width: 90%;
+    margin-right: 5%;
+}
+
+.auth-info h4{
+    font-size: 15px;
+    color: #333333;
+}
+
+.auth-info a{
+    font-size: 12px;
+    color: #999999;
+}
+
+.ui-btn-lg-empty{
+    background: #cccccc;
+    color:#ffffff;
+}
+
+.ui-btn-lg-not-empty{
+    background: #333333;
+    color:#ffffff;
+}
+
+header{
+    border:0px;
+}
+
+body {
+    background: #eee;
+}
+.ui-form{
+    margin:10px 0;
+}
+.ui-form-item label{
+    color:#333;
+}
+.goBack{
+    background: url(../img/back2.png) no-repeat center;
+    background-size: 30%;
+}
+/* .confirm_btn {
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    line-height: 55px;
+    top: 0;
+    color: #333;
+    right: 0;
+    background-size: 13px;
+} */
+
+/*提现详情*/
+.li-div {
+    width: 100%;
+    background: #ffffff;
+}
+.div-normal {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    margin-left: 20px;
+    line-height: 20px;
+    height: 20px;
+    display: -webkit-box;
+    border-top: 1px solid #e8e8e8;
+    font-size: 14px;
+}
+.div-normal >.normal-key {
+    -webkit-box-flex: 1;
+    line-height: 20px;
+    height: 20px;
+    font-size: 15px;
+    color: #666666;
+}
+.div-normal >.normal-val {
+    line-height: 20px;
+    height: 20px;
+    font-size: 14px;
+    color: #333333;
+}
+.ui-btn-down {
+    background: #333333;
+    color: #ffffff;
+}
+p.cashCount{
+	padding:10px 20px;
+	font-size:30px;
+	color:#333;
+}
+p.cashCount a{
+	position:relative;
+	padding-left: 15px;
+    color: #333;
+}
+p.cashCount i{
+	font-size:0.6em;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.top_img{
+	width:100%;
+	position:relative;
+	height:250px;
+	background:url(../img/txxq.png) no-repeat center;
+    background-size: 110px 110px;
+}
+.top_img span{
+	position:absolute;
+	width:100%;
+	bottom:30px;
+	text-align:center;
+}
+.confirmBtn {
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    line-height: 55px;
+    top: 0;
+    color: #333;
+    right: 0;
+    background-size: 13px;
+}
+.subOn{
+    background: #ee3e54;
+}
+.help .ui-header {
+    border: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #929292;
+}
+.help .goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url(../../img/back.png) no-repeat center;
+    background-size: 10px;
+}
+body.help{
+    background: #fff;
+}
+.help h2{
+    color:#333;
+    font-size: 20px;
+    /* margin-top:45px; */
+    text-align: center;
+    line-height: 60px;
+}
+.content p..bt{
+    font-weight: 400;
+}
+.content p.t1{
+    color:#ee3e54;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.content p.t2{
+    color:#333;
+    font-weight: 400;
+}
+.content{
+    padding:0 10px;
+}
+.content p {
+    color:#666;
+    font-size: 16px;
+}
+.content p img{
+    width: 100%;
+    padding: 20px 0;
+}
+.content p i{
+    padding:0 10px;
+}
+.div_split {
+    width: 110px;
+    margin: 20px auto;
+    border-top: 1px solid #eee;
+}
+
+.confirm_btn_wx{
+	background:#ee3e54;
+	width:96%;
+	height:39px;
+	margin:0 auto;
+	border-radius:6px;
+	margin-left:2%;
+	color:#fff;
+	margin-top:20px;
+}
+
+
+
+.btn_withdrawals_recode{
+	margin-top: 10px;
+    border-radius: 6px;
+    text-align: center;
+    height: 37px;
+    line-height: 37px;
+    font-size: 17px;
+    color: #333333;
+    border: 1px solid #333333;
+    width: 100%;
+}
+.btn_withdrawals_recode:active {
+	background-color: #7e7e7e;
+	color: #ffffff;
+	border: none;
+}

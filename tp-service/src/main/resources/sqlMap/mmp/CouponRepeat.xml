@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponRepeatDao">
+	<resultMap type="com.tp.model.mmp.CouponRepeat" id="couponRepeat">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="batch_ids" property="batchIds"/>
+				<result column="frequency" property="frequency"/>
+				<result column="trigger_type" property="triggerType"/>
+				<result column="start_time" property="startTime"/>
+				<result column="end_time" property="endTime"/>
+				<result column="sms_state" property="smsState"/>
+				<result column="sms_content" property="smsContent"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_user_name" property="createUserName"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_user_id" property="modifyUserId"/>
+				<result column="modify_user_name" property="modifyUserName"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="state" property="state"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,batch_ids,frequency,trigger_type,start_time,end_time,sms_state,sms_content,create_user_id,create_user_name,create_time,modify_user_id,modify_user_name,modify_time,state
+	</sql>
+</mapper>

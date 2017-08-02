@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.PaymentLogDao">
+	<resultMap type="com.tp.model.pay.PaymentLog" id="paymentLog">
+				<id column="log_id" property="logId"/>
+				<result column="log_object_id" property="logObjectId"/>
+				<result column="log_object_type" property="logObjectType"/>
+				<result column="action_name" property="actionName"/>
+				<result column="content" property="content"/>
+				<result column="create_ip" property="createIp"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	<sql id="columns">
+		log_id,log_object_id,log_object_type,action_name,content,create_ip,create_time,create_user
+	</sql>
+</mapper>

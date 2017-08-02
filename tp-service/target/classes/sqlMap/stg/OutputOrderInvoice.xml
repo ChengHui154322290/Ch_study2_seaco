@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.OutputOrderInvoiceDao">
+	<resultMap type="com.tp.model.stg.OutputOrderInvoice" id="outputOrderInvoice">
+				<id column="id" property="id"/>
+				<result column="order_no" property="orderNo"/>
+				<result column="invoice_code" property="invoiceCode"/>
+				<result column="invoice_no" property="invoiceNo"/>
+				<result column="invoice_type" property="invoiceType"/>
+				<result column="invoice_time" property="invoiceTime"/>
+				<result column="title" property="title"/>
+				<result column="amount" property="amount"/>
+	</resultMap>
+</mapper>

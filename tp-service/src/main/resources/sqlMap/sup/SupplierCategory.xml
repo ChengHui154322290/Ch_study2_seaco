@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierCategoryDao">
+	<resultMap type="com.tp.model.sup.SupplierCategory" id="supplierCategory">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="category_big_id" property="categoryBigId"/>
+				<result column="category_big_name" property="categoryBigName"/>
+				<result column="category_mid_id" property="categoryMidId"/>
+				<result column="category_mid_name" property="categoryMidName"/>
+				<result column="category_small_id" property="categorySmallId"/>
+				<result column="category_small_name" property="categorySmallName"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,supplier_id,brand_id,brand_name,category_big_id,category_big_name,category_mid_id,category_mid_name,category_small_id,category_small_name,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_supplier_category(
+				id,
+				supplier_id,
+				brand_id,
+				brand_name,
+				category_big_id,
+				category_big_name,
+				category_mid_id,
+				category_mid_name,
+				category_small_id,
+				category_small_name,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="category" index="index" separator="," >
+		(
+				#{category.id},
+				#{category.supplierId},
+				#{category.brandId},
+				#{category.brandName},
+				#{category.categoryBigId},
+				#{category.categoryBigName},
+				#{category.categoryMidId},
+				#{category.categoryMidName},
+				#{category.categorySmallId},
+				#{category.categorySmallName},
+				#{category.status},
+				now(),
+				now(),
+				#{category.createUser},
+				#{category.createUser}
+		)
+		</foreach>
+    </insert>
+    <update id="updateStatusBySupplierId" parameterType="map">
+ 	    UPDATE sup_supplier_category
+        <set>
+            <if test="status != null">status=#{status},</if>
+            update_time=now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE supplier_id = #{supplierId}
+ 	</update>
+</mapper>

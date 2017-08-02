@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.ContractProductDao">
+	<resultMap type="com.tp.model.sup.ContractProduct" id="contractProduct">
+				<id column="id" property="id"/>
+				<result column="contract_id" property="contractId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="big_id" property="bigId"/>
+				<result column="big_name" property="bigName"/>
+				<result column="mid_id" property="midId"/>
+				<result column="mid_name" property="midName"/>
+				<result column="small_id" property="smallId"/>
+				<result column="small_name" property="smallName"/>
+				<result column="commission" property="commission"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,contract_id,brand_id,brand_name,big_id,big_name,mid_id,mid_name,small_id,small_name,commission,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_contract_product(
+				id,
+				contract_id,
+				brand_id,
+				brand_name,
+				big_id,
+				big_name,
+				mid_id,
+				mid_name,
+				small_id,
+				small_name,
+				commission,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="cp" index="index" separator="," >
+		(
+				#{cp.id},
+				#{cp.contractId},
+				#{cp.brandId},
+				#{cp.brandName},
+				#{cp.bigId},
+				#{cp.bigName},
+				#{cp.midId},
+				#{cp.midName},
+				#{cp.smallId},
+				#{cp.smallName},
+				#{cp.commission},
+				#{cp.status},
+				now(),
+				now(),
+				#{cp.createUser},
+				#{cp.createUser}
+		)
+    	</foreach>
+    </insert>
+    
+    <update id="updateStatusByContractId" parameterType="map">
+ 	    update sup_contract_product 
+	    set status = #{status},
+	       update_time = now(),
+	       update_user=#{updateUser}
+	    where contract_id = #{contractId}
+ 	</update>
+</mapper>

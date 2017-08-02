@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponUserDao">
+	<resultMap type="com.tp.model.mmp.CouponUser" id="couponUser">
+				<id column="id" property="id"/>
+				<result column="batch_id" property="batchId"/>
+				<result column="status" property="status"/>
+				<result column="to_user_login" property="toUserLogin"/>
+				<result column="to_user_mobile" property="toUserMobile"/>
+				<result column="batch_num" property="batchNum"/>
+				<result column="number" property="number"/>
+				<result column="source" property="source"/>
+				<result column="source_name" property="sourceName"/>
+				<result column="ref_code" property="refCode"/>
+				<result column="to_user_id" property="toUserId"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_user_name" property="createUserName"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="coupon_type" property="couponType"/>
+				<result column="coupon_use_stime" property="couponUseStime"/>
+				<result column="coupon_use_etime" property="couponUseEtime"/>
+				<result column="promoter_id" property="promoterId"/>
+	</resultMap>
+	<sql id="columns">
+		id,batch_id,status,to_user_login,to_user_mobile,batch_num,number,source,source_name,ref_code,to_user_id,create_user_id,create_user_name,create_time,
+		update_time,coupon_type,coupon_use_stime,coupon_use_etime,promoter_id
+	</sql>
+
+	<update id="updateStatusById" parameterType="java.util.Map" >
+		update mmp_coupon_user
+		set status = #{newStatus},update_time = #{updateTime}
+		where status = #{oldStatus} and id = #{id}
+
+	</update>
+
+	<select id="queryCouponWithoutMemberIdByMobile" parameterType="java.lang.String" resultMap="couponUser">
+		SELECT
+		<include refid="columns"/>
+		FROM
+		mmp_coupon_user
+		WHERE
+		 to_user_mobile = #{mobile} and to_user_id  <![CDATA[ < ]]>  0
+	</select>
+
+	<update id="updateForCorrelation" >
+		UPDATE
+		mmp_coupon_user
+		SET
+		to_user_id = #{toUserId},update_time=now()
+		WHERE
+		id in
+		<foreach collection="ids" item="item" open="(" close=")" separator="," index="i">
+			#{item}
+		</foreach>
+	</update>
+
+</mapper>

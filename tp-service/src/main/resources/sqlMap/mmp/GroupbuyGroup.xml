@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.GroupbuyGroupDao">
+    <resultMap type="com.tp.model.mmp.GroupbuyGroup" id="groupbuyGroup">
+        <id column="id" property="id"/>
+        <result column="groupbuy_id" property="groupbuyId"/>
+        <result column="topic_id" property="topicId"/>
+        <result column="topic_name" property="topicName"/>
+        <result column="code" property="code"/>
+        <result column="member_id" property="memberId"/>
+        <result column="member_name" property="memberName"/>
+        <result column="plan_amount" property="planAmount"/>
+        <result column="fact_amount" property="factAmount"/>
+        <result column="status" property="status"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="topic_end_time" property="topicEndTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <sql id="columns">
+		id,groupbuy_id,topic_id,topic_name,code,member_id,member_name,plan_amount,fact_amount,status,start_time,end_time,topic_end_time,create_time,create_user,update_time,update_user
+	</sql>
+
+    <select id="queryProcessingGroupCount" resultType="java.lang.Integer">
+		SELECT count(0) FROM
+		mmp_groupbuy_group
+		WHERE  topic_id = #{topicId}
+		AND  member_id = #{memberId}
+		AND status = 1
+	</select>
+
+    <update id="updateFactAmountById" parameterType="java.util.Map">
+		UPDATE  mmp_groupbuy_group
+		SET  fact_amount = #{curFact}
+		WHERE id = #{id}
+		AND  fact_amount = #{oldFact}
+	</update>
+
+    <select id="queryByIds" parameterType="java.util.List" resultMap="groupbuyGroup">
+        SELECT
+        <include refid="columns"></include>
+        FROM mmp_groupbuy_group
+        WHERE id in
+        <foreach collection="list" open="(" separator="," close=")" item="i">
+            #{i}
+        </foreach>
+        ORDER  BY  id desc
+
+    </select>
+
+    <select id="queryProcessingGroup" resultMap="groupbuyGroup">
+        SELECT
+        <include refid="columns"></include>
+        FROM mmp_groupbuy_group
+        WHERE status = 1
+
+    </select>
+
+    <update id="terminateExpiredGroup">
+        UPDATE mmp_groupbuy_group
+        SET status = 3,create_user='sye',update_time = now()
+        WHERE
+        status = 1
+        AND id in
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+    </update>
+
+
+    <select id="queries" parameterType="com.tp.model.mmp.GroupbuyGroup" resultMap="groupbuyGroup">
+        SELECT
+        <include refid="columns"></include>
+        FROM  mmp_groupbuy_group
+        <include refid="queriesCause"></include>
+
+        ORDER BY  create_time DESC
+        limit #{start},#{pageSize}
+
+    </select>
+    <select id="queriesCount" parameterType="com.tp.model.mmp.GroupbuyGroup" resultType="java.lang.Integer">
+        SELECT  count(1) FROM mmp_groupbuy_group
+        <include refid="queriesCause"/>
+    </select>
+
+    <sql id="queriesCause">
+        <where>
+            <if test="groupbuyId!=null"> AND  groupbuy_id = #{groupbuyId}</if>
+            <if test="topicName!=null " > AND  topic_name=#{topicName}</if>
+            <if test="status!=null"> AND  status = #{status}</if>
+            <if test="memberId!=null"> AND member_id = #{memberId}</if>
+            <if test="memberName!=null"> AND  member_name = #{memberName}</if>
+            <if test="startTime!=null">AND  start_time>=#{startTime}</if>
+            <if test="endTime!=null"> AND  end_time <![CDATA[<=]]> #{endTime} </if>
+        </where>
+    </sql>
+
+    <select id="querySuccessGroupCount" parameterType="java.util.List" resultType="java.lang.Integer">
+        SELECT count(1) FROM  mmp_groupbuy_group
+        WHERE id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND  status = 2
+
+    </select>
+
+</mapper>

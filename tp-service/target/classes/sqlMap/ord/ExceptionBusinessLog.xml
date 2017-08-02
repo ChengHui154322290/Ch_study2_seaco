@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.ExceptionBusinessLogDao">
+	<resultMap type="com.tp.model.ord.ExceptionBusinessLog" id="exceptionBusinessLog">
+				<id column="id" property="id"/>
+				<result column="type" property="type"/>
+				<result column="status" property="status"/>
+				<result column="biz_code" property="bizCode"/>
+				<result column="content" property="content"/>
+				<result column="process_count" property="processCount"/>
+				<result column="done_time" property="doneTime"/>
+				<result column="bac_code" property="bacCode"/>
+				<result column="bac_code2" property="bacCode2"/>
+				<result column="bac_code3" property="bacCode3"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,type,status,biz_code,content,process_count,done_time,bac_code,bac_code2,bac_code3,create_time,update_time,create_user,update_user
+	</sql>
+</mapper>

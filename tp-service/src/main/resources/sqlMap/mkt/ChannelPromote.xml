@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mkt.ChannelPromoteDao">
+	<resultMap type="com.tp.model.mkt.ChannelPromote" id="channelPromote">
+				<id column="id" property="id"/>
+				<result column="type" property="type"/>
+				<result column="source" property="source"/>
+				<result column="channel" property="channel"/>
+				<result column="unique_id" property="uniqueId"/>
+				<result column="qrcode" property="qrcode"/>
+				<result column="is_follow" property="isFollow"/>
+				<result column="is_del" property="isDel"/>
+				<result column="create_time" property="createTime"/>
+				<result column="unFollowCount" property="unFollowCount"/>
+				<result column="followCount" property="followCount"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,type,source,channel,unique_id,qrcode,is_follow,is_del,create_time
+	</sql>
+	
+	<select id="queryUniqueIdList" resultType="com.tp.dto.mkt.FollowDto">
+		select unique_id,is_follow from mkt_channel_promote where is_del =0
+	</select>
+	
+	<update id="updateIsFollowList"  parameterType="java.util.List">
+		<foreach collection="list" item="follow" index="index" open="" close="" separator=";">
+			update mkt_channel_promote
+			<set>
+				is_follow=${follow.is_follow},create_time = now()
+			</set>
+			where unique_id = #{follow.unique_id}
+		</foreach>
+    </update>
+	
+	<select id="statisticChannelPromote" resultMap = "channelPromote">
+		select channel,
+		count(case when unique_id = "" then NULL else case when is_follow = 0 then 1 else NULL end end ) unFollowCount,
+        count(case when unique_id = "" then NULL else case when is_follow = 1 then 1 else NULL end end ) followCount,
+		type,source 
+		   from mkt_channel_promote 
+		      group by channel,type
+		         having 1=1
+		         <if test="type != '' and type != null">and type=#{type} </if> 
+		         <if test="channel != '' and channel != null">and channel like #{channel}</if>
+		       order by type desc
+		       Limit #{start},#{pageSize}
+	</select>
+	<select id="statisticChannelPromoteCount"  resultType="java.lang.Integer">
+		select count(t.totalCount) from (select count(id) totalCount,type,channel
+		   from mkt_channel_promote 
+		      group by channel 
+		         having 1=1
+		         <if test="type != '' and type != null">and type=#{type} </if> 
+		         <if test="channel != '' and channel != null">and channel like #{channel}</if>
+		       ) t
+	</select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.CustomsDistrictLinkDao">
+	<resultMap type="com.tp.model.bse.CustomsDistrictLink" id="customsDistrictLink">
+				<id column="id" property="id"/>
+				<result column="district_id" property="districtId"/>
+				<result column="customs_district_id" property="customsDistrictId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,district_id,customs_district_id,create_time
+	</sql>
+</mapper>

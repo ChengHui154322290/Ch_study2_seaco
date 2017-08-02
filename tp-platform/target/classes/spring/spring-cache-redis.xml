@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:loxia="http://loxia.benjamin.cn/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<bean id="cache_pool_config" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.cache.maxTotal}" /><!-- 连接池中最大实例 数-->
+		<property name="maxIdle" value="${redis.cache.maxIdle}" /><!-- 连接池中最大闲置实例数-->
+		<property name="minIdle" value="${redis.cache.minIdle}" /><!-- 连接池中最小闲置实例数-->
+		<property name="maxWaitMillis" value="${redis.cache.maxWaitMillis}" /><!-- 最长等待时间 默认值为-1 单位：毫秒-->
+	</bean>
+
+	<bean id="cache_jedis_shard_info_1" class="redis.clients.jedis.JedisShardInfo"
+		scope="singleton">
+		<constructor-arg name="host" value="${redis.cache.01.host}" /><!-- IP -->
+		<constructor-arg name="port" value="${redis.cache.01.port}" type="int" /><!-- 端口 -->
+		<constructor-arg name="timeout" value="${redis.cache.01.timeout}" type="int" /><!-- 超时时间设置 默认2000 -->
+		<constructor-arg name="weight" value="${redis.cache.01.weight}" type="int" /><!-- 权重 默认为1-->
+		<property name="password" value="${redis.cache.01.password}"/>
+	</bean>
+
+	<bean id="cache_jedis_shard_info_2" class="redis.clients.jedis.JedisShardInfo"
+		scope="singleton">
+		<constructor-arg name="host" value="${redis.cache.02.host}" /><!-- IP -->
+		<constructor-arg name="port" value="${redis.cache.02.port}" type="int" /><!-- 端口 -->
+		<constructor-arg name="timeout" value="${redis.cache.02.timeout}" type="int" /><!-- 超时时间设置 默认2000 -->
+		<constructor-arg name="weight" value="${redis.cache.02.weight}" type="int" /><!-- 权重 默认为1-->
+		<property name="password" value="${redis.cache.02.password}"/>
+	</bean>
+	
+	<bean id="cache_jedis_shard_info_3" class="redis.clients.jedis.JedisShardInfo"
+		scope="singleton">
+		<constructor-arg name="host" value="${redis.cache.03.host}" /><!-- IP -->
+		<constructor-arg name="port" value="${redis.cache.03.port}" type="int" /><!-- 端口 -->
+		<constructor-arg name="timeout" value="${redis.cache.03.timeout}" type="int" /><!-- 超时时间设置 默认2000 -->
+		<constructor-arg name="weight" value="${redis.cache.03.weight}" type="int" /><!-- 权重 默认为1-->
+		<property name="password" value="${redis.cache.03.password}"/>
+	</bean>
+
+	<bean id="cacheShardJedisPool" class="com.tp.redis.CacheShardedJedisPool"
+		destroy-method="destroy">
+		<constructor-arg name="poolConfig" ref="cache_pool_config"></constructor-arg>
+		<constructor-arg name="shards">
+			<list>
+				<ref bean="cache_jedis_shard_info_1" />
+				<ref bean="cache_jedis_shard_info_2" />
+				<ref bean="cache_jedis_shard_info_3" />
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="jedisCacheUtil" class="com.tp.redis.util.JedisCacheUtil">
+		<property name="cacheShardJedisPool" ref="cacheShardJedisPool"></property>
+	</bean>
+</beans>

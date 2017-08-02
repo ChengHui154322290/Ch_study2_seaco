@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.PurchaseProductDao">
+	<resultMap type="com.tp.model.sup.PurchaseProduct" id="purchaseProduct">
+				<id column="id" property="id"/>
+				<result column="purchase_id" property="purchaseId"/>
+				<result column="origin_id" property="originId"/>
+				<result column="origin_product_id" property="originProductId"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="purchase_type" property="purchaseType"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="sku" property="sku"/>
+				<result column="barcode" property="barcode"/>
+				<result column="product_name" property="productName"/>
+				<result column="product_storage_name" property="productStorageName"/>
+				<result column="product_unit" property="productUnit"/>
+				<result column="prop1" property="prop1"/>
+				<result column="prop2" property="prop2"/>
+				<result column="prop3" property="prop3"/>
+				<result column="count" property="count"/>
+				<result column="standard_price" property="standardPrice"/>
+				<result column="discount" property="discount"/>
+				<result column="order_price" property="orderPrice"/>
+				<result column="subtotal" property="subtotal"/>
+				<result column="product_desc" property="productDesc"/>
+				<result column="storage_count" property="storageCount"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="big_id" property="bigId"/>
+				<result column="big_name" property="bigName"/>
+				<result column="mid_id" property="midId"/>
+				<result column="mid_name" property="midName"/>
+				<result column="small_id" property="smallId"/>
+				<result column="small_name" property="smallName"/>
+				<result column="batch_number" property="batchNumber"/>
+				<result column="purchase_rate" property="purchaseRate"/>
+				<result column="tariff_rate" property="tariffRate"/>
+				<result column="no_tax_rate" property="noTaxRate"/>
+				<result column="no_tax_account" property="noTaxAccount"/>
+				<result column="number_returns" property="numberReturns"/>
+				<result column="number_returns_warehouse" property="numberReturnsWarehouse"/>
+				<result column="avail_number" property="availNumber"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,purchase_id,origin_id,origin_product_id,supplier_id,order_type,sku_code,sku,barcode,product_name,product_unit,prop1,prop2,prop3,count,standard_price,discount,order_price,subtotal,product_desc,storage_count,brand_id,brand_name,big_id,big_name,mid_id,mid_name,small_id,small_name,batch_number,purchase_rate,tariff_rate,no_tax_rate,no_tax_account,number_returns,number_returns_warehouse,avail_number,audit_status,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_purchase_product(
+				id,
+				purchase_id,
+				origin_id,
+				origin_product_id,
+				supplier_id,
+				order_type,
+				sku_code,
+				sku,
+				barcode,
+				product_name,
+				product_unit,
+				prop1,
+				prop2,
+				prop3,
+				count,
+				standard_price,
+				discount,
+				order_price,
+				subtotal,
+				product_desc,
+				storage_count,
+				brand_id,
+				brand_name,
+				big_id,
+				big_name,
+				mid_id,
+				mid_name,
+				small_id,
+				small_name,
+				batch_number,
+				purchase_rate,
+				tariff_rate,
+				no_tax_rate,
+				no_tax_account,
+				number_returns,
+				number_returns_warehouse,
+				avail_number,
+				audit_status,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="purchase" index="index" separator="," >
+		(
+				#{purchase.id},
+				#{purchase.purchaseId},
+				#{purchase.originId},
+				#{purchase.originProductId},
+				#{purchase.supplierId},
+				#{purchase.orderType},
+				#{purchase.skuCode},
+				#{purchase.sku},
+				#{purchase.barcode},
+				#{purchase.productName},
+				#{purchase.productUnit},
+				#{purchase.prop1},
+				#{purchase.prop2},
+				#{purchase.prop3},
+				#{purchase.count},
+				#{purchase.standardPrice},
+				#{purchase.discount},
+				#{purchase.orderPrice},
+				#{purchase.subtotal},
+				#{purchase.productDesc},
+				#{purchase.storageCount},
+				#{purchase.brandId},
+				#{purchase.brandName},
+				#{purchase.bigId},
+				#{purchase.bigName},
+				#{purchase.midId},
+				#{purchase.midName},
+				#{purchase.smallId},
+				#{purchase.smallName},
+				#{purchase.batchNumber},
+				#{purchase.purchaseRate},
+				#{purchase.tariffRate},
+				#{purchase.noTaxRate},
+				#{purchase.noTaxAccount},
+				#{purchase.numberReturns},
+				#{purchase.numberReturnsWarehouse},
+				#{purchase.availNumber},
+				#{purchase.auditStatus},
+				#{purchase.status},
+				now(),
+				now(),
+				#{purchase.createUser},
+				#{purchase.createUser}
+		)
+		</foreach>
+    </insert>
+    
+    <update id="updateStatus" parameterType="map">
+        UPDATE sup_purchase_product
+        <set>
+            <if test="status != null">status=#{status},</if>
+            update_time = now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE purchase_id = #{purchaseId}
+    </update>
+    
+    <update id="updateAuditStatus" parameterType="map">
+        UPDATE sup_purchase_product
+        <set>
+            <if test="auditStatus != null">audit_status=#{auditStatus},</if>
+            update_time = now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE purchase_id = #{purchaseId} and status = 1
+    </update>
+</mapper>

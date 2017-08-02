@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.PersonalgoodsStatusLogDao">
+	<resultMap type="com.tp.model.ord.PersonalgoodsStatusLog" id="personalgoodsStatusLog">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="declare_no" property="declareNo"/>
+				<result column="customs_declare_no" property="customsDeclareNo"/>
+				<result column="customs_code" property="customsCode"/>
+				<result column="type" property="type"/>
+				<result column="result" property="result"/>
+				<result column="result_desc" property="resultDesc"/>
+				<result column="result_detail" property="resultDetail"/>
+				<result column="res_data" property="resData"/>
+				<result column="remark" property="remark"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,declare_no,customs_declare_no,customs_code,type,result,result_desc,result_detail,res_data,remark,create_time
+	</sql>
+</mapper>

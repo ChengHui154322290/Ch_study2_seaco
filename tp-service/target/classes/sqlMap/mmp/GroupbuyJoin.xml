@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.GroupbuyJoinDao">
+	<resultMap type="com.tp.model.mmp.GroupbuyJoin" id="groupbuyJoin">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="group_id" property="groupId"/>
+				<result column="group_code" property="groupCode"/>
+				<result column="member_id" property="memberId"/>
+				<result column="member_name" property="memberName"/>
+				<result column="leader" property="leader"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,topic_id,topic_name,group_id,group_code,member_id,member_name,leader,create_time,create_user,update_time,update_user
+	</sql>
+
+	<select id="myJoin" parameterType="java.lang.Long" resultType="java.lang.Long" >
+		SELECT group_id FROM
+		mmp_groupbuy_join
+		WHERE leader = 0
+		AND  member_id = #{memberId}
+	</select>
+
+	<select id="myJoinWithTopicId"  resultType="java.lang.Long" >
+		SELECT group_id FROM
+		mmp_groupbuy_join
+		WHERE  topic_id=#{topicId}
+		AND  member_id = #{memberId}
+	</select>
+</mapper>

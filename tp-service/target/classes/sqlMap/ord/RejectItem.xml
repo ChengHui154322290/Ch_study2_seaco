@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.RejectItemDao">
+	<resultMap type="com.tp.model.ord.RejectItem" id="rejectItem">
+				<id column="reject_item_id" property="rejectItemId"/>
+				<result column="reject_code" property="rejectCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="order_item_id" property="orderItemId"/>
+				<result column="item_refund_quantity" property="itemRefundQuantity"/>
+				<result column="item_refund_amount" property="itemRefundAmount"/>
+				<result column="remarks" property="remarks"/>
+				<result column="item_sku_code" property="itemSkuCode"/>
+				<result column="item_name" property="itemName"/>
+				<result column="item_quantity" property="itemQuantity"/>
+				<result column="item_unit_price" property="itemUnitPrice"/>
+				<result column="item_status" property="itemStatus"/>
+				<result column="item_img_url" property="itemImgUrl"/>
+				<result column="supplier_code" property="supplierCode"/>
+				<result column="product_code" property="productCode"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="all_column_fields">
+		reject_item_id,reject_code,order_code,order_item_id,item_refund_quantity,item_refund_amount,remarks,item_sku_code,item_name,item_quantity,item_unit_price,item_status,item_img_url,supplier_code,product_code,create_time,create_user,update_time,update_user
+	</sql>	
+	<select id="queryListByRejectNos" resultMap="rejectItem" parameterType="list">
+		 SELECT
+	     	<include refid="all_column_fields" />
+		 FROM
+		 	ord_reject_item 
+		<where>
+			reject_code  in (
+		 	<foreach collection="list" index="item" separator="," item="item">
+				#{item}
+		 	</foreach>
+		 	)
+		</where>
+	 	Limit 0,100
+	</select>
+</mapper>

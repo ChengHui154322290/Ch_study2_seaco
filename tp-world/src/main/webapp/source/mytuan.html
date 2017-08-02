@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西客商城</title>
+		<meta name="Keywords" content="西客商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/mytuan.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+	<div class="ui-header">
+		<h1>我的团购</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+	</div>
+	<div class="ui-tab">
+		<ul class="ui-tab-nav ui-border-b">
+			<li class="current">我发起的团</li>
+			<li>我参加的团</li>
+		</ul>
+		<ul class="ui-tab-content" style="width:200%; transition-property: transform; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 200ms; transform: translate(0px, 0px) translateZ(0px);">
+			<li class="current">
+				<div class="tuan_launch">
+
+					<!--<div class="tuan_item">-->
+						<!--<div class="item_img">-->
+							<!--<img src="//7xpcxl.com2.z0.glb.qiniucdn.com/1452931109481.jpg?imageView2/0/w/180">-->
+						<!--</div>-->
+						<!--<div class="item_info">-->
+							<!--<div class="div_name">Fjallraven 瑞典北极狐 双肩背包 瑞典北极狐深红色Fjallraven</div>-->
+							<!--<div class="div_info1">-->
+								<!--<div class="item_price">¥99.<span>06</span></div>-->
+								<!--<div class="tuan_status_desc">进行中</div>-->
+							<!--</div>-->
+							<!--<div class="div_info2">-->
+								<!--<div class="div_old_price">¥199.00</div>-->
+								<!--<div class="div_progress"><div style="width: 60%"></div></div>-->
+								<!--<span class="tuan_peson_coun">7/10</span>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+
+				</div>
+			</li>
+			<li>
+				<div class="tuan_join">
+
+					<!--<div class="tuan_item">-->
+						<!--<div class="item_img">-->
+							<!--<img src="//7xpcxl.com2.z0.glb.qiniucdn.com/1452931109481.jpg?imageView2/0/w/180">-->
+						<!--</div>-->
+						<!--<div class="item_info">-->
+							<!--<div class="div_launch_people">136*****5125发起了次团</div>-->
+							<!--<div class="div_name">Fjallraven 瑞典北极狐 双肩背包 瑞典北极狐深红色Fjallraven</div>-->
+							<!--<div class="div_info1">-->
+								<!--<div class="item_price">¥99.<span>06</span></div>-->
+								<!--<div class="tuan_status_desc">进行中</div>-->
+							<!--</div>-->
+							<!--<div class="div_info2">-->
+								<!--<div class="div_old_price">¥199.00</div>-->
+								<!--<div class="div_progress"><div style="width: 60%"></div></div>-->
+								<!--<span class="tuan_peson_coun">7/10</span>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+
+				</div>
+			</li>
+		</ul>
+
+	</div>
+
+	<script class="demo-script">
+		(function (){
+			var tab = new fz.Scroll('.ui-tab', {
+				role: 'tab',
+				autoplay: false,
+				interval: 3000
+			});
+
+		})();
+	</script>
+	</body>
+
+	<script type="text/javascript" src="./js/xigou.js"></script>
+	<script type="text/javascript" src="./js/base.js"></script>
+	<script type="text/javascript" src="./js/modules/groupbuy.js"></script>
+	<script type="text/javascript" src="./js/pages/mytuan.js"></script>
+
+</html>

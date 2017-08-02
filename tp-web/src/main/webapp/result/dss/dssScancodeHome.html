@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>我的推广码</title>
+<meta name="Keywords" content="我的推广码">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="icon" href="/modifiable/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/css/frozen_6b1c8d5.css" />
+<link rel="stylesheet" href="/css/demo_810378f.css" />
+<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+<link rel="stylesheet" type="text/css" href="/dss/css/scancodehome_8cae1c0.css" />
+<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/frozen_2363f40.js" type="text/javascript" charset="utf-8"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="/js/pages/phoneScale_598eed3.js"></script>
+</head>
+
+<body>
+	<!-- <header class="main-body">
+		<a href="../home.html" class="goBack"></a>
+		<div class = "top_right"></div>
+		<div class=" main-info">
+			<div class="main-avtar detailinfo">
+				<img class="main-avtarimg" src="img/scanCode.png" />
+			</div>
+			<div class="main-title">
+				<div class="dss-name">
+					<span id="shopName">我的推广码</span>
+				</div>
+				<div class="main-normal" id="normalStatusDiv">
+					正常显示
+					<div class="user-info">
+						<div class="info-div">
+							<span id="userName"></span>
+						</div>
+						<div class="info-div">
+							<span id="mobile"></span>
+						</div>
+					</div>
+					<div class="auth-info yrz" style="display: none;">
+						<div class="auth-text">
+							<span>已认证</span>
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-id.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-bank.png" />
+						</div>
+					</div>
+					<div class="auth-info wrz" style="display: none;">
+						<div class="auth-text">
+							<span>还未认证</span>
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/bank-auth.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/identify-auth.png" />
+						</div>
+					</div>
+				</div>
+				<div class="main-normal" id="unpayStatusDiv" style="display: none">
+					未开通状态
+					<div class="pass_btn" ordercode="" id="orders_btn_pay">
+						开通我的店铺</div>
+				</div>
+				<div class="main-normal" id="forbiddenStatusDiv"
+					style="display: none">
+					被禁用状态显示
+					<div class="user-info">
+						<div class="info-div">
+							<span id="fuserName"></span>
+						</div>
+						<div class="info-div">
+							<span id="fmobile"></span>
+						</div>
+					</div>
+					<div class="auth-info">
+						<div class="auth-text">
+							<span>该店铺已被禁用(请联系西客商城客服)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header> -->
+	
+	<div class="top_div top_div1">
+		<div class="div_name">
+			<a href="../home.html" class="goBack_w"></a>
+			我的推广码
+		</div>
+		<div class="qrtip">
+			<div style="margin: 0 auto; text-align: center;">
+				立即扫描推广码
+			</div>
+		</div>
+		
+		<div class="div_dsslogo">
+			<div class="gift_box shake_leftright">
+				<img src='/dss/img/gift_box.png'/>
+			</div>
+			<div class="div_dsslogo_cord"></div>
+		</div>
+		
+		<div class="but-box">
+		    <a class="share_button" href="#"></a>
+		</div>
+		
+		
+	</div>
+	
+	<div class="money-info">
+		<div class="money-income">
+			<div class="money-box">
+				<div class="money-text">
+					<span>累计收入(元)</span>
+				</div>
+				<div class="money-number">
+					<span id="accumulatedAmount"></span>
+				</div>
+			</div>
+			<div class="money-split"></div>
+			<div class="money-box">
+				<div class="money-text">
+					<span>账户余额(元)</span>
+				</div>
+				<div class="money-number">
+					<span id="surplusAmount"></span>
+				</div>
+			</div>
+		</div>
+		<div class="money-withdraw">
+			<div class="withdraw-button" id="canWithdrawBtn">
+				<div class="withdraw-div">
+					<img class="btnicon" src="/dss/img/time-icon.png"></img> 提现
+				</div>
+			</div>
+			<div class="withdraw-button-grey" id="withdrawDisableBtn"
+				style="display: none">
+				<div class="withdraw-div">
+					<img class="btnicon" src="/dss/img/time-icon.png"></img> 提现
+				</div>
+			</div>
+			<div class="withdraw-button-disable" id="withdrawingBtn"
+				style="display: none">
+				<div class="withdraw-div">
+					<img class="btnicon" src="/dss/img/time-icon.png"></img> 提现中
+				</div>
+			</div>
+		</div>
+		<div class="money-account">
+			<div class="money-box money-split1">
+				<div class="money-text">
+					<span>&nbsp;&nbsp;&nbsp;已提现(元)</span>
+				</div>
+				<div class="money-number-black">
+					<span id="withdrawedAmount"></span>
+				</div>
+			</div>
+			<div class="money-box money-split1">
+				<div class="money-text">
+					<span>订单总额(元)</span>
+				</div>
+				<div class="money-number">
+					<span id="orderAmount"></span>
+				</div>
+			</div>
+			<div class="money-box">
+				<div class="money-text">
+					<span>扫码总数(个)</span>
+				</div>
+				<div class="money-number">
+					<span id="scancount"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="operation-list">
+		<div class="operation-item" id="accountFlowQuery">
+			<div class="operation-item-box">
+				<img class="operation-item-img-account" src="/dss/img/accountflow.png" />
+				<div class="operation-item-text">
+					<span>账单查询</span>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="operation-item-split"></div> -->
+		<div class="operation-item" id="orderQuery">
+			<div class="operation-item-box">
+				<img src="/dss/img/orderinfo.png" class="operation-item-img-order" />
+				<div class="operation-item-text">
+					<span>订单查询</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="credentialcode" />
+	<input type="hidden" id="bankName" />
+	<input type="hidden" id="bankAccount" />
+	<input type="hidden" id="curWithdraw" />
+	<input type="hidden" id="Alipay" />
+	
+	<!--  弹出提示框    -->
+		<!-- 蒙层 -->
+		<div class = "cover" id = "tips">
+		</div>
+		
+		<!-- 提示推广码说明 -->
+		<div class="code_description">
+			<img src="/dss/img/gift_explain.png">
+			<div class="code_description_center">
+				<div class="code_description_txt">1、新用户通过扫描您的个人推广二维码注册享<span class="code_description_price">2000元</span>大礼包</div>
+				<div class="code_description_txt">2、成功购买商品，您将获得100%的佣金返现</div>
+				<div class="code_description_txt">3、每日限时秒杀、低价折扣享不停！</div>
+			</div>
+			
+			<div class="code_description_btn">知道了</div>
+		</div>
+		<!--  弹出提示打开APP    -->
+		<div class ="cover_pop">
+			<div class ="cover_s3"></div>
+			<a class="btn-app"></a>
+		</div>
+</body>
+
+<script src="/js/xigou_b90d4fc.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/base_7878327.js"></script>
+<script type="text/javascript" src="/js/static_data_413e835.js"></script>
+<script type="text/javascript" src="/dss/js/dssScancodeHome_1a27dfa.js"></script>
+<script type="text/javascript" src="/dss/js/modules/promoter_84b0df4.js"></script>
+<script type="text/javascript" src="/dss/js/dssInvisterRegisterSuccess_a851472.js"></script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>签到攻略</title>
+	<meta name="Keywords" content="西客商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="css/frozen.css" />
+	<link rel="stylesheet" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/sign_way.css"/>
+	<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="js/dropload.min.js" ></script>
+	<script type="text/javascript" src="./js/static_data.js"></script>
+ 	<script type="text/javascript" src="./js/pages/sign_way.js"></script>  
+
+</head>
+<body scroll="no" style="overflow-x:hidden;">
+	<header>
+		<a class="group-back" href="javascript:history.go(-1);"></a>
+		<h1>签到攻略</h1>
+	</header>
+	<div class="rules">
+		<h1>签到规则明细</h1>
+		<ul class="rules_detail">
+			<li>1、连续签到可获取每日递增数量的西客币<img src="img/sign/coin_up.png" class="rule_detail_img"></li>
+			<li>2、签到第1天即领5枚西客币，之后连续签到逐天增加1枚，10枚封顶，即连续签到的第六天开始，每天可领10枚西客币。若发生断签，重新签到时按照第1天计算，以此类推。</li>
+		</ul>
+	</div>
+	<div class="user_rules">
+		<h1>使用规则</h1>
+		<ul class="rules_detail">
+			<li>1、100西客币=1元人民币；</li>
+			<li>2、西客币不可提现，不可兑换现金。</li>
+		</ul>
+	</div>
+</body>
+<script>
+$(function(){
+	if(isWeiXin()){
+		$("header").hide();
+		$(".rules").css({
+			"margin-top":"18px"
+		});
+		$("title").html("签到攻略");
+	}
+})
+	
+</script>
+</html>

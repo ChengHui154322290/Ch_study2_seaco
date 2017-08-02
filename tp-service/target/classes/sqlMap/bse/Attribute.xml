@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.AttributeDao">
+	<resultMap type="com.tp.model.bse.Attribute" id="attribute">
+				<id column="id" property="id"/>
+				<result column="code" property="code"/>
+				<result column="name" property="name"/>
+				<result column="status" property="status"/>
+				<result column="remark" property="remark"/>
+				<result column="sort_no" property="sortNo"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="is_required" property="isRequired"/>
+				<result column="allow_multi_select" property="allowMultiSelect"/>
+				<result column="allow_custom" property="allowCustom"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,29 @@
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+.detail-content{
+	width: 100%;
+	margin-top: 50px;
+}
+
+.detail-content>div>img{
+	width: 100%;
+	float: left;	
+}
+
+header {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 100;
+	border: none;
+	border-bottom: 1px solid #aaa;
+}

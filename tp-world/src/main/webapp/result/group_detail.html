@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>线下团购</title>
+	<meta name="Keywords" content="西客商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/frozen_850342a.css" />
+	<link rel="stylesheet" href="/css/demo_810378f.css" />
+	<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/group_detail_49951ec.css"/>
+	<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/frozen_2363f40.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/xigou_5203c30.js" type="text/javascript" charset="utf-8"></script>
+	<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="/js/dropload.min_d0f3d54.js" ></script>
+	<script type="text/javascript" src="/js/static_data_b6187ca.js"></script>
+	<script type="text/javascript" src="/js/base_7a12ce8.js"></script>
+	<script type="text/javascript" src="/js/modules/item_d87a92f.js"></script>
+	<script type="text/javascript" src="/js/modules/user_91a557a.js"></script>
+	<script type="text/javascript" src="/js/modules/hd_c892d18.js"></script>
+	<script type="text/javascript" src="/js/modules/offlinegb_759ca2b.js"></script><!--
+	<script type="text/javascript" src="./js/touch-0.2.14.min.js"></script>
+    -->
+</head>
+
+<body scroll="no" style="overflow-x:hidden;">
+ 	<header>
+		<a class="group-back" href="javascript:history.go(-1);"></a>
+		<h1>团购详情</h1>
+		<a class="group-share"></a>		
+	</header>
+	<a class="group-share1"></a>
+	<div class="share_friends">
+		<div class="share_tip"></div>
+	</div>
+	<section>
+		<div class="goods">
+			<span class="shop_logo"><img id="itemimg" src=" "></span>
+			<div class="goods_info">
+				<div class="goods_name"> </div>
+				<div class="price"> </div>
+				<div class="old_price">门市价:<del class="old_price" id="op"> </del><span class="sale"> </span></div>
+			</div>	
+		</div>
+		<div class="list">
+			<ul>
+				<li class="list_centent">团购内容</li>
+				<li ><span id="list_name"> </span><span class="list_num"> </span><span class="list_price"> </span></li>
+			</ul>
+		</div>
+		<div class="shop">
+			<div class="shop_infos">
+				<a class="click_enter">
+					<span class="shop_info_logo"><img id="logo" src=" "></span>
+					<div class="shop_info">
+						<div class="shop_info_name"> </div>
+						<div class="inline_time">营业时间  <span id="prestime"> </span></div>
+					</div>
+					</a>
+<!-- 				<a class="call"> -->
+					<a class="shop_tel call" id="tel">
+						<img src="img/group_buying/shop_tel.png ">
+					</a>	
+<!-- 				</a> -->			
+			</div>
+			<div id="shop_locals">
+				<!-- <span style="margin-left: 23px;" id="shop_locals"></span> -->
+			</div>
+		</div>
+		<div class="tips">
+			<div class="tips_locals">购买须知</div>
+			<ul id="tips">
+
+			</ul>
+		</div>
+	</section>
+	<div class="shop_other_group">
+		<h3>本店的其他团购</h3>
+		<div class="shop_others" id="shop_products">
+		</div>
+	</div>
+	<div class="others_like">
+		<h3>大家都喜欢<a class="more" href="group_buying.html">更多</a></h3>
+		<div class="like_others" id="hotsales">
+		</div>
+	</div>
+	
+<!-- 	<div class="alert_body">
+		<div class="shop_alert">
+			<div class="tel"></div>
+			<ul>
+				<li class="li_border"><a class="call">呼叫</a></li>
+				<li class="close">取消</li>
+			</ul>
+		</div>
+	</div> -->
+	
+	<!-- <section class="actionBar">
+		<div class="cartbar">
+			<a class="ui-btn" id="shopcart-settle">
+				立即购买
+			</a>
+			<div>
+					<div class="item_shop_opt" id="quantity" maxnum="2" price="0.07" oldprice="482.00" sku="01010100020101" tid="112" style="margin-left: 15px; padding-top: 12px;">
+						<a h="javascript:void(0);" class="quantity_decrease disabled">-</a>
+						<intput class="car_item quantity_txt" maxlength="1" readyonly="readyonly">1</intput>
+						<a href="javascript:void(0);" class="quantity_increase">+</a>
+					</div>
+				<div style="float: right;width: 20%;color: #929292;">
+					<p style="padding-top: 8px;font-size:12px;color:#999" class="totalMoney"></p>
+					<p style="font-size:13px;color:#333" class="totalFreeMoney"></p>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<div class="span_space"></div>
+	<section class="shopBar">
+		<ul>
+			<li class="item-shopcar ui-badge-wrap" style="border-left:none;">
+				<div class="item_shop_opt" id="quantity" maxnum="2" price="0.07" oldprice="482.00" sku="01010100020101" tid="112" style="margin-left: 15px; padding-top: 12px;">
+					<a h="javascript:void(0);" class="quantity_decrease disabled">-</a>
+					<intput class="car_item quantity_txt" maxlength="1" readyonly="readyonly">1</intput>
+					<a href="javascript:void(0);" class="quantity_increase">+</a>
+				</div>
+			
+				<!-- 总价 -->
+				<!-- <div style="float: right;width: 20%;color: #929292;">
+					<p style="padding-top: 8px;font-size:12px;color:#999" class="totalMoney"></p>
+					<p style="font-size:13px;color:#333" class="totalFreeMoney"></p>
+				</div> -->
+			</li>
+			<li class="item-buy"><button class="item-buy-text" id="shopcart-settle">立即购买</button></li>
+			<li class="item-none" style="display: none">已抢光</li>
+		</ul>
+	</section>
+</body>
+
+<script type="text/javascript" src="/js/pages/group_detail_c69c80b.js"></script>
+</html>

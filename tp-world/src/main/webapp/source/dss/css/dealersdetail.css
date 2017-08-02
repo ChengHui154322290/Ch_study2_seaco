@@ -1,0 +1,229 @@
+.account-body{
+    font: 1.2rem/1.5 "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB",\5FAE\8F6F\96C5\9ED1,tahoma,simsun,sans-serif;
+    color: #333;
+    outline: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../../img/back.png) no-repeat center;
+    background-size: 21%;
+}
+
+body {
+    background: #eeeeee;
+}
+
+header h1{
+    font-size: 18px;
+    color: #333;
+    line-height: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.empty-box{
+    width: 100%;
+    background: url(../img/partner-null.png) no-repeat center 90px;
+    /*background-position: center 170px;*/
+    background-size: 102px;
+    padding-top: 190px;
+    text-align: center;
+}
+
+.empty-tip{
+    text-align: center;
+    color: #999999;
+    font-size:15px;
+    margin-top: 25px;
+}
+
+.info-list {
+    margin-top: 61px;
+}
+
+.info-item {
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.user-info {
+    height: 50px;
+    padding: 10px 0;
+    position: relative;
+    display: -webkit-box;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.user-info:before{
+    content: "";
+    position: absolute;
+    left: 0px;
+    width: 2px;
+    top: 10px;
+    bottom: 10px;
+    background-color: #ee3e54;
+}
+
+.div_level_2 {
+    display: inline-block;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    background: url("../img/level_3.png") center no-repeat;
+    background-size: 50px;
+}
+
+.div_name_tel {
+    -webkit-box-flex: 1;
+    margin-left: 20px;
+}
+
+.div_name_tel {
+    margin-top: 5px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    color: #333333;
+}
+
+.div_tel {
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.div_dealers_info {
+    height: 63px;
+}
+
+.div_dealers_info > div {
+    display: -webkit-box;
+    text-align: center;
+    height: 31px;
+}
+
+.div_dealers_info > div > div {
+    -webkit-box-flex: 1;
+    text-align: center;
+    width: 0%;
+}
+
+.div_dealers_info > div:first-child > div{
+    line-height: 40px;
+    font-size: 15px;
+    color: #333333;
+}
+
+.div_dealers_info > div:last-child > div {
+    line-height: 20px;
+    font-size: 13px;
+    color: #999999;
+}
+
+.detail_info {
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    display: none;
+}
+
+.level_3 {
+    height: 33px;
+    margin-left: 12px;
+    font-size: 13px;
+    color: #666666;
+    line-height: 33px;
+}
+
+.detail_list {
+    margin-left: 10px;
+    padding-right: 10px;
+}
+
+.detail_list > div {
+    position: relative;
+    height: 85px;
+    border-top: 1px solid #eeeeee;
+    background: url("../img/level_3.png") 2px 15px no-repeat;
+    background-size: 39px;
+    padding-left: 69px;
+}
+
+.detail_list > div.detail_list {
+    font-size: 14px;
+    color: #666666;
+    line-height: 69px;
+}
+
+.detail_list > div:last-child {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.div_detail_1 {
+    height: 42px;
+    line-height: 52px;
+    color: #333;
+    font-size: 15px;
+}
+
+.div_detail_2 {
+    height: 42px;
+    line-height: 32px;
+    color: #666;
+    font-size: 16px;
+}
+
+.detail_list span.desc{
+    font-size: 13px;
+    color: #CCCCCC;
+    float: right;
+    height: 42px;
+}
+
+.detail_list span.desc > span{
+    color: #666666;
+}
+
+.div_show_detail {
+    height:40px;
+    position: relative;
+    color: #999999;
+    font-size: 11px;
+    line-height: 55px;
+    text-align: center;
+}
+
+.down:before {
+    content: "查看";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: url("../img/down.png") center 10px no-repeat;
+    background-size: 15px;
+}
+
+.up:before {
+    content: "收起";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: url("../img/up.png") center 10px no-repeat;
+    background-size: 15px;
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>商品详情</title>
+<meta name="Keywords" content="全球购商城">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/css/frozen_f717264.css" />
+<link rel="stylesheet" href="/css/demo_810378f.css" />
+<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+<link rel="stylesheet" type="text/css" href="/css/item_4d8b035.css" />
+<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/frozen_f33552a.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/xigou_7e7a903.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/dropload.min_d0f3d54.js"></script>
+</head>
+
+<body>
+<!--  	<header>
+		<h1>商品详情</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+		<div class="top_menu">
+			<div style="display: none" class="goShare"></div>
+		</div>
+	</header> -->
+	<div style="display: none" class="goShare"></div>
+	<a href="javascript:history.go(-1);" class="goBack"></a>
+	<!-- <a class="group-back" href="javascript:history.go(-1)"></a> -->
+	<div class="content">
+		<!-- 			<section class="brief clearfix">
+				<span class="brief-img">&nbsp;</span>
+				<span class="brief-name">Moony 尤妮佳</span>
+			</section> -->
+		<section id="slider"></section>
+		<div class="shopinfo"></div>
+		<section style="padding: 0 12px;">
+			<p>
+				<span class="iem-price1" id="iem-price">¥<span
+					class="iem-price2"></span></span>
+			</p>
+			<p class="space_price_div">
+				<!--<span class="cheap">特价</span>-->
+				<span><del id="old_price"></del></span> <span id="fy_price"
+					style="display: none;">返佣:<span></span></span> <span
+					class="sale-count"></span>
+			</p>
+			<p class="dec-title"></p>
+			<p class="dec-info"></p>
+			<p class="country clearfix">
+				<image id="contry-img" src=''></image>
+				<span class="country-name"></span> <span class="warehouse"></span> <span
+					class="warehouse"></span> <span class="fee-icon"></span> <span
+					class="fee">税费</span>
+			</p>
+			<div class="div_promotion">
+				<div>促销:</div>
+				<div class="div_promotion_desc"></div>
+			</div>
+			<div id="selectSizeColor">
+				<h2>
+					选择: <span id="size_color"></span> <a href="javascript:void(0);"
+						class="more_size"></a>
+				</h2>
+			</div>
+			<div class="div_desc">
+				<a href="javascript:void(0);" class="more_size"></a>
+			</div>
+			<div class="notes_clearfix" style="display:none;">
+				<div class="notes1"></div>
+				<span> 全球购商城所有商品均由正规渠道进货，由海外认证的供货商或品牌商直供，坚决杜绝货源不清，中间环节转手的商品。
+				</span>
+				<div class="notes2"></div>
+				<span>
+					西客采取海外直采保税仓发货（4-10个工作日左右到货）和海外直邮（15个工作日左右到货）两种模式，其商品品质都是相同的。由于商品所在的仓库不同，您的订单可能会分拆为多个包裹寄出，到货时间可能亦有差异。
+				</span>
+				<div class="notes3"></div>
+				<span> <!--保税仓发货商品接受7天无理由退货（部分商品除外）。自您收货之日起，在满足退货的前提下，7天内提出退货申请并退回商品，您将获得全额退款。由于退货所产生的运费将由买家自行承担。-->
+					·国内货品最快时间：3天发货客户收到货品+7天退换时间=10天；<br />
+					·国内货品最慢时间：15天系统自动确认收货+7天退换货=22天；<br />
+					·国外货品最快时间：6天清关+3天配送+7天退换时间=16天；<br />
+					·国外货品最慢时间：30天系统自动确认收货+7天退换货=37天。<br />
+					一般情况下，海淘商品不支持退换货；如有质量问题，则遵循以上退换货原则。
+				</span>
+				<div class="notes4"></div>
+				<span>
+					您不仅可以通过我们的网站、微信、APP在线选购我们的商品，更可以亲身光临位于杭州跨贸小镇的西客商场和其他实体门店，享受挑选的乐趣。 </span>
+			</div>
+		</section>
+	</div>
+    <div class="shop_information" style="display:none;">
+    	<div class="shop_logo">
+    		<img src="/img/item/shop-icon.png" style="width:100%;height:100%;" id="img_Logo"/>
+    	</div>
+    	<span class="shop_name">周仰杰全球购物专营店</span>
+    	<a class="link_shop" id="into_shop">进店逛逛</a>
+    </div>
+	<div class="floor_bottom"></div>
+	<div class="floor" id="mask"
+		style="display: none; position: absolute; top: 0px; background-color: rgb(11, 10, 10); opacity: 0.8; height: 200%; z-index: 999;"></div>
+	
+	
+	<!-- 购买数量 -->
+	<div class="floor parameters hide" id="productModal"
+		style="position: fixed; bottom: 0px; padding-bottom: 0; z-index: 999; display: none;">
+		<div class="car_item" style="margin-left: 0px; padding-left: 15px;">
+			<div class="car_item_core">
+				<div class="cart_product">
+					<img src="" alt="">
+				</div>
+				<div class="cart_name_opt" style="width: 65%;">
+					<div class="cart_product_name">xu1</div>
+					<div class="price_box" style="left: 35%;">
+						<span class="money"><em>¥</em><strong>10</strong></span>
+						<del>
+							<span>原价:&nbsp;&nbsp;</span>¥10
+						</del>
+						<i class="postinfo">请挑选合适的 规格 </i>
+					</div>
+				</div>
+			</div>
+			<br class="clear">
+		</div>
+		<div id="parameters_norm" style="max-height: 200px; overflow-y: auto;"></div>
+		<div class="parameters_box"
+			style="position: relative; margin-bottom: 20px;">
+			<h2>购买数量</h2>
+			<div class="parameters_quantity" id="quantity">
+				<!-- <div id="restrictcount" class="hide" style="float:left;">（限购<span></span>件）</div> -->
+				<a href="javascript:void(0);" class="quantity_decrease">-</a>
+				<div class="quantity_txt">1</div>
+				<a href="javascript:void(0);" class="quantity_increase">+</a>
+
+			</div>
+		</div>
+		<div class="car">
+			<button id="btn_confirm" class="c_btn_confirm">确定</button>
+		</div>
+		<div class="no_item" style="display: none">暂时缺货</div>
+	</div>
+	
+	<!-- 税费 -->
+	<div class="taxation_hide" id="taxationModal"
+		style="position: fixed; bottom: 0px; padding-bottom: 0; z-index: 999; display: none;">
+		<div class="taxationTitle">税费</div>
+		<div class="tax_price" style="padding: 15px 0;">
+			<!-- <span class="iem-price1" id="tax_price_price" style="color:#999999;margin-left: 15px;">¥<span class="iem-price2">96</span>.69</span> -->
+			<span class="tax_arr"
+				style="margin-left: 20px; vertical-align: middle;">&nbsp;</span>
+			<!--<span class="cheap" id="span_tax" style="margin-left:-5px;background:#F77482;padding:5px;">关税≤50，免征哦!</span>-->
+		</div>
+		<div class="tax_desc">
+			<span id="tax_desc_span"></span>
+		</div>
+	</div>
+	
+	<!-- 介绍 -->
+	<div class="details_description" id="detailsDescription">
+		<div class="details_item">
+			<div class="detailsTitle">说明</div>
+			<div class="quality_item">
+				<div class="quality_item_core">
+					本平台所有商品均由正规渠道进货，由海外认证的供货商或品牌商直供，坚决杜绝货源不清，中间环节转手的商品。
+				</div>
+			</div>
+			
+			<div class="free_item">
+				<div class="free_item_core">
+					本平台采取海外直采保税仓发货（4-10个工作日左右到货）和海外直邮（15个工作日左右到货）两种模式，其商品品质都是相同的。由于商品所在的仓库不同，您的订单可能会分拆为多个包裹寄出，到货时间可能亦有差异。
+				</div>
+			</div>
+			
+			<div class="customer_item">
+				<div class="customer_item_core">
+					国内货品最快时间：3天发货客户收到货品+7天退换时间=10天；
+					<div>· 国内货品最慢时间：15天系统自动确认收货+7天退换货=22天；</div>
+					<div>· 国外货品最快时间：6天清关+3天配送+7天退换时间=16天；</div>
+					<div>· 国外货品最慢时间：30天系统自动确认收货+7天退换货=37天。</div>
+					<div>一般情况下，海淘商品不支持退换货；如有质量问题，则遵循以上退换货原则。</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="p_close hide"></div>
+
+	<section class="shopBar">
+		<ul>
+			<li class="item-shopcar ui-badge-wrap" style="border-left:none;">
+				<!--&lt;!&ndash; <div class="ui-badge-wrap"> &ndash;&gt;--> <!--<a href="cart.html"><img class="item-shopcar-img" src="img/item/shopcar-normal.png" alt=""></a>-->
+				<!--<div class="ui-badge">0</div>--> <!--&lt;!&ndash; </div> &ndash;&gt;-->
+				<div class="imgbox">
+					<a href="cart.html"> 购物车 <!--<img class="item-shopcar-img" src="img/item/shopcar-normal.png" alt="">-->
+						<div class="ui-badge">0</div>
+					</a>
+				</div>
+			</li>
+			<li class="item-addshop"><button class="item-addshop-text">加入购物车</button></li>
+			<li class="item-buy"><button class="item-buy-text">立即购买</button></li>
+			<li class="item-none" style="display: none">已抢光</li>
+		</ul>
+	</section>
+
+	<div class="share_friends">
+		<div class="share_tip"></div>
+	</div>
+
+	<div class="div_detail">
+		<div class="div_show_detail up"></div>
+		<div class="detail-content"></div>
+	</div>
+</body>
+<!--
+	<script class="demo-script">
+		(function (){
+		            var slider = new fz.Scroll('.ui-slider', {
+		                role: 'slider',
+		                indicator: true,
+		                autoplay: true,
+		                interval: 3000
+		            });
+		        })();
+	</script>
+	-->
+
+<script type="text/javascript" src="/js/static_data_b6187ca.js"></script>
+<script type="text/javascript" src="/js/base_d40a5e9.js"></script>
+<script type="text/javascript" src="/js/thirdshop_9a2a34e.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="/js/modules/user_03072ef.js"></script>
+<script type="text/javascript" src="/js/modules/item_d87a92f.js"></script>
+<script type="text/javascript" src="/js/cmbc/tripledes_f92bce2.js"></script>
+<script type="text/javascript" src="/js/cmbc/mode-ecb_079fb6a.js"></script>
+<script type="text/javascript" src="/js/cmbc/md5_e41e772.js"></script>
+<script type="text/javascript" src="/js/cmbc/cmbc_e353cfc.js"></script> 
+<script type="text/javascript" src="/js/pages/item_618cc0d.js"></script>
+</html>

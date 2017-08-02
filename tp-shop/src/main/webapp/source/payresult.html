@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>支付结果</title>
+		<meta name="Keywords" content="全球购商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="css/payresult.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/dropload.min.js"></script>
+	</head>
+
+	<body>
+		<!-- <header>
+			<h1>支付结果</h1>
+			<a href="javascript:history.go(-1);" class="goBack"></a>
+			<a href="index.html" class="goIndex"></a>
+		</header> -->
+		<div class="content">
+			<div class="result-img">
+				<img src="img/pay/success.png" style="width: 129px;height: 100px" alt="">
+				<div id="div_payrest">你的订单已支付成功！</div>
+			</div>
+
+		</div>
+		<div class="result-btm">
+			<button class="vieworder ui-whitespace ui-btn" type="">查看订单</button>
+			<button class="viewshop ui-whitespace ui-btn" type="">去逛逛</button>
+			<div style="height: 80px"></div>
+		</div>
+		
+		<div class="coupon_code">
+			<div class="coupon_code_message">
+				<div class="couponcode_message_name"></div>
+				<p class="couponcode_message_time_left">有效日起至<span class="couponcode_message_time"></span></p>
+				<p class="couponcode_message_send">系统将会在5分钟内将劵号发送到您的手机上</p>
+			</div>
+			<div class="redeem_code" id="redeem_code">
+			</div>
+		</div>
+	</body>
+<script type="text/javascript" src="./js/static_data.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/thirdshop.js"></script>
+<script type="text/javascript" src="./js/modules/payresult.js"></script>
+<script type="text/javascript" src="./js/pages/payresult.js"></script>
+</html>

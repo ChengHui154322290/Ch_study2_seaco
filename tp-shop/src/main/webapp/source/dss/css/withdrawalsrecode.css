@@ -1,0 +1,128 @@
+body {
+	background-color: #eeeeee;
+}
+.record{
+	font-size: 12px;
+}
+.time{
+	font-size: 11px;
+    color: #999999;
+    height: 35px;
+    padding-left: 13px;
+    line-height: 35px;
+}
+.record_details{
+	background-color: #ffffff;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.money{
+	color: #333333;
+    font-size: 17px;
+    margin-left: 10px;
+}
+.state{
+	font-size: 12px;
+    color: #000000;
+    padding-top: 4px;
+    float: right;
+    margin-right: 10px;
+}
+.additional{
+	color: #9b9b9b;
+    font-size: 11px;
+    margin: 0 10px;
+    padding: 0 10px;
+    background-color: #f8f8f8;
+}
+
+.contents{
+	position:relative;
+	min-height:478px;
+}
+
+/* @media screen and (max-height: 480px){
+	.contents{
+		min-height:422px;
+	}
+}
+
+@media screen and (min-height: 481px) and (max-height: 568px){
+	.contents{
+		min-height:510px;
+	}
+}
+
+@media screen and (min-height: 569px) and (max-height: 640px){
+	.contents{
+		min-height:582px;
+	}
+}
+
+@media screen and (min-height: 641px) and (max-height: 667px){
+	.contents{
+		min-height:638px;
+	}
+}
+
+@media screen and (min-height: 668px) and (max-height: 736px){
+	.contents{
+		min-height:672px;
+	}
+}
+
+@media screen and (min-height: 737px){
+	.contents{
+		min-height:832px;
+	}
+} */
+
+.contents1{
+	/* padding-bottom:100px; */
+}
+/* .bottom{
+	position: static;
+    text-align: center;
+    width: 100%;
+    font-size: 10px;
+    color: #8e8e8e;
+    margin-top: 14px;
+    margin-bottom: 14px;
+} */
+
+.bottom {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-size: 10px;
+    color: #8e8e8e;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    bottom: 14px;
+    display: none;
+}
+
+.withdrawalsrecord_empty {
+	width: 100%;
+	background: url(../img/withdrawalsrecord-null.png) no-repeat center 70px;
+	/*background-position: center 170px;*/
+	background-size: 102px;
+	padding-top: 190px;
+	text-align: center;
+}
+.empty-tip{
+	text-align: center;
+	color: #999999;
+	font-size:15px;
+	margin-top: 25px;
+}
+
+/* 客服 */
+.service{
+	font-size: 10px;
+    color: #8e8e8e;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: none;
+}

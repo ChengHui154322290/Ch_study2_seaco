@@ -1,0 +1,1 @@
+(function(){var a=this;a.classify=a.classify||{},a.classify.navigation=function(i){var c=a.activeHost+a.activeUrl.classify.navigation+"?";ajaxGet(i,c)},a.classify.search=function(i){var c=a.activeHost+a.activeUrl.classify.search+"?"+i.p;ajaxGet(i,c)},a.classify.condition=function(i){var c=a.activeHost+a.activeUrl.classify.condition;ajaxGet(i,c)}}).call(xigou,Zepto);

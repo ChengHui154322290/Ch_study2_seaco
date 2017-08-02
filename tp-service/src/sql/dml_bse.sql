@@ -1,0 +1,1 @@
+update bse_district_info set is_delete=0;

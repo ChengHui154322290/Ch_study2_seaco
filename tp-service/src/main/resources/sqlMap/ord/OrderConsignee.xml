@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderConsigneeDao">
+	<resultMap type="com.tp.model.ord.OrderConsignee" id="orderConsigneeMap">
+				<id column="id" property="id"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="name" property="name"/>
+				<result column="province_id" property="provinceId"/>
+				<result column="province_name" property="provinceName"/>
+				<result column="city_id" property="cityId"/>
+				<result column="city_name" property="cityName"/>
+				<result column="county_id" property="countyId"/>
+				<result column="county_name" property="countyName"/>
+				<result column="town_id" property="townId"/>
+				<result column="town_name" property="townName"/>
+				<result column="address" property="address"/>
+				<result column="mobile" property="mobile"/>
+				<result column="telephone" property="telephone"/>
+				<result column="email" property="email"/>
+				<result column="postcode" property="postcode"/>
+				<result column="consignee_id" property="consigneeId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="identity_card" property="identityCard"/>
+	</resultMap>
+	<sql id="columns">
+		id,parent_order_id,parent_order_code,name,province_id,province_name,city_id,
+		city_name,county_id,county_name,town_id,town_name,address,mobile,telephone,email,
+		postcode,consignee_id,create_time,update_time,identity_card
+	</sql>
+	
+	<select id="selectOneByParentOrderCode" resultMap="orderConsigneeMap">
+		select <include refid="columns"></include>
+		 from ord_order_consignee
+		 where parent_order_code = #{parentOrderCode}
+	</select>
+	<select id="selectOneByParentOrderId" resultMap="orderConsigneeMap">
+		select <include refid="columns"></include>
+		 from ord_order_consignee
+		 where parent_order_id = #{parentOrderId}
+	</select>
+</mapper>

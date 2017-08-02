@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TopicCouponDao">
+	<resultMap type="com.tp.model.mmp.TopicCoupon" id="topicCoupon">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="sort_index" property="sortIndex"/>
+				<result column="coupon_id" property="couponId"/>
+				<result column="coupon_image" property="couponImage"/>
+				<result column="coupon_size" property="couponSize"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_id,sort_index,coupon_id,coupon_image,coupon_size
+	</sql>
+</mapper>

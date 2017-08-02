@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.PromoterTopicDao">
+	<resultMap type="com.tp.model.dss.PromoterTopic" id="promotertopic">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="sku" property="sku"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="status" property="status"/>
+				<result column="type" property="type"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,topic_id,sku,promoter_id,status,type
+	</sql>
+	
+	
+	<select id="selectTopics" parameterType="map" resultType="com.tp.model.mmp.TopicInfo">
+	SELECT mt.id as id, mt.name as name, mt.type as type, mt.image_mobile as image, ifnull(dpt.`status`, 1) as onShelves from mmp_topic mt left join (select topic_id, status from dss_promoter_topic where type=0 and promoter_id=#{promoterid} and status=0) dpt on(mt.id=dpt.topic_id) 
+inner join (
+		select t.activity_id,p.seq peq ,t.seq
+		from cms_position p
+		inner join cms_activity_element t on
+		p.id=t.position_id
+		where p.temple_id
+		IN(select id from cms_temple where temple_code
+		<!-- in('HAITAO_APP_TOPICLIST','HAITAO_APP_SINGLETEMP') --> 
+		<foreach collection='templecodelist'  item="code" index="index" open=" in(" separator="," close=")" >
+			#{code}
+		</foreach>		
+		and `status` = 0
+		and element_type = #{elementype} )
+		and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 			   			   
+		<if test="topicid != null">
+		and t.activity_id = #{topicid}
+		</if>				
+		and t.activity_id in(
+ 					select id from mmp_topic WHERE deletion=0 and sales_partten=8 and progress=1 and `status`=3 and type=#{topictype}
+  			)   					
+		) a on mt.id=a.activity_id 
+	  <if test="channelCode!=null">
+		  and (exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=mt.id and tpp.channel_code=#{channelCode})
+		  or (select count(1) from mmp_topic_promoter tpp where tpp.topic_id=mt.id)=0)
+	  </if>
+	  <if test="channelCode==null">
+		  and not exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=mt.id)
+	  </if> 
+		order by a.peq ,a.seq
+	</select>
+	<select id="queryTopicListByChannelCode" resultType="com.tp.model.mmp.TopicInfo">
+	  SELECT mt.id as id, mt.name as name, mt.type as type, mt.image_mobile as image, ifnull(dpt.`status`, 1) as onShelves 
+		from mmp_topic mt 
+		left join (
+		    select topic_id, status 
+		      from dss_promoter_topic 
+		   where type=0 and promoter_id=#{promoterId} and status=0) dpt 
+		on(mt.id=dpt.topic_id) 
+		where mt.progress=1 and mt.status=3 and mt.start_time&lt;=now() and mt.end_time>=now() and mt.type in (2,3) and mt.sales_partten=8
+		and exists ( select 1 from  mmp_topic_promoter mp where mp.topic_id=mt.id and mp.channel_code=#{channelCode})
+		order by mt.wx_index asc,mt.update_time desc
+	</select>
+	
+	<select id="selectBrandTopics" parameterType="map" resultType="com.tp.model.mmp.TopicInfo">
+	SELECT mt.id as id, mt.name as name, mt.type as type, mt.image_mobile as image, ifnull(dpt.`status`, 1) as onShelves from mmp_topic mt left join (select topic_id, status from dss_promoter_topic where type=0 and promoter_id=#{promoterid} and status=0) dpt on(mt.id=dpt.topic_id) 
+	WHERE mt.deletion=0 and mt.sales_partten=8 and mt.progress=1 and mt.`status`=3 and mt.type = 2	
+	<if test="topicid != null">
+		and mt.id = #{topicid}
+	</if>	
+	</select>
+
+	
+	<select id="selectTopicItems_test" parameterType="com.tp.model.dss.PromoterTopic" resultType="com.tp.dto.promoter.PromoterTopicItemDTO">			
+		SELECT i.topic_id as topicId, i.name as name, i.sku as sku, i.sale_price as salePrice, i.topic_price as topicPrice, IF(i.type=2,ifnull(t.status,0),ifnull(t.status,1)) as onShelves, i.topic_image as imgUrl, ifnull(t.commision_rate,0) as commissionRate
+		FROM 
+			(select mi.topic_id, mi.name, mi.sku, mi.sale_price, mi.topic_price, mi.topic_image, mt.type, mi.deletion, mi.sort_index from mmp_topic_item mi INNER JOIN mmp_topic mt on mi.topic_id=mt.id WHERE mt.deletion=0 and mt.sales_partten=8 and mt.progress=1 and mt.`status`=3 and (mt.type=2 or mt.type=3)) i 
+				LEFT JOIN 
+			(select topic_id, dpt.sku, promoter_id, dpt.status, commision_rate  from dss_promoter_topic dpt inner join prd_item_sku pis on(dpt.sku=pis.sku) where dpt.type=1 and dpt.promoter_id=#{promoterId} ) t 
+			ON(i.sku = t.sku and i.topic_id=t.topic_id) 
+		WHERE  i.deletion = 0 and mi.item_status in (1,-1)
+			<foreach item="topicid" collection="listTopic" separator="," open="  AND i.topic_id  in (" close=")">
+ 			#{topicid}
+	 		</foreach>		   					
+			order by i.topic_id, i.sort_index					
+			<if test="pageSize!=null">						
+				Limit #{start},#{pageSize}	
+			</if>				
+	</select>
+	
+
+	<select id="selectTopicItems" parameterType="com.tp.model.dss.PromoterTopic" resultType="com.tp.dto.promoter.PromoterTopicItemDTO">			
+		SELECT i.topic_id as topicId, i.name as name, i.sku as sku, i.sale_price as salePrice, i.topic_price as topicPrice, IF(i.type=2,ifnull(t.status,0),ifnull(t.status,1)) as onShelves, i.topic_image as imgUrl, ifnull(sku.commision_rate,0) as commissionRate
+		FROM 
+			(select mi.topic_id, mi.name, mi.sku, mi.sale_price, mi.topic_price, mi.topic_image, mt.type, mi.deletion, mi.sort_index, mi.item_id 
+				from mmp_topic_item mi INNER JOIN mmp_topic mt on mi.topic_id=mt.id 
+				WHERE mt.deletion=0 and mi.deletion=0 and mi.item_status in (1,-1) and mt.sales_partten=8 and mt.progress=1 and mt.`status`=3 and (mt.type=2 or mt.type=3)) i 
+				LEFT JOIN (select * from dss_promoter_topic dpt where dpt.type=1 and dpt.promoter_id=#{promoterId}) t 
+			ON(i.sku = t.sku and i.topic_id=t.topic_id) 
+				inner join prd_item_sku sku  on sku.sku=i.sku	
+			<if test="channelCode==null">
+			 inner join ( 
+			  select tt.activity_id,p.seq peq ,tt.seq 
+			    from cms_position p 
+			  inner join cms_activity_element tt
+			   on p.id=tt.position_id 
+			  where p.temple_id IN(select id from cms_temple where temple_code in( 'HAITAO_APP_DSS_TOPICLIST' ) and `status` = 0 and element_type = 1)
+			 )  aa on i.topic_id=aa.activity_id 	
+			</if>		
+ 			<foreach item="topicid" collection="listTopic" separator="," open=" WHERE  i.topic_id  in (" close=")">
+ 			 	#{topicid}		
+ 			</foreach>
+ 			
+		order by  <if test="channelCode==null">aa.peq ,aa.seq,</if>i.sort_index, i.item_id 
+		<if test="pageSize!=null">						
+			Limit #{start},#{pageSize}	
+		</if>											
+	</select>
+
+
+
+
+	<select id="countTopicItems" parameterType="com.tp.model.dss.PromoterTopic" resultType="long">			
+		SELECT count(1)
+		FROM 
+			mmp_topic_item i 
+				LEFT JOIN 
+			(select topic_id, dpt.sku, promoter_id, dpt.status, commision_rate  from dss_promoter_topic dpt inner join prd_item_sku pis on(dpt.sku=pis.sku) where dpt.type=1 and dpt.promoter_id=#{promoterId} and dpt.status=#{status}) t 
+			ON(i.sku = t.sku and i.topic_id=t.topic_id) 
+		WHERE  i.deletion = 0 and i.item_status in (1,-1)
+			<foreach item="topicid" collection="listTopic" separator="," open="  AND i.topic_id  in (" close=")">
+ 			#{topicid}
+	 		</foreach>		   					
+	 </select>
+	
+	
+<select id="geBrandTopics" resultType="com.tp.model.mmp.Topic">			
+select topic_id as id, name,j3.status,discount, start_time as startTime, end_time as endTime, image_mobile as imageMobile,mobile_image as mobileImage from
+(select j1.id, j1.status, acti.activity_id, pseq, tseq, acti.seq as eseq from 
+(select p.id, p.status, p.seq as pseq, tem.seq as tseq from cms_position p inner join cms_temple tem on p.temple_id=tem.id where  tem.temple_code='HAITAO_APP_DSS_TOPICLIST') j1 
+  inner join cms_activity_element acti on j1.id=acti.position_id where acti.status=0 and j1.status=0  <![CDATA[ AND acti.startdate <= NOW()]]>  <![CDATA[ AND acti.enddate >= NOW()]]>  ) j2
+  inner join (select id as topic_id,name,status,discount,start_time,end_time,image_mobile,mobile_image from mmp_topic mtc where deletion=0 and sales_partten=8 and progress=1 and `status`=3 and type=2
+  <if test="channelCode!=null">
+	  and (exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=mtc.id and tpp.channel_code=#{channelCode})
+	  or (select count(1) from mmp_topic_promoter tpp where tpp.topic_id=mtc.id)=0)
+  </if>
+  <if test="channelCode==null">
+	  and not exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=mtc.id)
+  </if>
+  and id not in(select topic_id from dss_promoter_topic where type=0 and promoter_id=#{promoterId} and status=0)) j3 on(j2.activity_id=j3.topic_id) 
+		order by j2.pseq ,j2.tseq, j2.eseq;
+ </select>
+	
+	
+<select id="getBrandTopicItems" resultType="com.tp.model.mmp.TopicItemDss">
+select j7.intro_mobile as introMobile,j7.image_mobile as imageMobile,j7.topic_id as topicId,j7.start_time as startTime,j7.end_time as endTime,j7.topic_status as topicStatus,j7.status, j7.activity_id, j7.pseq, j7.tseq, j7.eseq       ,j7.sort_index,j7.item_id as itemId,j7.bonded_area as bondedArea,j7.country_id as countryId,j7.topic_price as topicPrice,j7.sale_price as salePrice,j7.name,j7.id,j7.sku,j7.topic_image as topicImage  from
+(select j5.intro_mobile,j5.image_mobile,j5.topic_id,j5.start_time,j5.end_time,j5.topic_status ,j5.status, j5.activity_id, j5.pseq, j5.tseq, j5.eseq      ,j6.sort_index,j6.item_id,j6.bonded_area,j6.country_id,j6.topic_price,j6.sale_price,j6.`name`,j6.id,j6.sku,j6.topic_image    from 
+(select j4.intro_mobile,j4.image_mobile,j4.id as topic_id,j4.start_time,j4.end_time,j4.status as topic_status     ,j3.id, j3.status, j3.activity_id, j3.pseq, j3.tseq, j3.eseq from 
+(select j1.id, j1.status, j2.activity_id, pseq, tseq, j2.seq as eseq from 
+(select p.id, p.status, p.seq as pseq, tem.seq as tseq from cms_position p inner join cms_temple tem on p.temple_id=tem.id where  tem.temple_code='HAITAO_APP_DSS_TOPICLIST') j1 
+  inner join cms_activity_element j2 on j1.id=j2.position_id where j2.`status`=0 and j1.status=0 <![CDATA[ AND j2.startdate <= NOW()]]>  <![CDATA[ AND j2.enddate >= NOW()]]> ) j3
+  inner join mmp_topic j4 on j3.activity_id=j4.id where j4.deletion=0 and j4.sales_partten=8 and j4.progress=1 and j4.`status`=3 and j4.type=2 ) j5
+  inner join mmp_topic_item j6 on j5.activity_id= j6.topic_id   where j6.deletion = 0 and j6.item_status in (1,-1) 
+  <if test="channelCode!=null">
+	  and (exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j6.id and tpp.channel_code=#{channelCode})
+	  or (select count(1) from mmp_topic_promoter tpp where tpp.topic_id=j6.id)=0)
+  </if>
+  <if test="channelCode==null">
+	  and not exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j6.id)
+  </if>
+  ) j7
+  where EXISTS( select * from dss_promoter_topic where STATUS=1 and type=1 and promoter_id=#{promoterId} and topic_id=j7.topic_id and sku=j7.sku)
+		order by j7.pseq ,j7.tseq, j7.eseq, j7.sort_index, j7.item_id 
+				
+</select>
+ 
+ 
+ <select id="getOtherTopicItems" parameterType="long" resultType="com.tp.model.mmp.TopicItemDss">			
+select j7.intro_mobile as introMobile,j7.image_mobile as imageMobile,j7.topic_id as topicId,j7.start_time as startTime,j7.end_time as endTime,j7.topic_status as topicStatus,j7.status, j7.activity_id, j7.pseq, j7.tseq, j7.eseq       ,j7.sort_index,j7.item_id as itemId,j7.bonded_area as bondedArea,j7.country_id as countryId,j7.topic_price as topicPrice,j7.sale_price as salePrice,j7.name,j7.id,j7.sku,j7.topic_image as topicImage  from
+(select j5.intro_mobile,j5.image_mobile,j5.topic_id,j5.start_time,j5.end_time,j5.topic_status ,j5.status, j5.activity_id, j5.pseq, j5.tseq, j5.eseq      ,j6.sort_index,j6.item_id,j6.bonded_area,j6.country_id,j6.topic_price,j6.sale_price,j6.`name`,j6.id,j6.sku,j6.topic_image    from 
+(select j4.intro_mobile,j4.image_mobile,j4.id as topic_id,j4.start_time,j4.end_time,j4.status as topic_status     ,j3.id, j3.status, j3.activity_id, j3.pseq, j3.tseq, j3.eseq from 
+(select j1.id, j1.status, j2.activity_id, pseq, tseq, j2.seq as eseq from 
+(select p.id, p.status, p.seq as pseq, tem.seq as tseq from cms_position p inner join cms_temple tem on p.temple_id=tem.id where  tem.temple_code='HAITAO_APP_DSS_TOPICLIST') j1 
+  inner join cms_activity_element j2 on j1.id=j2.position_id where j2.`status`=0 and j1.status=0 <![CDATA[ AND j2.startdate <= NOW()]]>  <![CDATA[ AND j2.enddate >= NOW()]]> ) j3
+  inner join mmp_topic j4 on j3.activity_id=j4.id where j4.deletion=0 and j4.sales_partten=8 and j4.progress=1 and j4.`status`=3 and j4.type  =3 
+  <if test="channelCode!=null">
+	  and (exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j4.id and tpp.channel_code=#{channelCode})
+	  or (select count(1) from mmp_topic_promoter tpp where tpp.topic_id=j4.id)=0)
+  </if>
+  <if test="channelCode==null">
+	  and not exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j4.id)
+  </if>
+  ) j5
+  inner join mmp_topic_item j6 on j5.activity_id= j6.topic_id   where j6.deletion = 0 and j6.item_status in (1,-1) ) j7
+  where not EXISTS( select * from dss_promoter_topic where STATUS=0 and type=1 and promoter_id=#{promoterId} and topic_id=j7.topic_id and sku=j7.sku)
+		order by j7.pseq ,j7.tseq, j7.eseq, j7.sort_index, j7.item_id 
+</select>
+
+
+	<select id="getSingleTopicItem" parameterType="long" resultType="com.tp.model.mmp.TopicItemDss">
+		select j7.intro_mobile as introMobile,j7.image_mobile as imageMobile,j7.topic_id as topicId,j7.start_time as startTime,j7.end_time as endTime,j7.topic_status as topicStatus,j7.status, j7.activity_id, j7.pseq, j7.tseq, j7.eseq       ,j7.sort_index,j7.item_id as itemId,j7.bonded_area as bondedArea,j7.country_id as countryId,j7.topic_price as topicPrice,j7.sale_price as salePrice,j7.name,j7.id,j7.sku,j7.topic_image as topicImage  from
+		(select j5.intro_mobile,j5.image_mobile,j5.topic_id,j5.start_time,j5.end_time,j5.topic_status ,j5.status, j5.activity_id, j5.pseq, j5.tseq, j5.eseq      ,j6.sort_index,j6.item_id,j6.bonded_area,j6.country_id,j6.topic_price,j6.sale_price,j6.`name`,j6.id,j6.sku,j6.topic_image    from
+		(select j4.intro_mobile,j4.image_mobile,j4.id as topic_id,j4.start_time,j4.end_time,j4.status as topic_status     ,j3.id, j3.status, j3.activity_id, j3.pseq, j3.tseq, j3.eseq from
+		(select j1.id, j1.status, j2.activity_id, pseq, tseq, j2.seq as eseq from
+		(select p.id, p.status, p.seq as pseq, tem.seq as tseq from cms_position p inner join cms_temple tem on p.temple_id=tem.id where  tem.temple_code='HAITAO_APP_DSS_TOPICLIST') j1
+		inner join cms_activity_element j2 on j1.id=j2.position_id where j2.`status`=0 and j1.status=0 <![CDATA[ AND j2.startdate <= NOW()]]>  <![CDATA[ AND j2.enddate >= NOW()]]> ) j3
+		inner join mmp_topic j4 on j3.activity_id=j4.id where j4.deletion=0 and j4.sales_partten=8 and j4.progress=1 and j4.`status`=3 and j4.type =1 ) j5
+		inner join mmp_topic_item j6 on j5.activity_id= j6.topic_id   where j6.deletion = 0 and j6.item_status in (1,-1) 
+		<if test="channelCode!=null">
+		  and (exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j6.id and tpp.channel_code=#{channelCode})
+		  or (select count(1) from mmp_topic_promoter tpp where tpp.topic_id=j6.id)=0)
+	    </if>
+	    <if test="channelCode==null">
+		  and not exists ( select 1 from mmp_topic_promoter tpp where tpp.topic_id=j6.id)
+	    </if>
+		) j7
+		where not EXISTS( select * from dss_promoter_topic where STATUS=0 and type=1 and promoter_id=#{promoterId} and topic_id=j7.topic_id and sku=j7.sku)
+		order by j7.pseq ,j7.tseq, j7.eseq, j7.sort_index, j7.item_id
+	</select>
+ 
+ 
+  <select id="getItemOtherInfo" parameterType="list" resultType="com.tp.model.mmp.ItemOtherInfo">			
+select distinct j9.item_id as itemId,									j9.sku,j9.sub_title as subTitle,j9.clearname as clearName, 				 j9.dirctname as dirctName, j9.pic_path as picPath, j10.commision_rate as commisionRate from 
+(select j7.item_id,																	j7.sku,j7.sub_title,j7.clearname, 				 j7.dirctname, j8.pic_path 	from 
+(select j5.country_id,j5.item_id,										j5.sku,j5.sub_title,j5.name as clearname, j6.name as dirctname     	from 
+(select j3.country_id,j3.item_id,                  j3.sku,j3.sub_title,j4.name		       																from 
+(select j1.bonded_area, j1.country_id,j1.item_id,    j1.sku,j2.sub_title        																					from mmp_topic_item j1
+	left JOIN prd_item_detail j2 on j2.item_id = j1.item_id where 	
+		<foreach collection="list" item="itemId" index="index"  open="  j1.item_id in (" close=") " separator=",">
+            #{itemId}
+        </foreach>		
+	 and j1.deletion=0 and j1.item_status in (1,-1)) j3
+	left JOIN bse_clearance_channels j4 on j4.id = j3.bonded_area) j5
+	left JOIN bse_district_info j6 on j6.id = j5.country_id ) j7
+	left JOIN bse_national_icon j8 on j8.country_id= j7.country_id ) j9
+  	left JOIN prd_item_sku j10 on j10.sku=j9.sku
+</select>
+ 
+		
+</mapper>

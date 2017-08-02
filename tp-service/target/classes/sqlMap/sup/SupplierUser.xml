@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierUserDao">
+	<resultMap type="com.tp.model.sup.SupplierUser" id="supplierUser">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="login_name" property="loginName"/>
+				<result column="password" property="password"/>
+				<result column="password_update_time" property="passwordUpdateTime"/>
+				<result column="salt_key" property="saltKey"/>
+				<result column="user_name" property="userName"/>
+				<result column="sex" property="sex"/>
+				<result column="email" property="email"/>
+				<result column="phone" property="phone"/>
+				<result column="telphone" property="telphone"/>
+				<result column="address" property="address"/>
+				<result column="description" property="description"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,supplier_id,login_name,password,salt_key,user_name,sex,email,phone,telphone,address,description,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	<update id="updateUserBySupplierId" parameterType="com.tp.model.sup.SupplierUser">
+ 	    update sup_supplier_user
+ 	    <set>
+ 	        <if test="password != null ">password = #{password},</if>
+ 	        update_time=now(),
+ 	        <if test="updateUser != null ">update_user = #{updateUser},</if>
+ 	        <if test="status != null ">status=#{status},</if>
+ 	    </set>
+ 	    where 
+ 	        supplier_id = #{supplierId}
+ 	</update>
+</mapper>

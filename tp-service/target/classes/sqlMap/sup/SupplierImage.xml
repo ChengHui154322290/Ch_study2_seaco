@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierImageDao">
+	<resultMap type="com.tp.model.sup.SupplierImage" id="supplierImage">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="image_type" property="imageType"/>
+				<result column="image_url" property="imageUrl"/>
+				<result column="name" property="name"/>
+				<result column="description" property="description"/>
+				<result column="remark" property="remark"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,supplier_id,image_type,image_url,name,description,remark,brand_id,brand_name,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_supplier_image(
+				id,
+				supplier_id,
+				image_type,
+				image_url,
+				name,
+				description,
+				remark,
+				brand_id,
+				brand_name,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="image" index="index" separator="," >
+		(
+				#{image.id},
+				#{image.supplierId},
+				#{image.imageType},
+				#{image.imageUrl},
+				#{image.name},
+				#{image.description},
+				#{image.remark},
+				#{image.brandId},
+				#{image.brandName},
+				#{image.status},
+				now(),
+				now(),
+				#{image.createUser},
+				#{image.createUser}
+		)
+		</foreach>
+    </insert>
+    <update id="updateImageStatusBySupplierId" parameterType="map">
+ 	    update sup_supplier_image
+ 	    set update_time = now(),
+ 	        <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+ 	        status = #{status}
+ 	    where supplier_id = #{supplierId}
+ 	        and image_type = #{imgType}
+ 	</update>
+</mapper>

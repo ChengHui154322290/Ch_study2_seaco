@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.PushInfoDao">
+	<resultMap type="com.tp.model.app.PushInfo" id="PushInfoResultMap">
+			<id column="id" property="id" />
+			<result column="title" property="title" />
+			<result column="page_title" property="pageTitle" />
+			<result column="content" property="content" />
+			<result column="platform" property="platform" />
+			<result column="push_status" property="pushStatus" />
+			<result column="push_target" property="pushTarget" />
+			<result column="push_type" property="pushType" />
+			<result column="push_way" property="pushWay" />
+			<result column="net_type" property="netType" />
+			<result column="link" property="link" />
+			<result column="tid" property="tid" />
+			<result column="sku" property="sku" />
+			<result column="client_id" property="clientId" />
+			<result column="active_time" property="activeTime" />
+			<result column="send_date" property="sendDate" />
+			<result column="is_del" property="isDel" />
+			<result column="create_date" property="createDate" />
+			<result column="create_user" property="createUser" />
+			<result column="modify_date" property="modifyDate" />
+			<result column="modify_user" property="modifyUser" />
+			<result column="content_id"  property="contentId"/>
+			<result column="open_count"  property="openCount"/>
+	</resultMap>
+	
+	<sql id="columns">
+	      id,title,page_title,content,platform,active_time,push_status,push_target,push_type,push_way,net_type,link,tid,sku,client_id,
+	      send_date,is_del,create_date,create_user,modify_date,modify_user,content_id,open_count
+ 	</sql>
+
+	<!-- 
+	基于发送时间查找未发送消息
+	<select id="selectUnSendMsg" parameterType="String" resultMap="AppPushResultMap">
+		SELECT
+			<include refid="apppush_all_column_fields" />
+		FROM 
+			app_push_info
+		WHERE is_send = 0
+		<![CDATA[ and DATE_FORMAT(send_time,'%Y%m%d%H%i%s') <= #{sendTime}  ]]>
+	</select>
+	
+	根据发送时间修改推送消息
+	<update id="updateSendMessage" parameterType="String">
+		UPDATE app_push_info
+        SET is_send = 1
+		WHERE
+			is_send = 0
+			<![CDATA[ and send_time <= #{sendTime}  ]]>
+	</update>
+	
+	查找推送消息列表
+	<select id="selectPushMessageList" parameterType="java.util.Map" resultMap="AppPushResultMap">
+	SELECT
+		<include refid="apppush_all_column_fields" />
+	FROM
+		app_push_info
+	<where>
+	        <if test="platform != null  and platform != '' ">platform like #{platform}</if>
+			<if test="startdate != null  and startdate != '' "><![CDATA[ and send_time >= #{startdate}  ]]></if>
+			<if test="enddate != null  and enddate != '' "><![CDATA[ and send_time <= #{enddate}  ]]></if>
+			<if test="pushstatus != null  and pushstatus != '' ">and is_send like #{pushstatus}</if>
+			<if test="pushtype != null  and pushstatus != '' ">and push_type like #{pushtype}</if>
+			<if test="pushtarget != null  and pushtarget != '' ">and is_single like #{pushtarget}</if>
+	</where>		
+        order by id desc
+	 	Limit #{start},#{pageSize}
+	</select>	
+	
+	统计推送消息数量
+	<select id="selectPushMessageCount" parameterType="java.util.Map" resultType="long">
+		SELECT
+			count(1)
+		FROM
+			app_push_info
+		<where>
+				<if test="platform != null  and platform != '' ">platform like #{platform}</if>
+				<if test="startdate != null  and startdate != '' "><![CDATA[ and sendtime >= #{startdate}  ]]></if>
+				<if test="enddate != null  and enddate != '' "><![CDATA[ and send_time <= #{enddate}  ]]></if>
+				<if test="pushstatus != null  and pushstatus != '' ">and is_send like #{pushstatus}</if>
+				<if test="pushtype != null  and pushstatus != '' ">and push_type like #{pushtype}</if>
+				<if test="pushtarget != null  and pushtarget != '' ">and is_single like #{pushtarget}</if>
+		</where>	
+	</select> -->
+</mapper>

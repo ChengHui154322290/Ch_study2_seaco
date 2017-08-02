@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.AdvertiseInfoDao">
+	<resultMap type="com.tp.model.cms.AdvertiseInfo" id="AdvertiseResultMap">
+				<id column="id" property="id"/>
+				<result column="advertname" property="advertname"/>
+				<result column="type" property="type"/>
+				<result column="ident" property="ident"/>
+				<result column="link" property="link"/>
+				<result column="path" property="path"/>
+				<result column="position" property="position"/>
+				<result column="sort" property="sort"/>
+				<result column="time" property="time"/>
+				<result column="sku" property="sku"/>
+				<result column="productid" property="productid"/>
+				<result column="activityid" property="activityid"/>
+				<result column="acttype" property="acttype"/>
+				<result column="platform_type" property="platformType"/>
+				<result column="status" property="status"/>
+				<result column="startdate" property="startdate"/>
+				<result column="enddate" property="enddate"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	<sql id="allColumnFields">
+	      id,sort,advertname,type,link,path,position,startdate,enddate,creater,create_time,
+	      modifier,modify_time,status,activityid,productid,time,acttype,platform_type,sku,ident
+ 	</sql>
+ 	
+ 	<sql id="allColumnFieldsDateStr">
+	      id,sort,advertname,type,link,path,position,startdate,enddate,
+	      date_format(startdate, '%Y-%m-%d %H:%i:%S') as startdateStr, 
+	      date_format(enddate, '%Y-%m-%d %H:%i:%S') as enddateStr, 
+	      creater,create_time,modifier,modify_time,status,activityid,
+	      productid,time,acttype,platform_type,sku,ident
+ 	</sql>
+
+	<sql id="dynamicWhereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="advertname != null  and advertname != '' "> AND advertname like concat(concat('%', #{advertname}),'%') </if>
+			<if test="sort != null "> AND sort=#{sort} </if>
+			<if test="type != null  and type != '' "> AND type like concat(concat('%', #{type}),'%') </if>
+			<if test="path != null  and path != '' "> AND path=#{path} </if>
+			<if test="position != null "> AND position=#{position} </if>
+			<if test="status != null "> AND status=#{status} </if>
+			<if test="startdate != null  and startdate != '' "> <![CDATA[ AND startdate <= #{startdate}]]> </if>
+			<if test="enddate != null  and enddate != '' "> <![CDATA[ AND enddate >= #{enddate}]]> </if>
+			<if test="platformType != null  and platformType != '' "> AND platform_type=#{platformType} </if>
+			<if test="sku != null  and sku != '' "> AND sku=#{sku} </if>
+			<if test="ident != null  and ident != '' "> AND ident=#{ident} </if>
+		</where>
+ 	</sql>
+
+	<select id="selectById" parameterType="long" resultMap="AdvertiseResultMap">
+	SELECT
+		<include refid="allColumnFields" />
+	FROM
+		cms_advertise_info
+	WHERE
+		 id = #{id}
+	</select>
+
+	<update id="update" parameterType="long">
+		UPDATE cms_advertise_info
+		SET
+					advertname = #{advertname},
+					type = #{type},
+					path = #{path},
+					position = #{position},
+					startdate = #{startdate},
+					enddate = #{enddate},
+					creater = #{creater},
+					create_time = #{create_time},
+					modifier = #{modifier},
+					modify_time = #{modify_time},
+					status = #{status},
+					sort = #{sort},
+					link = #{link},
+					activityid = #{activityid},
+					productid = #{productid},
+					time = #{time},
+					acttype = #{acttype},
+					platform_type = #{platformType},
+					sku = #{sku},
+					ident = #{ident}
+		WHERE
+			id = #{id}
+	</update>
+
+	<update id="updateDynamic" parameterType="com.tp.model.cms.AdvertiseInfo">
+		UPDATE cms_advertise_info
+		<set>
+			<if test="advertname != null  and advertname != '' ">advertname=#{advertname},</if>
+			<if test="type != null  and type != '' ">type=#{type},</if>
+			<if test="path != null  and path != '' ">path=#{path},</if>
+			<if test="position != null ">position=#{position},</if>
+			<if test="startdate != null  and startdate != '' ">startdate=#{startdate},</if>
+			<if test="enddate != null  and enddate != '' ">enddate=#{enddate},</if>
+			<if test="creater != null   ">creater=#{creater},</if>
+			<if test="createTime != null  and createTime != '' ">create_time=#{createTime},</if>
+			<if test="modifier != null   ">modifier=#{modifier},</if>
+			<if test="modifyTime != null  and modifyTime != '' ">modifyTime=#{modifyTime},</if>
+			<if test="status != null ">status=#{status},</if>
+			<if test="sort != null  ">sort=#{sort},</if>
+			<if test="platformType != null  and platformType != '' ">platform_type=#{platformType},</if>
+			
+			<if test="link != null ">link=#{link},</if>
+			activityid=#{activityid},
+			<if test="productid != null   ">productid=#{productid},</if>
+			time=#{time},
+			<if test="acttype != null ">acttype=#{acttype},</if>
+			<if test="sku != null ">sku=#{sku},</if>
+			<if test="ident != null  and ident != '' ">ident=#{ident},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+ 	<select id="selectDynamic" resultMap="AdvertiseResultMap" parameterType="com.tp.model.cms.AdvertiseInfo">
+	     SELECT
+	     	<include refid="allColumnFieldsDateStr" />
+		 FROM
+		 	cms_advertise_info
+			<include refid="dynamicWhereFields" />
+			order by ident,sort
+ 	</select>
+ 	
+ 	<select id="selectAdvertPageQuery" resultType="com.tp.dto.cms.CmsAdvertiseInfoDTO" parameterType="java.util.Map">
+	     SELECT
+	     	id,sort,advertname,type,link,path,
+	     	position,status,startdate,enddate,
+	     	creater,create_time,modifier,modify_time,activityid,productid,time,acttype,platform_type as platformType,sku,ident
+		 FROM
+		 	cms_advertise_info
+	 	<include refid="dynamicWhereFields" />
+	 	order by ident,sort
+	 	Limit #{start},#{pageSize}
+ 	</select>
+
+ 	<select id="selectCountDynamic" resultType="long" parameterType="com.tp.model.cms.AdvertiseInfo">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_advertise_info
+	 	<include refid="dynamicWhereFields" />
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="AdvertiseResultMap" parameterType="com.tp.model.cms.AdvertiseInfo">
+	     SELECT
+	     	<include refid="allColumnFields" />
+		 FROM
+		 	cms_advertise_info
+	 	<include refid="dynamicWhereFields" />
+	 	order by ident,sort
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectByIds" parameterType="long" resultMap="AdvertiseResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			cms_advertise_info
+		WHERE
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_advertise_info WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<update id="openByIds" parameterType="java.util.List" >
+		update cms_advertise_info set status='0'
+		WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</update>
+	
+	<update id="noOpenByIds" parameterType="java.util.List" >
+		update cms_advertise_info set status='1'
+		WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</update>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.usr.UserInfoDao">
+	<resultMap type="com.tp.model.usr.UserInfo" id="userInfo">
+				<id column="id" property="id"/>
+				<result column="login_name" property="loginName"/>
+				<result column="user_name" property="userName"/>
+				<result column="password" property="password"/>
+				<result column="salt" property="salt"/>
+				<result column="department_id" property="departmentId"/>
+				<result column="role_id" property="roleId"/>
+				<result column="mobile" property="mobile"/>
+				<result column="email" property="email"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="last_login_time" property="lastLoginTime"/>
+				<result column="last_login_ip" property="lastLoginIp"/>
+				<result column="status" property="status"/>
+	</resultMap>
+	<sql id="columns">
+		id,login_name,user_name,password,salt,department_id,role_id,mobile,email,create_user,update_user,
+		create_time,update_time,last_login_time,last_login_ip,status
+	</sql>
+ 	
+ 	<sql id="selectDynamicPageInfoQueryFazzyWhere"><!-- 模糊查询-->
+		<where>
+			<if test="loginName != null  and loginName != '' "> AND login_name like '%${loginName}%' </if>
+			<if test="userName != null  and userName != '' "> AND user_name like '%${userName}%' </if>
+			<if test="mobile != null  and mobile != '' "> AND mobile like '%${mobile}%' </if>
+			<if test="email != null  and email != '' "> AND email like '%${email}%' </if>
+			<if test="departmentId != null"> AND department_id=#{departmentId} </if>
+			<if test="roleId != null"> AND role_id=#{roleId} </if>
+		</where>
+ 	</sql>
+ 	<select id="selectDynamicPageInfoQueryFazzyCount" resultType="int" parameterType="com.tp.model.usr.UserInfo">
+	     SELECT
+	     	count(*)
+		 FROM
+		 	usr_user_info
+	 	<include refid="selectDynamicPageInfoQueryFazzyWhere" />
+ 	</select>
+ 	<select id="selectDynamicPageInfoQueryFazzy" resultMap="userInfo" parameterType="com.tp.model.usr.UserInfo">
+	     SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	usr_user_info
+	 	<include refid="selectDynamicPageInfoQueryFazzyWhere" />
+	 	order by update_time desc
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectByDepartmentIds" parameterType="long" resultMap="userInfo">
+		SELECT
+			<include refid="columns" />
+		FROM
+			usr_user_info
+		WHERE
+			 department_id in
+		<foreach collection="list" item="deptId" index="index"
+            open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+	</select>
+	
+	<select id="selectByIds" parameterType="long" resultMap="userInfo">
+		SELECT
+			<include refid="columns" />
+		FROM
+			usr_user_info
+		WHERE
+			 id in
+		<foreach collection="list" item="userId" index="index"
+            open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+	</select>
+</mapper>

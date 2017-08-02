@@ -1,0 +1,108 @@
+/*
+* @Author: dongqian
+* @Date:   2017-05-09 09:39:25
+* @Last Modified by:   dongqian
+* @Last Modified time: 2017-05-12 15:31:55
+*/
+
+body{
+    overflow-x:hidden;
+    background-color:#fff;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+header{
+    height:50px;
+    width:100%;
+    background-color:#3E444F;
+    color:#fff;
+    font-size:19px;
+    text-align: center;
+    line-height:50px;
+    border:none;
+}
+
+.goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../img/back.png) no-repeat center;
+    background-size: 10px;
+}
+
+.top{
+    height:300px;
+    width:100%;
+    background:#fff url(../img/promotion_bg.png) no-repeat top center;
+    background-size:100% 50%;
+}
+
+.top_tilte{
+    font-size:15px;
+    color:#586378;
+    text-align: center;
+    padding-top:10px;
+}
+
+.cord{
+    background:#ffffff;
+    box-shadow:0px 5px 20px 0px rgba(0,0,0,0.50);
+    border-radius:10px;
+    width:178px;
+    height:178px;
+    margin:17px auto;
+}
+
+.share_cord{
+    text-align: center;
+}
+
+.share_cord button{
+    border:1px solid #333333;
+    border-radius:8px;
+    width:107px;
+    height:33px;
+    margin-top:7px;
+    background:#fff url(../img/share.png) no-repeat  10px center;
+    background-size:16px;
+    padding-left:20px;
+    font-size:13px;
+}
+
+.open_time{
+    font-size:14px;
+    color:#999999;
+    padding:10px 15px;
+}
+
+.bottom{
+    background:#fff;
+}
+
+.statistical{
+    height:49px;
+    border-bottom:1px solid #e8e8e8;
+    line-height:49px;
+    font-size:15px;
+    padding-left:5px;
+    background:url(../img/go.png) no-repeat  right 10px center;
+    background-size:7px;
+    margin-left:20px;
+    color:#333333;
+    display:block;
+}
+/*
+.statistical:last-child{
+    border-bottom:none;
+} */
+.totalcount_reg,.totalcount_order{
+    float: right;
+    margin-right: 30px;
+}

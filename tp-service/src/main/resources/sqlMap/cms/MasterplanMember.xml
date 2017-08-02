@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.MasterplanMemberDao">
+	<resultMap type="com.tp.model.cms.MasterplanMember" id="masterplanMember">
+				<id column="id" property="id"/>
+				<result column="cmm_mobile" property="cmmMobile"/>
+				<result column="cmm_user_id" property="cmmUserId"/>
+				<result column="cmm_user_name" property="cmmUserName"/>
+				<result column="cmm_apply_declaration" property="cmmApplyDeclaration"/>
+				<result column="cmm_apply_date" property="cmmApplyDate"/>
+				<result column="cmm_examine_status" property="cmmExamineStatus"/>
+				<result column="cmm_examine_suggest" property="cmmExamineSuggest"/>
+				<result column="cmm_examine_date" property="cmmExamineDate"/>
+				<result column="cmm_remarks" property="cmmRemarks"/>
+				<result column="cmm_activity_id" property="cmmActivityId"/>
+				<result column="cmm_coupon_id" property="cmmCouponId"/>
+				<result column="cmm_coupon_name" property="cmmCouponName"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.usr.RoleInfoDao">
+	<resultMap type="com.tp.model.usr.RoleInfo" id="roleInfo">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="role_desc" property="roleDesc"/>
+				<result column="role_menu_limit" property="roleMenuLimit"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,role_desc,role_menu_limit,status,create_time,update_time,create_user,update_user
+	</sql>
+</mapper>

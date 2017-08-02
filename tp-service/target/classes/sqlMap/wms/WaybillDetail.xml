@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.logistics.WaybillDetailDao">
+	<resultMap type="com.tp.model.wms.WaybillDetail" id="waybillDetail">
+				<id column="id" property="id"/>
+				<result column="waybill_no" property="waybillNo"/>
+				<result column="application_id" property="applicationId"/>
+				<result column="logistics_code" property="logisticsCode"/>
+				<result column="logistics_name" property="logisticsName"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="remark" property="remark"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,waybill_no,application_id,logistics_code,logistics_name,order_code,status,create_time,update_time,remark
+	</sql>
+	<insert id="insertDetails" parameterType="list">
+        INSERT INTO wms_waybill_detail
+        	(waybill_no,application_id,logistics_code,logistics_name,order_code,status,create_time,update_time,remark)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.waybillNo},#{item.applicationId},#{item.logisticsCode},#{item.logisticsName},#{item.orderCode},#{item.status},#{item.createTime},#{item.updateTime},#{item.remark})
+		</foreach>
+    </insert>
+</mapper>

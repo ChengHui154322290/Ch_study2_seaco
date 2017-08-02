@@ -1,0 +1,171 @@
+/*
+* @Author: dongqian
+* @Date:   2017-05-09 09:39:25
+* @Last Modified by:   dongqian
+* @Last Modified time: 2017-05-11 18:01:52
+*/
+
+body{
+    overflow-x:hidden;
+    background-color:#EEEEEE;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+.reg-sta{
+    position:relative;
+}
+.header1{
+    height:50px;
+    width:100%;
+    background-color:#3E444F;
+    color:#fff;
+    font-size:19px;
+    text-align: center;
+    line-height:50px;
+    border:none;
+}
+
+.goBack {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    background: url(../img/back.png) no-repeat center;
+    background-size: 10px;
+}
+
+.top{
+    background-color:#fff;
+}
+
+.list{
+    height:49px;
+    border-bottom:1px solid #e8e8e8;
+    line-height:49px;
+    font-size:15px;
+    padding-left:5px;
+    background:url(../img/go.png) no-repeat  right 10px center;
+    background-size:7px;
+    margin-left:20px;
+    color:#333333;
+    display:block;
+    position:relative;
+}
+
+.list:first-child{
+    background:none;
+}
+
+.list:last-child{
+    border-bottom:none;
+}
+
+.ask-btn{
+    width:96%;
+    margin-left:2%;
+    margin-top:20px;
+    background:#333333;
+    border-radius:8px;
+    height:44px;
+    color:#fff;
+    font-size:17px;
+}
+
+.list_time{
+    border-radius:6px;
+    height:23px;
+    padding:5px;
+    border:1px solid #333;
+    font-size:14px;
+}
+
+.list_time:first-child{
+    margin-left:90px;
+}
+
+.current{
+    background:#333;
+    color:#fff;
+}
+.list .dates{
+    height: 48px;
+    line-height: 48px;
+    border: none;
+    width: 220px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: right;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    z-index: 99;
+    position: relative;
+    vertical-align: middle;
+    float: right;
+}
+/*
+@media screen and (min-width: 320px) and (max-width: 330px)  {
+    .list .dates{
+        width:72%;
+    }
+}
+@media screen and (min-width: 331px) and (max-width: 360px)  {
+    .list .dates{
+            width:74%;
+    }
+}
+@media screen and (min-width: 361px) and (max-width: 375px)  {
+    .list .dates{
+            width:75%;
+    }
+}
+
+@media screen and (min-width: 376px) and (max-width: 384px)  {
+    .list .dates{
+            width:78%;
+    }
+}
+
+@media screen and (min-width: 385px) and (max-width: 414px)  {
+    .list .dates{
+            width:79%;
+    }
+}
+
+@media screen and (min-width: 415px) and (max-width: 768px)  {
+    .list .dates{
+            width:89%;
+    }
+}
+
+@media screen and (min-width: 768px)  {
+    .list .dates{
+            width:89%;
+    }
+} */
+.date-mask{
+    position: absolute;
+    left:236px;
+    top: 0;
+    /* width: 85%; */
+    height: 100%;
+    z-index: 0;
+    font-size: 16px;
+    color: #000;
+        /* text-align: right; */
+}
+.date-mask1{
+    position: absolute;
+    left:236px;
+    top: 0;
+    /* width: 85%; */
+    height: 100%;
+    z-index: 0;
+    font-size: 16px;
+    color: #000;
+    /* text-align: right; */
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <p>西客商城</p>
+    <div id="token"></div>
+    <div id="number"></div>
+    <button onclick="window.location.href ='//m.51seaco.com/item.htm?tid=620&sku=03020300790101&nativetype=5';" id="btn">点击</button>
+    <script src="/base64_2209235.js"></script>
+    <script>
+    // function setCookie(name,value){
+    //     var d = new Date();
+    //     d.setTime(d.getTime() + (30*24*60*60*1000));
+    //     var expires = "expires="+d.toUTCString();
+    //     document.cookie = name + "=" + value + "; " + expires;
+    // }
+    // setCookie("SG_USER_INFO","ZDFlODY5YmMwYzBhNjA5OTk1ODVhZmExM2RmNzE1N2Y=&MTU1MDE2OTYzMzU=");
+    function getCookie(name){
+        var name = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+        var cookie = getCookie("SG_USER_INFO");
+        // cookie就是SG_USER_INFO的值
+        var cookArr = cookie.split('&');
+        var token = cookArr[0];
+        var number = cookArr[1];
+        var res1 = base64_decode(token, false, 'text');
+        var res2 = base64_decode(number, false, 'text');
+        var div1 = document.getElementById("token");
+        var div2 = document.getElementById("number");
+        var tokenTxt = document.createTextNode(res1);
+        var numberTxt = document.createTextNode(res2);
+        div1.appendChild(tokenTxt);
+        div2.appendChild(numberTxt);
+
+        var btn = document.getElementById("btn");
+        window.onload = function(){
+            if(token !== null || token !== "" || token !== undefined){
+                btn.style.display="none";
+            }else{
+                btn.style.display="block";
+            }
+        }
+    </script>
+    </body>
+<html>

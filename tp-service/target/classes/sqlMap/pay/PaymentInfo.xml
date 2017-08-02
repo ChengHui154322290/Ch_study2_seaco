@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.PaymentInfoDao">
+	<resultMap type="com.tp.model.pay.PaymentInfo" id="paymentInfo">
+		<id column="payment_id" property="paymentId" />
+		<result column="biz_code" property="bizCode" />
+		<result column="biz_type" property="bizType" />
+		<result column="serial" property="serial" />
+		<result column="payment_type" property="paymentType" />
+		<result column="order_type" property="orderType" />
+		<result column="channel_id" property="channelId" />
+		<result column="gateway_id" property="gatewayId" />
+		<result column="amount" property="amount" />
+		<result column="status" property="status" />
+		<result column="payment_trade_no" property="paymentTradeNo" />
+		<result column="pay_info" property="payInfo" />
+		<result column="gateway_trade_no" property="gatewayTradeNo" />
+		<result column="action_ip" property="actionIp" />
+		<result column="callback_info" property="callbackInfo" />
+		<result column="callback_time" property="callbackTime" />
+		<result column="notified" property="notified" />
+		<result column="notify_time" property="notifyTime" />
+		<result column="canceled" property="canceled" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_user" property="updateUser" />
+		<result column="tax_fee" property="taxFee" />
+		<result column="freight" property="freight" />
+		<result column="real_name" property="realName" />
+		<result column="identity_type" property="identityType" />
+		<result column="identity_code" property="identityCode" />
+		<result column="trade_type" property="tradeType" />
+		<result column="payment_customs_type" property="paymentCustomsType" />
+		<result column="payment_customs_no" property="paymentCustomsNo" />
+		<result column="prt_payment_id" property="prtPaymentId" />
+	</resultMap>
+	<sql id="columns">
+		payment_id,biz_code,biz_type,serial,payment_type,order_type,channel_id,gateway_id,
+		amount,status,payment_trade_no,pay_info,gateway_trade_no,action_ip,callback_info,
+		callback_time,notified,notify_time,canceled,create_time,update_time,create_user,
+		update_user,tax_fee,freight,real_name,identity_type,identity_code,trade_type,
+		payment_customs_type,prt_payment_id,payment_customs_no
+	</sql>
+	<update id="updateCancelPayment" parameterType="com.tp.model.pay.PaymentInfo">
+		UPDATE
+		pay_payment_info
+		SET canceled = 1
+		WHERE biz_code=#{bizCode} and status!=2
+	</update>
+	<update id="updatePaymentByPayed" parameterType="com.tp.model.pay.PaymentInfo">
+		UPDATE pay_payment_info
+		<set>
+			<if test="bizCode != null  and bizCode != '' ">biz_code=#{bizCode},</if>
+			<if test="bizType != null  ">biz_type=#{bizType},</if>
+			<if test="serial != null  and serial != '' ">serial=#{serial},</if>
+			<if test="paymentType != null  ">payment_type=#{paymentType},</if>
+			<if test="orderType != null  ">order_type=#{orderType},</if>
+			<if test="channelId != null  ">channel_id=#{channelId},</if>
+			<if test="gatewayId != null  ">gateway_id=#{gatewayId},</if>
+			<if test="amount != null  ">amount=#{amount},</if>
+			<if test="status != null  ">status=#{status},</if>
+			<if test="paymentTradeNo != null  and paymentTradeNo != '' ">payment_trade_no=#{paymentTradeNo},</if>
+			<if test="payInfo != null  and payInfo != '' ">pay_info=#{payInfo},</if>
+			<if test="gatewayTradeNo != null  and gatewayTradeNo != '' ">gateway_trade_no=#{gatewayTradeNo},</if>
+			<if test="actionIp != null  and actionIp != '' ">action_ip=#{actionIp},</if>
+			<if test="callbackInfo != null  and callbackInfo != '' ">callback_info=#{callbackInfo},</if>
+			<if test="callbackTime != null">callback_time=#{callbackTime},</if>
+			<if test="notified != null  ">notified=#{notified},</if>
+			<if test="canceled != null  ">canceled=#{canceled},</if>
+			<if test="notifyTime != null">notify_time=#{notifyTime},</if>
+			<if test="updateTime != null">update_time=#{updateTime},</if>
+			<if test="createUser != null">create_user=#{createUser},</if>
+			<if test="updateUser != null">update_user=#{updateUser},</if>
+			<if test="taxFee != null  and taxFee != '' ">   tax_fee=#{taxFee}, </if>
+			<if test="freight != null  and freight != '' ">   freight=#{freight} ,</if>
+			<if test="realName != null  and realName != '' ">   real_name=#{realName}, </if>
+			<if test="identityType != null  and identityType != '' ">   identity_type=#{identityType}, </if>
+			<if test="identityCode != null  and identityCode != '' ">   identity_code=#{identityCode}, </if>
+			<if test="tradeType != null  and tradeType != '' ">   trade_type=#{tradeType}, </if>
+		</set>
+		WHERE payment_id = #{paymentId} and status!=2
+	</update>
+	<select id="selectRecentPaymentInfos" resultMap="paymentInfo" parameterType="map">
+	     SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	pay_payment_info
+	 	<where>
+			<if test="status != null  "> AND status!=#{status} </if>
+			<if test="updateTime != null "> AND update_time&gt;=#{updateTime} </if>
+		</where>
+ 	</select>
+</mapper>

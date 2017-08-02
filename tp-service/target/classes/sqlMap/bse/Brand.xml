@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.BrandDao">
+	<resultMap type="com.tp.model.bse.Brand" id="brand">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="name_en" property="nameEn"/>
+				<result column="country_id" property="countryId"/>
+				<result column="remark" property="remark"/>
+				<result column="status" property="status"/>
+				<result column="logo" property="logo"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="sort_no" property="sortNo"/>
+	</resultMap>
+
+	<sql id="columns">
+		id,name,name_en,country_id,remark,status,logo,create_time,modify_time,sort_no
+	</sql>
+
+	<sql id="like_fields">
+		<where>
+			<if test="id != null  "> AND id=#{id} </if>
+			<if test="name != null  and name != '' "> AND  name like "%"#{name}"%" </if>
+			<if test="nameEn != null  and nameEn != '' "> OR name_en like "%"#{nameEn}"%"</if>
+			<if test="countryId != null  and countryId != '' "> AND country_id=#{countryId} </if>
+			<if test="remark != null "> AND remark=#{remark} </if>
+			<if test="status != null  "> AND status=#{status} </if>
+			<if test="sortNo != null  and sortNo != '' "> AND sort_no=#{sortNo} </if>
+		</where>
+	</sql>
+
+	<select id="selectBrandListByLikeBrandDo" resultMap="brand" parameterType="com.tp.model.bse.Brand">
+		SELECT
+		<include refid="columns" />
+		FROM
+		bse_brand
+		<include refid="like_fields"/>
+	</select>
+</mapper>

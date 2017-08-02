@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.StatisticNewversionDao">
+	<resultMap type="com.tp.model.app.StatisticNewversion" id="statisticNewversion">
+				<id column="id" property="id"/>
+				<result column="new_version" property="newVersion"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="remark" property="remark"/>
+	</resultMap>
+</mapper>

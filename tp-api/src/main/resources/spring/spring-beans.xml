@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+	xsi:aopLocation="http://www.springframework.org/schema/aop
+ 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+>
+	<bean id="xgConfigUtil" class="com.tp.common.config.XgConfigUtil" init-method="init" lazy-init="false">
+		<property name="appConfigDir" value="api"></property>
+	</bean>
+	<context:annotation-config />
+	<context:component-scan base-package="com.tp.*" />
+	<util:properties id="meta" location="classpath*:metainfo*.properties" />
+	<import resource="classpath*:spring/spring-cache-redis.xml"/>
+	<import resource="classpath*:spring/spring-dfs.xml"/>
+	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<!-- 线程安全的访问session -->
+		<property name="synchronizeOnSession" value="true"/>
+		<property name="messageConverters">
+			<list>
+				<!-- <ref bean="jsonHttpMessageConverter"/> -->
+				<ref bean="stringHttpMessageConverter"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name = "supportedMediaTypes">  
+                      <list>  
+                          <value>text/html;charset=UTF-8</value>     
+                     </list>     
+        </property>  
+	</bean>
+	
+	<bean id="settings" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+           <list>
+				<value>classpath*:*.properties</value>
+			</list>
+        </property>
+    </bean> 
+	<bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="settings" />
+	</bean>
+	
+	<bean id="upload" class="com.qiniu.QiniuUpload">
+		<property name="ACCESS_KEY" value="${upload.ACCESS_KEY}"></property>
+		<property name="SECRET_KEY" value="${upload.SECRET_KEY}"></property>
+	</bean>
+	<aop:aspectj-autoproxy />
+</beans>

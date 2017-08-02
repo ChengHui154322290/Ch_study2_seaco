@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西客商城</title>
+		<meta name="Keywords" content="西客商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/cart.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<header class="cart-body">
+			<h1>购物车</h1>
+		</header>
+		<div class="content">
+		<div class="product-item">
+				<ul class="ui-list-link ui-border-tb cart-list" id="cart-list">
+        		</ul>
+    		</div>
+			<!--<div class="ui-reddot-border cart-body" style="background-color: #ffffff;right: 0px">-->
+			<!--<div class="warm_tip">-->
+			<!--</div>-->
+			<div class="car_invalid">
+				<div class="car_invalid_title"></div>
+				<ul class="ui-list ui-list-link cart-list" id="cart-invalid-list">
+				</ul>
+			</div>
+			<div class="cartnull">
+				<img src="img/cartnull.jpg" style="width: 27%;margin: 0 auto;display: block;margin-top: 80px;" />
+				<p  style="text-align: center;color: #999;margin-top: 25px;" >购物车空空如也，赶紧去逛逛吧</p>
+				<button class="ui-btn-lg ui-btn-primary" style="width: 32%;margin: 0 auto;background: #333;margin-top: 30px;">
+					去逛逛
+				</button>
+			</div>
+		</div>
+		<section class="actionBar">
+			<div class="cartbar">
+				<a class="ui-btn" id="shopcart-settle">
+					去结算
+				</a>
+				<div class="total" id="seaGroupMoney">
+					<label class="ui-checkbox-s">
+						<input type="checkbox" name="checkbox" onchange="onSelAllProductItem(this)" checked="">
+						<span style="font-size: 16px;line-height: 50px;padding-left: 5px;color: #333;">全选</span>
+					</label>
+					<div style="float: right;width: 34%;color: #929292;">
+						<p style="padding-top: 5px;" class="totalMoney"></p>
+						<p style="padding-top: 5px;" class="totalFreeMoney"></p>
+					</div>
+				</div>
+			</div>
+			<ul>
+				<li><a href="index.html" class="bar-shop">店铺</a></li>
+				<!-- <li><a href="shop.html" class="bar-shop">店铺</a></li> -->
+				<li><a href="classify.html" class="bar-classify">分类</a></li>
+				<li class="xg-active"><a href="javascript:void(0)" class="bar-cart">购物车</a></li>
+				<li><a href="home.html" class="bar-home">个人中心</a></li>
+			</ul>
+		</section>
+
+	</body>
+
+	<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common/statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="./js/static_data.js"></script>
+	<script type="text/javascript" src="./js/base.js"></script>
+	<script type="text/javascript" src="./js/modules/cart.js"></script>
+	<script type="text/javascript" src="./js/pages/cart.js"></script>
+
+</html>

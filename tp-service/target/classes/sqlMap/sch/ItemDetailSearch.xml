@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.ItemDetailSearchDao">
+	<resultMap type="com.tp.model.sch.ItemDetailSearch" id="itemDetailSearch">
+		<result column="id" property="detailId"/>
+		<result column="item_id" property="itemId"/>
+		<result column="country_id" property="countryId"/>
+		<result column="brand_id" property="brandId"/>
+
+
+	</resultMap>
+
+	<select id="getByItemIds" resultMap="itemDetailSearch" parameterType="java.util.List">
+		SELECT id, item_id,country_id,brand_id
+		FROM prd_item_detail
+		WHERE
+		item_id in
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

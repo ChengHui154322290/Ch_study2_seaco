@@ -1,0 +1,63 @@
+package com.tp.model.sch.result;
+
+import java.util.List;
+
+import com.tp.model.BaseDO;
+
+/**
+ * Created by ldr on 2016/2/17.
+ */
+public class SearchResultDetail extends BaseDO {
+
+    private static final long serialVersionUID = 1055724736843191829L;
+
+    private Integer total;
+
+    private Integer num;
+
+    private Integer viewTotal;
+
+    private List<SearchResultItem> items;
+
+    private List<String> facet;
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public Integer getViewTotal() {
+        return viewTotal;
+    }
+
+    public void setViewTotal(Integer viewTotal) {
+        this.viewTotal = viewTotal;
+    }
+
+    public List<SearchResultItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<SearchResultItem> items) {
+        this.items = items;
+    }
+
+    public List<String> getFacet() {
+        return facet;
+    }
+
+    public void setFacet(List<String> facet) {
+        this.facet = facet;
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponRepeatCountDao">
+	<resultMap type="com.tp.model.mmp.CouponRepeatCount" id="couponRepeatCount">
+				<id column="id" property="id"/>
+				<result column="repeat_id" property="repeatId"/>
+				<result column="user_id" property="userId"/>
+				<result column="count" property="count"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,repeat_id,user_id,count,create_time,modify_time
+	</sql>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderDeliveryDao">
+	<resultMap type="com.tp.model.ord.OrderDelivery" id="orderDelivery">
+				<id column="id" property="id"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="package_no" property="packageNo"/>
+				<result column="company_id" property="companyId"/>
+				<result column="company_name" property="companyName"/>
+				<result column="delivery_time" property="deliveryTime"/>
+				<result column="link_info" property="linkInfo"/>
+				<result column="start_city" property="startCity"/>
+				<result column="end_city" property="endCity"/>
+				<result column="refund_info" property="refundInfo"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="freight" property="freight"/>
+				<result column="weight" property="weight"/>
+				<result column="post_kuaidi100" property="postKuaidi100"/>
+				<result column="post_kuaidi100_times" property="postKuaidi100Times"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,parent_order_code,order_code,package_no,company_id,company_name,delivery_time,link_info,start_city,end_city,refund_info,supplier_id,supplier_name,freight,weight,post_kuaidi100,post_kuaidi100_times,create_time,create_user,update_time,update_user
+	</sql>
+	<!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="list">
+    	<selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    	insert into ord_order_delivery
+    	(company_id,company_name,order_code,parent_order_code,package_no,delivery_time,link_info,refund_info,
+    	supplier_id,supplier_name,freight,weight,create_time,
+    	create_user,update_time,update_user) values
+    	<foreach collection="list" item="item" index="index" separator=",">
+	        (#{item.companyId},#{item.companyName},#{item.orderCode},#{item.parentOrderCode},#{item.packageNo},#{item.deliveryTime},#{item.linkInfo},#{item.refundInfo},  
+	        #{item.supplierId},#{item.supplierName},#{item.freight},#{item.weight},#{item.createTime},#{item.createUser},#{item.updateTime},#{item.updateUser} )  
+   		</foreach>  
+    </insert>
+    
+    <select id="selectNotSuccessPostKuaidi100List" resultMap="orderDelivery" parameterType="OrderDelivery">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_order_delivery
+		WHERE post_kuaidi100 = #{postKuaidi100} 
+		  and post_kuaidi100_times &lt;= #{postKuaidi100Times} 
+		  and update_time &lt; date_sub(now(),interval 15 minute)
+			limit #{start},#{pageSize}
+	</select>
+	
+		<!-- 批量 更新推送快递100平台信息 -->
+	<update id="batchUpdatePostKuaidi100"  parameterType="list">
+          <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update ord_order_delivery 
+	               set post_kuaidi100=#{item.postKuaidi100},post_kuaidi100_times=post_kuaidi100_times+1,update_time=now() 
+	                where id = ${item.id}
+         </foreach>
+    </update>
+    <!--更新推送快递100平台信息 -->
+	<update id="updatePostKuaidi100"  parameterType="OrderDelivery">
+                update ord_order_delivery 
+                set post_kuaidi100=#{postKuaidi100},update_time=now() 
+                where order_code=#{orderCode} and package_no=#{packageNo}
+    </update>
+    <!--  根据订单编号和快递单号查询物流信息列表 -->
+	<select id="selectListBySubCodeAndPackageNo" resultMap="orderDelivery" parameterType="map">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_order_delivery
+		WHERE
+			order_code = #{orderCode}
+			<if test="packageNo != null  and packageNo != '' "> and package_no=#{packageNo} </if>
+	</select>
+</mapper>

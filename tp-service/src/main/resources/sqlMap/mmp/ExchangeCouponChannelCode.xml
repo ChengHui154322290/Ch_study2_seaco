@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.ExchangeCouponChannelCodeDao">
+	<resultMap type="com.tp.model.mmp.ExchangeCouponChannelCode" id="exchangeCouponChannelCode">
+				<id column="id" property="id"/>
+				<result column="code_seq" property="codeSeq"/>
+				<result column="exchange_code" property="exchangeCode"/>
+				<result column="act_id" property="actId"/>
+				<result column="coupon_id" property="couponId"/>
+				<result column="version_code" property="versionCode"/>
+				<result column="status" property="status"/>
+				<result column="member_id" property="memberId"/>
+				<result column="member_name" property="memberName"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="coupon_user_id" property="couponUserId"/>
+				<result column="bind_time" property="bindTime"/>
+				<result column="bind_user" property="bindUser"/>
+				<result column="cancel_reason" property="cancelReason"/>
+	</resultMap>
+	<sql id="columns">
+		exchange_code,id,code_seq,act_id,coupon_id,version_code,status,member_id,member_name,promoter_id,
+		create_time,create_user,update_time,update_user,coupon_user_id,bind_time,bind_user,cancel_reason
+	</sql>
+
+	<insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+		INSERT INTO mmp_exchange_coupon_channel_code(
+		act_id,
+		coupon_id,
+		code_seq,
+		exchange_code,
+		version_code,
+		status,
+		create_time,
+		create_user,
+		update_time,
+		update_user,
+		cancel_reason
+		)values
+		<foreach collection="list" item="item" index="item"  separator=",">
+			(
+			#{item.actId},
+			#{item.couponId},
+			#{item.codeSeq},
+			#{item.exchangeCode},
+			#{item.versionCode},
+			#{item.status},
+			#{item.createTime},
+			#{item.createUser},
+			#{item.updateTime},
+			#{item.updateUser},
+			#{item.cancelReason}
+			)
+		</foreach>
+	</insert>
+
+	<update id="updateStatus" parameterType="com.tp.model.mmp.ExchangeCouponChannelCode">
+		UPDATE mmp_exchange_coupon_channel_code
+		<set>
+			<if test="status != null ">status=#{status},</if>
+			member_id = #{memberId},
+			member_name = #{memberName},
+			coupon_user_id=#{couponUserId}
+		</set>
+		WHERE exchange_code = #{exchangeCode} and status=0
+	</update>
+
+
+	<select id="queryByTimeAndStatus" resultMap="exchangeCouponChannelCode" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_exchange_coupon_channel_code
+		<where>
+			act_id=#{actiId}
+			<if test="startTime != null"> AND create_time &gt; #{startTime}</if>
+			<if test="endTime != null"> AND create_time &lt; #{endTime}</if>
+			AND status=#{status}
+		</where>
+	</select>
+
+	<select id="queryExchangeCountDetails" parameterType="java.lang.Long" resultType="java.util.Map">
+		SELECT  count(1) count,coupon_id couponId,version_code version,create_time createTime
+		 FROM mmp_exchange_coupon_channel_code
+		  WHERE act_id=#{actId}   GROUP BY  coupon_Id ,version_code ORDER  BY  create_time
+	</select>
+	
+	<sql id="queryExchangeCouponByParamWhere">
+		<where>
+		 	<if test="actId!=null"> and act_id=#{actId}</if>
+		 	<if test="promoterId!=null"> and promoter_id =#{promoterId} </if>
+		 	<if test="couponId!=null"> and coupon_id =#{couponId}</if>
+		 	<if test="exchangeCode!=null and exchangeCode != '' "> and exchange_code = #{exchangeCode}</if>
+		 	<if test="status!=null"> and status = #{status}</if>
+		 	<if test="useStatus!=null"> and exists( select 1 from mmp_coupon_user u where u.id = e.coupon_user_id and u.status=#{useStatus})</if>
+		 	<if test="beginCodeSeq!=null"> and code_seq &gt;=#{beginCodeSeq}</if>
+		 	<if test="endCodeSeq!=null"> and code_seq &lt;=#{endCodeSeq}</if>
+		 </where>
+	</sql>
+	<select id ="queryExchangeCouponByParamCount" parameterType="com.tp.model.mmp.ExchangeCouponChannelCode" resultType="int">
+		select count(*)
+		  from mmp_exchange_coupon_channel_code e
+		<include refid="queryExchangeCouponByParamWhere"/>
+	</select>
+	
+	<select id="queryExchangeCouponByParam" parameterType="com.tp.model.mmp.ExchangeCouponChannelCode"  resultMap="exchangeCouponChannelCode" >
+		SELECT <include refid="columns" />
+		 FROM mmp_exchange_coupon_channel_code e
+		 <include refid="queryExchangeCouponByParamWhere"/>
+		  ORDER  BY  coupon_id asc,code_seq asc
+		 limit #{start},#{pageSize}
+	</select>
+	
+	<select id="queryCodeSeqMaxByCouponId" parameterType="long" resultType="long">
+		select ifnull(max(code_seq),0)
+		   from mmp_exchange_coupon_channel_code
+		  where coupon_id=#{value}
+	</select>
+	
+	<update id="updatePromoterIdBind" parameterType="map">
+		update mmp_exchange_coupon_channel_code
+		  set promoter_id = #{promoterId},bind_time=now(),bind_user=#{bindUser},update_time=now(),update_user=#{bindUser}
+		 where coupon_id=#{couponId}
+		  <if test="beginCodeSeq!=null"> and code_seq&gt;=#{beginCodeSeq}</if>
+		  <if test="endCodeSeq!=null"> and code_seq&lt;=#{endCodeSeq}</if>
+		  <if test="codeSeqList!=null and !codeSeqList.isEmpty()">
+		  	<foreach collection="codeSeqList" index="codeSeq" item="codeSeq" open=" and code_seq in (" close=")" separator=",">
+		  		#{codeSeq}
+		  	</foreach>
+		  </if>
+		  <if test="couponCodeIdList!=null and !couponCodeIdList.isEmpty()">
+		  	<foreach collection="couponCodeIdList" index="couponCodeId" item="couponCodeId" open=" and id in (" close=")" separator=",">
+		  		#{couponCodeId}
+		  	</foreach>
+		  </if>
+		  <if test="refreshBind==null"> and promoter_id is null </if>
+	</update>
+	
+	<update id="updateCouponStatusEnabled" parameterType="map">
+		update mmp_exchange_coupon_channel_code
+		  set status=#{status},update_time=now(),update_user=#{bindUser}
+		 where coupon_id=#{couponId}
+		  <if test="beginCodeSeq!=null"> and code_seq&gt;=#{beginCodeSeq}</if>
+		  <if test="endCodeSeq!=null"> and code_seq&lt;=#{endCodeSeq}</if>
+		  <if test="codeSeqList!=null and !codeSeqList.isEmpty()">
+		  	<foreach collection="codeSeqList" index="codeSeq" item="codeSeq" open=" and code_seq in (" close=")" separator=",">
+		  		#{codeSeq}
+		  	</foreach>
+		  </if>
+		  <if test="couponCodeIdList!=null and !couponCodeIdList.isEmpty()">
+		  	<foreach collection="couponCodeIdList" index="couponCodeId" item="couponCodeId" open=" and id in (" close=")" separator=",">
+		  		#{couponCodeId}
+		  	</foreach>
+		  </if>
+		  <if test="status==-1"> and status=0</if>
+		  <if test="status==0"> and status=-1</if>
+	</update>
+	
+		<update id="cancleCouponStatusEnabled" parameterType="map">
+		update mmp_exchange_coupon_channel_code
+		  set status=#{status},cancel_reason=#{cancelReason},update_time=now()
+		 where 1=1
+		  <if test="couponCodeIdList!=null and !couponCodeIdList.isEmpty()">
+		  	 <foreach collection="couponCodeIdList" index="couponCodeId" item="couponCodeId" open=" and id in (" close=")" separator=",">
+		  		#{couponCodeId}
+		  	 </foreach>
+		 </if>
+
+	</update>
+	<select id="queryExchangeCouponByParams" parameterType="map" resultMap="exchangeCouponChannelCode">
+	   SELECT
+		<include refid="columns" />
+		FROM
+		mmp_exchange_coupon_channel_code
+		<where>
+			 <foreach collection="couponCodeIdList" index="couponCodeId" item="couponCodeId" open=" and id in (" close=")" separator=",">
+		  		#{couponCodeId}
+		  	 </foreach>
+		</where>
+	
+	
+	</select>
+	
+	
+	
+	
+</mapper>

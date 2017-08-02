@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.ReceiptDetailDao">
+	<resultMap type="com.tp.model.ord.ReceiptDetail" id="receiptDetail">
+				<id column="id" property="id"/>
+				<result column="receipt_code" property="receiptCode"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="receipt_no" property="receiptNo"/>
+				<result column="type" property="type"/>
+				<result column="receipt_time" property="receiptTime"/>
+				<result column="title" property="title"/>
+				<result column="amount" property="amount"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,receipt_code,parent_order_code,receipt_no,type,receipt_time,title,amount,create_time
+	</sql>
+	<!-- 根据子单号更新发票明细 -->
+	<update id="updateBySubOrderCode" parameterType="com.tp.model.ord.ReceiptDetail">
+		UPDATE ord_receipt_detail
+		<set>
+			<if test="receiptCode != null  and receiptCode != '' ">receipt_code=#{receiptCode},</if>
+			<if test="receiptNo != null  and receiptNo != '' ">receipt_no=#{receiptNo},</if>
+			<if test="type != null  and type != '' ">type=#{type},</if>
+			<if test="receiptTime != null ">receipt_time=#{receiptTime},</if>
+			<if test="title != null  and title != '' ">title=#{title},</if>
+			<if test="amount != null ">amount=#{amount},</if>
+		</set>
+		WHERE parent_order_code = #{parentOrderCode}
+	</update>
+</mapper>

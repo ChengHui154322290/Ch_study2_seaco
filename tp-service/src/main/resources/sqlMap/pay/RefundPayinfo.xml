@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.RefundPayinfoDao">
+	<resultMap type="com.tp.model.pay.RefundPayinfo" id="refundPayinfo">
+				<id column="pay_refund_id" property="payRefundId"/>
+				<result column="payment_id" property="paymentId"/>
+				<result column="biz_code" property="bizCode"/>
+				<result column="biz_type" property="bizType"/>
+				<result column="refund_type" property="refundType"/>
+				<result column="amount" property="amount"/>
+				<result column="gateway_id" property="gatewayId"/>
+				<result column="status" property="status"/>
+				<result column="serial" property="serial"/>
+				<result column="gateway_trade_no" property="gatewayTradeNo"/>
+				<result column="callback_time" property="callbackTime"/>
+				<result column="callback_info" property="callbackInfo"/>
+				<result column="notified" property="notified"/>
+				<result column="notify_time" property="notifyTime"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		pay_refund_id,payment_id,biz_code,biz_type,refund_type,amount,gateway_id,status,
+		serial,gateway_trade_no,callback_time,callback_info,notified,notify_time,create_time,
+		create_user,update_time,update_user
+	</sql>
+	
+	<update id="updateDynamicByUnrefunded" parameterType="com.tp.model.pay.RefundPayinfo">
+		UPDATE pay_refund_payinfo
+		<set>
+			<if test="paymentId != null  ">payment_id=#{paymentId},</if>
+			<if test="bizCode != null  and bizCode != '' ">biz_code=#{bizCode},</if>
+			<if test="bizType != null  ">biz_type=#{bizType},</if>
+			<if test="refundType != null  ">refund_type=#{refundType},</if>
+			<if test="amount != null  ">amount=#{amount},</if>
+			<if test="gatewayId != null  ">gateway_id=#{gatewayId},</if>
+			<if test="status != null  ">status=#{status},</if>
+			<if test="serial != null  and serial != '' ">serial=#{serial},</if>
+			<if test="gatewayTradeNo != null  and gatewayTradeNo != '' ">gateway_trade_no=#{gatewayTradeNo},</if>
+			<if test="callbackTime != null  and callbackTime != '' ">callback_time=#{callbackTime},</if>
+			<if test="callbackInfo != null  and callbackInfo != '' ">callback_info=#{callbackInfo},</if>
+			<if test="notified != null  ">notified=#{notified},</if>
+			<if test="notifyTime != null  and notifyTime != '' ">notify_time=#{notifyTime},</if>
+			<if test="createUser != null  and createUser != '' ">create_user=#{createUser},</if>
+			<if test="modifyTime != null  and updateTime != '' ">modify_time=#{updateTime},</if>
+			<if test="updateUser != null  and updateUser != '' ">modify_user_id=#{updateUser},</if>
+		</set>
+		WHERE pay_refund_id = #{payRefundId} and status!=2
+	</update>
+</mapper>

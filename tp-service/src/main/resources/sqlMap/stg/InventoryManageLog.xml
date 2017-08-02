@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryManageLogDao">
+	<resultMap type="com.tp.model.stg.InventoryManageLog" id="inventory">
+				<id column="id" property="id"/>
+				<result column="sku" property="sku"/>
+				<result column="inventory" property="inventory"/>
+				<result column="occupy" property="occupy"/>
+				<result column="reserve_inventory" property="reserveInventory"/>
+				<result column="warn_inventory" property="warnInventory"/>
+				<result column="reject" property="reject"/>
+				<result column="sample" property="sample"/>
+				<result column="freeze" property="freeze"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="sp_id" property="spId"/>
+				<result column="district_id" property="districtId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="columns">
+		id,inventory_id,inventory,occupy,reserve_inventory,warn_inventory,reject,sample,
+		freeze,sku,main_title,warehouse_id,warehouse_name,sp_id,sp_name,district_id,change_type,create_user,create_time,remark
+ 	</sql>
+	
+</mapper>

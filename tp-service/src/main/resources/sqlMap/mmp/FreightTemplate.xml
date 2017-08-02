@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.FreightTemplateDao">
+	<resultMap type="com.tp.model.mmp.FreightTemplate" id="freightTemplate">
+				<id column="id" property="id"/>
+				<result column="calculate_mode" property="calculateMode"/>
+				<result column="creator_id" property="creatorId"/>
+				<result column="name" property="name"/>
+				<result column="freight_type" property="freightType"/>
+				<result column="postage" property="postage"/>
+				<result column="free_postage" property="freePostage"/>
+				<result column="aft_postage" property="aftPostage"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="delete_time" property="deleteTime"/>
+				<result column="is_delete" property="isDelete"/>
+	</resultMap>
+	<sql id="columns">
+		id,calculate_mode,creator_id,name,freight_type,postage,free_postage,aft_postage,create_time,modify_time,delete_time,is_delete
+	</sql>
+</mapper>

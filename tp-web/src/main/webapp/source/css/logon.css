@@ -1,0 +1,89 @@
+body{
+    background:url("../img/logon/logon_bg.png") center no-repeat;
+	background-size: 375px 667px;
+    height: 667px;
+}
+.close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 26px;
+    height: 25px;
+    background: url("../img/logon/close.png") center no-repeat;
+    background-size: 26px;
+}
+
+.logon_bg {
+    position: absolute;
+    top: 20%;
+    height: 186px;
+    left: 0px;
+    right: 0px;
+    background: url("../modifiable/img/logo.png") center no-repeat;
+    background-size: 160px 116px;
+}
+
+.div_login {
+    margin-bottom: 10px;
+    /*position: absolute;*/
+    /*bottom: 125px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*height: 44px;*/
+}
+
+.div_login > a {
+    display: block;
+    width: 274px;
+    height: 100%;
+    margin: 0px auto;
+    border: 1px solid #fff;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 44px;
+    text-align: center;
+    background: rgba(0, 0, 0 ,0.5);
+}
+
+.div_login > a:active {
+    color:#fff;
+}
+
+.div_register {
+    /*position: absolute;*/
+    /*bottom: 67px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*height: 44px;*/
+}
+
+.div_register > a {
+    display: block;
+    width: 274px;
+    height: 100%;
+    margin: 0px auto;
+    font-size: 16px;
+    color: #fff;
+    line-height: 44px;
+    text-align: center;
+    margin-left: 58px;
+}
+
+.div_register > a:active {
+    color:#fff;
+}
+.logBottom{
+    position: absolute;
+    bottom: 5%;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}
+.go_reg{
+	display:inline-block;
+	zoom:1;
+	width:18px;
+	height:25px;
+	background:url("../img/logon/goreg.png") center no-repeat;
+	vertical-align: middle;
+}

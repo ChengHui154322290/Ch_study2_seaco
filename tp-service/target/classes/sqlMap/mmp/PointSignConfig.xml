@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PointSignConfigDao">
+	<resultMap type="com.tp.model.mmp.PointSignConfig" id="pointSignConfig">
+				<id column="id" property="id"/>
+				<result column="sequence_day" property="sequenceDay"/>
+				<result column="point" property="point"/>
+				<result column="used" property="used"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,sequence_day,point,used,create_time
+	</sql>
+</mapper>

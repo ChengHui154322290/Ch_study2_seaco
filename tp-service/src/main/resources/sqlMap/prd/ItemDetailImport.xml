@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemDetailImportDao">
+	<resultMap type="com.tp.model.prd.ItemDetailImport" id="itemDetailImport">
+				<id column="id" property="id"/>
+				<result column="log_id" property="logId"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="sku" property="sku"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="brand_story" property="brandStory"/>
+				<result column="item_title" property="itemTitle"/>
+				<result column="item_detail_decs" property="itemDetailDecs"/>
+				<result column="material" property="material"/>
+				<result column="special_instructions" property="specialInstructions"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,log_id,detail_id,sku,brand_name,brand_story,item_title,item_detail_decs,material,special_instructions,create_user,create_time
+	</sql>
+</mapper>

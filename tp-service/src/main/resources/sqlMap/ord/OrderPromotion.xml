@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderPromotionDao">
+	<resultMap type="com.tp.model.ord.OrderPromotion" id="orderPromotion">
+				<id column="id" property="id"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="order_id" property="orderId"/>
+				<result column="order_item_id" property="orderItemId"/>
+				<result column="promotion_id" property="promotionId"/>
+				<result column="type" property="type"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="discount" property="discount"/>
+				<result column="promotion_name" property="promotionName"/>
+				<result column="source_type" property="sourceType"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="coupon_code" property="couponCode"/>
+				<result column="coupon_type" property="couponType"/>
+				<result column="coupon_face_amount" property="couponFaceAmount"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="promoter_id" property="promoterId"/>
+	</resultMap>
+	<sql id="columns">
+		id,<include refid="columnsByInsert"></include>
+	</sql>
+	<sql id="columnsByInsert">
+		parent_order_id,order_id,order_item_id,promotion_id,type,parent_order_code,order_code,discount,promotion_name,source_type,
+		supplier_id,coupon_code,coupon_type,coupon_face_amount,create_time,update_time,promoter_id
+	</sql>
+	<insert id="batchInsert" parameterType="list">
+		insert into ord_order_promotion(
+			<include refid="columnsByInsert"></include>
+		)values 
+		<foreach collection="orderPromotionList" item="item" index="index" separator=",">
+			(
+			#{item.parentOrderId},#{item.orderId},#{item.orderItemId},#{item.promotionId},#{item.type},#{item.parentOrderCode},#{item.orderCode},#{item.discount}
+			,#{item.promotionName},#{item.sourceType},#{item.supplierId},#{item.couponCode},#{item.couponType},#{item.couponFaceAmount},now(),now(),#{item.promoterId}
+			)
+		</foreach>
+	</insert>
+</mapper>

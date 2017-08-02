@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<context:property-placeholder location="classpath:metainfo.properties" order="2000000"/>
+	<bean id="springBeanProxy" class="com.tp.common.spring.SpringBeanProxy"></bean>
+	<bean id="settings" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+           <list>
+				<value>classpath*:*.properties</value>
+			</list>
+        </property>
+    </bean>
+	<bean id="upload" class="com.qiniu.QiniuUpload">
+		<property name="ACCESS_KEY" value="${upload.ACCESS_KEY}"></property>
+		<property name="SECRET_KEY" value="${upload.SECRET_KEY}"></property>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="settings" />
+	</bean>
+	<context:annotation-config />
+	<context:component-scan base-package="com.tp.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<bean id="xgConfigUtil" class="com.tp.common.config.XgConfigUtil" init-method="init" lazy-init="false">
+		<property name="appConfigDir" value="seller"></property>
+	</bean>
+	<import resource="spring-cache-redis.xml"/>
+	<import resource="spring-dfs.xml"/>
+</beans>

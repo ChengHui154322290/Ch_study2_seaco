@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.CartItemDao">
+	<resultMap type="com.tp.model.ord.CartItem" id="cartItem">
+				<id column="cart_item_id" property="cartItemId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="shop_id" property="shopId"/> 
+				<result column="sku_code" property="skuCode"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="quantity" property="quantity"/>
+				<result column="selected" property="selected"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<select id="queryQuantityCountByMemberId" parameterType="long" resultType="int">
+		select ifnull(sum(quantity),0)
+		  from ord_cart_item 
+		 where member_id = #{memberId}
+		 <if test="shopId!=null"> and shop_id=#{shopId}</if>
+		 <if test="shopId==null"> and (shop_id is null or shop_id=0)</if>
+	</select>
+	
+	<update id="updateSelectedByList">
+		update  ord_cart_item
+		   set selected = #{selected}
+		 where member_id = #{memberId}
+		 <if test="cartItemList!=null">
+		 	<foreach collection="cartItemList" item="cartItem" index="cartItem" open=" and (" close=")" separator=" or ">
+		 		(sku_code = #{cartItem.skuCode} and topic_id=#{cartItem.topicId})
+		 	</foreach>
+		 </if>
+		 <if test="skuCode!=null">
+		 	 and sku_code=#{skuCode} and topic_id=#{topicId}
+		 </if>
+		 <if test="shopId!=null"> and shop_id=#{shopId}</if>
+		 <if test="shopId==null"> and (shop_id is null or shop_id=0)</if>
+	</update>
+</mapper>

@@ -1,0 +1,612 @@
+body{
+	background:#eee;
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+
+header {
+  height: 50px;
+  position: fixed;
+  border: none;
+  border-bottom: 1px solid #eee;
+  top: 0px;
+  width: 100%;
+  z-index: 999;
+}
+
+.group-back {
+  left: 0;
+  background: url(../img/common/back.png) no-repeat center;
+  background-size: 10px;
+}
+
+.sign_way{
+	right:0;
+	width:60px;
+	margin-right:10px;
+	color:#333;
+	font-size:14px;
+	margin-top:2px;
+}
+
+
+.sign{
+	width:100%;
+	float:left;
+	background:#fff;
+ 	margin-top: 51px;
+	padding-bottom:20px;
+}
+
+.sign_icon{
+	width:100%;
+	height:120px;
+	background:url("../img/sign/sign_bg.png") no-repeat center;
+	background-size:100%;
+}
+
+.sign_state{
+/*     width: 102px;
+    height: 102px;
+    margin: 0 auto; */
+    padding-top: 18px;
+}
+
+.sign_state_img{
+	width: 102px;
+    /* height: 102px; */
+    display: block;
+    margin: 0 auto;
+    /* background-size: 98%;
+    background:url("../img/sign/btn_enter/sign_2.png") no-repeat center; */
+    -webkit-animation:animations2  ease-in-out 0.6s forwards;
+    -moz-animation:animations2  ease-in-out 0.6s forwards;
+    animation:animations2  ease-in-out 0.6s forwards;
+}
+.sign_state_img_ed{
+	width: 102px;
+    /* height: 102px; */
+    display: block;
+    margin: 0 auto;
+    display:none;
+}
+
+.sign_state_img_ed{
+	width: 102px;
+    /* height: 102px; */
+    margin: 0 auto;
+    display:none;
+}
+
+@-webkit-keyframes animations2{
+    0%{width:99px;}
+    5%{width:100px;}
+    10%{width:101px;}
+    15%{width:102px;}
+    20%{width:103px;}
+    25%{width:104px;}
+    30%{width:103px;}
+    35%{width:102px;}
+    40%{width:101px;}
+    45%{width:100px;}
+    50%{width:99px;}
+    55%{width:100px;}
+    60%{width:101px;}
+    65%{width:102px;}
+    70%{width:103px;}
+    75%{width:104px;}
+    80%{width:103px;}
+    85%{width:102px;}
+    90%{width:101px;}
+    95%{width:100px;}
+    100%{width:99px;}
+}
+@-moz-keyframes animations2{
+    0%{width:99px;}
+    5%{width:100px;}
+    10%{width:101px;}
+    15%{width:102px;}
+    20%{width:103px;}
+    25%{width:104px;}
+    30%{width:103px;}
+    35%{width:102px;}
+    40%{width:101px;}
+    45%{width:100px;}
+    50%{width:99px;}
+    55%{width:100px;}
+    60%{width:101px;}
+    65%{width:102px;}
+    70%{width:103px;}
+    75%{width:104px;}
+    80%{width:103px;}
+    85%{width:102px;}
+    90%{width:101px;}
+    95%{width:100px;}
+    100%{width:99px;}
+}
+@keyframes animations2{
+    0%{width:99px;}
+    5%{width:100px;}
+    10%{width:101px;}
+    15%{width:102px;}
+    20%{width:103px;}
+    25%{width:104px;}
+    30%{width:103px;}
+    35%{width:102px;}
+    40%{width:101px;}
+    45%{width:100px;}
+    50%{width:99px;}
+    55%{width:100px;}
+    60%{width:101px;}
+    65%{width:102px;}
+    70%{width:103px;}
+    75%{width:104px;}
+    80%{width:103px;}
+    85%{width:102px;}
+    90%{width:101px;}
+    95%{width:100px;}
+    100%{width:99px;}
+}
+
+.change_img{
+    -webkit-animation:animations  ease-in-out 0.3s forwards;
+    -moz-animation:animations  ease-in-out 0.3s forwards;
+    animation:animations  ease-in-out 0.3s forwards;
+}
+
+@-webkit-keyframes animations{
+    0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+@-moz-keyframes animations{
+    0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+@keyframes animations{
+     0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+
+.change_img1{
+    -webkit-animation:animations1  ease-in-out 0.3s forwards;
+    -moz-animation:animations1  ease-in-out 0.3s forwards;
+    animation:animations1  ease-in-out 0.3s forwards;
+}
+
+@-webkit-keyframes animations1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+@-moz-keyframes animations1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+@keyframes animations1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+
+.touch_change{
+    -webkit-animation:animation  ease-in-out 0.3s forwards;
+    -moz-animation:animation  ease-in-out 0.3s forwards;
+    animation:animation  ease-in-out 0.3s forwards;
+}
+
+
+@-webkit-keyframes animation{
+    0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+@-moz-keyframes animation{
+    0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+@keyframes animation{
+   0%{width:99px;}
+    20%{width:98px;}
+    40%{width:97px;}
+    60%{width:96px;}
+    80%{width:95px;}
+    100%{width:94px;}
+}
+
+.touch_change1{
+    -webkit-animation:animation1  ease-in-out 0.3s forwards;
+    -moz-animation:animation1  ease-in-out 0.3s forwards;
+    animation:animation1  ease-in-out 0.3s forwards;
+}
+
+
+@-webkit-keyframes animation1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+@-moz-keyframes animation1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+@keyframes animation1{
+    0%{width:94px;}
+    20%{width:95px;}
+    40%{width:96px;}
+    60%{width:97px;}
+    80%{width:98px;}
+    100%{width:99px;}
+}
+
+.out_list{
+	float:left;
+	width:33%;
+	height:38px;
+	text-align:center;
+	font-size:14px;
+	margin-top:4px;
+}
+
+.border_right{
+	border-right:1px solid #eee;
+}
+
+.nub{
+	font-size:14px;
+	color:#333;
+	margin-bottom:2px;
+}
+
+.word{
+	font-size:11px;
+	color:#333;
+}
+
+.xg_coin{
+    background: url("../img/sign/sign_xgcoin.png") no-repeat right 10px center;
+    background-size: 7px;
+}
+
+.today{
+	width:100%;
+	background:#fff;
+	margin-top:10px;
+	float:left;
+}
+
+.line{
+    border-bottom: 1px solid #eee;
+    padding-top: 20px;
+    margin:0 10px;
+}
+
+.today_title{
+	background: #fff url("../img/sign/sign_day.png") no-repeat 12px center;
+    background-size: 21px;
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    /* top: 193px; */
+    top:243px;
+    left: 38%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 15px;
+    padding-left: 17px;
+    margin-top:5px;
+}
+
+.hd-products-list{
+	margin-top: 18px;
+}
+
+.hd-products-list li{
+  width: 180px;
+  height: 255px;
+  float: left;
+}
+
+.ui-imglazyload{
+  width: 180px;
+  height: 180px;
+}
+
+.product_item{
+  width: 50%;
+  float: left;
+}
+
+.product_item_box{
+  width: 180px;
+  margin: 0px auto;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.hd-products-list{
+  background-color: #ffffff;
+}
+
+.product_img{
+  height: 180px;
+  width:180px;
+}
+
+.product_name{
+  font-size: 13px;
+  color: #333333;
+  line-height: 25px;
+  height: 50px;
+  margin: 0px 5px;
+  overflow: hidden;
+}
+
+.product_price{
+  font-size:13px;
+  margin: 0px 5px;
+  color: #eb3f4d;
+  font-weight: 800;
+}
+
+.product_price_yuan{
+  font-size:15px;
+}
+
+.product_old_price{
+  font-size:12px;
+  color: #999999;
+  text-decoration:line-through;
+}
+
+.cover{
+	width: 100%;
+    top:0;
+    position: fixed;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    z-index:9999;
+    display:none;
+}
+
+.content{
+	margin-bottom:60px;
+}
+
+.alert_top{
+	width:100%;
+	height:98px;
+	background:url("../img/sign/sign_calendar.png") no-repeat center;
+	background-size:100%;
+	position:absolute;
+	top:-50px;
+	text-align:center;
+	line-height:87px;
+	color:#fff;
+	font-size:21px;
+}
+
+.sign_alert{
+    width: 90%;
+    background: #fff;
+    z-index: 99999;
+    border-radius:11px;
+    position: fixed;
+    bottom: 135px;
+    left:5%;
+}
+
+.close{
+	width:30px;
+	height:30px;	
+	position: fixed;
+    bottom: 60px;
+    left:47%;
+}
+
+.close img{
+	width:100%;
+}
+
+.list{
+	width:90%;
+	height:23px;
+	font-size:12px;
+	color:#999;
+	margin:0 auto;
+	margin-top:48px;
+	line-height:23px;
+}
+
+.list li{
+	width:14%;
+	float:left;
+	text-align:center;
+}
+
+.table-responsive{
+	width:90%;
+	margin:0 auto;
+	border-radius:6px;
+}
+
+.table tbody tr td{
+	width:47px;
+	height:47px;
+	border:1px solid #e8e8e8;
+	position:relative;
+	
+	text-align:center;
+	line-height:47px;
+	color:#fff;
+	font-size:15px;
+} 
+
+.day{
+	background:url("../img/sign/sign_coin1.png") no-repeat center;
+	background-size:24px;
+}
+
+.signedcheck{
+	background:url("../img/sign/check/signedcheck.gif") no-repeat center;
+	background-size:24px;
+}
+
+.signedcheck0{
+	background:url("../img/sign/check/signedcheck00.png") no-repeat center;
+	background-size:24px;
+}
+
+.signedcheck1{
+	background:url("../img/sign/check/signedcheck01.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck2{
+	background:url("../img/sign/check/signedcheck02.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck3{
+	background:url("../img/sign/check/signedcheck03.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck4{
+	background:url("../img/sign/check/signedcheck04.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck5{
+	background:url("../img/sign/check/signedcheck05.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck6{
+	background:url("../img/sign/check/signedcheck06.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck7{
+	background:url("../img/sign/check/signedcheck07.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck8{
+	background:url("../img/sign/check/signedcheck08.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck9{
+	background:url("../img/sign/check/signedcheck09.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck10{
+	background:url("../img/sign/check/signedcheck10.png") no-repeat center;
+	background-size:24px;
+}
+.signedcheck11{
+	background:url("../img/sign/check/signedcheck11.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed{
+	background:url("../img/sign/sign_coin_5.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed1{
+	background:url("../img/sign/sign_coin_6.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed2{
+	background:url("../img/sign/sign_coin_7.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed3{
+	background:url("../img/sign/sign_coin_8.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed4{
+	background:url("../img/sign/sign_coin_9.png") no-repeat center;
+	background-size:24px;
+}
+
+.signed5{
+	background:url("../img/sign/sign_coin_10.png") no-repeat center;
+	background-size:24px;
+}
+
+.table tbody tr td span{
+	position: absolute;
+    top: -15px;
+    left: 4px;
+    font-size:12px;
+    color:#333;
+}
+
+.coin_today{
+	width:100%;
+	float:left;
+}
+
+.sign_record{
+	width:100%;
+	height:32px;
+	color:#333;
+	font-size:15px;
+	margin-top:7px;
+	text-align:center;
+}
+
+.record_color{
+	color:#ee3e54;
+}
+
+.header_wx{
+	display:none;
+}
+
+.sign_way_wx{
+	position:absolute;
+	top:14px;
+	right:15px;
+	background:url("../img/sign/sign_way.png") no-repeat right center;
+	background-size:18px;
+	padding-right:23px;
+	color:#333;
+	font-size:12px;
+}

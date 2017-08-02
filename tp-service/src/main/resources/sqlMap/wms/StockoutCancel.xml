@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockoutCancelDao">
+	<resultMap type="com.tp.model.wms.StockoutCancel" id="stockoutCancel">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="req_msg" property="reqMsg"/>
+				<result column="cancel_time" property="cancelTime"/>
+				<result column="success" property="success"/>
+				<result column="error" property="error"/>
+				<result column="res_msg" property="resMsg"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,req_msg,cancel_time,success,error,res_msg,create_time
+	</sql>
+</mapper>

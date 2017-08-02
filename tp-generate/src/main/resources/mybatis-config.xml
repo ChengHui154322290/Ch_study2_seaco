@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<package name="com.tp.model" />
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.tp.common.dao.PageInterceptor">
+			<property name="databasetype" value="mysql"/>
+		</plugin>
+		<plugin interceptor="com.tp.common.dao.BaseDaoInterceptor"/>
+	</plugins>
+
+</configuration>

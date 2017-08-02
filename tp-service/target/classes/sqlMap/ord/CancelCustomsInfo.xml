@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.CancelCustomsInfoDao">
+	<resultMap type="com.tp.model.ord.CancelCustomsInfo" id="cancelCustomsInfo">
+				<id column="id" property="id"/>
+				<result column="cancel_id" property="cancelId"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="customs_code" property="customsCode"/>
+				<result column="express_no" property="expressNo"/>
+				<result column="express_company_code" property="expressCompanyCode"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="cancel_status" property="cancelStatus"/>
+				<result column="remark" property="remark"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,cancel_id,order_code,customs_code,express_no,express_company_code,supplier_id,supplier_name,cancel_status,remark,create_time
+	</sql>
+</mapper>

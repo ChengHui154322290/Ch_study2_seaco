@@ -1,0 +1,1 @@
+(function(a){var t=this;t.activeHtClearing=t.activeHtClearing||{},t.activeHtClearing.payNow=function(i){if(t.locationData)a.isFunction(i.callback)&&i.callback(static_data.pay.payorder,t.dictionary.success);else{var c=t.activeHost+t.activeUrl.pay.payorder;ajaxPost(i,c)}}}).call(xigou,Zepto);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.ItemSearchDao">
+	<resultMap type="com.tp.model.sch.ItemSearch" id="itemSearch">
+		<result column="id" property="itemId"/>
+		<result column="large_id" property="largeId"/>
+		<result column="medium_id" property="mediumId"/>
+		<result column="small_id" property="smallId"/>
+
+	</resultMap>
+
+	<select id="getByItemIds" resultMap="itemSearch" parameterType="java.util.List">
+		SELECT id,large_id,medium_id,small_id
+		FROM prd_item_info
+		WHERE
+		id in
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

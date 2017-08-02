@@ -1,0 +1,1 @@
+$(function(){isWeiXin()&&($(".ui-header").hide(),$("title").html("投资团队"));var i=xigou.getQueryString("type")});

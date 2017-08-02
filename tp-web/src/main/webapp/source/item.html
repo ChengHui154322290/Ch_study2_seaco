@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>西客商城</title>
+<meta name="Keywords" content="西客商城">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<link rel="icon" href="./modifiable/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/frozen.css" />
+<!-- <link rel="stylesheet" href="css/demo.css" /> -->
+<link rel="stylesheet" type="text/css" href="css/dropload.css" />
+<link rel="stylesheet" type="text/css" href="css/item.css" />
+<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/dropload.min.js"></script>
+<script type="text/javascript" src="js/pages/phoneScale.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1>商品详情</h1>
+		<a href="javascript:history.go(-1);" class="goBack"></a>
+		<div class="top_menu">
+			<div style="display: none" class="goShare"></div>
+		</div>
+	</header>
+	<div class="header_wx">
+		<a href="javascript:history.go(-1);" class="goBack_wx"></a>
+		<div class="top_menu_wx">
+			<div class="goShare_wx"></div>
+		</div>
+	</div>
+	<div class="content">
+
+		<section id="slider"></section>
+		<div class="shopinfo"></div>
+		<section style="padding: 0 12px;">
+
+			<!-- 现价 -->
+			<p>
+				<span class="iem-price1" id="iem-price">¥<span class="iem-price2"></span></span>
+				<span class="sale-count"></span>
+			</p>
+
+			<!-- 原价，返佣，已售 -->
+			<p class="space_price_div">
+				<!--<span class="cheap">特价</span>-->
+				<!-- <span>
+					<del id="old_price"></del>
+				</span> -->
+				<span id="fy_price" style="display: none;">返佣:<span></span></span>
+
+			</p>
+			<!-- 商品名 -->
+			<p class="dec-title"></p>
+			<!-- 发货地 -->
+			<p class="dec-info"></p>
+			<!-- 发货地及税费 -->
+			<p class="country clearfix">
+				<image id="contry-img" src=''></image>
+				<span class="country-name"></span>
+				<span class="warehouse"></span>
+				<span class="warehouse"></span>
+				<span class="fee-icon"></span>
+				<!-- 税费 -->
+				<span class="fee">税费</span>
+			</p>
+			<!-- 促销 -->
+			<div class="div_promotion">
+				<div>促销:</div>
+				<div class="div_promotion_desc"></div>
+			</div>
+			<!-- 数量 选择按钮-->
+			<div id="selectSizeColor">
+				<h2>
+					选择: <span id="size_color"></span>
+					<span class="more_size"></span>
+					<!-- <a href="javascript:void(0);" class="more_size"></a> -->
+				</h2>
+			</div>
+			<!-- 介绍 -->
+			<div class="div_desc">
+				<span class="more_size"></span>
+				<!-- <a href="javascript:void(0);" class="more_size"> -->
+			</div>
+		</section>
+	</div>
+
+    <div class="shop_information">
+	    <a id="shop_information">
+	    	<div class="shop_logo">
+	    		<img src="img/item/shop-icon.png" style="width:100%;height:100%;" id="img_Logo"/>
+	    	</div>
+	    	<span class="shop_name">s</span>
+	    	<a class="link_shop" id="into_shop">进店逛逛</a>
+	    </a>
+    </div>
+
+	<div class="floor_bottom"></div>
+
+	<div class="floor floating_layer" id="mask"></div>
+
+	<!-- 数量 -->
+	<div class="floor parameters hide" id="productModal"
+		style="position: fixed; bottom: 0px; padding-bottom: 0; z-index: 999; display: none;">
+		<div class="car_item" style="margin-left: 0px; padding-left: 15px;height:117px;">
+			<div class="car_item_core">
+				<div class="cart_product">
+					<img src="" alt="">
+				</div>
+				<div class="cart_name_opt" style="width: 65%;">
+					<div class="cart_product_name">xu1</div>
+					<div class="price_box" style="left: 35%;">
+						<span class="money"><em>¥</em><strong>10</strong></span>
+						<!-- <del>
+							<span>原价:&nbsp;&nbsp;</span>¥10
+						</del> -->
+						<i class="postinfo">请挑选合适的 规格 </i>
+					</div>
+				</div>
+			</div>
+			<br class="clear">
+		</div>
+		<div id="parameters_norm" style="max-height: 205px; overflow-y: auto;"></div>
+		<div class="parameters_box"
+			style="position: relative;padding-bottom: 20px;">
+			<h2>购买数量</h2>
+			<div class="parameters_quantity" id="quantity">
+				<!-- <div id="restrictcount" class="hide" style="float:left;">（限购<span></span>件）</div> -->
+				<a href="javascript:void(0);" class="quantity_decrease disabled">-</a>
+				<div class="quantity_txt">1</div>
+				<a href="javascript:void(0);" class="quantity_increase">+</a>
+
+			</div>
+		</div>
+		<div class="car">
+			<button id="btn_confirm" class="c_btn_confirm">确定</button>
+		</div>
+		<div class="no_item" style="display: none">暂时缺货</div>
+	</div>
+
+	<!-- 税费 -->
+	<div class="taxation_hide" id="taxationModal"
+		style="position: fixed; bottom: 0px; padding-bottom: 0; z-index: 999; display: none;">
+		<div class="taxationTitle">税费</div>
+		<div class="tax_price" style="padding: 15px 0;">
+			<!-- <span class="iem-price1" id="tax_price_price" style="color:#999999;margin-left: 15px;">¥<span class="iem-price2">96</span>.69</span> -->
+			<span class="tax_arr"
+				style="margin-left: 20px; vertical-align: middle;">&nbsp;</span>
+			<!--<span class="cheap" id="span_tax" style="margin-left:-5px;background:#F77482;padding:5px;">关税≤50，免征哦!</span>-->
+		</div>
+		<div class="tax_desc">
+			<span id="tax_desc_span"></span>
+		</div>
+	</div>
+
+	<!-- 介绍 -->
+	<div class="details_description" id="detailsDescription">
+		<div class="details_item">
+			<div class="detailsTitle">说明</div>
+			<div class="quality_item">
+				<div class="quality_item_core">
+					本平台所有商品均由正规渠道进货，由海外认证的供货商或品牌商直供，坚决杜绝货源不请，中间环节转手的商品。
+				</div>
+			</div>
+
+			<div class="free_item">
+				<div class="free_item_core">
+					商城的商品分为实体现货和海外直邮，实体现货由西客实体店发出，商品预计一周内送达。海外直邮商品预计10-15个工作日送达。由于物流原因，送达时间仅供参考，如有疑问请联系客服。
+				</div>
+			</div>
+
+			<div class="customer_item">
+				<div class="customer_item_core">
+					<div>1、根据中国海关总署要求，购买海外仓商品清关入境需要提供身份证信息进行入境申报，请您配合。我们不会向第三方泄露您的资料，请您放心；</div>
+					<div>2、退货商品需确保相关配件、单据、吊牌（不能从商品上拆除）、包装、卡证等要完好、齐全，不影响二次销售；如商品为鞋靴，请勿将物流面单地址直接贴在鞋盒上，寄回进行二次包装；商品无质量问题，运费不退；</div>
+				</div>
+			</div>
+
+			<div class="store_item">
+				<div class="store_item_core">
+					 您不仅可以在我们西客微信商城选购我们的商品，更可以亲自光临位于杭州跨境小镇的西客奢饰品体验店，我们将为您提供最真挚的服务。地址：杭州市下城区石桥路274号，电话0571-89811999
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p_close hide"></div>
+
+	<section class="shopBar">
+		<ul>
+			<li class="item-shopcar ui-badge-wrap" style="border-left:none;">
+				<div class="imgbox">
+					<a href="cart.html"> 购物车
+						<div class="ui-badge">0</div>
+					</a>
+				</div>
+			</li>
+			<li class="item-addshop"><button class="item-addshop-text">加入购物车</button></li>
+			<li class="item-buy"><button class="item-buy-text">立即购买</button></li>
+			<li class="item-none" style="display: none">已抢光</li>
+		</ul>
+	</section>
+
+	<div class="share_friends">
+		<div class="share_tip"></div>
+	</div>
+
+	<div class="div_detail">
+		<div class="div_show_detail up"></div>
+		<div class="detail-content"></div>
+	</div>
+</body>
+<!--
+	<script class="demo-script">
+		(function (){
+		            var slider = new fz.Scroll('.ui-slider', {
+		                role: 'slider',
+		                indicator: true,
+		                autoplay: true,
+		                interval: 3000
+		            });
+		        })();
+	</script>
+	-->
+
+<script type="text/javascript" src="./js/static_data.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="./js/modules/user.js"></script>
+<script type="text/javascript" src="./js/modules/item.js"></script>
+<script type="text/javascript" src="./js/cmbc/tripledes.js"></script>
+<script type="text/javascript" src="./js/cmbc/mode-ecb.js"></script>
+<script type="text/javascript" src="./js/cmbc/md5.js"></script>
+<script type="text/javascript" src="./js/cmbc/cmbc.js"></script>
+<script type="text/javascript" src="./js/pages/item.js"></script>
+</html>

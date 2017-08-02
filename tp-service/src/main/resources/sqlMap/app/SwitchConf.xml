@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.SwitchConfDao">
+	<resultMap type="com.tp.model.app.SwitchConf" id="switchConf">
+				<id column="id" property="id"/>
+				<result column="conf_key" property="confKey"/>
+				<result column="conf_name" property="confName"/>
+				<result column="conf_value" property="confValue"/>
+				<result column="child_content" property="childContent"/>
+				<result column="is_valid" property="isValid"/>
+				<result column="is_del" property="isDel"/>
+				<result column="opt_user_id" property="optUserId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="remark" property="remark"/>
+				<result column="platform" property="platform"/>
+				<result column="version" property="version"/>
+	</resultMap>
+</mapper>

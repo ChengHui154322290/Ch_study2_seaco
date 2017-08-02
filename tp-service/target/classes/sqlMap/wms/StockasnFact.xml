@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockasnFactDao">
+	<resultMap type="com.tp.model.wms.StockasnFact" id="stockasnFact">
+				<id column="id" property="id"/>
+				<result column="stockasn_id" property="stockasnId"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="warehouse_code" property="warehouseCode"/>
+				<result column="auditor" property="auditor"/>
+				<result column="audit_time" property="auditTime"/>
+				<result column="provider_code" property="providerCode"/>
+				<result column="goods_owner" property="goodsOwner"/>
+				<result column="remark" property="remark"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,stockasn_id,order_code,warehouse_id,warehouse_code,auditor,audit_time,provider_code,goods_owner,remark,create_time
+	</sql>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.ConsigneeAddressDao">
+	<resultMap type="com.tp.model.mem.ConsigneeAddress" id="ConsigneeAddressResultMap">
+				<id column="id" property="id"/>
+				<result column="user_id" property="userId"/>
+				<result column="name" property="name"/>
+				<result column="mobile" property="mobile"/>
+				<result column="phone" property="phone"/>
+				<result column="email" property="email"/>
+				<result column="province_id" property="provinceId"/>
+				<result column="province" property="province"/>
+				<result column="city_id" property="cityId"/>
+				<result column="city" property="city"/>
+				<result column="county_id" property="countyId"/>
+				<result column="county" property="county"/>
+				<result column="street_id" property="streetId"/>
+				<result column="street" property="street"/>
+				<result column="address" property="address"/>
+				<result column="zip_code" property="zipCode"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="is_default" property="isDefault"/>
+				<result column="receipt_time" property="receiptTime"/>
+				<result column="receipt_time_desc" property="receiptTimeDesc"/>
+				<result column="plat_form" property="platForm"/>
+				<result column="source" property="source"/>
+				<result column="state" property="state"/>
+				<result column="identity_card" property="identityCard"/>
+				<result column="front_img" property="frontImg"/>
+				<result column="back_img" property="backImg"/>
+				<result column="longitude" property="longitude"/>
+				<result column="latitude" property="latitude"/>
+	</resultMap>
+	<sql id="columns">
+		id,user_id,name,mobile,phone,email,province_id,province,city_id,city,county_id,
+		county,street_id,street,address,zip_code,create_time,update_time,is_default,receipt_time,
+		receipt_time_desc,state,identity_card,front_img,back_img,longitude,latitude
+	</sql>
+	<update id="updateByUserId" parameterType="com.tp.model.mem.ConsigneeAddress">
+		update mem_consignee_address
+		set
+			name = #{name},
+			mobile = #{mobile},
+			phone = #{phone},
+			email = #{email},
+			province_id = #{provinceId},
+			province = #{province},
+			city_id = #{cityId},
+			city = #{city},
+			county_id = #{countyId},
+			county = #{county},
+			street_id = #{streetId},
+			street = #{street},
+			address = #{address},
+			zip_code = #{zipCode},
+			update_time = #{updateTime},
+			is_default = #{isDefault},
+			receipt_time = #{receiptTime},
+			receipt_time_desc = #{receiptTimeDesc},
+			identity_card = #{identityCard},
+			state = #{state}
+		where 
+			user_id = #{userId}
+	</update>
+	<select id="findByUserIdOrderLimit"  parameterType="java.util.Map" resultMap="ConsigneeAddressResultMap">
+	     SELECT
+		<include refid="columns"/>
+		 FROM
+		 	mem_consignee_address
+		 	where user_id=#{userId} and state = 1
+			order by is_default desc,update_time desc 
+			<if test="resultCount != null  and resultCount != '' ">Limit 0,#{resultCount}</if>
+ 	</select>
+ 	
+ 	<update id="updateIsdefaultByUserId" parameterType="com.tp.model.mem.ConsigneeAddress">
+		UPDATE mem_consignee_address
+			set is_default=#{isDefault}
+		<where>
+			<if test="id != null  and id != '' ">id=#{id}</if>
+			<if test="userId != null  and userId != '' ">user_id=#{userId}</if>
+		</where>
+	</update>
+</mapper>

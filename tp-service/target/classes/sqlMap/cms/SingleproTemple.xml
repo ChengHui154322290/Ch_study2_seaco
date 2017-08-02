@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.SingleproTempleDao">
+	<resultMap type="com.tp.model.cms.SingleproTemple" id="CmsSingleproTempleResultMap">
+				<id column="id" property="id"/>
+				<result column="temple_name" property="templeName"/>
+				<result column="path" property="path"/>
+				<result column="status" property="status"/>
+				<result column="type" property="type"/>
+				<result column="platform_type" property="platformType"/>
+				<result column="upload_temple_id" property="uploadTempleId"/>
+	</resultMap>
+	
+	<select id="selectSingleTemples" parameterType="com.tp.dto.cms.CmsSingleTempleDTO" resultType="com.tp.dto.cms.CmsSingleTempleDTO">
+		SELECT a.id as singleTempleId,b.id as singleTempleNodeId,
+			 a.temple_name as templeName, 
+			 b.position_name as positionName,
+			 b.position_size as positionSize,
+			 b.position_sort as positionSort,
+			 b.buried_code as buriedCode,
+			 (case when a.status='0' then '启用'
+						else '未启用' end)as status,a.path as path,a.platform_type as platformType,a.type,a.upload_temple_id as uploadTempleId
+		from cms_singlepro_temple a
+		left join cms_single_tepnode b on a.id=b.single_temple_id AND b.dr=0
+		<where>
+			<if test="templeName != null  and templeName != '' "> AND a.temple_name like concat(concat('%', #{templeName}),'%') </if>
+			<if test="positionName != null  and positionName != '' "> AND b.position_name like concat(concat('%', #{positionName}),'%') </if>
+			<if test="status != null  and status != '' "> AND a.status=#{status} </if>
+			<if test="id != null  "> AND a.id=#{id} </if>
+			<if test="platformType != null  and platformType != '' "> AND a.platform_type=#{platformType} </if>
+			<if test="type != null  and type != '' "> AND a.type=#{type} </if>
+		</where> 
+		order by a.id,b.position_sort
+		Limit #{startPage},#{pageSize}
+	</select>
+	
+	<select id="selectSingleTemplesCounts" parameterType="com.tp.dto.cms.CmsSingleTempleDTO" resultType="long">
+		SELECT count(1)
+		from cms_singlepro_temple a
+		inner join cms_single_tepnode b on a.id=b.single_temple_id
+		<where>
+			<if test="templeName != null  and templeName != '' "> AND a.temple_name like concat(concat('%', #{templeName}),'%') </if>
+			<if test="positionName != null  and positionName != '' "> AND b.position_name like concat(concat('%', #{positionName}),'%') </if>
+			<if test="status != null  and status != '' "> AND a.status=#{status} </if>
+			<if test="id != null  "> AND a.id=#{id} </if>
+			<if test="platformType != null  and platformType != '' "> AND a.platform_type=#{platformType} </if>
+			<if test="type != null  and type != '' "> AND a.type=#{type} </if>
+			AND b.dr=0
+		</where> 
+	</select>
+	<update id="forbiddenTempleByIds" parameterType="java.util.List">
+		UPDATE cms_singlepro_temple
+		SET
+				status='1'
+		WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</update>
+	
+	<select id="selectDateCountQuery" resultMap="CmsSingleproTempleResultMap" parameterType="com.tp.dto.cms.CmsSingleTempleDTO">
+		select distinct date_format(c.startdate, '%Y-%m-%d') as startdateStr
+		 from cms_singlepro_temple a,cms_single_tepnode b,cms_single_tepactivity c
+		where a.id=b.single_temple_id and b.id=c.single_tepnode_id
+		 and date_format(c.startdate, '%Y%m%d')>date_format(NOW(), '%Y%m%d')
+		 <if test="status != null  and status != '' ">and a.status=#{status}</if>
+		 <if test="platformType != null  and platformType != '' ">and a.platform_type=#{platformType}</if>
+		 <if test="type != null  and type != '' ">and a.type=#{type}</if>
+		order by date_format(c.startdate, '%Y%m%d') limit 3
+ 	</select>
+ 	<select id="selectDateActivityIdQuery" resultMap="CmsSingleproTempleResultMap" parameterType="com.tp.dto.cms.CmsSingleTempleDTO">
+		select c.activity_id as activityId,DAYOFWEEK(c.startdate) as totalCount 
+		from cms_singlepro_temple a,cms_single_tepnode b,cms_single_tepactivity c
+		where a.id=b.single_temple_id and b.id=c.single_tepnode_id
+		 <if test="status != null  and status != '' ">and a.status=#{status}</if>
+		 <if test="platformType != null  and platformType != '' ">and a.platform_type=#{platformType}</if>
+		 <if test="type != null  and type != '' ">and a.type=#{type}</if>
+		 <if test="startDateStr != null  and startDateStr != '' "> <![CDATA[ AND date_format(c.startdate,'%Y-%m-%d') = #{startDateStr}]]> </if>
+ 	</select>
+</mapper>

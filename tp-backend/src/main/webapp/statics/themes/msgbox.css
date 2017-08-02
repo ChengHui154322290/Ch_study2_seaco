@@ -1,0 +1,98 @@
+
+/*消息提示样式*/
+.ts_msgbox_layer,.ts_msgbox_layer ,.ts_msgbox_layer .gtl_ico_error,.ts_msgbox_layer .gtl_ico_warning,.ts_msgbox_layer .gtl_ico_info,.ts_msgbox_layer .gtl_end
+	{
+	display: inline-block;
+	line-height: 30px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #fff;
+	background-color: #666;
+}
+
+
+.ts_msgbox_layer_wrap {
+	width: 100%;
+	position: fixed;
+	_position: absolute;
+	top: 46%;
+	left: 0;
+	text-align: center;
+	z-index: 65533;
+}
+
+.ts_msgbox_layer {
+	background-position: 0 -161px;
+	background-repeat: repeat-x;
+	padding: 0 13px 0 24px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.ts_msgbox_layer .gtl_ico_success {
+	background-position: -6px 0;
+	left: -45px;
+	top: 0;
+	width: 45px;
+	position: absolute;
+}
+
+.ts_msgbox_layer .gtl_end {
+	background-position: 0 0;
+	position: absolute;
+	right: -6px;
+	top: 0;
+	width: 6px;
+}
+
+.ts_msgbox_layer .gtl_ico_fail {
+	background-position: -6px -108px;
+	position: absolute;
+	left: -45px;
+	top: 0;
+	width: 45px;
+}
+
+.ts_msgbox_layer .gtl_ico_hits {
+	background-position: -6px -54px;
+	position: absolute;
+	left: -45px;
+	top: 0;
+	width: 45px;
+}
+
+.ts_msgbox_layer .gtl_ico_clear {
+	background-position: -6px 0;
+	left: -5px;
+	width: 5px;
+	position: absolute;
+	top: 0;
+}
+
+.ts_msgbox_layer .gtl_ico_error {
+	background-position: -6px -108px;
+	position: absolute;
+	left: -45px;
+	top: 0;
+	width: 45px;
+}
+
+.ts_msgbox_layer .gtl_ico_warning {
+	background-position: -6px -54px;
+	position: absolute;
+	left: -45px;
+	top: 0;
+	width: 45px;
+}
+
+.ts_msgbox_layer .gtl_ico_info {
+	background-position: -6px 0;
+	left: -5px;
+	width: 5px;
+	position: absolute;
+	top: 0;
+}
+.ts_msgbox_layer img {
+	float: left;
+	margin: 19px 10px 0 5px;
+}

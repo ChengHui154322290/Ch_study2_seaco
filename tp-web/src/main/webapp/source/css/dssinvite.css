@@ -1,0 +1,53 @@
+#slider{
+	margin-top:61px;
+}
+
+.ui-slider {
+	position: relative;
+	padding-top: 124%;
+}
+
+.ui-slider-indicators {
+	left: 4px;
+	bottom: 26px;
+}
+div.ui-btn-wrap{
+	padding:0 10px;
+}
+a.invite_button:active {
+	background: url("../img/dss/invite_btn_act.png") no-repeat center;
+	background-size:100%;
+}
+.ui-slider-indicators li {
+	border: 1px solid #000;
+	background-color: rgba(0, 0, 0, 0);
+}
+.ui-slider-indicators li.current:before {
+	background-color: #000;
+}
+
+.ui-slider-content > li img {
+    display: block;
+    width: 88%;
+    margin: 0 auto;
+}
+
+.share_friends {
+	background: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	height: 100%;
+	display: none;
+	text-align: center;
+	z-index: 99999;
+}
+.share_friends a{
+	position: absolute;
+	top: 60px;
+	left: 0;
+	right: 0;
+	height: 70px;
+	z-index: 99999;
+}

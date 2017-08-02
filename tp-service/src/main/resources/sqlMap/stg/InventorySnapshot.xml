@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventorySnapshotDao">
+	<resultMap type="com.tp.model.stg.InventorySnapshot" id="inventorySnapshot">
+		<id column="id" property="id" />
+		<result column="snap_time" property="snapTime" />
+		<result column="inventory" property="inventory" />
+		<result column="occupy" property="occupy" />
+		<result column="reject" property="reject" />
+		<result column="sku" property="sku" />
+		<result column="warehouse_id" property="warehouseId" />
+		<result column="district_id" property="districtId" />
+		<result column="sp_id" property="spId" />
+		<result column="create_time" property="createTime" />
+		<result column="modify_time" property="modifyTime" />
+	</resultMap>
+	<select id="queryDistinctWarehouseIdForExport"
+		resultType="com.tp.model.stg.InventorySnapshot" parameterType="com.tp.model.stg.InventorySnapshot">
+		SELECT
+			distinct warehouse_id warehouseId
+		FROM
+			stg_inventory_snapshot
+		<where>
+			<if test="sku != null  and sku != '' "> AND sku=#{sku} </if>
+			<if test="warehouseId != null "> AND warehouse_id=#{warehouseId} </if>
+			<if test="createBeginTime != null  and createBeginTime != '' "> AND snap_time >= #{createBeginTime} </if>
+			<if test="createEndTime != null  and createEndTime != '' ">
+				AND snap_time <![CDATA[<=]]>#{createEndTime}
+			</if>
+		</where>
+			order by id desc
+			Limit #{exportCount}
+	</select>
+</mapper>

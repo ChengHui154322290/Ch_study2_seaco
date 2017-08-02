@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.NavigationCategoryDao">
+	<resultMap type="com.tp.model.bse.NavigationCategory" id="navigationCategory">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="type" property="type"/>
+				<result column="code" property="code"/>
+				<result column="level" property="level"/>
+				<result column="status" property="status"/>
+				<result column="is_highlight" property="isHighlight"/>
+				<result column="pic" property="pic"/>
+				<result column="parent_id" property="parentId"/>
+				<result column="sort" property="sort"/>
+				<result column="is_publish" property="isPublish"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+
+	<select id="getMaxSort" resultType="java.lang.Integer">
+		SELECT  max(sort) +10 FROM bse_navigation_category WHERE parent_id = #{parentId} and type = #{type}
+	</select>
+
+	<select id="getIdsByParentId" parameterType="java.lang.Long" resultType="java.lang.Long">
+		SELECT  id FROM bse_navigation_category
+		WHERE parent_id = #{parentId}
+
+	</select>
+
+	<delete id="delByParentId" parameterType="java.lang.Long" >
+		DELETE  FROM  bse_navigation_category
+		WHERE  parent_id = #{parentId}
+
+	</delete>
+
+</mapper>

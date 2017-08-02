@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.GroupbuyInfoDao">
+	<resultMap type="com.tp.model.mmp.GroupbuyInfo" id="groupbuyInfo">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_item_id" property="topicItemId"/>
+				<result column="type" property="type"/>
+				<result column="member_limit" property="memberLimit"/>
+				<result column="duration" property="duration"/>
+				<result column="group_price" property="groupPrice"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="sort" property="sort"/>
+				<result column="introduce" property="introduce"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,topic_id,topic_item_id,type,member_limit,duration,group_price,create_user,create_time,update_user,update_time,sort,introduce
+	</sql>
+
+	<select id="queryByTopicIdsForApp" parameterType="java.util.Map" resultMap="groupbuyInfo">
+		SELECT
+		<include refid="columns"/>
+		FROM  mmp_groupbuy_info
+		WHERE
+		topic_id in
+		<foreach collection="topicIds" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER  BY  sort
+		limit #{start},#{pageSize}
+
+	</select>
+
+	<select id="queryByTopicIds" parameterType="java.util.List" resultMap="groupbuyInfo">
+		SELECT
+		<include refid="columns"/>
+		FROM  mmp_groupbuy_info
+		WHERE
+		topic_id in
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+
+	<select id="queryByIds" parameterType="java.util.List" resultMap="groupbuyInfo">
+		SELECT
+		<include refid="columns"/>
+		FROM  mmp_groupbuy_info
+		WHERE
+		id in
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+
+</mapper>

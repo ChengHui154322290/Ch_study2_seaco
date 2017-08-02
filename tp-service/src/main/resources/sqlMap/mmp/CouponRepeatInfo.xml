@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponRepeatInfoDao">
+	<resultMap type="com.tp.model.mmp.CouponRepeatInfo" id="couponRepeatInfo">
+				<id column="id" property="id"/>
+				<result column="repeat_id" property="repeatId"/>
+				<result column="batch_id" property="batchId"/>
+				<result column="state" property="state"/>
+	</resultMap>
+	<sql id="columns">
+		id,repeat_id,batch_id,state
+	</sql>
+</mapper>

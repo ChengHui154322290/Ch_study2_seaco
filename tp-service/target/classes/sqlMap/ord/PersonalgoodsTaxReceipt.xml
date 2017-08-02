@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.PersonalgoodsTaxReceiptDao">
+	<resultMap type="com.tp.model.ord.PersonalgoodsTaxReceipt" id="personalgoodsTaxReceipt">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="personalgoods_no" property="personalgoodsNo"/>
+				<result column="express_no" property="expressNo"/>
+				<result column="is_tax" property="isTax"/>
+				<result column="tax_amount" property="taxAmount"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,personalgoods_no,express_no,is_tax,tax_amount,create_time
+	</sql>
+</mapper>

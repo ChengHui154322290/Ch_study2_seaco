@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PointMemberDao">
+	<resultMap type="com.tp.model.mmp.PointMember" id="pointMember">
+				<id column="point_mem_id" property="pointMemId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="accumulate_point" property="accumulatePoint"/>
+				<result column="total_point" property="totalPoint"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		point_mem_id pointMemId,member_id memberId,accumulate_point accumulatePoint,
+		total_point totalPoint,create_time createTime,create_user createUser,update_time updateTime,update_user updateUser
+	</sql>
+	
+	<select id="queryByMemberId" resultType="PointMember" parameterType="long">
+		select <include refid="columns"/>
+		 from mmp_point_member 
+		where member_id=#{memberId}
+	</select>
+	
+	<update id="updateTotalPointByMemberId" parameterType="PointMember">
+		update mmp_point_member 
+		   set <if test="operateType==1">accumulate_point = accumulate_point+#{totalPoint},</if>
+		       total_point = total_point <if test="operateType==1">+</if> <if test="operateType!=1">-</if>#{totalPoint},
+		       update_time=now(),
+		       update_user=#{updateUser}
+		 where member_id=#{memberId}
+		  <if test="operateType==2"> and total_point>=#{totalPoint}</if>
+	</update>
+</mapper>

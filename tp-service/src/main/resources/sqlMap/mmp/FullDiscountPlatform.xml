@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.FullDiscountPlatformDao">
+	<resultMap type="com.tp.model.mmp.FullDiscountPlatform" id="fullDiscountPlatform">
+				<id column="id" property="id"/>
+				<result column="discount_id" property="discountId"/>
+				<result column="platform_symbol" property="platformSymbol"/>
+				<result column="platform_url" property="platformUrl"/>
+				<result column="deletion" property="deletion"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,discount_id,platform_symbol,platform_url,deletion,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

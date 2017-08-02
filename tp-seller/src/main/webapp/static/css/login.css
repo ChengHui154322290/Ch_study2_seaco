@@ -1,0 +1,120 @@
+@CHARSET "UTF-8";
+* { margin:0; padding:0; list-style:none;}
+html, body { 
+	background: url(../images/bg.png);
+	overflow-y: auto;
+	overflow-x: hidden;
+	font:normal 15px "Microsoft YaHei";
+}
+
+#login_area{
+	margin: 0px auto;
+	width: 1054px;
+	height: 744px;
+	background: url('../images/login/login_tikbest.png') 0px 0px no-repeat;
+	position: relative;
+}
+
+#login_form{
+	width: 420px;
+	height: 280px;
+	position: absolute;
+	top: 210px;
+	right: 180px;
+}
+#back{
+	float: right;
+	height: 39px;
+	line-height: 39px;
+	padding-right: 15px;
+}
+#back a{
+	 color: #fff;
+	 text-decoration: none;
+}
+
+textarea,input[type="text"]{
+	border-style: none;
+	vertical-align: middle;
+	padding: 5px 44px;
+	border: 1px solid #d5d5d5;
+}
+
+textarea,input[type="password"]{
+	padding: 5px 44px;
+}
+
+img{
+	border-style: none;
+	vertical-align: middle;
+}
+.username,.pwd{
+	width: 300px;
+	height: 48px;
+	line-height: 48px;
+	padding-left: 43px;
+	margin-top: 20px;
+}
+
+.username{
+	background: url('../images/login/username.png') 0px 0px no-repeat;
+}
+.pwd{
+	background: url('../images/login/pwd.png') 0px 0px no-repeat;
+}
+
+.sub_btn{
+	width:97px;
+	height: 41px;
+	line-height: 41px;
+	background: url('../images/login/btn.png') 0px 0px no-repeat;
+	font:normal 15px/41px "Microsoft YaHei";
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
+	vertical-align: middle;
+	margin-top:20px;
+	border:none;
+}
+
+.checkCode{
+	width: 150px;
+	height: 48px;
+	line-height: 48px;
+	padding-left: 10px !important;
+	margin-top: 20px;
+}
+
+#securiteCode{
+	position:absolute;
+	right:166px;
+	top:13px;
+}
+
+#changeSecurite{
+	position:absolute;
+	right:120px;
+	top:29px;
+}
+
+#login_tip {
+    height: 35px;
+    line-height: 35px;
+    font-weight: bold;
+    color: #acab9a;
+    padding-top: 15px;
+}
+
+#login_top {
+    height: 39px;
+    background: #acab9a url(../images/login/topBg.png) 0px 0px repeat-x;
+}
+
+#welcome {
+    height: 39px;
+    line-height: 39px;
+    padding-left: 40px;
+    background: url(../images/login/topleft.png) 0px 0px no-repeat;
+    color: #fff;
+    float: left;
+}

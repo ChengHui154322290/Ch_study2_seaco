@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TopicItemDao">
+	<resultMap type="com.tp.model.mmp.TopicItem" id="topicItem">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="item_id" property="itemId"/>
+				<result column="sort_index" property="sortIndex"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="quotation_id" property="quotationId"/>
+				<result column="sku" property="sku"/>
+				<result column="name" property="name"/>
+				<result column="is_test" property="isTest"/>
+				<result column="item_color" property="itemColor"/>
+				<result column="item_size" property="itemSize"/>
+				<result column="topic_image" property="topicImage"/>
+				<result column="topic_price" property="topicPrice"/>
+				<result column="limit_amount" property="limitAmount"/>
+				<result column="limit_total" property="limitTotal"/>
+				<result column="stock_amount" property="stockAmount"/>
+				<result column="saled_amount" property="saledAmount"/>
+				<result column="stock_location" property="stockLocation"/>
+				<result column="remark" property="remark"/>
+				<result column="deletion" property="deletion"/>
+				<result column="stock_location_id" property="stockLocationId"/>
+				<result column="put_sign" property="putSign"/>
+				<result column="item_spec" property="itemSpec"/>
+				<result column="bar_code" property="barCode"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="picture_size" property="pictureSize"/>
+				<result column="large_cateory_id" property="largeCateoryId"/>
+				<result column="middle_category_id" property="middleCategoryId"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="stock" property="stock"/>
+				<result column="sale_price" property="salePrice"/>
+				<result column="spu" property="spu"/>
+				<result column="input_source" property="inputSource"/>
+				<result column="lock_status" property="lockStatus"/>
+				<result column="bonded_area" property="bondedArea"/>
+				<result column="wh_type" property="whType"/>
+				<result column="country_id" property="countryId"/>
+				<result column="country_name" property="countryName"/>
+				<result column="purchase_method" property="purchaseMethod"/>
+				<result column="is_hot" property="isHot"/>
+				<result column="prdid" property="prdid"/>
+				<result column="apply_age_id" property="applyAgeId"/>
+				<result column="listing_time" property="listingTime"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="item_status" property="itemStatus"/>
+				<result column="hot_title" property="hotTitle"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="item_tags" property="itemTags"/>
+				<result column="reserve_inventory_flag" property="reserveInventoryFlag"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_id,item_id,sort_index,supplier_id,quotation_id,sku,name,is_test,item_color,item_size,topic_image,topic_price,limit_amount,limit_total,stock_amount,saled_amount,stock_location,remark,deletion,stock_location_id,item_spec,bar_code,supplier_name,picture_size,large_cateory_id,middle_category_id,category_id,brand_id,stock,sale_price,spu,input_source,lock_status,bonded_area,wh_type,country_id,country_name,purchase_method,is_hot,prdid,apply_age_id,listing_time,detail_id,item_status,hot_title,create_time,create_user,update_time,update_user,item_tags,reserve_inventory_flag
+	</sql>
+
+
+	<select id="getTopicItemByIds" parameterType="list" resultMap="topicItem">
+		select
+		<include refid="columns" />
+		from mmp_topic_item
+		where
+		id in
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+		order by sort_index
+	</select>
+
+
+	<select id="getMaxTopicItemSortIndex" resultType="int" parameterType="long">
+		SELECT
+		max(sort_index)
+		FROM
+		mmp_topic_item
+		WHERE
+		topic_id = #{id}
+	</select>
+
+	<select id="getTopicItemInfoBySku" resultMap="topicItem" parameterType="com.tp.model.mmp.TopicItem">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_item
+		where
+		sku = #{sku}
+		AND deletion = #{deletion}
+		order by topic_price
+	</select>
+
+
+	<select id="queryTopicPageItemByDynamicCondition" resultMap="topicItem" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_item
+		where
+		id in (
+		SELECT
+		max(id)
+		FROM
+		mmp_topic_item
+		where
+		deletion = 0 and
+		topic_id in <foreach collection="topicIds" item="tid" index="index" open="(" separator="," close=")">#{tid}</foreach>
+		<if test="categoryIds != null"> AND category_id in <foreach collection="categoryIds" item="cid" index="index" open="(" separator="," close=")">#{cid}</foreach></if>
+		<if test="brandIds != null"> AND brand_id in <foreach collection="brandIds" item="bid" index="index" open="(" separator="," close=")">#{bid}</foreach></if>
+		<if test="stock != null "> AND stock = 1 </if>
+		group by topic_id,spu,supplier_id,stock_location_id
+		)
+		<if test="orderSortColumns != null">order by <foreach collection="orderSortColumns" item="column" index="index" open="" separator="," close="">${column}</foreach> ${sortDirection}</if>
+		Limit #{start},#{pageSize}
+	</select>
+
+
+	<select id="countTopicPageItemByDynamicCondition" resultType="long" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic_item
+		where
+		id in (
+		SELECT
+		max(id)
+		FROM
+		mmp_topic_item
+		where
+		topic_id in <foreach collection="topicIds" item="tid" index="index" open="(" separator="," close=")">#{tid}</foreach>
+		<if test="categoryIds != null"> AND category_id in <foreach collection="categoryIds" item="cid" index="index" open="(" separator="," close=")">#{cid}</foreach></if>
+		<if test="brandIds != null"> AND brand_id in <foreach collection="brandIds" item="bid" index="index" open="(" separator="," close=")">#{bid}</foreach></if>
+		<if test="stock != null "> AND stock = 1 </if>
+		group by topic_id,spu,supplier_id,stock_location_id
+		)
+	</select>
+
+
+	<select id="getTopicItemBrandsByCategoryIds" resultMap="topicItem" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_item
+		where
+		id in (
+		SELECT
+		max(id)
+		FROM
+		mmp_topic_item
+		where
+		deletion = 0 and
+		topic_id in <foreach collection="topicIds" item="tid" index="index" open="(" separator="," close=")">#{tid}</foreach>
+		<if test="categoryIds != null"> AND category_id in <foreach collection="categoryIds" item="cid" index="index" open="(" separator="," close=")">#{cid}</foreach></if>
+		<if test="brandIds != null"> AND brand_id in <foreach collection="brandIds" item="bid" index="index" open="(" separator="," close=")">#{bid}</foreach></if>
+		<if test="stock != null "> AND stock = 1 </if>
+		group by topic_id,spu,supplier_id,stock_location_id
+		)
+		<if test="orderSortColumns != null">order by <foreach collection="orderSortColumns" item="column" index="index" open="" separator="," close="">${column}</foreach> ${sortDirection}</if>
+		Limit #{start},#{pageSize}
+	</select>
+
+
+	<select id="queryTopicPageItemByCondition" resultMap="topicItem" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_item
+		where
+		topic_id = #{topicId} AND deletion = 0
+		and bar_code not like 'mtqas%'
+		<if test="categoryId != null  and categoryId != '' "> AND category_id =  #{categoryId} </if>
+		<if test="brandId != null  and brandId != '' "> AND brand_id =  #{brandId} </if>
+		<if test="stock != null "> AND stock = 1 </if>
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>
+		<if test="promoterId != null">
+			AND sku not in( select sku from dss_promoter_topic where promoter_id=#{promoterId}  and topic_id=#{topicId} and status=0 and type=1 )		
+		</if>
+		AND id in (
+		select min(id) from mmp_topic_item WHERE
+		topic_id = #{topicId} AND deletion = 0
+		and bar_code not like 'mtqas%'
+		<if test="categoryId != null  and categoryId != '' "> AND category_id =  #{categoryId} </if>
+		<if test="brandId != null  and brandId != '' "> AND brand_id =  #{brandId} </if>
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>
+		<if test="stock != null "> AND stock = 1 </if>
+		group by spu,supplier_id,stock_location_id
+		)
+		<choose>
+			<when test="priceOrderType!=null and priceOrderType == 'asc'">
+				order by topic_price asc
+			</when>
+			<when test="priceOrderType!=null and priceOrderType == 'desc'">
+				order by topic_price desc
+			</when>
+			<when test="priceOrderType!=null and priceOrderType == 'new'">
+				order by create_time desc
+			</when>
+			<otherwise>
+				order by sort_index asc
+			</otherwise>
+		</choose>
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTopicPageItemByCondition" resultType="long" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic_item
+		where
+		topic_id = #{topicId} AND deletion = 0
+		and bar_code not like 'mtqas%'
+		<if test="categoryId != null  and categoryId != '' "> AND category_id =  #{categoryId} </if>
+		<if test="brandId != null  and brandId != '' "> AND brand_id =  #{brandId} </if>
+		<if test="stock != null  "> AND stock = 1 </if>
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>
+		<if test="promoterId != null">
+			AND sku not in( select sku from dss_promoter_topic where promoter_id=#{promoterId}  and topic_id=#{topicId} and status=0 and type=1 )		
+		</if>		
+		AND id in (
+		select min(id) from mmp_topic_item WHERE
+		topic_id = #{topicId} AND deletion = 0
+		and bar_code not like 'mtqas%'
+		<if test="categoryId != null  and categoryId != '' "> AND category_id =  #{categoryId} </if>
+		<if test="brandId != null  and brandId != '' "> AND brand_id =  #{brandId} </if>
+		<if test="stock != null "> AND stock = 1 </if>
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>
+		group by spu,supplier_id,stock_location_id
+		)
+	</select>
+
+	<select id="getSkuListByIdList" resultType="String" parameterType="list">
+		SELECT
+		sku
+		FROM
+		mmp_topic_item
+		where
+		id in
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+
+	<select id="checkTopicSkuList"  resultType="String">
+		select sku
+		from mmp_topic_item
+		where
+		topic_id = #{topicId}
+		AND deletion = 0
+		and
+		sku in
+		<foreach collection="skuList" item="sku" index="index" open="(" separator="," close=")">
+			#{sku}
+		</foreach>
+	</select>
+
+
+	<select id="getTopicItemByTopicIdAndBrands" parameterType="java.util.Map" resultMap="topicItem">
+		select
+		<include refid="columns" />
+		from mmp_topic_item
+		where
+		topic_id = #{topicId}
+		and
+		brand_id in
+		<foreach collection="brands" item="brand" index="index" open="(" separator="," close=")">
+			#{brand}
+		</foreach>
+		order by sort_index
+	</select>
+
+
+
+	<select id="getTopicItemByTopicIds" parameterType="list" resultMap="topicItem">
+		select
+		<include refid="columns" />
+		from mmp_topic_item
+		where
+		deletion = 0
+		AND topic_id in
+		<foreach collection="list" item="topicId" index="index" open="(" separator="," close=")">
+			#{topicId}
+		</foreach>
+		order by sort_index
+	</select>
+
+
+
+	<select id="getTopicItemByTopicIdAndSku" parameterType="list" resultMap="topicItem">
+		select
+		<include refid="columns" />
+		from mmp_topic_item
+		where
+		deletion = 0 AND
+		<foreach collection="list" item="item" index="index" open="(" separator="or" close=")">
+			topic_id = #{item.topicId} AND sku = #{item.sku}
+		</foreach>
+		order by sort_index
+	</select>
+
+	<select id="getTopicItemBySkuList" parameterType="list" resultMap="topicItem">
+		select
+		<include refid="columns" />
+		from mmp_topic_item
+		where
+		deletion = 0 AND
+		sku in
+		<foreach collection="list" item="sku" index="index" open="(" separator="," close=")">
+			#{sku}
+		</foreach>
+		order by sort_index
+	</select>
+
+
+	<select id="getTopicItemByTopicId_Top10" parameterType="list" resultMap="topicItem">			
+
+	SELECT j2.commision_rate as commisionRate, 	j1.id, j1.topic_id, j1.item_id, j1.sort_index, j1.supplier_id, j1.quotation_id, j1.sku, j1.name, j1.is_test, j1.item_color, j1.item_size, j1.topic_image, 
+	j1.topic_price, j1.limit_amount, j1.limit_total, j1.stock_amount, j1.saled_amount, j1.stock_location, j1.remark, j1.deletion, j1.stock_location_id,j1.item_spec,j1.bar_code,j1.supplier_name, 
+	j1.picture_size, j1.large_cateory_id, j1.middle_category_id, j1.category_id, j1.brand_id, j1.stock, j1.sale_price, j1.spu, j1.input_source, j1.lock_status, j1.bonded_area, j1.wh_type, j1.country_id,
+	j1.country_name, j1.purchase_method, j1.is_hot, j1.prdid, j1.apply_age_id, j1.listing_time, j1.detail_id, j1.item_status, j1.hot_title, j1.create_time,j1.create_user, j1.update_time, j1.update_user, j1.item_tags 
+	FROM 
+	(SELECT <include refid="columns" />	FROM mmp_topic_item a WHERE a.deletion=0 	
+	<foreach collection="list" item="topicid" index="index" open=" and topic_id in (" separator="," close=") ">
+		#{topicid}
+	</foreach>	
+	and  (  SELECT COUNT(id)  FROM mmp_topic_item  WHERE topic_id = a.topic_id   AND id &lt; a.id AND deletion=0) &lt; 10 ) j1
+	left JOIN prd_item_sku j2 on j2.sku=j1.sku
+	order by j1.topic_id ,j1.sort_index
+	</select>
+	
+	<select id="getTopicItemCommisionByTopicId" parameterType="list" resultMap="topicItem">	
+	SELECT j2.commision_rate as commisionRate, 	j1.id, j1.topic_id, j1.item_id, j1.sort_index, j1.supplier_id, j1.quotation_id, j1.sku, j1.name, j1.is_test, j1.item_color, j1.item_size, j1.topic_image, 
+	j1.topic_price, j1.limit_amount, j1.limit_total, j1.stock_amount, j1.saled_amount, j1.stock_location, j1.remark, j1.deletion, j1.stock_location_id,j1.item_spec,j1.bar_code,j1.supplier_name, 
+	j1.picture_size, j1.large_cateory_id, j1.middle_category_id, j1.category_id, j1.brand_id, j1.stock, j1.sale_price, j1.spu, j1.input_source, j1.lock_status, j1.bonded_area, j1.wh_type, j1.country_id,
+	j1.country_name, j1.purchase_method, j1.is_hot, j1.prdid, j1.apply_age_id, j1.listing_time, j1.detail_id, j1.item_status, j1.hot_title, j1.create_time,j1.create_user, j1.update_time, j1.update_user, j1.item_tags 
+	FROM 
+	(SELECT <include refid="columns" />	FROM mmp_topic_item a WHERE a.deletion=0  and item_status in (1,-1)
+	<foreach collection="list" item="topicid" index="index" open=" and topic_id in (" separator="," close=") ">
+		#{topicid}
+	</foreach>	
+	 ) j1
+	left JOIN prd_item_sku j2 on j2.sku=j1.sku
+	</select>
+	
+	
+	<select id="getTopicItemByTopicId" parameterType="list" resultMap="topicItem">	
+	SELECT <include refid="columns" />	FROM mmp_topic_item a WHERE a.deletion=0 	
+	<foreach collection="list" item="topicid" index="index" open=" and topic_id in (" separator="," close=") ">
+		#{topicid}
+	</foreach>	
+	</select>
+	
+	
+	<select id="getTopicItemByIdsWithPage" resultMap="topicItem" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns"/>
+		FROM mmp_topic_item
+		WHERE  deletion = 0
+		AND topic_id IN
+		<foreach collection="ids" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER  BY  ${sort}
+		limit #{start},#{size}
+
+	</select>
+
+	<select id="getTopicItemByIdsWithPageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM mmp_topic_item
+		WHERE  deletion = 0
+		AND topic_id IN
+		<foreach collection="ids" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+	
+	<select id="getValidTopicItemBySku" resultType="topicItem" parameterType="java.lang.String">
+		SELECT
+		item.topic_id AS topicId, item.topic_price as topicPrice
+		FROM mmp_topic_item item
+		INNER JOIN mmp_topic topic
+		ON	item.topic_id = topic.id
+		AND	item.deletion = 0
+		AND item.sku = #{sku}
+		AND topic.progress =1
+		AND topic.status=3
+	</select>
+	
+	
+	<select id="getTopicItemFileterByDSS" parameterType="map" resultMap="topicItem">
+		SELECT
+		<include refid="columns" />
+		FROM mmp_topic_item
+		WHERE  deletion = #{deletion} AND topic_id=#{topicid}
+		<if test="lockstatus!=null">
+			and lock_status = #{lockstatus}
+		</if>
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>	
+		<if test="promoterid!=null" >
+			and sku not in( select sku from dss_promoter_topic where promoter_id=#{promoterid} and topic_id=#{topicid} and status=0 and type=1  )
+		</if>
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}		
+		</if>		
+	</select>
+			
+	<select id="getTopicItemFileterByDSS_2" parameterType="map" resultMap="topicItem">
+		SELECT
+		<include refid="columns" />
+		FROM mmp_topic_item
+		WHERE  deletion = #{deletion} AND topic_id=#{topicid}
+		<if test="lockstatus!=null">
+			and lock_status = #{lockstatus}
+		</if>	
+		<if test="itemStatus!=null">
+			and item_status in (#{itemStatus},-1)
+		</if>
+		<choose>
+      		<when test="topictype != null">
+ 				and sku in( select sku from dss_promoter_topic where promoter_id=#{promoterid} and topic_id=#{topicid} and status=1 and type=1  ) 
+      		</when>
+      		<otherwise>
+				and sku not in( select sku from dss_promoter_topic where promoter_id=#{promoterid} and topic_id=#{topicid} and status=0 and type=1  )
+      		</otherwise>
+      	</choose>     		
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}		
+		</if>	
+		order by topic_id, sort_index, item_id
+	</select>						
+			
+</mapper>

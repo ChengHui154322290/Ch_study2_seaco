@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.SkinInfoDao">
+	<resultMap type="com.tp.model.app.SkinInfo" id="skinInfo">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="icon_a" property="iconA"/>
+				<result column="icon_a_selected" property="iconASelected"/>
+				<result column="icon_b" property="iconB"/>
+				<result column="icon_b_selected" property="iconBSelected"/>
+				<result column="icon_c" property="iconC"/>
+				<result column="icon_c_selected" property="iconCSelected"/>
+				<result column="icon_d" property="iconD"/>
+				<result column="icon_d_selected" property="iconDSelected"/>
+				<result column="tap_bar" property="tapBar"/>
+				<result column="un_selected_color" property="unSelectedColor"/>
+				<result column="selected_color" property="selectedColor"/>
+				<result column="status" property="status"/>
+				<result column="start_time" property="startTime"/>
+				<result column="end_time" property="endTime"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,name,icon_a,icon_a_selected,icon_b,icon_b_selected,icon_c,icon_c_selected,icon_d,icon_d_selected,tap_bar,un_selected_color,selected_color,status,start_time,end_time,create_time,update_time,create_user,update_user
+	</sql>
+		<select id="selectSkinNew" resultMap="skinInfo">
+		 SELECT
+	     	<include refid="columns" /> 
+	     FROM
+	          app_skin_info 
+		 WHERE 
+		 id >= #{id}
+		 and  start_time &lt;=  #{nowTime}
+		 and  end_time  &gt;  #{nowTime}
+		 and  status  =  #{status}
+		 order by id desc
+	 </select>
+</mapper>

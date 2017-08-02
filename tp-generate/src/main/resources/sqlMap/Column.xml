@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ColumnDao">
+	<resultMap type="com.tp.model.Column" id="Column">
+		<result column="TABLE_NAME" property="tableName" />
+		<result column="COLUMN_NAME" property="columnName" />
+		<result column="DATA_TYPE" property="dataType" />
+		<result column="COLUMN_DEFAULT" property="columnDefault" />
+		<result column="COLUMN_TYPE" property="columnType" />
+		<result column="COLUMN_COMMENT" property="columnComment" />
+		<result column="COLUMN_KEY" property="columnKey" />
+	</resultMap>
+	<select id="queryListByParams" resultMap="Column" parameterType="map">
+		SELECT TABLE_NAME,COLUMN_NAME,DATA_TYPE,COLUMN_DEFAULT,COLUMN_TYPE,COLUMN_COMMENT,COLUMN_KEY 
+		  FROM information_schema.COLUMNS 
+		 <where>
+		 	<if test="schema!=null and schema!=''"> AND TABLE_SCHEMA=#{schema} </if>
+		 	<if test="notInTable!=null">
+				AND TABLE_NAME NOT IN
+				<foreach collection="notInTable" index="tableName"
+					open="(" close=")" item="tableName" separator=",">
+					#{tableName}
+				</foreach>
+		 	</if>
+		 	<if test="inTable!=null">
+				AND TABLE_NAME IN
+				<foreach collection="inTable" index="tName"
+					open="(" close=")" item="tName" separator=",">
+					#{tName}
+				</foreach>
+		 	</if>
+		 </where>
+		 ORDER BY TABLE_NAME ASC,COLUMN_KEY DESC,ORDINAL_POSITION ASC
+	</select>
+</mapper>

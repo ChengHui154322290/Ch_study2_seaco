@@ -1,0 +1,91 @@
+header {
+    height: 50px;
+    position: relative;
+    border:none;
+    border-bottom: 1px solid #aaa !important;
+    background: #fff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+.goIndex {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	right: 0px;
+	background: url(../img/index.png) no-repeat center;
+	background-size: 25px;
+}
+div.right-item{
+	float: right;
+}
+
+body{
+	margin-bottom: 80px;
+}
+
+.desc{
+	height: 44px;
+	font-size: 15px;
+	line-height: 44px;
+	padding-left: 10px;
+	background-color: #eeeeee;
+}
+
+.item{
+	font-size: 15px;
+}
+
+.item li{
+	height: 50px;
+	line-height: 50px;
+	padding: 0px 15px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.item li h4{
+	color: #666666;
+}
+
+.item li div{
+	color: #333333;
+}
+
+.item li.ui-list-text {
+	background: url(../img/arrow.png) no-repeat right center;
+	background-size: 11px;
+	padding-right: 14px;
+}
+.div_btn{
+	height: 64px;
+	background-color: #eeeeee;
+	padding-top: 20px;
+}
+
+.btn{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	background-color: #f6394d;
+	height: 44px;
+	border-radius: 5px;
+	font-size: 17px;
+	line-height: 44px;
+	text-align: center;
+	font-size: 800;
+}
+.btn a{
+	color: #ffffff;
+	display: block;
+	margin-top:40px;
+}

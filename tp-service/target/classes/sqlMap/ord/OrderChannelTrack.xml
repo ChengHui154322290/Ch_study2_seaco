@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderChannelTrackDao">
+	<resultMap type="com.tp.model.ord.OrderChannelTrack" id="orderChannelTrack">
+				<id column="track_id" property="trackId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="channel_code" property="channelCode"/>
+				<result column="source" property="source"/>
+				<result column="client_code" property="clientCode"/>
+				<result column="distribute_code" property="distributeCode"/>
+				<result column="session_id" property="sessionId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	<resultMap type="com.tp.dto.ord.remote.YiQiFaOrderDto" id="YiQiFaOrderDto">
+				<result column="cid" property="cid"/>
+				<result column="wi" property="wi"/>
+				<result column="pn" property="pn"/>
+				<result column="pna" property="pna"/>
+				<result column="ct" property="ct"/>
+				<result column="ta" property="ta"/>
+				<result column="pp" property="pp"/>
+				<result column="on" property="on"/>
+				<result column="sd" property="sd"/>
+				<result column="os" property="os"/>
+				<result column="ps" property="ps"/>
+				<result column="far" property="far"/>
+				<result column="fav" property="fav"/>
+				<result column="fac" property="fac"/>
+	</resultMap>	
+	<sql id="columns">
+		track_id,member_id,parent_order_id,parent_order_code,channel_code,source,client_code,
+		distribute_code,session_id,create_time,create_user
+	</sql>
+	
+	
+	<select id="queryOrderListByYiQiFa" resultMap="YiQiFaOrderDto" parameterType="map">
+    	select  c.client_code `cid`,c.distribute_code `wi`,
+				i.sku_code `pn`,i.spu_name `pna`,'' as `ct`,i.quantity `ta`,i.price `pp`,
+				o.order_code `on`,date_format(o.create_time,'%Y-%m-%d %H:%i:%S') `sd`,o.order_status `os`,o.pay_type `ps`,o.freight `far`, o.discount+o.points/100 `fav`,
+				concat(IFNULL((select group_concat(p.coupon_code) from ord_order_promotion p where p.order_code=o.order_code),'' ),',',ifnull(o.points,'')) `fac`
+		  from  ord_sub_order o,ord_order_channel_track c,ord_order_item i
+		<where>
+				o.parent_order_id=c.parent_order_id 
+			and o.order_code=i.order_code
+			<if test="channelCode!=null">       and c.channel_code=#{channelCode}</if>
+			<if test="parentOrderCode!=null">   and i.parent_order_code=#{parentOrderCode}</if>
+			<if test="beginCreateTime!=null">   and o.create_time&gt;=#{beginCreateTime}</if>
+			<if test="endCreateTime!=null">     and o.create_time&lt;#{endCreateTime}</if>
+			<if test="beginUpdateTime!=null">   and o.update_time&gt;=#{beginUpdateTime}</if>
+			<if test="endUpdateTime!=null">     and o.update_time&lt;#{endUpdateTime}</if>
+			<if test="orderStatus!=null">	    and o.order_status=#{orderStatus}</if>
+			<if test="clientCode!=null">		and c.client_code=#{clientCode}</if>
+		</where>		
+    </select>
+    
+</mapper>

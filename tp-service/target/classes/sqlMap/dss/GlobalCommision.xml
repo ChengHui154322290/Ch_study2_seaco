@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.GlobalCommisionDao">
+	<resultMap type="com.tp.model.dss.GlobalCommision" id="globalCommision">
+				<id column="id" property="id"/>
+				<result column="first_commision_rate" property="firstCommisionRate"/>
+				<result column="second_commision_rate" property="secondCommisionRate"/>
+				<result column="three_commision_rate" property="threeCommisionRate"/>
+				<result column="scan_commision_rate" property="scanCommisionRate"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,first_commision_rate,second_commision_rate,three_commision_rate,scan_commision_rate,create_user,create_time
+	</sql>
+</mapper>

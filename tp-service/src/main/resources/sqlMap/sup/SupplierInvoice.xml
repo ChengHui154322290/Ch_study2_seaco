@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierInvoiceDao">
+	<resultMap type="com.tp.model.sup.SupplierInvoice" id="supplierInvoice">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="name" property="name"/>
+				<result column="bank_name" property="bankName"/>
+				<result column="bank_account" property="bankAccount"/>
+				<result column="link_addr" property="linkAddr"/>
+				<result column="taxpayer_code" property="taxpayerCode"/>
+				<result column="bank_acc_name" property="bankAccName"/>
+				<result column="link_phone" property="linkPhone"/>
+				<result column="is_taxpayer" property="isTaxpayer"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,supplier_id,name,bank_name,bank_account,link_addr,taxpayer_code,bank_acc_name,link_phone,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_supplier_invoice(
+				id,
+				supplier_id,
+				name,
+				bank_name,
+				bank_account,
+				link_addr,
+				taxpayer_code,
+				bank_acc_name,
+				link_phone,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="invoice" index="index" separator="," >
+		(
+				#{invoice.id},
+				#{invoice.supplierId},
+				#{invoice.name},
+				#{invoice.bankName},
+				#{invoice.bankAccount},
+				#{invoice.linkAddr},
+				#{invoice.taxpayerCode},
+				#{invoice.bankAccName},
+				#{invoice.linkPhone},
+				#{invoice.status},
+				now(),
+				now(),
+				#{invoice.createUser},
+				#{invoice.createUser}
+		)
+		</foreach>
+    </insert>
+    <update id="updateStatusBySupplierId" parameterType="map">
+        UPDATE sup_supplier_invoice
+        <set>
+            <if test="status != null">status=#{status},</if>
+            update_time=now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE supplier_id = #{supplierId}
+    </update>
+</mapper>

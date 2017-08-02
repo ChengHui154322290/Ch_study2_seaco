@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryDistributeDao">
+	<resultMap type="com.tp.model.stg.InventoryDistribute" id="inventoryDistribute">
+				<id column="id" property="id"/>
+				<result column="sku" property="sku"/>
+				<result column="inventory_id" property="inventoryId"/>
+				<result column="app" property="app"/>
+				<result column="biz_id" property="bizId"/>
+				<result column="inventory" property="inventory"/>
+				<result column="bizInventory" property="biz_inventory"/>
+				<result column="occupy" property="occupy"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="district_id" property="districtId"/>
+				<result column="backed" property="backed"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	<sql id="columns">
+	      id,sku,inventory_id,app,biz_id,inventory,occupy,warehouse_id,district_id,backed,create_time,modify_time
+ 	</sql>
+	<update id="increaseInventoryDistributeById" parameterType="map">
+		update stg_inventory_distribute set inventory=inventory+#{inventory},biz_inventory=biz_inventory+#{inventory},modify_time=now() where id=#{id}
+	</update>
+	<update id="updateBackedStatus" parameterType="map">
+		update stg_inventory_distribute set backed=#{backed},modify_time=now() where id=#{id}
+	</update>
+		<update id="reduceInventoryDistributeById" parameterType="map">
+		update stg_inventory_distribute set inventory=inventory-#{inventory},biz_inventory=biz_inventory-#{inventory},modify_time=now() where id=#{id} and inventory-#{inventory} &gt;=0
+	</update>
+	<update id="forzenDistInventory" parameterType="map">
+		update stg_inventory_distribute set inventory=inventory-#{inventory},occupy=occupy+#{inventory},modify_time=now() where id=#{id} and inventory-#{inventory} &gt;= 0
+	</update>
+	<update id="thawDistInventory" parameterType="map">
+		update stg_inventory_distribute set inventory=inventory+#{inventory},occupy=occupy-#{inventory},modify_time=now() where id=#{id}
+	</update>
+	<select id="queryInventoryDistributes" parameterType="list" resultMap="inventoryDistribute">
+		SELECT
+		     <include refid="columns" />
+		FROM stg_inventory_distribute
+		<where>
+			<foreach collection="queries" item="item" separator="or" open="(" close=")">
+				sku = #{item.sku} 
+				<if test="item.bizId != null and item.bizId != ''"> AND biz_id = #{item.bizId}</if>
+				<if test="item.app != null and item.app != ''"> AND app = #{item.app}</if>
+				<if test="item.inventoryId != null"> AND inventory_id = #{item.inventoryId}</if>
+			</foreach>
+		</where>	
+	</select>			
+	<update id="reduceOccupyDistributeById"  parameterType="map">
+		update stg_inventory_distribute set occupy=occupy-#{inventory},modify_time=now() where id = #{id} and occupy-#{inventory} &gt;= 0
+	</update>
+</mapper>

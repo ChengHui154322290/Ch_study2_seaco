@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TieredGroupJoinInfoDao">
+	<resultMap type="com.tp.model.mmp.TieredGroupJoinInfo" id="tieredGroupJoinInfo">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="group_id" property="groupId"/>
+				<result column="group_number" property="groupNumber"/>
+				<result column="member_id" property="memberId"/>
+				<result column="member_name" property="memberName"/>
+				<result column="member_phone" property="memberPhone"/>
+				<result column="member_email" property="memberEmail"/>
+				<result column="leader" property="leader"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_id,topic_name,group_id,group_number,member_id,member_name,member_phone,member_email,leader,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

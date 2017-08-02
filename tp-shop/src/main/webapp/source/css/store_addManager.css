@@ -1,0 +1,52 @@
+body{
+	background:#eee;
+}
+
+.search{
+	margin-top:10px;
+	height:49px;
+	width:100%;
+	background: #fff;
+	padding-left:10px;
+	font-size:15px;
+}
+
+.search input{
+	height:48px;
+	line-height:49px;
+	border:none;
+	width:72%;
+	margin-left:20px;
+	font-size:14px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 330px)  {
+	.search input{
+		width:72%;
+	}
+}
+@media screen and (min-width: 331px) and (max-width: 375px)  {
+	.search input{
+			width:76%;
+	}
+}
+
+@media screen and (min-width: 376px)  {
+	.search input{
+			width:78%;
+	}
+}
+
+.btn{
+	background: #333;
+    width: 93%;
+    display: block;
+    margin-top: 20px;
+    height: 49px;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 49px;
+    font-size: 17px;
+    color: #fff;
+    border-radius:6px;
+}

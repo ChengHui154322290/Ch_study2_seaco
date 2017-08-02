@@ -1,0 +1,36 @@
+.item-picture {
+		    border: 1px solid #dadada;
+		    float: left;
+		    height: 105px;
+		    line-height: 80px;
+		    margin: 5px 10px 5px 0;
+		    overflow: hidden;
+		    padding: 10px;
+		    position: relative;
+		    text-align: center;
+		    width: 105px;  
+		}
+.item-picture .pre-btn, .item-picture .next-btn, .item-picture .remove-btn {
+    cursor: pointer;
+    display: none;
+    height: 27px;
+    opacity: 0.8;
+    position: absolute;
+    text-indent: -9999px;
+    width: 27px;
+}
+.item-picture .pre-btn{
+	bottom:10px;
+	left:10px;
+	background: url("../images/pre.png") no-repeat bottom left;
+}
+.item-picture .next-btn{
+	bottom:10px;
+	right:10px;
+	background: url("../images/next.png") no-repeat bottom right;
+}
+.item-picture .remove-btn {
+    background: url("../images/delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    right: 10px;
+    top: 10px;
+}

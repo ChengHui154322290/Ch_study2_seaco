@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.MasterplanConsulerualDao">
+	<resultMap type="com.tp.model.cms.MasterplanConsulerual" id="masterplanConsulerual">
+				<id column="id" property="id"/>
+				<result column="cmc_type" property="cmcType"/>
+				<result column="cmc_num" property="cmcNum"/>
+				<result column="cmc_amount" property="cmcAmount"/>
+				<result column="cmc_activity_id" property="cmcActivityId"/>
+	</resultMap>
+</mapper>

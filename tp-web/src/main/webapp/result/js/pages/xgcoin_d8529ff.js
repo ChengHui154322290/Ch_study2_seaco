@@ -1,0 +1,1 @@
+$(function(){isWeiXin()&&$("header").hide();var e=xigou.getQueryString("type");1==e&&$("header").hide()});

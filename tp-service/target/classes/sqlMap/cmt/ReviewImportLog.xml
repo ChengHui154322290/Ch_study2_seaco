@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cmt.ReviewImportLogDao">
+	<resultMap type="com.tp.model.cmt.ReviewImportLog" id="reviewImportLog">
+				<id column="id" property="id"/>
+				<result column="real_file_name" property="realFileName"/>
+				<result column="file_name" property="fileName"/>
+				<result column="sum_count" property="sumCount"/>
+				<result column="success_count" property="successCount"/>
+				<result column="fail_count" property="failCount"/>
+				<result column="status" property="status"/>
+				<result column="delete_sign" property="deleteSign"/>
+				<result column="secret_key" property="secretKey"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

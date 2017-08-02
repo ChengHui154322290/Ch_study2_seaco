@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.CustomsInfoDao">
+	<resultMap type="com.tp.model.pay.CustomsInfo" id="customsInfo">
+				<id column="id" property="id"/>
+				<result column="channels_id" property="channelsId"/>
+				<result column="mer_code" property="merCode"/>
+				<result column="mer_name" property="merName"/>
+				<result column="customs_code" property="customsCode"/>
+				<result column="push" property="push"/>
+				<result column="gateway_id" property="gatewayId"/>
+				<result column="payplat_code" property="payplatCode"/>
+	</resultMap>
+</mapper>

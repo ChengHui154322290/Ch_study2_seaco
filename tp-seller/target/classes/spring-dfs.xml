@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+	<!-- 此处bean里的配置 请填写在properties的配置文件中 -->
+	<bean id="dfsDomainUtil" class="com.tp.dfsutils.util.DfsDomainUtil">
+		<property name="domainMap">
+			<map>
+				<entry key="${dfs.group1.name}" value="${dfs.group1.host}"></entry>
+				<entry key="${dfs.group2.name}" value="${dfs.group2.host}"></entry>
+			</map>
+		</property>
+		<property name="startGroups">
+			<list>
+				<value>${dfs.group1.name}</value>
+				<value>${dfs.group2.name}</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="poolFactory" class="com.tp.dfsutils.util.TrackerServerFactory">
+		<constructor-arg>
+			<array>
+				<value>${dfs.upload1}</value>
+	        	<value>${dfs.upload2}</value>
+			</array>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="poolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+		<property name="maxTotal" value="10"></property>
+		<property name="minIdle" value="2"></property>
+	</bean>
+	
+	<bean id="dfsPool" class="com.tp.dfsutils.util.TrackerServerPool">
+		<constructor-arg index="0" ref="poolFactory"/>
+		<constructor-arg index="1" ref="poolConfig"/>
+	</bean>
+	
+	<bean id="dfsService" class="com.tp.dfsutils.service.impl.DfsServiceImpl">
+		<constructor-arg index="0" ref="dfsPool" />
+	</bean>
+	
+</beans>

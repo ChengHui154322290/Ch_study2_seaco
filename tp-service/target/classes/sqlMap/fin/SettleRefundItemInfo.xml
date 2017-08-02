@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleRefundItemInfoDao">
+	<resultMap type="com.tp.model.fin.SettleRefundItemInfo" id="settleRefundItemInfo">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="order_no" property="orderNo"/>
+				<result column="refund_no" property="refundNo"/>
+				<result column="status" property="status"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="sku_name" property="skuName"/>
+				<result column="refund_type" property="refundType"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="settle_no" property="settleNo"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_date" property="createDate"/>
+				<result column="settle_date" property="settleDate"/>
+	</resultMap>
+</mapper>

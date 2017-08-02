@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.MasterplanActivityDao">
+	<resultMap type="com.tp.model.cms.MasterplanActivity" id="masterplanActivity">
+				<id column="id" property="id"/>
+				<result column="cma_num" property="cmaNum"/>
+				<result column="cma_activity_name" property="cmaActivityName"/>
+				<result column="cma_activity_status" property="cmaActivityStatus"/>
+				<result column="cma_coupon_id" property="cmaCouponId"/>
+				<result column="cma_coupon_name" property="cmaCouponName"/>
+				<result column="cma_plan_recruit" property="cmaPlanRecruit"/>
+				<result column="cma_actual_recruit" property="cmaActualRecruit"/>
+				<result column="cma_recruit_startdate" property="cmaRecruitStartdate"/>
+				<result column="cma_recruit_enddate" property="cmaRecruitEnddate"/>
+				<result column="cma_activity_startdate" property="cmaActivityStartdate"/>
+				<result column="cma_activity_enddate" property="cmaActivityEnddate"/>
+				<result column="cma_settle_startdate" property="cmaSettleStartdate"/>
+				<result column="cma_settle_enddate" property="cmaSettleEnddate"/>
+				<result column="cma_remarks" property="cmaRemarks"/>
+				<result column="cma_ident" property="cmaIdent"/>
+	</resultMap>
+</mapper>

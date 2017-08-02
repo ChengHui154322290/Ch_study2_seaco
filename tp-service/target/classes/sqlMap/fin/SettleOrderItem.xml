@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleOrderItemDao">
+	<resultMap type="com.tp.model.fin.SettleOrderItem" id="settleOrderItem">
+				<id column="id" property="id"/>
+				<result column="order_no" property="orderNo"/>
+				<result column="order_status" property="orderStatus"/>
+				<result column="order_payed_date" property="orderPayedDate"/>
+				<result column="order_create_time" property="orderCreateTime"/>
+				<result column="order_coupon_amount" property="orderCouponAmount"/>
+				<result column="has_receipt" property="hasReceipt"/>
+				<result column="order_item_id" property="orderItemId"/>
+				<result column="fright_amount" property="frightAmount"/>
+				<result column="coupon_amount" property="couponAmount"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="sku_name" property="skuName"/>
+				<result column="pay_way_id" property="payWayId"/>
+				<result column="price" property="price"/>
+				<result column="item_quantity" property="itemQuantity"/>
+				<result column="meta_price" property="metaPrice"/>
+				<result column="delivery_date" property="deliveryDate"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="contract_id" property="contractId"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="topic_end_date" property="topicEndDate"/>
+				<result column="interval_days" property="intervalDays"/>
+				<result column="settle_amount" property="settleAmount"/>
+				<result column="settle_cost" property="settleCost"/>
+				<result column="settle_cost_amount" property="settleCostAmount"/>
+				<result column="status" property="status"/>
+				<result column="settle_no" property="settleNo"/>
+				<result column="settle_date" property="settleDate"/>
+				<result column="create_date" property="createDate"/>
+				<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+</mapper>

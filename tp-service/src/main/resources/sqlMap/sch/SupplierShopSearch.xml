@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.SupplierShopSearchDao">
+	<resultMap type="com.tp.model.sch.SupplierShopSearch" id="supplierShopSearch">
+		<result column="id" property="id"/>
+		<result column="supplier_id" property="supplierId"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="logo_path" property="logoPath"/>
+		<result column="mobile_image" property="mobileImage"/>
+		<result column="intro_mobile" property="introMobile"/>
+		<result column="search_title1" property="searchTitle1"/>
+		<result column="search_title2" property="searchTitle2"/>
+		<result column="search_title3" property="searchTitle3"/>
+		<result column="search_title4" property="searchTitle4"/>
+		<result column="shop_image_path" property="shopImagePath"/>
+
+	</resultMap>
+	<sql id="columns">
+		id,supplier_id,shop_name,logo_path,mobile_image,intro_mobile,search_title1,search_title2,search_title3,search_title4,shop_image_path
+	</sql>
+	<select id="getAllSupplierShops" resultMap="supplierShopSearch">
+		SELECT  <include refid="columns"></include>
+		FROM sup_supplier_shop
+		WHERE status = 1
+	</select>
+
+	<select id="getSupplierShopsBySupplierIds" parameterType="java.util.List" resultMap="supplierShopSearch">
+		SELECT  <include refid="columns"></include>
+		FROM sup_supplier_shop
+		WHERE status = 1 AND
+		supplier_id IN
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+
+
+	</select>
+
+</mapper>

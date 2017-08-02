@@ -1,0 +1,71 @@
+body {
+	background-color: #eeeeee;
+}
+
+.ui-header {
+	position: absolute;
+	border: 0;
+	border-bottom: 1px solid #929292;
+	background-color: #fff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: url(../../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+.div_desc {
+	height: 44px;
+	line-height: 44px;
+	padding-left: 10px;
+	font-size: 13px;
+	margin-top: 45px;
+}
+
+.div_sel_way {
+	background-color: #ffffff;
+	height: 95px;
+	border-bottom: 1px solid #CCCCCC;
+	display: -webkit-box;
+}
+
+.div_sel_way_list .div_sel_way:last-child {
+	border-bottom: none;
+}
+
+.div_way_icon {
+	width: 98px;
+	height: 100%;
+	margin-right: 20px;
+}
+
+div.alipay .div_way_icon {
+	background: url("../img/Alipay.png") center no-repeat;
+	background-size: 77px;
+}
+
+div.unionPay .div_way_icon {
+	background: url("../img/UnionPay.png") center no-repeat;
+	background-size: 57px;
+}
+
+.div_name {
+	margin-top: 15px;
+	height: 31px;
+	font-size: 16px;
+	line-height: 31px;
+	color: #333333;
+}
+
+.div_way_desc {
+	height: 29px;
+	line-height: 29px;
+	font-size: 14px;
+	color: #999999;
+}

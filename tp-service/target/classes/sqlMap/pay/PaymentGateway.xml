@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.PaymentGatewayDao">
+	<resultMap type="com.tp.model.pay.PaymentGateway" id="paymentGateway">
+				<id column="gateway_id" property="gatewayId"/>
+				<result column="gateway_code" property="gatewayCode"/>
+				<result column="gateway_name" property="gatewayName"/>
+				<result column="order_index" property="orderIndex"/>
+				<result column="allow_refund" property="allowRefund"/>
+				<result column="refund_gateway" property="refundGateway"/>
+				<result column="status" property="status"/>
+				<result column="gateway_type" property="gatewayType"/>
+				<result column="send_url" property="sendUrl"/>
+				<result column="callback_url" property="callbackUrl"/>
+				<result column="refund_sort" property="refundSort"/>
+				<result column="pay_sort" property="paySort"/>
+				<result column="img_url" property="imgUrl"/>
+				<result column="help_url" property="helpUrl"/>
+				<result column="parent_id" property="parentId"/>
+				<result column="remark" property="remark"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="creat_time" property="creatTime"/>
+				<result column="merge_pay" property="mergePay"/>
+	</resultMap>
+	<sql id="columns">
+		gateway_id,gateway_code,gateway_name,order_index,allow_refund,refund_gateway,status,gateway_type,
+		send_url,callback_url,refund_sort,pay_sort,img_url,help_url,parent_id,
+		remark,create_user,update_time,update_user,creat_time,merge_pay
+	</sql>
+	 	<select id="selectAllOrderbyParentId" resultMap="paymentGateway" parameterType="String">
+	     SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	pay_payment_gateway
+		 where status = '1'
+	 	 order by parent_id, order_index 
+ 	</select>
+</mapper>

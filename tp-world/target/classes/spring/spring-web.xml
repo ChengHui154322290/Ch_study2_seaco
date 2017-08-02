@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+>
+	<!-- <import resource="classpath*:spring/spring-db-redis.xml"/>
+	<import resource="classpath*:spring/spring-dfs.xml"/> -->
+	<mvc:resources mapping="/hd.htm" location="/hd.htm" />
+	<mvc:resources mapping="/item.htm" location="/item.htm" />
+	<mvc:resources mapping="/source/**" location="/source/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/font/**" location="/font/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/json/**" location="/json/" />
+	
+	<!-- 拦截器 -->
+	<mvc:annotation-driven  />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截url -->
+			<mvc:mapping path="/*/*.htm"/>
+			<mvc:mapping path="/*/*/*.htm"/>
+			<!-- 不拦截url -->
+			<mvc:exclude-mapping path="/file/*.htm" />
+			<mvc:exclude-mapping path="/file/*/*.htm" />
+			<mvc:exclude-mapping path="/core.htm" />
+			<mvc:exclude-mapping path="/wx/*.htm" />
+			<mvc:exclude-mapping path="/wx/*/*.htm" />
+			<mvc:exclude-mapping path="/kuaidi100/gainExpress/*.htm"/>
+			<mvc:exclude-mapping path="/paycb/*.htm"/>
+			<mvc:exclude-mapping path="/sto/*.htm"/>
+			<mvc:exclude-mapping path="/jkf/*.htm"/>
+			<mvc:exclude-mapping path="/jdz/*.htm"/>
+			<mvc:exclude-mapping path="/dss/shareScanPromoter*.htm"/>
+			<mvc:exclude-mapping path="/dss/shareshop*.htm"/>
+			<bean class="com.tp.world.interceptor.AuthInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 图形验证码 -->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop><!--是否有边框 -->
+<!-- 						<prop key="kaptcha.border.color">105,179,90</prop>验证码边框颜色 -->
+<!-- 						<prop key="kaptcha.noise.color">240,240,240</prop>验证码噪点颜色 -->
+<!-- 						<prop key="kaptcha.textproducer.char.string">123456789abcdefghijklmnopqrst西客妈妈</prop>验证码的内容 -->
+						<prop key="kaptcha.background.clear.from">240,240,240</prop>
+						<prop key="kaptcha.background.clear.to">240,240,240</prop>
+						<prop key="kaptcha.textproducer.font.color">204,128,255</prop>
+						<prop key="kaptcha.image.width">125</prop>
+						<prop key="kaptcha.image.height">45</prop>
+						<prop key="kaptcha.textproducer.font.size">35</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+						<prop key="kaptcha.obscurificator.impl">com.tp.world.helper.verify.UserGimpyEngine</prop>
+						<prop key="kaptcha.background.impl">com.tp.world.helper.verify.UserBackgroundProducer</prop>
+						<prop key="kaptcha.word.impl">com.tp.world.helper.verify.UserWordRenderer</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+</beans>

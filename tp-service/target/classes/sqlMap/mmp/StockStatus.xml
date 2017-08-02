@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.StockStatusDao">
+	<resultMap type="com.tp.model.mmp.StockStatus" id="stockStatus">
+				<id column="location_code" property="locationCode"/>
+				<id column="goods_code" property="goodsCode"/>
+				<id column="pack_bcode" property="packBcode"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="qty" property="qty"/>
+				<result column="qty_unit" property="qtyUnit"/>
+	</resultMap>
+	<sql id="columns">
+		location_code,goods_code,pack_bcode,update_time,qty,qty_unit
+	</sql>
+</mapper>

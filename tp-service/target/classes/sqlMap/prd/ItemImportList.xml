@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemImportListDao">
+	<resultMap type="com.tp.model.prd.ItemImportList" id="itemImportList">
+				<id column="id" property="id"/>
+				<result column="log_id" property="logId"/>
+				<result column="sp_name" property="spName"/>
+				<result column="sp_id" property="spId"/>
+				<result column="barcode" property="barcode"/>
+				<result column="main_title" property="mainTitle"/>
+				<result column="large_name" property="largeName"/>
+				<result column="medium_name" property="mediumName"/>
+				<result column="small_name" property="smallName"/>
+				<result column="large_id" property="largeId"/>
+				<result column="medium_id" property="mediumId"/>
+				<result column="small_id" property="smallId"/>
+				<result column="unit_name" property="unitName"/>
+				<result column="unit_id" property="unitId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="detail_main_title" property="detailMainTitle"/>
+				<result column="spec1_name" property="spec1Name"/>
+				<result column="spec1_id" property="spec1Id"/>
+				<result column="spec2_name" property="spec2Name"/>
+				<result column="spec2_id" property="spec2Id"/>
+				<result column="spec3_name" property="spec3Name"/>
+				<result column="spec3_id" property="spec3Id"/>
+				<result column="sub_title" property="subTitle"/>
+				<result column="item_type" property="itemType"/>
+				<result column="specifications" property="specifications"/>
+				<result column="return_days" property="returnDays"/>
+				<result column="basic_price" property="basicPrice"/>
+				<result column="freight_template_name" property="freightTemplateName"/>
+				<result column="freight_template_id" property="freightTemplateId"/>
+				<result column="weight" property="weight"/>
+				<result column="manufacturer" property="manufacturer"/>
+				<result column="carton_spec" property="cartonSpec"/>
+				<result column="exp_sign" property="expSign"/>
+				<result column="exp_days" property="expDays"/>
+				<result column="waves_sign" property="wavesSign"/>
+				<result column="attibute_cus" property="attibuteCus"/>
+				<result column="excel_index" property="excelIndex"/>
+				<result column="status" property="status"/>
+				<result column="op_message" property="opMessage"/>
+				<result column="spu_code" property="spuCode"/>
+				<result column="prdid" property="prdid"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="apply_age" property="applyAge"/>
+				<result column="apply_age_id" property="applyAgeId"/>
+				<result column="origin" property="origin"/>
+				<result column="origin_id" property="originId"/>
+				<result column="income_tax_tate" property="incomeTaxTate"/>
+				<result column="income_tax_tate_id" property="incomeTaxTateId"/>
+				<result column="customs_backup" property="customsBackup"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,log_id,sp_name,sp_id,barcode,main_title,large_name,medium_name,small_name,large_id,medium_id,
+		small_id,unit_name,unit_id,brand_name,brand_id,detail_main_title,spec1_name,spec1_id,spec2_name,
+		spec2_id,spec3_name,spec3_id,sub_title,item_type,specifications,return_days,basic_price,
+		freight_template_name,freight_template_id,weight,manufacturer,carton_spec,exp_sign,exp_days,
+		waves_sign,attibute_cus,excel_index,status,op_message,spu_code,prdid,sku_code,apply_age,
+		apply_age_id,origin,origin_id,income_tax_tate,income_tax_tate_id,customs_backup,create_time
+	</sql>
+	
+	<update id="updateByLogId" parameterType="ItemImportList">
+		UPDATE prd_item_import_list
+		SET		
+					<if test="spuCode != null  and spuCode != '' ">spu_code=#{spuCode},</if>
+					<if test="prdid != null  and prdid != '' ">prdid=#{prdid},</if>
+					<if test="skuCode != null  and skuCode != '' ">sku_code=#{skuCode},</if>
+					status = #{status},
+					op_message = #{opMessage}
+		WHERE
+			log_id = #{logId}
+		AND excel_index=#{excelIndex}
+	</update>
+	
+	<update id="batchUpdateDynamic" >
+ 		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+ 	    	UPDATE prd_item_import_list
+ 	    	set status = #{item.excelOpStatus},
+ 	        op_message = #{item.excelOpmessage}
+ 	        WHERE log_id = #{item.logId}  and excel_index = #{item.excelIndex}
+  		</foreach>
+	</update>
+</mapper>

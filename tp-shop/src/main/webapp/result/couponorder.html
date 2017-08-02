@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>优惠券</title>
+	<meta name="Keywords" content="商城">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/frozen_f717264.css" />
+	<link rel="stylesheet" href="/css/demo_810378f.css" />
+	<link rel="stylesheet" type="text/css" href="/css/dropload_4fe853f.css" />
+	<link rel="stylesheet" type="text/css" href="/css/couponorder_c3865cd.css" />
+	<script src="/js/zepto.min_c8b91c6.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/frozen_f33552a.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/xigou_7e7a903.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/dropload.min_d0f3d54.js"></script>
+</head>
+
+<body>
+<!-- <header>
+	<h1>可用优惠券</h1>
+	<a href="javascript:history.go(-1);" class="goBack"></a>
+	<a class="confirm_coupon">确定</a>
+</header> -->
+<header style="display:none;"></header>
+
+<div class="ui-tab" >
+	<div class="warm_tip" style="background-color: #eeeeee;">
+		<div class="cart_tip coupon_tips">
+			<p><span>温馨提醒：</span>优惠劵和现金券不能同时使用优惠劵只能使用一张，现金券能使用多张</p>
+		</div>
+	</div>
+	<ul class="ui-tab-nav ui-border-b" style="display: none">
+		<li class="current">未使用</li>
+		<li>已使用</li>
+		<li>已过期</li>
+	</ul>
+	<ul class="ui-tab-content" style="width:300%; transition-property: transform; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 300ms; transform: translate(-375px, 0px) translateZ(0px); margin-bottom: 51px;">
+		<li>
+			<div class="coupon-unused" id = "coupon-unused">
+			</div>
+
+		</li>
+		<li>
+			<div class="coupon-used">
+			</div>
+		</li>
+		<li>
+			<div class="coupon-expired">
+			</div>
+		</li>
+	</ul>
+</div>
+
+<section class="add_new">
+	<button class="recvaddress-add_wx confirm_coupon">确定</button>
+</section>
+
+<script class="demo-script">
+	(function (){
+		var tab = new fz.Scroll('.ui-tab', {
+			role: 'tab',
+			autoplay: false,
+			interval: 3000
+		});
+
+	})();
+</script>
+</body>
+
+<script type="text/javascript" src="/js/static_data_b6187ca.js"></script>
+<script type="text/javascript" src="/js/base_d40a5e9.js"></script>
+<script type="text/javascript" src="/js/thirdshop_9a2a34e.js"></script>
+<script type="text/javascript" src="/js/modules/user_03072ef.js"></script>
+<script type="text/javascript" src="/js/pages/coupon_order_36625c1.js"></script>
+</html>

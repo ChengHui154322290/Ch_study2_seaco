@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleSubInfoDao">
+	<resultMap type="com.tp.model.fin.SettleSubInfo" id="settleSubInfo">
+				<id column="id" property="id"/>
+				<result column="settle_sub_no" property="settleSubNo"/>
+				<result column="settle_no" property="settleNo"/>
+				<result column="sort_no" property="sortNo"/>
+				<result column="payable_amount" property="payableAmount"/>
+				<result column="payable_date" property="payableDate"/>
+				<result column="actual_amount" property="actualAmount"/>
+				<result column="adjust_amount" property="adjustAmount"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="remark" property="remark"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="target_id" property="targetId"/>
+				<result column="status" property="status"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_date" property="createDate"/>
+				<result column="modify_user" property="modifyUser"/>
+				<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+</mapper>

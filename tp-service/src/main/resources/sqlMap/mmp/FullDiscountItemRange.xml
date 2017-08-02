@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.FullDiscountItemRangeDao">
+	<resultMap type="com.tp.model.mmp.FullDiscountItemRange" id="fullDiscountItemRange">
+				<id column="id" property="id"/>
+				<result column="discount_id" property="discountId"/>
+				<result column="type" property="type"/>
+				<result column="limit_type" property="limitType"/>
+				<result column="category_top_id" property="categoryTopId"/>
+				<result column="category_top_name" property="categoryTopName"/>
+				<result column="category_middle_id" property="categoryMiddleId"/>
+				<result column="category_middle_name" property="categoryMiddleName"/>
+				<result column="category_small_id" property="categorySmallId"/>
+				<result column="category_small_name" property="categorySmallName"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="item_limit_type" property="itemLimitType"/>
+				<result column="item_limit_value" property="itemLimitValue"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,discount_id,type,limit_type,category_top_id,category_top_name,category_middle_id,category_middle_name,category_small_id,category_small_name,brand_id,brand_name,item_limit_type,item_limit_value,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

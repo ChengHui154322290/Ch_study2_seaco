@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemSkuDao">
+	<resultMap type="com.tp.model.prd.ItemSku" id="itemSku">
+				<id column="id" property="id"/>
+				<result column="detail_id" property="detailId"/>
+				<result column="sku" property="sku"/>
+				<result column="item_id" property="itemId"/>
+				<result column="detail_name" property="detailName"/>
+				<result column="spu" property="spu"/>
+				<result column="prdid" property="prdid"/>
+				<result column="unit_id" property="unitId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="item_type" property="itemType"/>
+				<result column="category_code" property="categoryCode"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="barcode" property="barcode"/>
+				<result column="basic_price" property="basicPrice"/>
+				<result column="topic_price" property="topicPrice"/>
+				<result column="status" property="status"/>
+				<result column="sale_type" property="saleType"/>
+				<result column="sp_name" property="spName"/>
+				<result column="sp_code" property="spCode"/>
+				<result column="sp_id" property="spId"/>
+				<result column="supplier_stock" property="supplierStock"/>
+				<result column="sort" property="sort"/>
+				<result column="spu_name" property="spuName"/>
+				<result column="waves_sign" property="wavesSign"/>
+				<result column="data_source" property="dataSource"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="waves_sign" property="wavesSign"/>
+				<result column="bind_Level" property="bindLevel"/>
+				<result column="major_item_id" property="majorItemId"/>
+				<result column="major_detail_id" property="majorDetailId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="unit_name" property="unitName"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="commision_type" property="commisionType"/>
+				<result column="goods_code" property="goodsCode"/>
+				<result column="article_code" property="articleCode"/>
+				<result column="cost_price" property="costPrice"/>
+				
+	</resultMap>
+	<resultMap type="com.tp.dto.prd.ItemResultDto" id="ItemResultMap">
+        <id column="id" property="skuId" />
+        <result column="item_id" property="itemId"/>
+        <result column="detail_id" property="detailId"/>
+        <result column="prdid" property="prdid"/>
+        <result column="spu" property="spu"/>
+        <result column="detail_name" property="mainTitle"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="category_code" property="categoryCode"/>
+        <result column="item_type" property="itemType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="status" property="status"/>
+        <result column="sale_type" property="saleType" />
+        <result column="sp_id" property="supplierId" />
+        <result column="spu_name" property="spuName"/>
+        <result column="basic_price" property="basicPrice" />
+        <result column="topic_price" property="topicPrice" />
+	</resultMap>
+	<sql id="columns">
+		id,detail_id,sku,item_id,detail_name,spu,prdid,unit_id,brand_id,item_type,category_code,category_id,
+		barcode,basic_price,topic_price,status,sale_type,sp_name,sp_code,sp_id,sort,spu_name,waves_sign,data_source,
+		create_user,create_time,update_user,update_time,bind_Level,major_item_id,major_detail_id,brand_name,unit_name,
+		audit_status,commision_type,goods_code,article_code,cost_price
+	</sql>
+	
+	<update id="batchUpdateByDetailId" parameterType="ItemSku">
+		UPDATE prd_item_sku 
+		   set  detail_name=#{detailName},barcode=#{barcode},
+		   brand_id =#{brandId},unit_id =#{unitId},
+		   category_code =#{categoryCode},category_id =#{categoryId},
+		   item_type =#{itemType} 
+		WHERE detail_id = #{detailId}
+	</update>
+	<update id="batchUpdateByItemId" parameterType="ItemSku">
+		UPDATE prd_item_sku 
+		  set  brand_id =#{brandId},unit_id =#{unitId},category_code =#{categoryCode},category_id =#{categoryId}
+		WHERE item_id = #{itemId}
+	</update>
+	
+	<update id="batchUpdateSkusStatu" >
+ 		<foreach collection="list" item="sku" index="index">
+ 	    	UPDATE prd_item_sku
+ 	    	   set status = #{sku.status}
+ 	         WHERE id = #{sku.id};
+  		</foreach>
+	</update>
+	<update id="updateSkuInfoWithItemSpuInfo" parameterType="ItemSku">
+		UPDATE prd_item_sku
+		SET
+			spu = #{spu},
+			status = #{status},
+			major_item_id = #{majorItemId}  
+		WHERE item_id = #{itemId} 
+	</update>
+	<sql id="whereOpenplantformitemquery">
+		<where>
+		     data_source='SELLER'
+			<if test="spu != null  and spu != '' "> AND spu like concat('%',#{spu},'%')  </if>
+			<if test="prdid != null  and prdid != '' "> AND prdid like concat('%',#{prdid},'%') </if>
+			<if test="sku != null  and sku != '' "> AND sku like concat('%',#{sku},'%') </if>
+			<if test="barCode != null  and barCode != '' "> AND barCode like concat('%',#{barCode},'%') </if>
+			<if test="status != null  "> AND status =  #{status} </if>
+			<if test=" spId!= null  and spId != '' "> AND sp_id =  #{spId} </if>
+			<if test=" brandName != null  and brandName != '' ">  AND brand_name like concat('%',#{brandName},'%') </if>
+			<if test=" unitName != null  and unitName != '' ">  AND unit_name like concat('%',#{unitName},'%') </if>
+			<if test=" itemName != null  and itemName != '' ">  AND detail_name like concat('%',#{itemName},'%') </if>
+		</where>
+	</sql>
+	
+	<select id="selectCountByLikeOfopenPlantFormItemQuery" resultType="long" parameterType="com.tp.query.prd.OpenPlantFormItemQuery">
+		 SELECT
+		 	count(*)
+		 FROM
+		 	prd_item_sku
+	 	<include refid="whereOpenplantformitemquery" />
+	</select>
+	<select id="selectListOfByOpenPlantFormItemQuery" resultType="com.tp.dto.prd.OpenPlantFormItemDto" parameterType="com.tp.query.prd.OpenPlantFormItemQuery">
+		 SELECT
+		 	id id,
+	     	spu spu,
+	     	detail_name itemName,
+	     	barCode barCode,
+	     	status status,
+	     	prdid prdid,
+	     	detail_id detailId,
+	     	sku sku
+		 FROM
+		 	prd_item_sku
+	 	<include refid="whereOpenplantformitemquery" />
+	 	order by create_time desc
+	 	Limit #{start},#{pageSize}
+	</select>
+	
+	<select id="selectProductDeatilsByItemIdAndSpId" parameterType="ItemSku" resultType="com.tp.dto.prd.SkuDto">
+		select 
+		detail_id detailId,
+		sku sku
+		from  prd_item_sku where sp_id = #{spId} and item_id = #{itemId} 
+		<if test="status!=null"> and status = #{status}</if>
+	</select>
+	
+	<select id="querySkuDtoListForPromotionWithBarCodeAndSpCodeList" resultType="com.tp.dto.prd.SkuDto">
+		SELECT
+		sku  sku,
+		sp_id spId,
+		sp_name spName,
+		sp_code spCode,
+		spu spu,
+		brand_id brandId, 
+		detail_name mainTitle,
+		category_id  categoryId,
+		barcode  barCode,
+		basic_price basicPrice,
+		topic_price xgPrice,
+		detail_id detailId,
+		item_id  itemId
+		from prd_item_sku   
+		<where>
+		<foreach item="skuDto" index="index" collection="list" open="("
+		separator="or" close=")">
+		  barcode = #{skuDto.barCode}  and sp_code = #{skuDto.spCode}
+		</foreach>
+		</where>
+	</select>
+	
+	<sql id="queryWhereFields">
+		<where>
+			<if test="itemId != null  and itemId != '' "> AND item_id=#{itemId} </if>
+			<if test="skuId != null  and skuId != '' "> AND id=#{skuId} </if>
+			<if test="spu != null  and spu != '' "> AND spu like concat('%',#{spu},'%')  </if>
+			<if test="prdid != null  and prdid != '' "> AND prdid like concat('%',#{prdid},'%') </if>
+			<if test="name != null  and name != '' "> AND detail_name like concat('%',#{name},'%') </if>
+			<if test="sku != null  and sku != '' "> AND sku like concat('%',#{sku},'%') </if>
+			<if test="status != null  "> AND status=#{status} </if>
+			<if test="createBeginTime != null"> AND create_time &gt; #{createBeginTime}</if>
+			<if test="createEndTime != null"> AND create_time &lt; #{createEndTime}</if>
+			<if test="unitId != null   "> AND unit_id = #{unitId} </if>
+			<if test="brandId != null "> AND  brand_id=#{brandId} </if>
+			<if test="saleType != null  "> AND sale_type=#{saleType} </if>
+			<if test="itemType != null "> AND item_type = #{itemType} </if>
+			<if test="barcode != null  and barcode != '' "> AND barcode like concat('%',#{barcode},'%') </if>
+			<if test="itemId != null  and itemId != '' "> AND item_id=#{itemId} </if>
+			<if test="categoryCode != null  and categoryCode != '' "> AND category_code like concat(#{categoryCode},'%')  </if>
+			<if test="supplierId != null "> AND sp_id=#{supplierId} </if>
+			<if test="spuName != null  and spuName != '' "> AND spu_name like concat('%',#{spuName},'%')  </if>
+			<if test="wavesSign != null  and wavesSign != '' ">AND EXISTS (SELECT 1  from prd_item_detail  d  where d.item_id=t.item_id AND d.waves_sign=#{wavesSign}) </if>
+			<if test="skuCodeList != null"> AND sku in 				
+				<foreach item="skucode" index="index" collection="skuCodeList" open="(" separator="," close=")">
+					#{skucode}
+				</foreach>
+			</if> 
+		</where>
+	</sql>
+	<select id="queryPageByQuery" resultMap="ItemResultMap" parameterType="com.tp.query.prd.ItemQuery">
+		 SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	prd_item_sku t
+	 	<include refid="queryWhereFields" />
+	 	order by create_time desc
+	 	Limit #{start},#{pageSize}
+		
+	</select>
+	<select id="queryCountByQuery" resultType="int" parameterType="com.tp.query.prd.ItemQuery">
+		 SELECT
+	     	COUNT(1)
+		 FROM
+		 	prd_item_sku t
+	 	<include refid="queryWhereFields" />
+	</select>
+
+
+	<select id="querySkuDtoListForPromotion" resultType="com.tp.dto.prd.SkuDto">
+		SELECT
+		sku  sku,
+		sp_id spId,
+		sp_code spCode,
+		spu spu,
+		sp_name spName,
+		brand_id brandId,
+		detail_name mainTitle,
+		category_id  categoryId,
+		basic_price basicPrice,
+		topic_price xgPrice,
+		barcode  barCode,
+		detail_id detailId,
+		status status,
+		item_id  itemId
+		from prd_item_sku
+		WHERE sku in
+		<foreach item="skucode" index="index" collection="list" open="(" separator="," close=")">
+			#{skucode}
+		</foreach>
+	</select>
+	
+	<select id="selectItemIdBySkuId" parameterType="String" resultType="com.tp.dto.prd.InfoDetailDto">
+   		SELECT   
+		id  id ,
+		item_id itemId,
+		detail_id detailId,
+		brand_id brandId,
+		spu spu,
+		sp_id spId,
+		prdid prdId,
+		spu spu,
+		sku sku,
+		sp_name spName,
+		category_id categoryId,
+		basic_price basicPrice,
+		topic_price xgPrice,
+		status status,
+		commision_rate commisionRate
+		from  prd_item_sku    
+		where sku =#{value}
+	</select>
+	
+	<select id="checkSellerSkuWithAuditStatusAndLevel" resultType="com.tp.query.prd.ItemQuery" parameterType="com.tp.query.prd.ItemQuery">
+	 	 SELECT
+	     	spu spu,
+	     	detail_name name,
+	     	barCode barCode,
+	     	status status,
+	     	prdid prdid, 
+	     	detail_id detailId,
+	     	sku sku
+		 FROM
+		 	prd_item_sku
+		 	where audit_status in ('S','R')
+		 	and  sup_id =  #{supplierId}
+		 	and bind_level =  #{bindLevel}
+		 	and major_detail_id = #{majorDetailId} 
+	</select>
+	
+	<select id="selectSkuDetailInfoByListSkus" resultType="com.tp.dto.prd.SkuDetailInfoDto" >
+		SELECT
+		sku sku,
+		detail_id detailId,
+		item_id itemId,
+		prdid prdid
+		FROM
+		prd_item_sku
+		WHERE 1=1
+		 and sku  in
+		<foreach item="sku" index="index" collection="list" open="("
+			separator="," close=")">
+			#{sku} 
+		</foreach>
+	</select>
+	
+	<select id="selectCommisionRateByListSkus" resultType="com.tp.dto.prd.SkuDetailInfoDto" >
+		SELECT
+		sku,  commision_rate as commisionRate
+		FROM
+		prd_item_sku  Where sku  in
+		<foreach item="sku" index="index" collection="list" open="("
+			separator="," close=")">
+			#{sku} 
+		</foreach>
+	</select>
+	
+	<update id="updateBatchPrice">
+		update prd_item_sku
+		  set topic_price = basic_price*#{discount},update_time=now(),update_user=#{userName}
+		  <where>
+		  	<foreach item="sku" index="sku" collection="skuList" open=" sku in ("
+				separator="," close=")">
+				#{sku} 
+			</foreach>
+		  </where>
+	</update>
+
+
+	<select id="queryByUpdateTime" parameterType="java.util.Date" resultMap="itemSku">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		prd_item_sku
+		<if test="updateTime!=null">
+			WHERE  update_time>= #{updateTime}
+		</if>
+	</select>
+	
+</mapper>

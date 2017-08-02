@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.CommisionDetailDao">
+	<resultMap type="com.tp.model.dss.CommisionDetail" id="commisionDetail">
+				<id column="commision_detail_id" property="commisionDetailId"/>
+				<result column="operate_type" property="operateType"/>
+				<result column="biz_code" property="bizCode"/>
+				<result column="biz_type" property="bizType"/>
+				<result column="biz_amount" property="bizAmount"/>
+				<result column="order_amount" property="orderAmount"/>
+				<result column="order_receipt_time" property="orderReceiptTime"/>
+				<result column="coupon_amount" property="couponAmount"/>
+				<result column="commision" property="commision"/>
+				<result column="commision_rate" property="commisionRate"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="order_status" property="orderStatus"/>
+				<result column="collect_status" property="collectStatus"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="promoter_type" property="promoterType"/>
+				<result column="giver" property="giver"/>
+				<result column="member_id" property="memberId"/>
+				<result column="indirect" property="indirect"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		commision_detail_id,<include refid="insertcolumns"></include>
+	</sql>
+	<sql id="insertcolumns">
+		operate_type,biz_code,biz_type,biz_amount,order_amount,order_receipt_time,coupon_amount,commision,commision_rate,
+		order_code,order_status,collect_status,promoter_id,promoter_type,giver,member_id,indirect,create_user,create_time,update_user,update_time
+	</sql>	
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO dss_commision_detail
+        	(<include refid="insertcolumns"></include>)
+		values
+		<foreach collection="commisionDetailList" item="item" index="index" separator=",">
+			(
+			#{item.operateType},#{item.bizCode},#{item.bizType},#{item.bizAmount},#{item.orderAmount},
+			#{item.orderReceiptTime},#{item.couponAmount},#{item.commision},#{item.commisionRate},#{item.orderCode},#{item.orderStatus},
+			#{item.collectStatus},#{item.promoterId},#{item.promoterType},#{item.giver},#{item.memberId},#{item.indirect},#{item.createUser},now(),#{item.updateUser},now()
+			)
+		</foreach>
+    </insert>
+    
+    <update id="updateReceiveTimeByOrderCode" parameterType="CommisionDetail">
+    	update dss_commision_detail
+    	   set order_receipt_time=#{orderReceiptTime},
+    	       order_status = #{orderStatus},
+    	       update_time = now(),
+    	       update_user = #{updateUser}
+    	 where order_code = #{orderCode}
+    </update>
+    
+    <select id="queryStatisticByOrderPromoterId" parameterType="map" resultType="map">
+    	SELECT
+			count(distinct order_code) ${orderCount},IFNULL(sum(biz_amount),0.00) ${orderAmount}
+		FROM
+			dss_commision_detail
+		where promoter_id=#{promoterId} and indirect=0
+    </select>
+    
+    <select id="queryStatisticByOrderPromoterId_In" parameterType="map" resultType="map">
+    	SELECT
+			count(distinct order_code) ${orderCount},IFNULL(sum(order_amount),0.00) ${orderAmount}
+		FROM
+			dss_commision_detail
+		where promoter_id=#{promoterId} and indirect=0 and operate_type = 1
+    </select>
+    
+    <select id="queryStatisticByOrderPromoterId_Out" parameterType="map" resultType="map">
+    	SELECT
+			count(distinct order_code) ${orderCount},IFNULL(sum(order_amount),0.00) ${orderAmount}
+		FROM
+			dss_commision_detail
+		where promoter_id=#{promoterId} and indirect=0 and operate_type = 2 
+    </select>
+    
+    
+    <select id="queryStatisticByBizAmountSum" resultMap="commisionDetail">
+        select  p.promoter_id,ifnull(i.biz_amount,0) biz_amount,ifnull(i.commision,0) commision 
+        from (
+		select i.parent_promoter_id, i.promoter_id,sum(d.biz_amount) biz_amount,sum(d.commision) commision
+		from dss_commision_detail d, dss_promoter_info i
+		 where d.indirect=#{indirect}
+		and d.promoter_id=i.parent_promoter_id
+		<foreach item="id" collection="idChildren" separator="," open=" and i.promoter_id in (" close=")">
+ 			#{id}
+	 	</foreach> 
+		and d.collect_status=1 
+		and exists (select 1 
+		   from dss_commision_detail c 
+		where c.biz_code=d.biz_code 
+		    and c.biz_type=d.biz_type 
+		    and c.promoter_id = i.promoter_id  )   group by i.promoter_id) i 
+		right join (
+		    select p.promoter_id from dss_promoter_info p where
+		    <foreach item="id" collection="idChildren" separator="," open=" p.promoter_id in (" close=")">
+ 			#{id}
+	 		</foreach> 
+		    )  p on i.promoter_id = p.promoter_id
+    </select>
+    <select id="queryStatisticByBizAmountCommisionSum" resultMap="commisionDetail">
+    	select i.promoter_id,ifnull(sum(d.biz_amount),0) biz_amount,ifnull(sum(d.commision),0)  commision 
+		  from dss_promoter_info i 
+		left join (
+			select biz_amount,commision,giver 
+			  from dss_commision_detail 
+			 where collect_status=1 
+			   and indirect=#{indirect} 
+			  <if test="beneficiary!=null"> and promoter_id=#{beneficiary}</if>
+		  )
+		d 
+		   on i.promoter_id  = d.giver  
+		where 
+		<foreach item="id" collection="idChildren" separator="," open=" i.promoter_id in (" close=")">
+ 			#{id}
+	 	</foreach> 
+		group by i.promoter_id
+    </select>
+
+
+	<select id="queryDistinctOrderCode" parameterType="commisionDetail" resultType="long">
+		select distinct order_code from dss_commision_detail where indirect = 0 and biz_type = 1 and operate_type = 1
+		and promoter_id = #{promoterId} and promoter_type=#{promoterType}
+	</select>
+	
+    <select id="queryAllCildPromotersDistinctOrderCode" parameterType="commisionDetail" resultType="long">
+		select distinct order_code from dss_commision_detail where indirect = 0 and biz_type = 1 and operate_type = 1
+		and promoter_type=#{promoterType}
+		<!-- 非原生条件 -->
+		<if test="createBeginTime != null  and createBeginTime != '' "> AND create_time&gt;=#{createBeginTime} </if>
+		<if test="createEndTime != null  and createEndTime != '' "> AND create_time&lt;=#{createEndTime} </if>
+		<if test="allchildPromoterids != null  ">
+			<foreach item="id" collection="allchildPromoterids" separator="," open=" and  promoter_id in (" close=")">
+					#{id}
+			</foreach> 
+ 		 </if>
+ 		
+	</select>
+</mapper>

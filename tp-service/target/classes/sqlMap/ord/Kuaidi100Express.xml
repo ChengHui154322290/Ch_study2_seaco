@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.Kuaidi100ExpressDao">
+	<resultMap type="com.tp.model.ord.Kuaidi100Express" id="kuaidi100Express">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="package_no" property="packageNo"/>
+				<result column="reject_code" property="rejectCode"/>
+				<result column="delivery_order_type" property="deliveryOrderType"/>
+				<result column="monitor_status" property="monitorStatus"/>
+				<result column="monitor_message" property="monitorMessage"/>
+				<result column="status" property="status"/>
+				<result column="company_id" property="companyId"/>
+				<result column="is_check" property="isCheck"/>
+				<result column="data_context" property="dataContext"/>
+				<result column="data_time" property="dataTime"/>
+				<result column="data_ftime" property="dataFtime"/>
+				<result column="post_data" property="postData"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,order_code,package_no,reject_code,delivery_order_type,monitor_status,monitor_message,status,company_id,is_check,data_context,data_time,data_ftime,post_data,create_time
+	</sql>
+	<insert id="batchInsert" parameterType="list">
+        insert into ord_kuaidi100_express
+	       (order_code,reject_code,delivery_order_type,monitor_status,monitor_message,status,company_id,package_no,is_check,data_context,data_time,data_ftime,post_data,create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+	      (#{item.orderCode},#{item.rejectCode},#{item.deliveryOrderType},#{item.monitorStatus},#{item.monitorMessage},#{item.status},#{item.companyId},#{item.packageNo},#{item.isCheck},#{item.dataContext},#{item.dataTime},#{item.dataFtime},#{item.postData},now())
+   		</foreach>  
+    </insert>
+    
+    <!-- 根据子订单code列表批量查询 -->
+	<select id="selectListBySubOrderCodeAndPackageNo" resultMap="kuaidi100Express" parameterType="list">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_kuaidi100_express
+		WHERE
+			monitor_status &lt;&gt; 'abort' and 
+		<foreach item="item" collection="list" separator="or" open="" close="">
+			(order_code=#{item.orderCode} and package_no=#{item.packageNo})
+		</foreach>
+	</select>
+	  <!-- 根据退货单code列表批量查询 -->
+	<select id="selectListByRejectNoAndPackageNo" resultMap="kuaidi100Express" parameterType="list">
+		SELECT
+		<include refid="columns" />
+		FROM
+			ord_kuaidi100_express
+		WHERE
+			monitor_status &lt;&gt; 'abort' and 
+		<foreach item="item" collection="list" separator="or" open="" close="">
+			(reject_code=#{item.rejectCode} and package_no=#{item.packageNo})
+		</foreach>
+	</select>
+    
+    <delete id="deleteOldExpressInfo" parameterType="map">
+    	delete from ord_kuaidi100_express where  package_no=#{packageNo} and (order_code=#{code} or reject_code=#{code})
+    </delete>
+</mapper>

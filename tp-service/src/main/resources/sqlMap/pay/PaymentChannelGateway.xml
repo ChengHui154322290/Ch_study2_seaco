@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.PaymentChannelGatewayDao">
+	<resultMap type="com.tp.model.pay.PaymentChannelGateway" id="paymentChannelGateway">
+				<id column="id" property="id"/>
+				<result column="order_type" property="orderType"/>
+				<result column="channel_id" property="channelId"/>
+				<result column="gateway_id" property="gatewayId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,order_type,channel_id,gateway_id,create_time,create_user
+	</sql>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.TopicItemSearchDao">
+	<resultMap type="com.tp.model.sch.TopicItemSearch" id="topicItemSearch">
+		<result column="id" property="topicItemId"></result>
+		<result column="sku" property="sku"/>
+		<result column="item_id" property="itemId"/>
+		<result column="topic_price" property="topicPrice"/>
+		<result column="sale_price" property="salePrice"/>
+		<result column="name" property="itemName"/>
+		<result column="topic_id" property="topicId"/>
+		<result column="spu" property="spu"/>
+		<result column="bar_code" property="barCode"/>
+		<result column="brand_id" property="brandId"/>
+		<result column="large_cateory_id" property="lCategoryId"/>
+		<result column="middle_category_id" property="mCategoryId"/>
+		<result column="category_id" property="sCategoryId"/>
+		<result column="supplier_id" property="supplierId"/>
+		<result column="limit_amount" property="limitAmount"/>
+		<result column="topic_image" property="itemImage"/>
+		<result column="bonded_area" property="channelId"/>
+		<result column="country_id" property="countryId"/>
+		<result column="country_name" property="countryName"/>
+		<result column="lock_status" property="lockStatus"/>
+	</resultMap>
+
+	<sql id="topicItemSearchColumns">
+		id,sku,item_id,topic_price,sale_price,name,topic_id,spu,bar_code,brand_id,large_cateory_id,middle_category_id,category_id,supplier_id,limit_amount,topic_image,bonded_area,country_id,country_name,lock_status
+	</sql>
+	<sql id="topicItemSearchConditions">
+		topic_id IN
+		<foreach collection="topicIds" open="(" separator="," close=")" item="item" index="index">
+			#{item}
+		</foreach>
+		AND deletion = 0 AND item_status NOT IN (0,2)
+		<if test="skuBlacklist!=null and skuBlacklist.size()>0">
+			AND  sku NOT  IN
+			<foreach collection="skuBlacklist" item="skuCode" open="(" separator="," close=")">
+				#{skuCode}
+			</foreach>
+		</if>
+
+	</sql>
+	<select id="getAllAvailableTopicItemsCount" parameterType="java.util.List" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM mmp_topic_item
+		WHERE
+		<include refid="topicItemSearchConditions"></include>
+
+	</select>
+
+	<select id="getAllAvailableTopicItem" parameterType="java.util.Map" resultMap="topicItemSearch">
+		SELECT
+		<include refid="topicItemSearchColumns"></include>
+		FROM (
+			SELECT
+			<include refid="topicItemSearchColumns"></include>
+			FROM mmp_topic_item
+			WHERE
+			<include refid="topicItemSearchConditions"></include>
+			ORDER BY spu,topic_price
+		) t GROUP  BY spu
+	</select>
+</mapper>

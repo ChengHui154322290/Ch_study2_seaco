@@ -1,0 +1,199 @@
+body {
+	background-color: #eeeeee;
+}
+
+.ui-header {
+	position: absolute;
+	border: 0;
+	border-bottom: 1px solid #929292;
+	background-color: #fff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: url(../../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+.withdrawals-info {
+	margin-top: 56px;
+	background-color: #ffffff;
+}
+
+.item-block {
+	height: 47px;
+	line-height: 47px;
+	margin-left: 15px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+div.withdrawals-info div.item-block:last-child{
+	border-bottom: none;
+}
+
+.necessary, .arrow {
+	position: relative;
+}
+
+.necessary:after {
+	content: " ";
+	position: absolute;
+	right: 13px;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+	background: url("../../img/dss/necessary.png") center no-repeat;
+	background-size: 100%;
+}
+
+/*.arrow:after{*/
+	/*content: " ";*/
+	/*position: absolute;*/
+	/*right: 13px;*/
+	/*top: 0;*/
+	/*bottom: 0;*/
+	/*width: 40px;*/
+	/*background: url("../../img/arrow.png") right no-repeat;*/
+	/*background-size: 5px;*/
+/*}*/
+
+.item-block .label {
+	min-width: 25%;
+	float: left;
+	color: #333333;
+	font-size: 15px;
+}
+
+.item-block input, .item-block label {
+	width: 60%;
+	border: none;
+	font-size: 14px;
+	color: #333333;
+}
+
+.item-block input:disabled {
+	-webkit-appearance: none;
+	background: #ffffff;
+	/*color: #ccc;*/
+}
+
+/*#input-way{*/
+	/*color:#ccc;*/
+/*}*/
+.item-block-withdrawals {
+	height: auto;
+}
+
+.withdrawals-desc {
+	font-size: 15px;
+	line-height: 50px;
+	color: #333333;
+}
+
+.withdrawals-amount {
+	height: 68px;
+	line-height: 68px;
+	display: -webkit-box;
+	color: #333333;
+}
+
+.withdrawals-amount > span{
+	font-size: 25px;
+}
+
+.withdrawals-amount > div {
+	-webkit-box-flex: 1;
+	padding: 15px 10px 0px 10px;
+}
+
+.withdrawals-amount input {
+	width: 100%;
+	height: 100%;
+	font-size: 44px;
+}
+
+.item-block-usable {
+	height: 45px;
+	border-bottom: none;
+}
+
+.item-block-usable div.label {
+	line-height: 59px;
+}
+
+.item-block-tip {
+    margin: 0 auto;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 25px;
+    border-top: 1px dashed #e8e8e8;
+
+}
+.item-block-tip .i-line{
+	background:#eeeeee url(../img/i-line.png) no-repeat center bottom;
+	width:100%;
+	height:10px;
+}
+.item-block-tip::before{
+	content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    background: #efeff4;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+.item-block-tip::after{
+	 content: '';
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #efeff4;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+.item-block-tip .comm{
+	padding:20px;
+	font-size:12px;
+	color:#999999;
+}
+.item-block-tip .comm span{
+	display:inline-block;
+	zoom:1;
+	width:92%;
+	text-align:justify;
+}
+.item-block-tip .comm .tips{
+	display:inline-block;
+	zoom: 1;
+	width:16px;
+	height:16px;
+	background:url(../img/i-tips.png) center no-repeat;
+	float: left;
+	margin-right: 5px;
+}
+.btn_withdrawals {
+	margin: 10px;
+	border-radius: 6px;
+	text-align: center;
+	height: 39px;
+	line-height: 39px;
+	font-size: 17px;
+	color: #ffffff;
+	background-color: #333333;
+}
+
+.btn_withdrawals:active {
+	background-color: #7e7e7e;
+}
+
+.bank {
+	display: none;
+}

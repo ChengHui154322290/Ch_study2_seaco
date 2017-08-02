@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockinImportLogDao">
+	<resultMap type="com.tp.model.wms.StockinImportLog" id="stockinImportLog">
+				<id column="id" property="id"/>
+				<result column="real_file_name" property="realFileName"/>
+				<result column="file_name" property="fileName"/>
+				<result column="total_amount" property="totalAmount"/>
+				<result column="success_count" property="successCount"/>
+				<result column="fail_count" property="failCount"/>
+				<result column="file_key" property="fileKey"/>
+				<result column="upload_token" property="uploadToken"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,real_file_name,file_name,total_amount,success_count,fail_count,file_key,upload_token,create_user,create_time
+	</sql>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.ForbiddenWordsDao">
+	<resultMap type="com.tp.model.bse.ForbiddenWords" id="forbiddenWords">
+				<id column="id" property="id"/>
+				<result column="code" property="code"/>
+				<result column="type" property="type"/>
+				<result column="words" property="words"/>
+				<result column="status" property="status"/>
+				<result column="created_time" property="createdTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="remark" property="remark"/>
+	</resultMap>
+</mapper>

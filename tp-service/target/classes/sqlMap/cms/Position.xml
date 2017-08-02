@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.PositionDao">
+	<resultMap type="com.tp.model.cms.Position" id="CmsPositionDOResultMap">
+				<id column="id" property="id"/>
+				<result column="temple_id" property="templeId"/>
+				<result column="position_name" property="positionName"/>
+				<result column="position_code" property="positionCode"/>
+				<result column="status" property="status"/>
+				<result column="page_name" property="pageName"/>
+				<result column="temple_name" property="templeName"/>
+				<result column="seq" property="seq"/>
+				<result column="element_type" property="elementType"/>
+				<result column="page_id" property="pageId"/>
+	</resultMap>
+	
+	<sql id="MybatisCmsPositionDAO_all_column_fields">
+	      id,temple_id,position_name,position_code,status,page_id,page_name,temple_name,seq,element_type
+ 	</sql>
+	<!-- 只有varchar char text类型 做 !='' 判断，生成代码时,其他类型时只做!=null 决断 0或fasle与空''是相同的，在mybatis中的动态语句中 -->
+	<sql id="MybatisCmsPositionDAO_dynamic_where_fields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="templeId != null "> AND temple_id=#{templeId} </if>
+			<if test="positionName != null  and positionName != '' "> AND position_name like concat(concat('%', #{positionName}),'%') </if>
+			<if test="positionCode != null  and positionCode != '' "> AND position_code=#{positionCode} </if>
+			<if test="status != null "> AND status=#{status} </if>
+			<if test="pageId != null  and pageId != '' "> AND page_id=#{pageId} </if>
+			<if test="pageName != null  and pageName != '' "> AND page_name like concat(#{pageName},'%') </if>
+			<if test="templeName != null  and templeName != '' "> AND temple_name like concat(concat('%', #{templeName}),'%') </if>
+			<if test="seq != null "> AND seq=#{seq} </if>
+			<if test="elementType != null "> AND element_type=#{elementType} </if>
+		</where>
+ 	</sql>
+
+	<select id="MybatisCmsPositionDAO_selectById" parameterType="long" resultMap="CmsPositionDOResultMap">
+	SELECT
+		<include refid="MybatisCmsPositionDAO_all_column_fields" />
+	FROM
+		cms_position
+	WHERE
+		 id = #{id}
+	</select>
+
+ 	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_position WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<select id="selectByIds" resultMap="CmsPositionDOResultMap" parameterType="java.util.List">
+	     SELECT
+	     	<include refid="MybatisCmsPositionDAO_all_column_fields" />
+		 FROM
+		 	cms_position l where l.temple_id in 
+		 	<foreach collection="list" item="announceId" index="index"
+	            open="(" close=")" separator=",">
+	            #{announceId}
+	        </foreach>
+ 	</select>
+ 	
+	<select id="selectIsExists" resultType="long" parameterType="java.util.List">
+	     select count(*) from cms_position l where l.status = 0 
+	     	and l.temple_id in 
+	     	<foreach collection="list" item="announceId" index="index"
+	            open="(" close=")" separator=",">
+	            #{announceId}
+	        </foreach>
+ 	</select>
+ 	
+ 	<!-- 通过模块id，查找该模块下面的活动元素集合 -->
+ 	<select id="selectActivityByTempletId" resultType="com.tp.model.cms.ActivityElement" parameterType="com.tp.model.cms.Temple">
+	     select t.id,t.activity_id as activityId,t.link,t.picture,t.status
+		from cms_position p
+		inner join cms_activity_element t on p.id=t.position_id
+		where  p.temple_id = #{id} and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+		order by p.seq
+ 	</select>
+ 	
+ 	<!-- 通过模块id，查找该模块下面的活动元素集合，分页查询 -->
+ 	<select id="selectActivityByTempletPage" resultType="com.tp.model.cms.ActivityElement" parameterType="com.tp.model.cms.Temple">
+	     select t.id,t.activity_id as activityId,t.link,t.picture,t.status
+		from cms_position p
+		inner join cms_activity_element t on p.id=t.position_id
+		where  p.temple_id = #{id} and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+		order by p.seq ,t.id desc
+		Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<!-- 通过模块ids，查找该模块下面的活动元素集合，分页查询 -->
+ 	<select id="selectActivityByTempletsPage" resultType="com.tp.model.cms.ActivityElement" parameterType="list">
+	     select t.id,t.activity_id as activityId,t.link,t.picture,t.status
+		from cms_position p
+		inner join cms_activity_element t on p.id=t.position_id
+		where  p.temple_id  
+		IN
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+		
+		and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+
+		<if test="promoterid != null ">
+			and t.activity_id not in(
+ 				select topic_id from dss_promoter_topic where promoter_id=#{promoterid} and type =0 and `status` =0
+ 			) 			
+ 		</if>
+			   			   
+		order by p.seq ,t.seq			
+		Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	
+ 	 	<!-- 通过模块ids，查找该模块下面的活动元素集合，分页查询 -->
+ 	<select id="selectActivityByTempletsPageForDSS" resultType="com.tp.model.cms.ActivityElement" parameterType="list">
+
+    	select act.id, act.activityId, act.link, act.picture, act.status, ifnull(dpt.`status`, 1) as showTopic From
+		(	     
+	     select t.id,t.activity_id as activityId,t.link,t.picture,t.status, p.seq as pseq, t.seq as tseq
+		from cms_position p
+		inner join cms_activity_element t on p.id=t.position_id
+		where  p.temple_id  
+		IN
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+		
+		and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+
+ 		and t.activity_id in(
+ 					select id from mmp_topic WHERE deletion=0 and sales_partten=8 and progress=1 and `status`=3 and (type=2 or type=3) 
+  			) 			
+  			
+  		<if test="nolist != null ">  			
+			<foreach collection="nolist" item="noid" index="index" open="  and t.activity_id not in(" separator="," close=")">
+				#{noid}
+			</foreach>  			
+ 		</if> 			
+			   			   
+	 ) act left join (select topic_id, status from dss_promoter_topic where type=0 and promoter_id=#{promoterid}  and status=0) dpt on(act.activityId=dpt.topic_id) 
+		order by act.pseq ,act.tseq			
+		Limit #{start},#{pageSize} 		
+				
+ 	</select>
+ 	
+ 	
+ 	<!-- 通过模块id，查找该模块下面的图片元素集合 -->
+ 	<select id="selectWrittenByTempletId" resultType="com.tp.model.cms.WrittenElement" parameterType="com.tp.model.cms.Temple">
+	     select t.id,t.link,t.name,t.status
+		from cms_position p
+		inner join cms_written_element t on p.id=t.position_id
+		where  p.temple_id = #{id} and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+		order by p.seq
+ 	</select>
+ 	
+ 	<!-- 通过模块id，查找该模块下面的文字元素集合 -->
+ 	<select id="selectPicByTempletId" resultType="com.tp.model.cms.PictureElement" parameterType="com.tp.model.cms.Temple">
+	     select t.id,t.actname,t.attr,t.link,t.name,
+				t.pic_src as picSrc,t.rollPicSrc,t.status,
+				t.sku,t.activityid as activityId,t.acttype as actType
+		from cms_position p
+		inner join cms_picture_element t on p.id=t.position_id
+		where  p.temple_id = #{id} and t.`status`=0 and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+		order by p.seq
+ 	</select>
+ 	
+ 	<!-- 通过模块id，查找该模块下面的自定义元素集合 -->
+ 	<select id="selectDefinedByTempletId" resultType="com.tp.model.cms.DefinedElement" parameterType="com.tp.model.cms.Temple">
+	     select t.id,t.name,t.content
+		from cms_position p
+		inner join cms_defined_element t on p.id=t.position_id
+		where  p.temple_id = #{id} and t.`status`=0  and p.status=0
+			   <![CDATA[ AND t.startdate <= NOW()]]> 
+			   <![CDATA[ AND t.enddate >= NOW()]]> 
+ 	</select>
+
+	<!-- 通过模块编码，查找与编码相匹配的所有模块id值的集合 -->
+ 	<select id="selectTempletByTempletCode" resultType="com.tp.model.cms.Temple" parameterType="com.tp.model.cms.Temple">
+	     select t.id from cms_temple t
+		where t.temple_code like concat(#{templeCode},'%')
+			  and t.`status`=0
+		order by t.seq
+ 	</select>
+	
+	<!-- 查询该模板下面是否已经超过模板限定个数 -->
+ 	<select id="selectTempletByCounts" resultType="com.tp.model.cms.Temple" parameterType="com.tp.model.cms.Temple">
+	     select t.element_num-count(*) as elementNum
+		from cms_temple t
+		inner join  cms_position n on n.temple_id=t.id
+		where n.`status`=0 
+		<if test="id != null "> <![CDATA[ AND n.id<>#{id} ]]>  </if>
+		<if test="pageId != null "> AND t.id=#{pageId} </if>
+ 	</select>
+ 	
+</mapper>

@@ -1,0 +1,1 @@
+var content=xigou.getLocalStorage("itemdetail");"undefined"!=typeof content&&$(".detail-content").html(content),isWeiXin()&&($("header").hide(),$(".detail-content").css({"margin-top":"0"}),$("title").html("图文详情"));

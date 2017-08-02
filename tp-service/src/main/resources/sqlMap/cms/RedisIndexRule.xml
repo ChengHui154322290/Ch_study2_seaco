@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.RedisIndexRuleDao">
+	<resultMap type="com.tp.model.cms.RedisIndexRule" id="CmsRedisIndexRuleDOResultMap">
+				<id column="id" property="id"/>
+				<result column="function_name" property="functionName"/>
+				<result column="function_code" property="functionCode"/>
+				<result column="platform_type" property="platformType"/>
+				<result column="area" property="area"/>
+				<result column="area_code" property="areaCode"/>
+				<result column="first_key" property="firstKey"/>
+				<result column="second_key" property="secondKey"/>
+				<result column="page" property="page"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="creater" property="creater"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="updater" property="updater"/>
+	</resultMap>
+	<sql id="allColumnFields">
+	      id,function_name,function_code,platform_type,area,area_code,first_key,second_key,
+	      page,status,create_time,creater,update_time,updater
+ 	</sql>
+	<sql id="dynamicWhereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="functionName != null  and functionName != '' "> AND function_name like concat(concat('%', #{functionName}),'%') </if>
+			<if test="functionCode != null  and functionCode != '' "> AND function_code=#{functionCode} </if>
+			<if test="platformType != null and platformType != '' "> AND platform_type=#{platformType} </if>
+			<if test="area != null  and area != '' "> AND area like concat(concat('%', #{area}),'%') </if>
+			<if test="areaCode != null  and areaCode != '' "> AND area_code=#{areaCode} </if>
+			<if test="firstKey != null  and firstKey != '' "> AND first_key=#{firstKey} </if>
+			<if test="secondKey != null  and secondKey != '' "> AND second_key=#{secondKey} </if>
+			<if test="page != null  "> AND page=#{page} </if>
+			<if test="status != null  "> AND status=#{status} </if>
+		</where>
+ 	</sql>
+	<select id="selectAdvertPageQuery" resultType="com.tp.dto.cms.CmsRedisIndexRuleDTO" parameterType="java.util.Map">
+	     SELECT
+	     	id,function_name as functionName,function_code as functionCode,
+	     	platform_type as platformType,area,area_code as areaCode,
+	     	first_key as firstKey,second_key as secondKey,
+	      	page,status,create_time as createTime,creater,
+	      	update_time as updateTime,updater
+		 FROM
+		 	cms_redis_index_rule
+	 	<include refid="dynamicWhereFields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectByIds" parameterType="long" resultMap="CmsRedisIndexRuleDOResultMap">
+		SELECT
+			<include refid="allColumnFields" />
+		FROM
+			cms_redis_index_rule
+		WHERE
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_redis_index_rule WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<update id="openByIds" parameterType="java.util.List" >
+		update cms_redis_index_rule set status='0'
+		WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</update>
+	
+	<update id="noOpenByIds" parameterType="java.util.List" >
+		update cms_redis_index_rule set status='1'
+		WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</update>
+</mapper>

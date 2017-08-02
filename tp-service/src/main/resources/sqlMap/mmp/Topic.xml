@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TopicDao">
+	<resultMap type="com.tp.model.mmp.Topic" id="topic">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="status" property="status"/>
+				<result column="start_time" property="startTime"/>
+				<result column="limit_policy_id" property="limitPolicyId"/>
+				<result column="is_test" property="isTest"/>
+				<result column="type" property="type"/>
+				<result column="sales_partten" property="salesPartten"/>
+				<result column="display_pages" property="displayPages"/>
+				<result column="age_start_key" property="ageStartKey"/>
+				<result column="age_end_key" property="ageEndKey"/>
+				<result column="sort_lock_status" property="sortLockStatus"/>
+				<result column="number" property="number"/>
+				<result column="discount" property="discount"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="progress" property="progress"/>
+				<result column="is_support_supplier" property="isSupportSupplier"/>
+				<result column="freight_templet" property="freightTemplet"/>
+				<result column="topic_point" property="topicPoint"/>
+				<result column="sort_index" property="sortIndex"/>
+				<result column="deletion" property="deletion"/>
+				<result column="lasting_type" property="lastingType"/>
+				<result column="end_time" property="endTime"/>
+				<result column="is_support_supplier_info" property="isSupportSupplierInfo"/>
+				<result column="remark" property="remark"/>
+				<result column="area_str" property="areaStr"/>
+				<result column="platform_str" property="platformStr"/>
+				<result column="image" property="image"/>
+				<result column="image_new" property="imageNew"/>
+				<result column="image_mobile" property="imageMobile"/>
+				<result column="image_interested" property="imageInterested"/>
+				<result column="image_hitao" property="imageHitao"/>
+				<result column="intro" property="intro"/>
+				<result column="intro_mobile" property="introMobile"/>
+				<result column="pc_image" property="pcImage"/>
+				<result column="pc_interest_image" property="pcInterestImage"/>
+				<result column="mobile_image" property="mobileImage"/>
+				<result column="mall_image" property="mallImage"/>
+				<result column="haitao_image" property="haitaoImage"/>
+				<result column="pc_index" property="pcIndex"/>
+				<result column="wap_index" property="wapIndex"/>
+				<result column="ios_index" property="iosIndex"/>
+				<result column="android_index" property="androidIndex"/>
+				<result column="wx_index" property="wxIndex"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="can_use_xg_money" property="canUseXgMoney"/>
+				<result column="reserve_inventory_flag" property="reserveInventoryFlag"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,status,start_time,limit_policy_id,is_test,type,sales_partten,display_pages,age_start_key,age_end_key
+		,sort_lock_status,number,discount,brand_id,brand_name,progress,is_support_supplier,freight_templet,topic_point
+		,sort_index,deletion,lasting_type,end_time,is_support_supplier_info,remark,area_str,platform_str
+		,image,image_new,image_mobile,image_interested,image_hitao,intro,intro_mobile,pc_image,pc_interest_image
+		,mobile_image,mall_image,haitao_image,pc_index,wap_index,ios_index,android_index,wx_index,create_time
+		,create_user,update_time,update_user, supplier_id, supplier_name,can_use_xg_money,reserve_inventory_flag
+	</sql>
+
+
+	<sql id="whereWithLike"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			sales_partten !=7
+			<if test="id != null "> AND id=#{id} </if>
+			<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+			<if test="type != null"> AND type=#{type} </if>
+			<if test="salesPartten != null"> AND sales_partten=#{salesPartten} </if>
+			<if test="number != null  and number != '' "> AND number like '%${number}%' </if>
+			<if test="discount != null  and discount != '' "> AND discount like '%${discount}%' </if>
+			<if test="brandId != null "> AND brand_id=#{brandId} </if>
+			<if test="brandName != null  and brandName != '' "> AND brand_name like '%${brandName}%' </if>
+			<if test="status != null"> AND status=#{status} </if>
+			<if test="progress != null"> AND progress=#{progress} </if>
+			<if test="isSupportSupplier != null"> AND is_support_supplier=#{isSupportSupplier} </if>
+			<if test="freightTemplet != null"> AND freight_templet=#{freightTemplet} </if>
+			<if test="sortIndex != null"> AND sort_index=#{sortIndex} </if>
+			<if test="deletion != null"> AND deletion=#{deletion} </if>
+			<if test="lastingType != null"> AND lasting_type=#{lastingType} </if>
+			<if test="isSupportSupplierInfo != null"> AND is_support_supplier_info=#{isSupportSupplierInfo} </if>
+			<if test="topicPoint != null  and topicPoint != '' "> AND topic_point like '%${topicPoint}%' </if>
+			<if test="remark != null  and remark != '' "> AND remark=#{remark} </if>
+			<if test="limitPolicyId != null"> AND limit_policy_id=#{limitPolicyId} </if>
+			<if test="areaStr != null  and areaStr != '' "> AND area_str like #{areaStr} </if>
+			<if test="platformStr != null  and platformStr != '' "> AND platform_str=#{platformStr} </if>
+			<if test="image != null  and image != '' "> AND image=#{image} </if>
+			<if test="imageNew != null  and imageNew != '' "> AND image_new=#{imageNew} </if>
+			<if test="imageMobile != null  and imageMobile != '' "> AND image_mobile=#{imageMobile} </if>
+			<if test="imageInterested != null  and imageInterested != '' "> AND image_interested=#{imageInterested} </if>
+			<if test="imageHitao != null  and imageHitao != '' "> AND image_hitao=#{imageHitao} </if>
+			<if test="pcImage != null  and pcImage != '' "> AND pc_image=#{pcImage} </if>
+			<if test="pcInterestImage != null  and pcInterestImage != '' "> AND pc_interest_image=#{pcInterestImage} </if>
+			<if test="mobileImage != null  and mobileImage != '' "> AND mobile_image=#{mobileImage} </if>
+			<if test="mallImage != null  and mallImage != '' "> AND mall_image=#{mallImage} </if>
+			<if test="haitaoImage != null  and haitaoImage != '' "> AND haitao_image=#{haitaoImage} </if>
+			<if test="intro != null  and intro != '' "> AND intro=#{intro} </if>
+			<if test="introMobile != null  and introMobile != '' "> AND intro_mobile=#{introMobile} </if>
+
+
+		</where>
+	</sql>
+
+	<select id="getMaxTopicSortIndex" resultType="int">
+		SELECT
+		max(sort_index)
+		FROM
+		mmp_topic
+	</select>
+
+	<select id="queryTopicInfoList" resultMap="topic" parameterType="list">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where id in
+		<foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="selectDynamicPageQueryWithLike" resultMap="topic" parameterType="com.tp.model.mmp.Topic">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		<include refid="whereWithLike" />
+		 ORDER  BY
+		<choose>
+			<when test="sortField != null and sortField==1">
+				start_time desc
+			</when>
+			<when test="sortField != null and sortField==2">
+				start_time asc
+			</when>
+			<when test="sortField != null and sortField==3">
+				end_time desc
+			</when>
+			<when test="sortField != null and sortField==4">
+				end_time asc
+			</when>
+			<otherwise>
+				id desc
+			</otherwise>
+		</choose>
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="getTopicsWithoutSpecialIdCount" resultType="long" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		WHERE
+		id != #{id}
+		AND status = #{status}
+		AND deletion =#{deletion}
+		<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+		<if test="number != null  and number != '' "> AND number like '%${number}%'</if>
+	</select>
+
+	<select id="getTopicsWithoutSpecialId" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		WHERE
+		id != #{id}
+		AND status = #{status}
+		AND deletion = #{deletion}
+		<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+		<if test="number != null  and number != '' "> AND number like '%${number}%'</if>
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="selectCountWithLike" resultType="long" parameterType="com.tp.model.mmp.Topic">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		<include refid="whereWithLike" />
+	</select>
+
+
+	<select id="queryTopicListCms" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3 and type != 4
+		<if test="topicId != null  and topicId != '' "> AND id = #{topicId} </if>
+		<if test="topicType != null  and topicType != '' and topicType !='0' "> AND type = #{topicType} </if>
+		<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{endTime}  ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND end_time  >= #{startTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str= '' or area_str like '%9999999%' or area_str like '%${areaId}%') </if>
+		<if test="salesPartten != null "> AND sales_partten = #{salesPartten} </if>
+		order by number asc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTopicListCms" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3 and type != 4
+		<if test="topicId != null  and topicId != '' "> AND id = #{topicId} </if>
+		<if test="topicType != null  and topicType != '' and topicType !='0' "> AND type = #{topicType} </if>
+		<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{endTime}  ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND end_time  >= #{startTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str= '' or area_str like '%9999999%' or area_str like '%${areaId}%') </if>
+		<if test="salesPartten != null "> AND sales_partten = #{salesPartten} </if>
+	</select>
+
+	<select  id="queryTopicInList" parameterType="list" resultMap="topic">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		ID
+		IN
+		<foreach collection="list" item="topicId" index="index" open="(" separator="," close=")">
+			#{topicId}
+		</foreach>
+	</select>
+
+
+	<!-- 明日预告 -->
+	<select id="getTomorrowForecast" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3 and type != 4 and type != 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  >=  #{startTime}  ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND start_time  <= #{endTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str= '' or area_str like '%9999999%' or area_str like '%${areaId}%') </if>
+		order by number asc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTomorrowForecast" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3   and type != 4 and type != 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  >=  #{startTime}  ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND start_time  <= #{endTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+	</select>
+
+
+
+	<!--  今日特卖 （非单品团）SQL优化-->
+	<select id="getTodayTopic" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type != 1 and type != 4
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+		ORDER BY (CASE WHEN DATE_FORMAT(start_time,'%Y/%m/%d') = DATE_FORMAT(NOW(),'%Y/%m/%d') THEN 99999999999 ELSE (end_time - NOW()) END) DESC
+		Limit #{start},#{pageSize}
+	</select>
+
+
+	<select id="countTodayTopic" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type != 1  and type != 4
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+	</select>
+
+
+	<!-- 今日必海淘 （单品团） -->
+	<select id="getTodaySingleTopic" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type = 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+		order by number asc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTodaySingleTopic" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type = 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+	</select>
+
+
+
+	<!-- 今日全部活动 （移动端今日上新）  去除单品团  -->
+	<select id="getTodayAllTopic" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3  and type != 4 and type != 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+		order by number asc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTodayAllTopic" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3  and type != 4 and type != 1
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+	</select>
+
+
+	<!-- 最后疯抢 -->
+	<select id="getTodayLastRash" resultMap="topic" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type != 1  and type != 4
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND end_time  <= #{endTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+		order by number asc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="countTodayLastRash" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type != 1  and type != 4
+		and name not like 'mtqas%'
+		and sales_partten = 1
+		<if test="startTime != null  and startTime != '' "> <![CDATA[ AND start_time  <=  #{startTime} AND end_time >= #{startTime} ]]>  </if>
+		<if test="endTime != null  and endTime != '' "> <![CDATA[ AND end_time  <= #{endTime}  ]]>  </if>
+		<if test="platformType != null  and platformType != '' "> AND (platform_str is null or platform_str  like '%1%' or platform_str like '%${platformType}%') </if>
+		<if test="areaId != null  and areaId != '' "> AND (area_str is null or area_str = '9999999' or area_str like '%${areaId}%') </if>
+
+	</select>
+
+
+	<!-- 最新几个单品团 -->
+	<select id="queryLastestSingleTopic" resultMap = "topic" parameterType="int">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status = 3
+		and type = 1
+		and deletion = 0
+		and name not like 'mtqas%'
+		order by create_time desc
+		limit 0,#{size}
+	</select>
+
+
+
+	<select id="getScanTopicIds" resultType="long" parameterType="java.util.Map">
+		SELECT
+		id
+		FROM
+		mmp_topic
+		WHERE
+		status = #{status}
+		AND type != 4
+		AND deletion = 0
+		<if test="date != null  and date != '' "> <![CDATA[ AND (start_time  <=  #{date}  or  end_time  <=  #{date}) ]]>  </if>
+	</select>
+
+
+	<select  id="getSingleAvailableTopicIdByIds" parameterType="java.util.Map" resultType="Long">
+		SELECT
+		id
+		FROM
+		mmp_topic
+		where
+		status = #{status}
+		AND progress = #{progress}
+		AND type != 4
+		AND deletion = 0
+		AND id in
+		<foreach item="id" index="index" collection="ids" open="("
+				 separator="," close=")">
+			#{id}
+		</foreach>
+		limit 0, 1
+	</select>
+
+
+	<select  id="getBusAvailableTopicList" parameterType="list" resultMap="topic">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic
+		where
+		status in (3,5)
+		AND type != 4
+		AND deletion = 0
+		order by number asc
+	</select>
+
+
+	<select id="queryTopicForGroupbuy" parameterType="java.util.Map" resultMap="topic">
+		SELECT
+		<include refid="columns"/>
+		FROM
+		mmp_topic
+		WHERE
+	<include refid="queryTopicForGroupbuyWhereCause"/>
+		ORDER BY  id DESC
+		limit #{start},#{pageSize}
+
+	</select>
+
+	<select id="queryTopicForGroupbuyCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		COUNT(0)
+		FROM
+		mmp_topic
+		WHERE
+		<include refid="queryTopicForGroupbuyWhereCause"/>
+
+
+	</select>
+
+
+	<sql id="queryTopicForGroupbuyWhereCause">
+		sales_partten = 7
+		<if test="topicId!=null">
+			AND  id = #{topicId}
+		</if>
+		<if test="name!= null and name !=''">
+			AND  name LIKE '%${name}%'
+		</if>
+		<if test="status !=null">
+			AND  status = #{status}
+		</if>
+		<if test="startTime!= null">
+			AND  start_time >= #{startTime}
+		</if>
+		<if test="endTime!=null">
+			AND  end_time  <![CDATA[<=]]> #{endTime}
+		</if>
+	</sql>
+
+	<select id="queryTopicIdsForGroupbuyAPP" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		id
+		FROM
+		mmp_topic
+		WHERE
+		<include refid="queryTopicForGroupbuyAPPWhereCause"/>
+
+	</select>
+
+	<select id="queryTopicForGroupbuyAPP" parameterType="java.util.Map" resultMap="topic">
+		SELECT
+		<include refid="columns"/>
+		FROM
+		mmp_topic
+		WHERE
+		<include refid="queryTopicForGroupbuyAPPWhereCause"/>
+		ORDER BY  id DESC
+		limit #{start},#{pageSize}
+
+	</select>
+
+	<select id="queryTopicForGroupbuyAPPCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		COUNT(0)
+		FROM
+		mmp_topic
+		WHERE
+		<include refid="queryTopicForGroupbuyAPPWhereCause"/>
+
+
+	</select>
+
+
+	<sql id="queryTopicForGroupbuyAPPWhereCause">
+		sales_partten = 7
+		<if test="topicId!=null">
+			AND  id = #{topicId}
+		</if>
+		<if test="name!= null and name !=''">
+			AND  name LIKE '%${name}%'
+		</if>
+		<if test="status !=null">
+			AND  status = #{status}
+		</if>
+		<if test="startTime!= null">
+			AND  start_time <![CDATA[<=]]> now()
+		</if>
+		<if test="endTime!=null">
+			AND  end_time >= now()
+		</if>
+	</sql>
+
+
+</mapper>

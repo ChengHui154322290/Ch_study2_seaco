@@ -1,0 +1,219 @@
+body{
+	background:#eee;
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+
+header {
+	height: 50px;
+	position: fixed;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	top: 0px;
+	width: 100%;
+	z-index: 100;
+	display:none;
+}
+
+.sales_items{
+	background:#fff;
+	margin-top:10px;
+}
+
+.sales_items ul{
+	margin-left:10px;
+}
+
+.sales_items ul li{
+	height:49px;
+	line-height:49px;
+	border-bottom:1px solid #ccc;
+	font-size:15px;
+	color:#333;
+}
+
+#border_li{
+	border-bottom:none;
+}
+
+.sale_items_all{
+	background:url("../img/item/arrow-in.png") no-repeat center right;
+	float:right;
+	font-size:14px;
+	color:#333;
+    padding-right: 20px;
+    margin-right: 10px;
+    background-size: 8px;
+}
+
+.sale_status{
+	float:right;
+	font-size:14px;
+	color:#333;
+    margin-right: 10px;
+}
+
+.times{
+    float: right;
+    padding-top: 12px;
+    line-height: 23px;
+    margin-right:5px;
+}
+
+.time{
+	height:23px;
+	width:60px;
+	font-size:14px;
+	color:#333;
+	border:1px solid #333;
+	border-radius:6px;
+	float:left;
+	margin-right:5px;
+	text-align: center;
+}
+
+.time_change{
+	background:#333;
+	color:#fff;
+}
+
+.search{
+	margin-top:10px;
+	height:49px;
+	width:98%;
+	background: #fff;
+	padding-left:10px;
+	font-size:15px;
+}
+
+.search input{
+	height:48px;
+	line-height:49px;
+	border:none;
+	width:80%;
+	margin-left:20px;
+	font-size:14px;
+}
+li input{
+	height:48px;
+	line-height:49px;
+	border:none;
+	width: 72%;
+	margin-right:5px;
+	font-size:14px;
+	background:url("../img/item/arrow-in.png") no-repeat center right;
+	background-size: 8px;
+	padding-right:15px;
+	text-align:right;
+}
+
+@media screen and (min-width: 320px) and (max-width: 330px)  {
+	.search input, li input{
+		width:72%;
+	}
+}
+@media screen and (min-width: 331px) and (max-width: 360px)  {
+	.search input{
+			width:75%;
+	}
+	li input{
+			width:76%;
+	}
+}
+@media screen and (min-width: 361px) and (max-width: 375px)  {
+	.search input{
+			width:75%;
+	}
+	li input{
+			width:77%;
+	}
+}
+
+@media screen and (min-width: 376px) and (max-width: 384px)  {
+	.search input{
+			width:77%;
+	}
+	li input{
+			width:78%;
+	}
+}
+
+@media screen and (min-width: 385px) and (max-width: 414px)  {
+	.search input{
+			width:78%;
+	}
+	li input{
+			width:79%;
+	}
+}
+
+@media screen and (min-width: 415px) and (max-width: 768px)  {
+	.search{
+		width:99%;
+	}
+	.search input{
+			width:88%;
+	}
+	li input{
+			width:89%;
+	}
+}
+
+@media screen and (min-width: 768px)  {
+	.search{
+		width:100%;
+	}
+	.search input{
+			width:88%;
+	}
+	li input{
+			width:89%;
+	}
+}
+
+.btn{
+	background: #333;
+    width: 93%;
+    display: block;
+    margin-top: 20px;
+    height: 49px;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 49px;
+    font-size: 17px;
+    color: #fff;
+    border-radius:6px;
+}
+
+.actionBar ul li {
+    float: left;
+    list-style: none;
+    width: 25%;
+    text-align: center;
+    height: 50px;
+}
+
+.xg-active .bar-index {
+    background: url(../img/store/store_sales.png) center 5px no-repeat;
+    color:#999;
+    background-size: 25px;
+}
+
+.bar-shop {
+    background: url(../img/store/store_change.png) center 5px no-repeat;
+    background-size: 25px;
+}
+
+.bar-classify {
+    background: url(../img/store/store_record_1.png) center 5px no-repeat;
+    color:#000;
+    background-size: 25px;
+}
+
+.bar-cart {
+    background: url(../img/store/store_manager.png) center 5px no-repeat;
+    background-size: 25px;
+}

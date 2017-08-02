@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.ContractPropertiesDao">
+	<resultMap type="com.tp.model.sup.ContractProperties" id="contractProperties">
+				<id column="id" property="id"/>
+				<result column="contract_id" property="contractId"/>
+				<result column="sup_link_name" property="spLinkName"/>
+				<result column="sup_link_type" property="spLinkType"/>
+				<result column="sup_mobile_phone" property="spMobilePhone"/>
+				<result column="sup_telephone" property="spTelephone"/>
+				<result column="sup_link_address" property="spLinkAddress"/>
+				<result column="sup_email" property="spEmail"/>
+				<result column="sup_fax" property="spFax"/>
+				<result column="sup_qq" property="spQq"/>
+				<result column="xg_dept_id" property="xgDeptId"/>
+				<result column="xg_dept_name" property="xgDeptName"/>
+				<result column="xg_user_id" property="xgUserId"/>
+				<result column="xg_user_name" property="xgUserName"/>
+				<result column="xg_mobile_phone" property="xgMobilePhone"/>
+				<result column="xg_telephone" property="xgTelephone"/>
+				<result column="xg_link_address" property="xgLinkAddress"/>
+				<result column="xg_email" property="xgEmail"/>
+				<result column="xg_fax" property="xgFax"/>
+				<result column="xg_qq" property="xgQq"/>
+				<result column="bank_name" property="bankName"/>
+				<result column="bank_account" property="bankAccount"/>
+				<result column="bank_currency" property="bankCurrency"/>
+				<result column="bank_acc_name" property="bankAccName"/>
+				<result column="sup_invoice_name" property="spInvoiceName"/>
+				<result column="sup_bank_name" property="spBankName"/>
+				<result column="sup_bank_account" property="spBankAccount"/>
+				<result column="sup_invoice_link_address" property="spInvoiceLinkAddress"/>
+				<result column="sup_taxpayer_code" property="spTaxpayerCode"/>
+				<result column="sup_bank_acc_name" property="spBankAccName"/>
+				<result column="sup_link_phone" property="spLinkPhone"/>
+				<result column="base_legal_person" property="baseLegalPerson"/>
+				<result column="base_link_name" property="baseLinkName"/>
+				<result column="base_link_address" property="baseLinkAddress"/>
+				<result column="base_email" property="baseEmail"/>
+				<result column="base_link_phone" property="baseLinkPhone"/>
+				<result column="base_fax" property="baseFax"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+	      id,contract_id,sup_link_name,sup_link_type,sup_mobile_phone,sup_telephone,sup_link_address,sup_email,sup_fax,sup_qq,xg_dept_id,xg_dept_name,xg_user_id,xg_user_name,xg_mobile_phone,xg_telephone,xg_link_address,xg_email,xg_fax,xg_qq,bank_name,bank_account,bank_currency,bank_acc_name,sup_invoice_name,sup_bank_name,sup_bank_account,sup_invoice_link_address,sup_taxpayer_code,sup_bank_acc_name,sup_link_phone,base_legal_person,base_link_name,base_link_address,base_email,base_link_phone,base_fax,status,create_time,update_time,create_user,update_user
+ 	</sql>
+ 	
+ 	<insert id="batchInsert" parameterType="list" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_contract_properties(
+				id,
+				contract_id,
+				sup_link_name,
+				sup_link_type,
+				sup_mobile_phone,
+				sup_telephone,
+				sup_link_address,
+				sup_email,
+				sup_fax,
+				sup_qq,
+				xg_dept_id,
+				xg_dept_name,
+				xg_user_id,
+				xg_user_name,
+				xg_mobile_phone,
+				xg_telephone,
+				xg_link_address,
+				xg_email,
+				xg_fax,
+				xg_qq,
+				bank_name,
+				bank_account,
+				bank_currency,
+				bank_acc_name,
+				sup_invoice_name,
+				sup_bank_name,
+				sup_bank_account,
+				sup_invoice_link_address,
+				sup_taxpayer_code,
+				sup_bank_acc_name,
+				sup_link_phone,
+				base_legal_person,
+				base_link_name,
+				base_link_address,
+				base_email,
+				base_link_phone,
+				base_fax,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user
+		)values
+		<foreach collection="list" item="cp" index="index" separator="," >
+		(
+				#{cp.id},
+				#{cp.contractId},
+				#{cp.spLinkName},
+				#{cp.spLinkType},
+				#{cp.spMobilePhone},
+				#{cp.spTelephone},
+				#{cp.spLinkAddress},
+				#{cp.spEmail},
+				#{cp.spFax},
+				#{cp.spQq},
+				#{cp.xgDeptId},
+				#{cp.xgDeptName},
+				#{cp.xgUserId},
+				#{cp.xgUserName},
+				#{cp.xgMobilePhone},
+				#{cp.xgTelephone},
+				#{cp.xgLinkAddress},
+				#{cp.xgEmail},
+				#{cp.xgFax},
+				#{cp.xgQq},
+				#{cp.bankName},
+				#{cp.bankAccount},
+				#{cp.bankCurrency},
+				#{cp.bankAccName},
+				#{cp.spInvoiceName},
+				#{cp.spBankName},
+				#{cp.spBankAccount},
+				#{cp.spInvoiceLinkAddress},
+				#{cp.spTaxpayerCode},
+				#{cp.spBankAccName},
+				#{cp.spLinkPhone},
+				#{cp.baseLegalPerson},
+				#{cp.baseLinkName},
+				#{cp.baseLinkAddress},
+				#{cp.baseEmail},
+				#{cp.baseLinkPhone},
+				#{cp.baseFax},
+				#{cp.status},
+				now(),
+				now(),
+				#{cp.createUser},
+				#{cp.createUser}
+		)
+		</foreach>
+    </insert>
+    
+    <update id="updateStatusByContractId" parameterType="map">
+ 	    UPDATE sup_contract_properties
+		SET
+			status = #{status},
+			update_time = now(),
+			update_user = #{updateUser}
+		WHERE
+			contract_id = #{contractId}
+ 	</update>
+</mapper>

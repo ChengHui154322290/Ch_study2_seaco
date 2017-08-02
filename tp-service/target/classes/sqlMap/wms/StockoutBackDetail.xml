@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockoutBackDetailDao">
+	<resultMap type="com.tp.model.wms.StockoutBackDetail" id="stockoutBackDetail">
+				<id column="id" property="id"/>
+				<result column="stockout_back_id" property="stockoutBackId"/>
+				<result column="item_sku" property="itemSku"/>
+				<result column="stock_sku" property="stockSku"/>
+				<result column="product_no" property="productNo"/>
+				<result column="quantity" property="quantity"/>
+				<result column="weight" property="weight"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,stockout_back_id,item_sku,stock_sku,product_no,quantity,weight,create_time
+	</sql>
+	<insert id="insertDetails" parameterType="list">
+        INSERT INTO wms_stockout_back_detail
+        	(stockout_back_id,item_sku,stock_sku,product_no,quantity,weight,create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.stockoutBackId},#{item.itemSku},#{item.stockSku},#{item.productNo},#{item.quantity},#{item.weight},#{item.createTime})
+		</foreach>
+    </insert>
+</mapper>

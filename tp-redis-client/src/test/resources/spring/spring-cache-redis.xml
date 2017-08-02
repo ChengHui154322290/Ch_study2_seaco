@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:loxia="http://loxia.benjamin.cn/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<bean id="cache_pool_config" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="8" /><!-- 连接池中最大实例 数-->
+		<property name="maxIdle" value="8" /><!-- 连接池中最大闲置实例数-->
+		<property name="minIdle" value="0" /><!-- 连接池中最小闲置实例数-->
+		<property name="maxWaitMillis" value="-1" /><!-- 最长等待时间 默认值为-1 单位：毫秒-->
+		<property name="testOnBorrow" value="true"></property>
+	</bean>
+
+	<bean id="cache_jedis_shard_info_0" class="redis.clients.jedis.JedisShardInfo"
+		scope="singleton">
+		<constructor-arg name="host" value="192.168.1.249" /><!-- IP -->
+		<constructor-arg name="port" value="6379" type="int" /><!-- 端口 -->
+		<constructor-arg name="timeout" value="2000" type="int" /><!-- 超时时间设置 默认2000 -->
+		<constructor-arg name="weight" value="1" type="int" /><!-- 权重 默认为1-->
+	</bean>
+
+	<bean id="cache_jedis_shard_info_1" class="redis.clients.jedis.JedisShardInfo"
+		scope="singleton">
+		<constructor-arg name="host" value="192.168.1.249" />
+		<constructor-arg name="port" value="6380" type="int" />
+		<constructor-arg name="timeout" value="30" type="int" />
+		<constructor-arg name="weight" value="10" type="int" />
+	</bean>
+
+	<bean id="cacheShardJedisPool" class="com.tp.redis.CacheShardedJedisPool"
+		destroy-method="destroy">
+		<constructor-arg name="poolConfig" ref="cache_pool_config"></constructor-arg>
+		<constructor-arg name="shards">
+			<list>
+				<ref bean="cache_jedis_shard_info_0" />
+				<ref bean="cache_jedis_shard_info_1" />
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="jedisCacheUtil" class="com.tp.redis.util.JedisCacheUtil"
+		scope="singleton"><!-- JedisCacheUtil bean 配置,如果一个应用中有多个业务，使用的缓存是不同的系统，可以配置多个此类，但 spring 
+			bean id 一定不能重复 -->
+		<property name="cacheShardJedisPool" ref="cacheShardJedisPool"></property>
+		<property name="projectPrefixKey" value="order"></property><!-- 项目前缀，此值会生成在每个key的前面 -->
+	</bean>
+
+ 	<bean id="monitorJedis" class="com.tp.redis.MonitorJedis"
+		scope="singleton">
+	</bean> 
+
+</beans>

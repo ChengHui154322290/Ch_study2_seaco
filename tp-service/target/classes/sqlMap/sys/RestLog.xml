@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sys.RestLogDao">
+	<resultMap type="com.tp.model.sys.RestLog" id="restLog">
+				<id column="id" property="id"/>
+				<result column="type" property="type"/>
+				<result column="method" property="method"/>
+				<result column="url" property="url"/>
+				<result column="content" property="content"/>
+				<result column="result" property="result"/>
+				<result column="request_time" property="requestTime"/>
+				<result column="remain1" property="remain1"/>
+				<result column="remain2" property="remain2"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,type,method,url,content,result,request_time,remain1,remain2,create_time
+	</sql>
+</mapper>

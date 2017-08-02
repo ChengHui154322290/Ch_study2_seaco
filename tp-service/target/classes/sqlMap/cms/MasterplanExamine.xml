@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.MasterplanExamineDao">
+	<resultMap type="com.tp.model.cms.MasterplanExamine" id="masterplanExamine">
+				<id column="id" property="id"/>
+				<result column="cme_user_name" property="cmeUserName"/>
+				<result column="cme_user_id" property="cmeUserId"/>
+				<result column="cme_result" property="cmeResult"/>
+				<result column="cme_suggestion" property="cmeSuggestion"/>
+				<result column="cme_date" property="cmeDate"/>
+				<result column="cme_activity_id" property="cmeActivityId"/>
+	</resultMap>
+</mapper>

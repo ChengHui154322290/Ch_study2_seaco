@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.TimestampDao">
+    <select id="getTimestamp" resultType="java.util.Date" parameterType="java.lang.String">
+        SELECT timestamp FROM  sch_timestamp WHERE code=#{code} limit 0,1
+    </select>
+    <insert id="insert" >
+        INSERT INTO sch_timestamp (timestamp,code) VALUES (
+        #{timestamp},#{code}
+        )
+
+    </insert>
+
+    <update id="update">
+        UPDATE  sch_timestamp SET  timestamp = #{timestamp} WHERE  code = #{code}
+    </update>
+
+</mapper>

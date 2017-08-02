@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:loxia="http://loxia.benjamin.cn/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<bean id="mq_base_config" class="com.tp.mq.domain.MqBaseConfig"
+		init-method="init" lazy-init="false">
+		<property name="hosts" value="${mq.hosts}" /><!--ip hosts -->
+		<property name="username" value="${mq.username}" /><!-- 用户名 -->
+		<property name="password" value="${mq.password}" /><!-- 密码 -->
+		<property name="productConnectionCount" value="${mq.productConnectionCount}" /><!--生产者连接数, 具体数值视应用 -->
+		<property name="productThreadCount" value="${mq.productThreadCount}" /><!-- 生产者线程数, 具体数值视应用 -->
+		<property name="consumerConnectionCount" value="${mq.consumerConnectionCount}" /><!--消费者连接数, 具体数值视应用 -->
+		<property name="consumerThreadCount" value="${mq.consumerThreadCount}" /><!-- 消费者线程数, 具体数值视应用 -->
+	</bean>
+
+
+	<!-- ####################### CMS MQ CONFIGS BEGIN ############################# -->
+	<!-- 点对点消息配置对象,该队列是为了设置cms首页需要查询的值都存放缓存中 -->
+	<bean id="cms_advert_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="cms_advertise_queue_p2p" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<!-- 点对点消息配置对象,该队列是为了设置促销活动改变后需要同步到cms中 -->
+	<bean id="promotion_cms_topic_change_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="promotion_cms_topic_change_queue_p2p" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<!-- 点对点消息配置对象,该队列是为了设置促销活动把前台首页需要展示的活动信息的缓存的key值传递过来，cms根据key去缓存中找，找到后进行遍历 -->
+	<bean id="promotion_cms_redis_change_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="promotion_cms_redis_change_queue_p2p" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="rabbitMqProducer" class="com.tp.mq.RabbitMqProducer"><!-- 生产者实例 -->
+		<property name="messageConfigs" ref="messageConfigs"></property>
+	</bean>
+
+	<bean id="p2p_cms_schuedul_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="cms_advert_queue_bean"></property>
+		<property name="messageCallBack" ref="cmsAdvertUpdateListenerCallback"></property>
+	</bean>
+
+	<bean id="p2p_promotion_cms_topic_change_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="promotion_cms_topic_change_queue_bean"></property>
+		<property name="messageCallBack" ref="promotionTopicChangeCallback"></property>
+	</bean>
+
+	<bean id="promotion_cms_redis_change_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="promotion_cms_redis_change_queue_bean"></property>
+		<property name="messageCallBack" ref="cmsPromotionRedisChangeCallback"></property>
+	</bean>
+
+	<bean id="promotion_cms_queue_p2p" class="com.tp.mq.domain.MqP2pConfig">
+		<!-- 点对点消息配置对象 -->
+		<property name="queueName" value="promotion_cms_topic_change_queue_p2p" />
+		<!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" />
+		<!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" />
+		<!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+		<property name="autoAck" value="false"></property>
+		<!--false为 不自动应答消息(自动应答后，接收到消息会自动删除掉，不是通过程序删除的)，重要的消息都配置成false即可 -->
+	</bean>
+
+	<bean id="promotion_inventory_log_p2p" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="promotion_inventory_log_queue_p2p" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+		<property name="autoAck" value="false"></property>
+	</bean>
+	
+	<!-- ####################### CMS MQ CONFIGS END ############################# -->
+
+	<!-- ####################### PAYMENT MQ CONFIGS BEGIN ############################# -->
+	<bean id="payment_order_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="payment_order_p2p_queue" /><!-- 队列名 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="refund_order_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="refund_order_p2p_queue" /><!-- 队列名 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="offste_order_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="offset_order_p2p_queue" /><!-- 队列名 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<!-- ####################### PAYMENT MQ CONFIGS END ############################# -->
+
+
+	<!-- ORDER BEGIN -->
+	<bean id="order_storage_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="order_storage_p2p_queue" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+	</bean>	
+	<bean id="haitaoorder_status_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="haitaoorder_status_p2p_queue" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+	</bean>	
+	
+	<bean id="order_deliver_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="storage_salesorder_output_task_queue_p2p" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+	</bean>	
+	
+	<bean id="order_all_queue_topic_bean" class="com.tp.mq.domain.MqTopicConfig">
+		<property name="queueName" value="order_all_queue_topic" />
+		<property name="exchangeDurable" value="true" />
+		<property  name="sendMessageType"  value="pub_sub"  />
+	</bean>	
+
+	<bean id="p2p_payment_schuedul_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="payment_order_queue_bean"></property>
+		<property name="messageCallBack" ref="salesOrderPaidCallback"></property>
+	</bean>
+
+	<bean id="p2p_refund_schuedul_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="refund_order_queue_bean"></property>
+		<property name="messageCallBack" ref="salesOrderRefundCallback"></property>
+	</bean>
+	
+	<bean id="p2p_order_deliver_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="order_deliver_queue_bean"></property>
+		<property name="messageCallBack" ref="salesOrderDeliverCallback"></property>
+	</bean>
+	<bean id="haitaoorder_status_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="haitaoorder_status_queue_bean"></property>
+		<property name="messageCallBack" ref="seaOrderAuditStatusChangeCallback"></property>
+	</bean>
+	
+	<bean id="receipt_detail_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="receipt_detail_queue_bean"></property>
+		<property name="messageCallBack" ref="receiptDetailConsumer"></property>
+	</bean>
+	
+	<bean id="item_promotion_sku_queue_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="item_promotion_sku_queue_bean"></property>
+		<property name="messageCallBack" ref="topicItemUpdateListenerCallback"></property>
+	</bean>
+
+
+	<bean id="promotion_inventory_log_queue_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="promotion_inventory_log_queue"></property>
+		<property name="messageCallBack" ref="topicInventoryLogListenerCallback"></property>
+	</bean>
+	
+	<bean id="receipt_detail_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="storage_salesorder_invoice_task_queue_p2p" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+	</bean>	
+	<!-- sea order delivery -->
+	<bean id="seaorder_stockout_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name="p2pConfig" ref="seaorder_stockout_queue_bean"></property>
+		<property name="messageCallBack" ref="seaorderStockoutConsumer"></property>
+	</bean>
+	<bean id="seaorder_stockout_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name="queueName" value="seaorder_stockout_p2p_queue" />
+		<property name="mirrorQueue" value="true" />
+		<property name="sendMessageType" value="p2p" />
+	</bean>	
+	<!-- JKF callback -->
+	<bean id="jkf_clearancecallback_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<property name = "p2pConfig" ref="jkf_clearancecallback_queue_bean" />
+		<property name="messageCallBack" ref="clearanceCallbackOfJKFConsumer" />
+	</bean>
+	<bean id="jkf_clearancecallback_queue_bean" class="com.tp.mq.domain.MqP2pConfig">
+		<property name ="queueName" value="jkf_clearance_callback_p2p_queue" />
+		<property name="mirrorQueue" value="true"/>
+		<property name="sendMessageType" value="p2p"/>
+	</bean>
+	<!-- ORDER END -->
+	
+	
+	<!-- ACCOUNT AMOUNT -->
+	<bean id="register_promoter_success_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="register_promoter_success" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="register_promoter_success_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="register_promoter_success_queue_bean"></property>
+		<property name="messageCallBack" ref="referralFeesConsumer"></property>
+	</bean>
+	
+	<bean id="item_sku_modify_topic_price_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="item_sku_modify_topic_price" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="item_sku_modify_topic_price_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="item_sku_modify_topic_price_queue_bean"></property>
+		<property name="messageCallBack" ref="itemSkuModifyXgPriceListenerCallback"></property>
+	</bean>
+	
+	<bean id="order_delivery_success_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="order_delivery_success" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="order_delivery_success_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="order_delivery_success_queue_bean"></property>
+		<property name="messageCallBack" ref="orderCommisionConsumer"></property>
+	</bean>
+	
+	
+	
+	
+	<bean id="refund_success_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="refund_success" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="refund_success_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="refund_success_queue_bean"></property>
+		<property name="messageCallBack" ref="refundCommisionConsumer"></property>
+	</bean>
+	
+	<bean id="receive_goods_success_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="receive_goods_success" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="receive_goods_success_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="receive_goods_success_queue_bean"></property>
+		<property name="messageCallBack" ref="orderReceiveItemConsumer"></property>
+	</bean>
+	<!-- ACCOUNT AMOUNT -->
+	
+	
+	<!-- CMBC Register -->
+	<bean id="cmbc_new_register_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="cmbc_new_register" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	<bean id="cmbc_new_register_config" class="com.tp.mq.domain.MqConsumerP2pConfig"><!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="cmbc_new_register_queue_bean"></property>
+		<property name="messageCallBack" ref="cmbcNewMemberConsumer"></property>
+	</bean>
+	
+	<!-- 修改商品信息 同步修改促销商品信息 -->
+	<bean id="item_promotion_sku_queue_bean" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="item_promotion_sku_queue_p2p" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+	
+	<bean id="promotion_inventory_log_queue" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="promotion_inventory_log_queue_p2p" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<!-- WMS 入库申请单回调时通知更新库存 -->
+	<bean id="wms_stock_asn_notice_inventory_p2p_queue_config" class="com.tp.mq.domain.MqP2pConfig"><!-- 点对点消息配置对象 -->
+		<property name="queueName" value="wms_stock_asn_notice_inventory_p2p_queue" /><!--队列名, 以应用名开头 -->
+		<property name="mirrorQueue" value="true" /><!-- 是否为镜象队列 -->
+		<property name="sendMessageType" value="p2p" /><!-- 消息类型,p2p为点对点消息,pub_sub为主题订阅消息 -->
+	</bean>
+
+	<bean id="wms_stock_asn_notice_inventory_consumer_p2p_queue_config" class="com.tp.mq.domain.MqConsumerP2pConfig">
+		<!-- 一个p2p消费者队列对象 -->
+		<property name="p2pConfig" ref="wms_stock_asn_notice_inventory_p2p_queue_config"></property>
+		<property name="messageCallBack" ref="stockAsnNoticeInventoryListenerCallback"></property>
+	</bean>
+	
+	<bean id="messageConfigs" class="com.tp.mq.domain.MqMessageConfigs">
+		<property name="p2pConfigMap"><!-- 所有点对点消息 map key为队列名,value为MqP2pConfig对象实例 -->
+			<map>
+				<!-- CMS -->
+				<entry key="cms_advertise_queue_p2p" value-ref="cms_advert_queue_bean"></entry>
+				<entry key="promotion_cms_topic_change_queue_p2p" value-ref="promotion_cms_topic_change_queue_bean"></entry>
+				<entry key="promotion_cms_redis_change_queue_p2p" value-ref="promotion_cms_redis_change_queue_bean"></entry>
+				<!-- PAYMENT -->
+				<entry key="payment_order_p2p_queue" value-ref="payment_order_queue_bean"></entry>
+				<entry key="refund_order_p2p_queue" value-ref="refund_order_queue_bean"></entry>
+				<entry key="offset_order_p2p_queue" value-ref="offste_order_queue_bean"></entry>
+
+				<entry key="promotion_cms_topic_change_queue_p2p" value-ref="promotion_cms_queue_p2p"></entry>
+				<entry key="promotion_inventory_log_queue_p2p" value-ref="promotion_inventory_log_p2p"></entry>
+				<!-- ORDER -->
+				<entry key="payment_order_p2p_queue" value-ref="payment_order_queue_bean"></entry>
+				<entry key="refund_order_p2p_queue" value-ref="refund_order_queue_bean"></entry>
+				<entry key="order_storage_p2p_queue" value-ref="order_storage_queue_bean"></entry>
+				<entry key="storage_salesorder_output_task_queue_p2p" value-ref="order_deliver_queue_bean"></entry>
+				<entry key="haitaoorder_status_p2p_queue" value-ref="haitaoorder_status_queue_bean"></entry>
+				<entry key="storage_salesorder_invoice_task_queue_p2p" value-ref="receipt_detail_queue_bean"></entry>
+				<entry key="seaorder_stockout_p2p_queue" value-ref="seaorder_stockout_queue_bean"></entry>
+				<entry key="jkf_clearance_callback_p2p_queue" value-ref="jkf_clearancecallback_queue_bean"></entry>
+				
+				<!-- ACCOUNT AMOUNT -->
+				<entry key="register_promoter_success" value-ref="register_promoter_success_queue_bean"></entry>
+				<entry key="order_delivery_success" value-ref="order_delivery_success_queue_bean"></entry>
+				<entry key="refund_success" value-ref="refund_success_queue_bean"></entry>
+				<entry key="receive_goods_success" value-ref="receive_goods_success_queue_bean"></entry>
+				
+				<!-- CMBC new Register -->
+				<entry key="cmbc_new_register" value-ref="cmbc_new_register_queue_bean"></entry>
+				<entry key="item_promotion_sku_queue_p2p" value-ref="item_promotion_sku_queue_bean"></entry>
+				<entry key="item_sku_modify_topic_price" value-ref="item_sku_modify_topic_price_queue_bean"></entry>
+
+				<!--WMS-->
+				<entry key="wms_stock_asn_notice_inventory_p2p_queue" value-ref="wms_stock_asn_notice_inventory_p2p_queue_config"></entry>
+			</map>
+		</property>
+		<property name="topicConfigsMap">
+			<map>
+				<entry key="order_all_queue_topic" value-ref="order_all_queue_topic_bean"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="consumerSchedulQueueConfigs" class="com.tp.mq.domain.ConsumerSchedulQueueConfigs"><!--所有消费者队列对象 -->
+		<property name="p2pConfigListeners">
+			<list>
+				<!-- CMS -->
+				<ref bean="p2p_cms_schuedul_config" />
+				<ref bean="p2p_promotion_cms_topic_change_config" />
+				<ref bean="promotion_cms_redis_change_config" />
+				
+				<!-- ORDER -->
+				<ref bean="p2p_payment_schuedul_config" />
+				<ref bean="p2p_refund_schuedul_config" />
+				<ref bean="p2p_order_deliver_config" />
+				<ref bean="haitaoorder_status_config" />
+				<ref bean="receipt_detail_config" />
+				<ref bean="seaorder_stockout_config" />
+				<ref bean="jkf_clearancecallback_config" />
+				
+				<!-- ACCOUNT AMOUNT -->
+				<ref bean="register_promoter_success_config" />
+				<ref bean="order_delivery_success_config" />
+				<ref bean="refund_success_config" />
+				<ref bean="receive_goods_success_config" />
+				
+				<!-- CMBC register -->
+				<ref bean="cmbc_new_register_config" />	
+				
+				<ref bean="item_promotion_sku_queue_config"/>
+				<ref bean="promotion_inventory_log_queue_config"/>
+				<ref bean="item_sku_modify_topic_price_config"/>
+
+				<!--WMS-->
+				<ref bean="wms_stock_asn_notice_inventory_consumer_p2p_queue_config"/>
+
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,1 @@
+function shareShop(){xigou.shareShop({requestBody:{withQR:!0,userMobile:userMobile},callback:function(i,e){e==xigou.dictionary.success&&(null!=i&&"undefined"!=i?$(".div_share_image").html("<img style='margin:0;' src='"+i.img+"'/>"):window.location.href="home.html")}})}var userMobile=xigou.getQueryString("i");$(function(){shareShop()});

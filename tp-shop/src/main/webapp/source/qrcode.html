@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>全球购商城</title>
+<meta name="Keywords" content="全球购商城">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/frozen.css" />
+<link rel="stylesheet" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/dropload.css" />
+<link rel="stylesheet" type="text/css" href="css/item.css" />
+<script type="text/javascript" src="./js/common/jquery-1.7.2.min.js"></script>
+<style> 
+body{ text-align:center} 
+.div{ margin:0 auto; width:400px; height:100px; border:1px solid #F00} 
+#qrcode img{margin: 0px auto}
+</style> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body>
+<br><br><br>
+<div>
+扫码关注西客微信号<br>关联扫码注册用户，坐享购物返佣<br><br>
+标识：<input type="text" id="channel" size="12"/> <br><br>
+类型：<input type="radio" name="type" value="1"/>个 人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="type" value="2" checked/>企 业 <br><br>
+<input type="button" id="send" value="生成二维码" /><br><br>
+<div id="qrcode"></div>
+<br/><div id="downDiv" style="display:none"></div>
+</div>
+</body>
+<script type="text/javascript" src="./js/pages/qrcode.js"></script>
+<script type="text/javascript" src="./js/thirdshop.js"></script>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.SpecGroupLinkDao">
+	<resultMap type="com.tp.model.bse.SpecGroupLink" id="specGroupLink">
+				<id column="id" property="id"/>
+				<result column="group_id" property="groupId"/>
+				<result column="spec_id" property="specId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="sort" property="sort"/>
+	</resultMap>
+	
+	<insert id="insertByList" parameterType="list" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO  bse_spec_group_link(
+				id,
+				group_id,
+				spec_id,
+				create_time,
+				modify_time
+		)values
+		<foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.id},#{item.groupId},#{item.specId},#{item.createTime},#{item.modifyTime})  
+         </foreach> 
+    </insert>
+</mapper>

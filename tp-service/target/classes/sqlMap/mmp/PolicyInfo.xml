@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.PolicyInfoDao">
+	<resultMap type="com.tp.model.mmp.PolicyInfo" id="policyInfo">
+				<id column="id" property="id"/>
+				<result column="by_register_time" property="byRegisterTime"/>
+				<result column="by_uid" property="byUid"/>
+				<result column="by_ip" property="byIp"/>
+				<result column="by_mobile" property="byMobile"/>
+				<result column="by_topic" property="byTopic"/>
+				<result column="early_than_time" property="earlyThanTime"/>
+				<result column="late_than_time" property="lateThanTime"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,by_register_time,by_uid,by_ip,by_mobile,by_topic,early_than_time,late_than_time,create_time,update_time
+	</sql>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.SingleTepactivityDao">
+	<resultMap type="com.tp.model.cms.SingleTepactivity" id="singleTepactivity">
+				<id column="id" property="id"/>
+				<result column="single_tepnode_id" property="singleTepnodeId"/>
+				<result column="activity_code" property="activityCode"/>
+				<result column="activity_name" property="activityName"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="goods_name" property="goodsName"/>
+				<result column="seller" property="seller"/>
+				<result column="standard_params" property="standardParams"/>
+				<result column="limit_total" property="limitTotal"/>
+				<result column="limit_number" property="limitNumber"/>
+				<result column="selling_price" property="sellingPrice"/>
+				<result column="startdate" property="startdate"/>
+				<result column="enddate" property="enddate"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="activity_id" property="activityId"/>
+				<result column="superscript" property="superscript"/>
+	</resultMap>
+	
+	<delete id="deleteByTempleNodeId" parameterType="com.tp.dto.cms.CmsSingleTepactivityDTO" >
+		DELETE FROM cms_single_tepactivity WHERE 
+			 single_tepnode_id = #{singleTepnodeId} 
+			 and activity_id = #{activityId} 
+	</delete>
+	<select id="selectIsExistid" resultType="long" parameterType="com.tp.dto.cms.CmsSingleTepactivityDTO">
+	     select count(1) from cms_single_tepactivity a
+			where a.single_tepnode_id=#{singleTepnodeId}
+			and a.activity_id=#{activityId}
+ 	</select>
+ 	<insert id="insertActivityId" parameterType="com.tp.dto.cms.CmsSingleTepactivityDTO" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO cms_single_tepactivity(
+				id,
+				single_tepnode_id,
+				activity_id,
+				startdate,
+				enddate
+		)values(
+				#{id},
+				#{singleTepnodeId},
+				#{activityId},
+				#{startdate},
+				#{enddate}
+		)
+    </insert>
+    
+    <update id="updateTopicChangeDynamic" parameterType="long">
+		UPDATE cms_single_tepactivity
+		<set>
+			<if test="singleTepnodeId != null  and singleTepnodeId != '' ">  single_tepnode_id=#{singleTepnodeId}, </if>
+			<if test="activityCode != null  and activityCode != '' ">  activity_code=#{activityCode}, </if>
+			<if test="activityName != null  and activityName != '' ">  activity_name=#{activityName}, </if>
+			<if test="skuCode != null  and skuCode != '' ">  sku_code=#{skuCode}, </if>
+			<if test="goodsName != null  and goodsName != '' ">  goods_name=#{goodsName}, </if>
+			<if test="seller != null  and seller != '' ">  seller=#{seller}, </if>
+			<if test="standardParams != null  and standardParams != '' ">  standard_params=#{standardParams}, </if>
+			<if test="limitTotal != null  and limitTotal != '' ">  limit_total=#{limitTotal}, </if>
+			<if test="limitNumber != null  and limitNumber != '' ">  limit_number=#{limitNumber}, </if>
+			<if test="sellingPrice != null  and sellingPrice != '' ">  selling_price=#{sellingPrice}, </if>
+			<if test="startdate != null  and startdate != '' ">  startdate=#{startdate}, </if>
+			<if test="enddate != null  and enddate != '' ">  enddate=#{enddate}, </if>
+			<if test="creater != null  and creater != '' ">  creater=#{creater}, </if>
+			<if test="createTime != null  and createTime != '' ">  create_time=#{createTime}, </if>
+		</set>
+		WHERE activity_id = #{activityId}
+	</update>
+</mapper>

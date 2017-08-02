@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>支付中心</title>
+		<meta name="Keywords" content="支付中心">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./modifiable/img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="css/orderspay.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/dropload.min.js"></script>
+	</head>
+
+	<body>
+		<header>
+			<h1>支付中心</h1>
+			<a href="javascript:history.go(-1);" class="goBack"></a>
+			<a href="javascript:history.go(-1);" class="goIndex"></a>
+		</header>
+		<div class="success-block">
+			<div class="succ">
+			</div>
+			<div class="desc">
+				您的订单已提交成功，请您尽快付款！
+				<!-- 订单总金额：<span class="price">¥0.00</span> -->
+			</div>
+		</div>
+		<form class="hide" id="submit_pay" name="alipaysubmit" action="" method="post"></form>
+	</body>
+
+<script type="text/javascript" src="./js/static_data.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/modules/user.js"></script>
+<script type="text/javascript" src="./js/modules/orderspay.js"></script>
+<script type="text/javascript" src="./js/pages/paymentbridge.js"></script>
+</html>

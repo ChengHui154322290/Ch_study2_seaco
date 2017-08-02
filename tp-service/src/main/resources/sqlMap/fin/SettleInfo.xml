@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleInfoDao">
+	<resultMap type="com.tp.model.fin.SettleInfo" id="settleInfo">
+				<id column="id" property="id"/>
+				<result column="settle_no" property="settleNo"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="trade_count" property="tradeCount"/>
+				<result column="refund_count" property="refundCount"/>
+				<result column="offset_count" property="offsetCount"/>
+				<result column="trade_amount" property="tradeAmount"/>
+				<result column="settle_amount" property="settleAmount"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="offset_amount" property="offsetAmount"/>
+				<result column="actual_amount" property="actualAmount"/>
+				<result column="status" property="status"/>
+				<result column="target_id" property="targetId"/>
+				<result column="target_name" property="targetName"/>
+				<result column="audit_date" property="auditDate"/>
+				<result column="audit_user" property="auditUser"/>
+				<result column="remark" property="remark"/>
+				<result column="interval_days" property="intervalDays"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_date" property="createDate"/>
+				<result column="modify_user" property="modifyUser"/>
+				<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+</mapper>

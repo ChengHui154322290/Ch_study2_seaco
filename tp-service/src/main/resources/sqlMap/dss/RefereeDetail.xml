@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.RefereeDetailDao">
+	<resultMap type="com.tp.model.dss.RefereeDetail" id="refereeDetail">
+				<id column="referee_detail_id" property="refereeDetailId"/>
+				<id column="referee_detail_code" property="refereeDetailCode"/>
+				<result column="member_id" property="memberId"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="commision" property="commision"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		referee_detail_id,referee_detail_code,member_id,promoter_id,commision,create_user,create_time
+	</sql>
+	
+		
+	<!-- 获取nickname,pormotername -->
+    <select id="queryRefereeByDetailCode" parameterType="list"  resultType="com.tp.model.dss.RefereeDetail">
+		select 	     	
+		referee_detail_code as refereeDetailCode, nick_name as nickName, promoter_name as promoterName
+		 from dss_referee_detail r, dss_promoter_info p where r.member_id = p.promoter_id        
+        <foreach item="code" collection="detailCodeList" separator="," open=" and referee_detail_code in (" close=")">
+ 			#{code}
+	 	</foreach>            		   		
+    </select>
+	
+</mapper>

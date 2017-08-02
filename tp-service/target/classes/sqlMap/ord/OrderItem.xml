@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderItemDao">
+	<resultMap type="com.tp.model.ord.OrderItem" id="orderItem">
+				<id column="id" property="id"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="order_id" property="orderId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="type" property="type"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="spu_id" property="spuId"/>
+				<result column="spu_code" property="spuCode"/>
+				<result column="spu_name" property="spuName"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_Name" property="brandName"/>
+				<result column="sku_id" property="skuId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="bar_code" property="barCode"/>
+				<result column="img" property="img"/>
+				<result column="sku_version" property="skuVersion"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="batch_code" property="batchCode"/>
+				<result column="sales_type" property="salesType"/>
+				<result column="sales_property" property="salesProperty"/>
+				<result column="color" property="color"/>
+				<result column="size" property="size"/>
+				<result column="start_time" property="startTime"/>
+				<result column="end_time" property="endTime"/>
+				<result column="quantity" property="quantity"/>
+				<result column="unit_quantity" property="unitQuantity"/>
+				<result column="wrap_quantity" property="wrapQuantity"/>
+				<result column="list_price" property="listPrice"/>
+				<result column="sales_price" property="salesPrice"/>
+				<result column="price" property="price"/>
+				<result column="sub_total" property="subTotal"/>
+				<result column="original_sub_total" property="originalSubTotal"/>
+				<result column="orig_freight" property="origFreight"/>
+				<result column="orig_tax_fee" property="origTaxFee"/>
+				<result column="freight" property="freight"/>
+				<result column="freight" property="freight"/>
+				<result column="weight" property="weight"/>
+				<result column="weight_net" property="weightNet"/>
+				<result column="refund_status" property="refundStatus"/>
+				<result column="tax_rate" property="taxRate"/>
+				<result column="parcel_tax_id" property="parcelTaxId"/>
+				<result column="ip" property="ip"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="product_code" property="productCode"/>
+				<result column="tax_fee" property="taxFee"/>
+				<result column="refund_days" property="refundDays"/>
+				<result column="unit" property="unit"/>
+				<result column="unit_id" property="unitId"/>
+				<result column="platform_rate" property="platformRate"/>
+				<result column="settle_status" property="settleStatus"/>
+				<result column="order_coupon_amount" property="orderCouponAmount"/>
+				<result column="coupon_amount" property="couponAmount"/>
+				<result column="contract_id" property="contractId"/>				
+				<result column="added_value_rate" property="addedValueRate"/>
+				<result column="excise_rate" property="exciseRate"/>
+				<result column="customs_rate" property="customsRate"/>
+				<result column="item_amount" property="itemAmount"/>
+				<result column="commision_rate" property="commisionRate"/>
+				<result column="country_id" property="countryId"/>
+				<result column="points" property="points"/>
+	</resultMap>
+	<sql id="columns">
+		id,<include refid="columnsByInsert"></include>
+	</sql>
+	<sql id="columnsByInsert">
+		parent_order_id,order_id,member_id,type,parent_order_code,order_code,spu_id,spu_code,spu_name,brand_id,brand_Name,sku_id,sku_code,bar_code,img
+		,sku_version,topic_id,supplier_id,supplier_name,warehouse_id,batch_code,sales_type,sales_property,color,size,start_time,end_time,quantity,unit_quantity,wrap_quantity
+		,list_price,sales_price,price,sub_total,original_sub_total,freight,weight,weight_net,refund_status,tax_rate,parcel_tax_id,ip,create_time,update_time,product_code
+		,tax_fee,refund_days,unit,unit_id,platform_rate,settle_status,order_coupon_amount,coupon_amount,contract_id,added_value_rate,excise_rate,customs_rate,item_amount
+		,commision_rate,country_id,orig_tax_fee,orig_freight,points
+	</sql>
+	<select id="selectByParentOrderId" resultMap="orderItem" parameterType="long">
+		select <include refid="columns"></include>
+		  from ord_order_item
+		 where parent_order_id = #{parentOrderId}
+	</select>
+	<select id="selectByParentOrderCode" resultMap="orderItem" parameterType="long">
+		select <include refid="columns"></include>
+		  from ord_order_item
+		 where parent_order_code = #{parentOrderCode}
+	</select>
+	<select id="selectBySubOrderId" resultMap="orderItem" parameterType="long">
+		select <include refid="columns"></include>
+		  from ord_order_item
+		 where order_id = #{orderId}
+	</select>
+	<select id="selectBySubOrderCode" resultMap="orderItem" parameterType="long">
+		select <include refid="columns" ></include>
+		  from ord_order_item
+		 where order_code = #{orderCode}
+	</select>
+		
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO ord_order_item(
+        	<include refid="columnsByInsert"></include>
+		)values
+		<foreach collection="orderItemList" item="item" index="index" separator=",">
+			(
+			#{item.parentOrderId},#{item.orderId},#{item.memberId},#{item.type},#{item.parentOrderCode},#{item.orderCode},#{item.spuId},#{item.spuCode}
+			,#{item.spuName},#{item.brandId},#{item.brandName},#{item.skuId},#{item.skuCode},#{item.barCode},#{item.img},#{item.skuVersion}
+			,#{item.topicId},#{item.supplierId},#{item.supplierName},#{item.warehouseId},#{item.batchCode},#{item.salesType},#{item.salesProperty},#{item.color}
+			,#{item.size},#{item.startTime},#{item.endTime},#{item.quantity},#{item.unitQuantity},#{item.wrapQuantity},#{item.listPrice},#{item.salesPrice},#{item.price},#{item.subTotal},#{item.originalSubTotal}
+			,#{item.freight},#{item.weight},#{item.weightNet},#{item.refundStatus},#{item.taxRate},#{item.parcelTaxId},#{item.ip},now(),now()
+			,#{item.productCode},#{item.taxFee},#{item.refundDays},#{item.unit},#{item.unitId},#{item.platformRate},#{item.settleStatus},#{item.orderCouponAmount},
+			#{item.couponAmount},#{item.contractId},#{item.addedValueRate},#{item.exciseRate},#{item.customsRate},#{item.itemAmount},#{item.commisionRate},#{item.countryId},
+			#{item.origTaxFee},#{item.origFreight},#{item.points}
+			)
+		</foreach>
+    </insert>
+    
+    <update id="updateOrderItemAmount" parameterType="OrderItem">
+    	update ord_order_item
+    	   set sub_total = #{subTotal},original_sub_total=#{originalSubTotal},freight=#{freight},
+    	   tax_fee=#{taxfee},order_coupon_amount=#{orderCouponAmount}
+    	 where sku_code = #{sku_code} and order_code = #{orderCode} 
+    	   and topic_id = #{topicId} and member_id = #{memberId}
+    </update>
+</mapper>

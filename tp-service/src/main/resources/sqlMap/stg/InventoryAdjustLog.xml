@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryAdjustLogDao">
+	<resultMap type="com.tp.model.stg.InventoryAdjustLog" id="inventoryAdjustLog">
+				<id column="id" property="id"/>
+				<result column="action" property="action"/>
+				<result column="quantity" property="quantity"/>
+				<result column="sku" property="sku"/>
+				<result column="inventory_id" property="inventoryId"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="reason" property="reason"/>
+				<result column="remark" property="remark"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_date" property="createDate"/>
+				<result column="modify_user_id" property="modifyUserId"/>
+				<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+	<sql id="columns">
+	      id,action,quantity,sku,inventory_id,warehouse_id,create_user_id,create_date,modify_user_id,modify_date,remark
+ 	</sql>
+	<select id="queryAdjustLogForExport" resultMap="inventoryAdjustLog" parameterType="com.tp.model.stg.InventoryAdjustLog">
+	     SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	stg_inventory_adjust_log
+			 <where>
+				<if test="sku != null  and sku != '' "> AND sku=#{sku} </if>
+				<if test="startDate != null  and startDate != '' "> AND create_date >= #{startDate} </if>
+				<if test="endDate != null  and endDate != ''"> AND create_date <![CDATA[<=]]>  #{endDate}</if>
+			</where>
+	 		order by id desc 
+	 	Limit #{exportCount}
+ 	</select>
+</mapper>

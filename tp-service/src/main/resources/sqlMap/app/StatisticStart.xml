@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.StatisticStartDao">
+	<resultMap type="com.tp.model.app.StatisticStart" id="statisticStart">
+				<id column="id" property="id"/>
+				<result column="start_time" property="startTime"/>
+				<result column="exit_tag" property="exitTag"/>
+				<result column="exit_version" property="exitVersion"/>
+				<result column="create_time" property="createTime"/>
+				<result column="sta_base_id" property="staBaseId"/>
+	</resultMap>
+</mapper>

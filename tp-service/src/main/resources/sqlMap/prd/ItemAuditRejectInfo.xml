@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemAuditRejectInfoDao">
+	<resultMap type="com.tp.model.prd.ItemAuditRejectInfo" id="itemAuditRejectInfo">
+				<id column="id" property="id"/>
+				<result column="audit_detail_id" property="auditDetailId"/>
+				<result column="reject_type" property="rejectType"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,audit_detail_id,reject_type,create_time
+	</sql>
+</mapper>

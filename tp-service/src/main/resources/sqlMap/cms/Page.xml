@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.PageDao">
+	<resultMap type="com.tp.model.cms.Page" id="PageResultMap">
+				<id column="id" property="id"/>
+				<result column="page_name" property="pageName"/>
+				<result column="page_code" property="pageCode"/>
+				<result column="status" property="status"/>
+				<result column="seq" property="seq"/>
+	</resultMap>
+	<sql id="MybatisCmsPageDAO_dynamic_where_fields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="pageName != null  and pageName != '' "> AND page_name=#{pageName} </if>
+			<if test="pageCode != null  and pageCode != '' "> AND page_code=#{pageCode} </if>
+			<if test="status != null "> AND status=#{status} </if>
+			<if test="seq != null "> AND seq=#{seq} </if>
+		</where>
+ 	</sql>
+	
+	<select id="selectCountDynamic" resultType="long" parameterType="com.tp.dto.cms.query.CmsPageQuery">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_page
+	 	<include refid="MybatisCmsPageDAO_dynamic_where_fields" />
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="PageResultMap" parameterType="com.tp.model.cms.Page">
+	     SELECT
+	     	id,page_name,page_code,status,seq
+		 FROM
+		 	cms_page
+	 	<include refid="MybatisCmsPageDAO_dynamic_where_fields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+ 	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_page WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+</mapper>

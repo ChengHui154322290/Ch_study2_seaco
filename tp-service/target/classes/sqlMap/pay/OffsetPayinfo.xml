@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.pay.OffsetPayinfoDao">
+	<resultMap type="com.tp.model.pay.OffsetPayinfo" id="offsetPayinfo">
+				<id column="id" property="id"/>
+				<result column="amount" property="amount"/>
+				<result column="status" property="status"/>
+				<result column="gateway_id" property="gatewayId"/>
+				<result column="pay_account" property="payAccount"/>
+				<result column="payee_account" property="payeeAccount"/>
+				<result column="payee_name" property="payeeName"/>
+				<result column="serial" property="serial"/>
+				<result column="gateway_trade_no" property="gatewayTradeNo"/>
+				<result column="callback_info" property="callbackInfo"/>
+				<result column="create_time" property="createTime"/>
+				<result column="udpate_time" property="udpateTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,amount,status,gateway_id,pay_account,payee_account,payee_name,serial,gateway_trade_no,callback_info,create_time,udpate_time
+	</sql>
+</mapper>

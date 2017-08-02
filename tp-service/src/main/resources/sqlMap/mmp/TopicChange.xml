@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TopicChangeDao">
+	<resultMap type="com.tp.model.mmp.TopicChange" id="topicChange">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="status" property="status"/>
+				<result column="start_time" property="startTime"/>
+				<result column="limit_policy_id" property="limitPolicyId"/>
+				<result column="change_topic_id" property="changeTopicId"/>
+				<result column="type" property="type"/>
+				<result column="sales_partten" property="salesPartten"/>
+				<result column="display_pages" property="displayPages"/>
+				<result column="age_start_key" property="ageStartKey"/>
+				<result column="age_end_key" property="ageEndKey"/>
+				<result column="number" property="number"/>
+				<result column="discount" property="discount"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="progress" property="progress"/>
+				<result column="is_support_supplier" property="isSupportSupplier"/>
+				<result column="freight_templet" property="freightTemplet"/>
+				<result column="topic_point" property="topicPoint"/>
+				<result column="sort_index" property="sortIndex"/>
+				<result column="deletion" property="deletion"/>
+				<result column="lasting_type" property="lastingType"/>
+				<result column="end_time" property="endTime"/>
+				<result column="is_support_supplier_info" property="isSupportSupplierInfo"/>
+				<result column="remark" property="remark"/>
+				<result column="area_str" property="areaStr"/>
+				<result column="platform_str" property="platformStr"/>
+				<result column="image" property="image"/>
+				<result column="image_new" property="imageNew"/>
+				<result column="image_mobile" property="imageMobile"/>
+				<result column="image_interested" property="imageInterested"/>
+				<result column="image_hitao" property="imageHitao"/>
+				<result column="intro" property="intro"/>
+				<result column="intro_mobile" property="introMobile"/>
+				<result column="pc_image" property="pcImage"/>
+				<result column="pc_interest_image" property="pcInterestImage"/>
+				<result column="mobile_image" property="mobileImage"/>
+				<result column="mall_image" property="mallImage"/>
+				<result column="haitao_image" property="haitaoImage"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="can_use_xg_money" property="canUseXgMoney"/>
+				<result column="reserve_inventory_flag" property="reserveInventoryFlag"/>
+	</resultMap>
+	<sql id="columns">
+		id,name,status,start_time,limit_policy_id,change_topic_id,type,sales_partten,display_pages,age_start_key,age_end_key,number,discount,brand_id,brand_name,progress,is_support_supplier,freight_templet,topic_point,sort_index,deletion,lasting_type,end_time,is_support_supplier_info,remark,area_str,platform_str,image,image_new,image_mobile,image_interested,image_hitao,intro,intro_mobile,pc_image,pc_interest_image,mobile_image,mall_image,haitao_image,create_time,create_user,update_time,update_user,supplier_id,supplier_name,can_use_xg_money,reserve_inventory_flag
+	</sql>
+
+
+	<select id="getUnprocessingChangeOrderCount" resultType="int" parameterType="long">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic_change
+		WHERE
+		status != 3 AND status != 2
+		AND change_topic_id = #{id}
+	</select>
+
+
+	<sql id="dynamic_where_fields_with_like"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="changeTopicId != null "> AND change_topic_id=#{changeTopicId} </if>
+			<if test="name != null  and name != '' "> AND name like '%${name}%' </if>
+			<if test="type != null "> AND type=#{type} </if>
+			<if test="salesPartten != null "> AND sales_partten=#{salesPartten} </if>
+			<if test="number != null  and number != '' "> AND number like '%${number}%' </if>
+			<if test="discount != null  and discount != '' "> AND discount like '%${discount}%' </if>
+			<if test="brandId != null "> AND brand_id=#{brandId} </if>
+			<if test="brandName != null  and brandName != '' "> AND brand_name like '%${brandName}%' </if>
+			<if test="status != null "> AND status=#{status} </if>
+			<if test="progress != null "> AND progress=#{progress} </if>
+			<if test="isSupportSupplier != null "> AND is_support_supplier=#{isSupportSupplier} </if>
+			<if test="freightTemplet != null "> AND freight_templet=#{freightTemplet} </if>
+			<if test="sortIndex != null "> AND sort_index=#{sortIndex} </if>
+			<if test="topicPoint != null  and topicPoint != '' "> AND topic_point like '%${topicPoint}%' </if>
+			<if test="deletion != null "> AND deletion=#{deletion} </if>
+			<if test="lastingType != null "> AND lasting_type=#{lastingType} </if>
+			<if test="isSupportSupplierInfo != null "> AND is_support_supplier_info=#{isSupportSupplierInfo} </if>
+			<if test="limitPolicyId != null "> AND limit_policy_id=#{limitPolicyId} </if>
+			<if test="areaStr != null  and areaStr != '' "> AND area_str like '%${areaStr}%' </if>
+			<if test="platformStr != null  and platformStr != '' "> AND platform_str like '%${platformStr}%' </if>
+		</where>
+	</sql>
+
+	<select id="selectDynamicPageQueryWithLike" resultMap="topicChange" parameterType="com.tp.model.mmp.TopicChange">
+		SELECT
+		<include refid="columns" />
+		FROM
+		mmp_topic_change
+		<include refid="dynamic_where_fields_with_like" />
+		order by id desc
+		Limit #{start},#{pageSize}
+	</select>
+
+	<select id="selectCountWithLike" resultType="long" parameterType="com.tp.model.mmp.TopicChange">
+		SELECT
+		count(1)
+		FROM
+		mmp_topic_change
+		<include refid="dynamic_where_fields_with_like" />
+	</select>
+
+</mapper>

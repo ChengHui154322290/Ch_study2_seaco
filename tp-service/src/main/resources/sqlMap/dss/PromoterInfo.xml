@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.PromoterInfoDao">
+	<resultMap type="com.tp.model.dss.PromoterInfo" id="promoterInfo">
+				<id column="promoter_id" property="promoterId"/>
+				<result column="member_id" property="memberId"/>
+				<result column="promoter_name" property="promoterName"/>
+				<result column="nick_name" property="nickName"/>
+				<result column="pass_word" property="passWord"/>
+				<result column="salt" property="salt"/>
+				<result column="promoter_status" property="promoterStatus"/>
+				<result column="promoter_type" property="promoterType"/>
+				<result column="promoter_level" property="promoterLevel"/>
+				<result column="gender" property="gender"/>
+				<result column="birthday" property="birthday"/>
+				<result column="mobile" property="mobile"/>
+				<result column="qq" property="qq"/>
+				<result column="weixin" property="weixin"/>
+				<result column="email" property="email"/>
+				<result column="invite_code" property="inviteCode"/>
+				<result column="parent_promoter_id" property="parentPromoterId"/>
+				<result column="credential_type" property="credentialType"/>
+				<result column="credential_code" property="credentialCode"/>
+				<result column="bank_name" property="bankName"/>
+				<result column="bank_account" property="bankAccount"/>
+				<result column="accumulated_amount" property="accumulatedAmount"/>
+				<result column="surplus_amount" property="surplusAmount"/>
+				<result column="referral_unit" property="referralUnit"/>
+				<result column="referral_fees" property="referralFees"/>
+				<result column="page_show" property="pageShow"/>
+				<result column="commision_rate" property="commisionRate"/>
+				<result column="pass_time" property="passTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="alipay" property="alipay"/>				
+				<result column="scan_attention_image" property="scanAttentionImage"/>
+				<result column="channel_code" property="channelCode"/>	
+				<result column="top_promoter_id" property="topPromoterId"/>
+	</resultMap>
+	
+	<sql id="columns">
+		promoter_id,member_id,promoter_name,nick_name,pass_word,salt,promoter_status,promoter_type,promoter_level,gender,birthday,mobile,qq,weixin,email,invite_code,
+		parent_promoter_id,credential_type,credential_code,bank_name,bank_account,accumulated_amount,surplus_amount,referral_unit,referral_fees,page_show,
+		commision_rate,pass_time,create_user,create_time,update_user,update_time,alipay,scan_attention_image,qr_image_path,share_image_path,promoter_image_path,
+		promoter_share_image_path,channel_code,top_promoter_id
+	</sql>
+</mapper>

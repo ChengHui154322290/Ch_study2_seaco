@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.fin.SettleIntervalConfigDao">
+	<resultMap type="com.tp.model.fin.SettleIntervalConfig" id="settleIntervalConfig">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="settle_interval_days" property="settleIntervalDays"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_date" property="createDate"/>
+				<result column="modify_user" property="modifyUser"/>
+				<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderInfoDao">
+	<resultMap type="com.tp.model.ord.OrderInfo" id="orderInfo">
+				<id column="id" property="id"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_status" property="orderStatus"/>
+				<result column="member_id" property="memberId"/>
+				<result column="pay_code" property="payCode"/>
+				<result column="pay_way" property="payWay"/>
+				<result column="pay_type" property="payType"/>
+				<result column="total" property="total"/>
+				<result column="original_total" property="originalTotal"/>
+				<result column="item_total" property="itemTotal"/>
+				<result column="tax_total" property="taxTotal"/>
+				<result column="freight" property="freight"/>
+				<result column="discount_total" property="discountTotal"/>
+				<result column="total_point" property="totalPoint"/>
+				<result column="is_receipt" property="isReceipt"/>
+				<result column="area_id" property="areaId"/>
+				<result column="remark" property="remark"/>
+				<result column="deleted" property="deleted"/>
+				<result column="pay_time" property="payTime"/>
+				<result column="source" property="source"/>
+				<result column="ip" property="ip"/>
+				<result column="account_name" property="accountName"/>
+				<result column="promoter_id" property="promoterId"/>
+				<result column="shop_promoter_id" property="shopPromoterId"/>
+				<result column="scan_promoter_id" property="scanPromoterId"/>
+				<result column="channel_code" property="channelCode"/>
+				<result column="uuid" property="uuid"/>
+				<result column="tpin" property="tpin"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="batch_num" property="batchNum"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="merge_pay" property="mergePay"/>
+				<result column="receive_tel" property="receiveTel"/>
+	</resultMap>
+	<sql id="columns">
+		id,parent_order_code,order_status,member_id,pay_code,pay_way,pay_type,total,original_total,item_total,tax_total,freight,discount_total,total_point,is_receipt,area_id,
+		remark,deleted,pay_time,source,ip,account_name,create_time,update_time,create_user,batch_num,update_user,promoter_id,shop_promoter_id,scan_promoter_id,channel_code,uuid,tpin,merge_pay,receive_tel
+	</sql>
+		<!-- 根据订单号更新状态 -->
+	<update id="updateStatusByCode" parameterType="OrderInfo">
+		UPDATE ord_order_info
+		<set>
+			<if test="orderStatus != null   ">order_status=#{orderStatus},</if>
+			<if test="payTime != null  and payTime != '' ">pay_time=#{payTime},</if>
+			<if test="payCode != null  and payCode != '' ">pay_code=#{payCode},</if>
+			<if test="updateTime != null  and updateTime != '' ">update_time=#{updateTime},</if>
+		</set>
+		WHERE
+			parent_order_code = #{parentOrderCode}
+	</update>
+	<update id="updateSalesOrderStatusAfterSuccessPay" parameterType="OrderInfo">
+		UPDATE ord_order_info
+		SET
+					order_status = #{orderStatus},
+					update_time = now(),
+					pay_time = #{payTime},
+					pay_code = #{payCode},
+					pay_way = #{payWay},
+					pay_type = #{payType}
+					
+		WHERE
+		parent_order_code = #{parentOrderCode}
+	</update>
+	<update id="updateSalesOrderStatusAfterCancel" parameterType="OrderInfo">
+		UPDATE ord_order_info
+		SET
+					order_status = #{orderStatus},
+					update_time = #{updateTime}
+					
+		WHERE
+			parent_order_code = #{parentOrderCode}
+	</update>	
+	<!-- 根据code逻辑删除 -->
+	<update id="deleteByCode" parameterType="OrderInfo">
+		UPDATE ord_order_info
+		SET deleted = #{deleted},
+			update_time = now()
+		WHERE parent_order_code = #{parentOrderCode}
+		AND member_id = #{memberId}
+	</update>
+	
+    <select id="querySalesOrderByUnPayIsExpired" resultMap="orderInfo" parameterType="int">
+		SELECT
+		<include refid="columns" />
+		FROM ord_order_info
+		WHERE order_status = 2  
+		   AND create_time &lt;= date_sub(now(), interval #{value}+1 minute)
+		ORDER BY create_time ASC   
+		Limit 0,100   
+	</select>
+	<select id="querySalesOrderByUnPayOverFifteenMinutes" resultMap="orderInfo" parameterType="int">
+		SELECT
+		<include refid="columns" />
+		FROM ord_order_info
+		WHERE order_status = 2
+		AND create_time &lt;= date_sub(now(), interval #{value}+1 minute)
+		AND create_time &gt;= date_sub(now(), interval #{value}+2 minute)
+		ORDER BY
+		create_time ASC
+		Limit 0,100
+	</select>
+	
+	
+	<!-- 获取指定orderstatus的订单-->
+    <select id="getOrderNeedPushToCMBC" parameterType="list"  resultMap="orderInfo" >
+		select 	     	
+		<include refid="columns" />		
+		 from ord_order_info         
+        <foreach item="code" collection="statusList" separator="," open="  where order_status in (" close=")">
+ 			#{code}
+	 	</foreach>            		   		
+    </select>
+	
+	
+	
+	<!-- 根据code查询 -->
+	<select id="selectOneByCode" resultMap="orderInfo">
+	     SELECT
+	     	<include refid="columns" />
+		 FROM
+		 	ord_order_info
+		 WHERE
+			parent_order_code = #{parentOrderCode}
+ 	</select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemModifyLogDao">
+	<resultMap type="com.tp.model.prd.ItemModifyLog" id="itemModifyLog">
+				<id column="id" property="id"/>
+				<result column="sku_id" property="skuId"/>
+				<result column="qutity" property="qutity"/>
+				<result column="status" property="status"/>
+				<result column="last_content" property="lastContent"/>
+				<result column="content" property="content"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,sku_id,qutity,status,last_content,content,create_time,create_user
+	</sql>
+</mapper>

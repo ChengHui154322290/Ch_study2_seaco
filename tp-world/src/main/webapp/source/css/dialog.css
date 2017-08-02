@@ -1,0 +1,172 @@
+
+.ui-dialog {
+    /* background-color: #fff; */
+    box-sizing: border-box;
+    display: none;
+    font-family: "Microsoft YaHei" !important;
+    pointer-events: auto;
+    position: absolute;
+}
+.ui-dialog-close {
+    color: #fff;
+    cursor: pointer;
+    font-family: cursive;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    display:none;
+}
+.ui-dialog-mask {
+    background: #000 none repeat scroll 0 0;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.7;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.ui-dialog-title {
+    background-color: #288df0;
+    color: #fff;
+    padding: 5px 10px;
+}
+@keyframes zoomIn {
+0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+}
+100% {
+    opacity: 1;
+}
+}
+@keyframes zoomIn {
+0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+}
+100% {
+    opacity: 1;
+}
+}
+@keyframes zoomIn {
+0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+}
+100% {
+    opacity: 1;
+}
+}
+@keyframes zoomOut {
+0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+}
+100% {
+    opacity: 0;
+}
+}
+@keyframes zoomOut {
+0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+}
+100% {
+    opacity: 0;
+}
+}
+@keyframes zoomOut {
+0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+}
+100% {
+    opacity: 1;
+}
+}
+.zoomIn {
+    animation-name: zoomIn;
+}
+.zoomOut {
+    animation-name: zoomOut;
+}
+.animated {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+#confirmDialog {
+    background-color: #fff;
+    width: 350px;
+}
+.ui-confirm-title, .ui-alert-title {
+    color: #333;
+    font-size: 14px;
+    line-height: 25px;
+    padding: 27px 0 20px;
+    text-align: center;
+}
+.confirm-title2 {
+    color: #666;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.8;
+    text-align: center;
+}
+.ui-dialog-cancel {
+    background-color: #999999;
+}
+.ui-dialog-action {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-top: 1px solid #dcdcdc;
+    height: 45px;
+    line-height: 45px;
+    margin: 0;
+    padding: 0;
+    pointer-events: auto;
+    text-align: center;
+    width: 100%;
+}
+.ui-dialog-action td {
+    border: medium none;
+    text-align: center;
+}
+.ui-dialog-action button, .ui-dialog-action a {
+    background-color: #fff;
+    border: medium none;
+    box-sizing: border-box;
+    color: #47b5ca;
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    outline: medium none;
+    padding: 0;
+    width: 100%;
+}
+.ui-dialog-action .ui-confirm-close, .ui-dialog-action .ui-confirm-no {
+    border-left: 1px solid #dcdcdc;
+    color: #747474;
+}
+.ui-alert {
+    border-radius: 5px;
+    overflow: hidden;
+}
+.ui-alert .ui-dialog-close {
+    display: none;
+}
+.ui-alert .ui-alert-submit {
+    margin: 0 auto;
+}
+.ui-alert-info {
+    margin-top: 20px;
+    text-align: center;
+}
+.ui-alert-tip {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: #fff !important;
+}
+.ui-alert-tip .ui-alert-title {
+    color: #fff !important;
+    padding: 27px 25px;
+}

@@ -1,0 +1,2 @@
+ALTER TABLE mmp_coupon ADD COLUMN promoter_id bigint(12) NOT NULL COMMENT '分销员编号';
+ALTER TABLE mmp_exchange_coupon_channel_code ADD COLUMN coupon_user_id bigint(18) COMMENT 'mmp_coupon_user id,兑换码对应优惠券详细';

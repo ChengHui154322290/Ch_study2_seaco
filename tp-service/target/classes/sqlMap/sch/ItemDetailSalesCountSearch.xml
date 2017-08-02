@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.ItemDetailSalesCountSearchDao">
+	<resultMap type="com.tp.model.sch.ItemDetailSalesCountSearch" id="itemDetailSalesCountSearch">
+		<result column="detail_id" property="detailId"/>
+		<result column="default_sales_count" property="defSalesCount"/>
+		<result column="rel_sales_count" property="relSalesCount"/>
+
+
+	</resultMap>
+
+	<select id="getSalesCountByItemDetailIds" resultMap="itemDetailSalesCountSearch" parameterType="java.util.List">
+		SELECT detail_id, default_sales_count,rel_sales_count
+		FROM prd_item_detail_sales_count
+		WHERE
+		detail_id in
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

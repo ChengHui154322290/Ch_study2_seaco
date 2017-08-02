@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.StaticActivityInfoDao">
+	<resultMap type="com.tp.model.cms.StaticActivityInfo" id="staticActivityInfo">
+				<id column="id" property="id"/>
+				<result column="activity_name" property="activityName"/>
+				<result column="startdate" property="startdate"/>
+				<result column="enddate" property="enddate"/>
+				<result column="if_preheat" property="ifPreheat"/>
+				<result column="preheat_startdate" property="preheatStartdate"/>
+				<result column="preheat_enddate" property="preheatEnddate"/>
+				<result column="platform" property="platform"/>
+				<result column="title" property="title"/>
+				<result column="meta_keyword" property="metaKeyword"/>
+				<result column="meta_description" property="metaDescription"/>
+				<result column="activity_backend" property="activityBackend"/>
+				<result column="activity_pic_src" property="activityPicSrc"/>
+				<result column="remark" property="remark"/>
+				<result column="status" property="status"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="preheat_id" property="preheatId"/>
+	</resultMap>
+</mapper>

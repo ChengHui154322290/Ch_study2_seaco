@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockinImportDetailDao">
+	<resultMap type="com.tp.model.wms.StockinImportDetail" id="stockinImportDetail">
+				<id column="id" property="id"/>
+				<result column="log_id" property="logId"/>
+				<result column="upload_token" property="uploadToken"/>
+				<result column="purchase_code" property="purchaseCode"/>
+				<result column="warehouse_code" property="warehouseCode"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="barcode" property="barcode"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="article_number" property="articleNumber"/>
+				<result column="fact_amount" property="factAmount"/>
+				<result column="plan_amount" property="planAmount"/>
+				<result column="stockin_time" property="stockinTime"/>
+				<result column="operator" property="operator"/>
+				<result column="operate_time" property="operateTime"/>
+				<result column="excel_index" property="excelIndex"/>
+				<result column="status" property="status"/>
+				<result column="op_message" property="opMessage"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,log_id,upload_token,purchase_code,warehouse_code,warehouse_id,barcode,sku_code,article_number,fact_amount,plan_amount,stockin_time,operator,operate_time,excel_index,status,op_message,create_time,create_user
+	</sql>
+	
+	<insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+		INSERT INTO wms_stockin_import_detail(
+		<include refid="columns"></include>
+		)values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{item.logId},
+			#{item.uploadToken},
+			#{item.purchaseCode},
+			#{item.warehouseCode},
+			#{item.warehouseId},
+			#{item.barcode},
+			#{item.skuCode},
+			#{item.articleNumber},
+			#{item.factAmount},
+			#{item.planAmount},
+			#{item.stockinTime},
+			#{item.operator},
+			#{item.operateTime},
+			#{item.excelIndex},
+			#{item.status},
+			#{item.opMessage},
+			#{item.createTime},
+			#{item.createUser}
+			)
+		</foreach>
+	</insert>
+</mapper>

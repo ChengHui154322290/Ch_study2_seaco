@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.TableDao">
+	<resultMap type="com.tp.model.Table" id="table">
+		<result column="TABLE_NAME" property="tableName" />
+		<result column="TABLE_COMMENT" property="tableComment" />
+	</resultMap>
+	<select id="queryListBySchema" resultMap="table" parameterType="map">
+		SELECT TABLE_NAME,TABLE_COMMENT 
+		  FROM information_schema.TABLES 
+		 <where>
+		    TABLE_TYPE='BASE TABLE' 
+		 	<if test="schema!=null and schema!=''"> AND TABLE_SCHEMA=#{schema} </if>
+		 	<if test="notInTable!=null">
+				AND TABLE_NAME NOT IN
+				<foreach collection="notInTable" index="tableName"
+					open="(" close=")" item="tableName" separator=",">
+					#{tableName}
+				</foreach>
+		 	</if>
+		 	<if test="inTable!=null">
+				AND TABLE_NAME IN
+				<foreach collection="inTable" index="tName"
+					open="(" close=")" item="tName" separator=",">
+					#{tName}
+				</foreach>
+		 	</if>
+		 </where>
+	</select>
+</mapper>
+	
+	
+	

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sch.ItemSkuSearchDao">
+	<resultMap type="com.tp.model.sch.ItemSkuSearch" id="itemSkuSearch">
+		<result column="sku" property="sku"/>
+		<result column="status" property="status"/>
+
+
+	</resultMap>
+
+	<select id="getBySkus" resultMap="itemSkuSearch" parameterType="java.util.List">
+		SELECT sku,status
+		FROM prd_item_sku
+		WHERE
+		sku in
+		<foreach collection="list" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

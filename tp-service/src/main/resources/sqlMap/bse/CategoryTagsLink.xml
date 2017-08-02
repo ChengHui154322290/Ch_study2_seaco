@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.CategoryTagsLinkDao">
+	<resultMap type="com.tp.model.bse.CategoryTagsLink" id="categoryTagsLink">
+				<id column="id" property="id"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="tags_id" property="tagsId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user_id" property="createUserId"/>
+	</resultMap>
+</mapper>

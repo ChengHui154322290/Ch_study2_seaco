@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InventoryDao">
+	<resultMap type="com.tp.model.stg.Inventory" id="inventory">
+				<id column="id" property="id"/>
+				<result column="sku" property="sku"/>
+				<result column="inventory" property="inventory"/>
+				<result column="occupy" property="occupy"/>
+				<result column="reserve_inventory" property="reserveInventory"/>
+				<result column="warn_inventory" property="warnInventory"/>
+				<result column="reject" property="reject"/>
+				<result column="sample" property="sample"/>
+				<result column="freeze" property="freeze"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="sp_id" property="spId"/>
+				<result column="district_id" property="districtId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap><sql id="columns">
+	      id,sku,inventory,occupy,reserve_inventory,warn_inventory,reject,sample,freeze,warehouse_id,sp_id,district_id,create_time,modify_time
+ 	</sql>
+	<update id="increaseRealInventory" parameterType="map">
+		UPDATE
+		stg_inventory set inventory=inventory+#{quantity},modify_time=now()
+		WHERE
+		sku =#{sku} and sp_id =#{spId} and warehouse_id =#{warehouseId}
+	</update>
+
+	<update id="increaseRealInventoryById" parameterType="map">
+		UPDATE stg_inventory set
+		inventory=inventory+#{quantity},modify_time=now()
+		WHERE 
+		id =#{id}
+	</update>
+		<update id="reduceRealInventory" parameterType="map">
+		UPDATE stg_inventory set inventory=inventory-#{quantity},modify_time=now()
+		WHERE sku =#{sku} and  sp_id =#{spId} and warehouse_id =#{warehouseId} and inventory-reserve_inventory-#{quantity} &gt;= 0
+	</update>
+		<update id="frozenOccupyInventoryById" parameterType="map">
+		UPDATE stg_inventory set inventory=inventory-#{occupyInventory}, occupy=occupy+#{occupyInventory},modify_time=now()
+		WHERE id =#{id} and (inventory- reserve_inventory-#{occupyInventory}) &gt;= 0 
+	</update>
+		
+	<update id="thawOccupyInventoryById" parameterType="map">
+		UPDATE stg_inventory set inventory=inventory + #{occupyInventory},occupy=occupy-#{occupyInventory},modify_time=now() 
+		WHERE id =#{id} and occupy-#{occupyInventory} &gt;= 0
+	</update>
+	<select id="queryPageInventoryInfo" resultMap="inventory" parameterType="java.util.List">
+		SELECT
+     		<include refid="columns" />
+	 	FROM
+	 		stg_inventory
+		<where>
+			<foreach collection="list" open="(" close=")" item="item" separator="or">
+				1 = 1 
+				<if test="item.sku != null and item.sku != ''"> AND sku = #{item.sku}</if> 
+				<if test="item.spId != null"> AND sp_id=#{item.spId}</if>
+				<if test="item.warehouseId != null"> AND warehouse_id=#{item.warehouseId}</if>
+			</foreach>
+		</where>	
+		Limit #{start},#{pageSize}
+	</select>
+	<select id="queryCountInventoryInfo" resultMap="inventory" parameterType="java.util.List">
+		SELECT
+     		count(1)
+	 	FROM
+	 		stg_inventory
+		<where>
+			<foreach collection="list" open="(" close=")" item="item" separator="or">
+				1 = 1 
+				<if test="item.sku != null and item.sku != ''"> AND sku = #{item.sku}</if> 
+				<if test="item.spId != null"> AND sp_id=#{item.spId}</if>
+				<if test="item.warehouseId != null"> AND warehouse_id=#{item.warehouseId}</if>
+			</foreach>
+		</where>
+	</select>	
+	<select id="queryInventoryInfo" resultMap="inventory" parameterType="java.util.List">
+		SELECT
+     		<include refid="columns" />
+	 	FROM
+	 		stg_inventory
+		<where>
+			<foreach collection="list" open="(" close=")" item="item" separator="or">
+				1 = 1 
+				<if test="item.sku != null and item.sku != ''"> AND sku = #{item.sku}</if> 
+				<if test="item.spId != null"> AND sp_id=#{item.spId}</if>
+				<if test="item.warehouseId != null"> AND warehouse_id=#{item.warehouseId}</if>
+			</foreach>
+		</where>	
+	</select> 	
+	
+	<select id="queryPageInventoryInfoByParam" parameterType="map" resultMap="inventory">
+		SELECT * FROM stg_inventory
+		WHERE 1=1
+		<if test="id!=null and id!='' "> AND id = #{id}</if>
+		<if test="sku!=null and sku!='' "> AND sku = #{sku}</if>
+		<if test="spId !=null"> AND sp_id = #{spId}</if>
+		<if test="warehouseId !=null"> AND warehouse_id = #{warehouseId}</if>
+		<!-- 是否达到预警线 1是 2否 -->
+		<if test="warnFlag != null">
+			<if test="warnFlag=='1' or warnFlag==1">
+				and (inventory-reserve_inventory)&lt;=warn_inventory
+			</if>
+			<if test="warnFlag=='2' or warnFlag==2">
+				and (inventory-reserve_inventory)&gt;warn_inventory
+			</if>
+		</if>
+		<if test="maxUsableInventory!=null and maxUsableInventory !=''  or maxUsableInventory == 0  ">
+			 AND (inventory-reserve_inventory)&lt;=#{maxUsableInventory}
+		</if>
+		<if test="minUsableInventory!=null and minUsableInventory!=''  or minUsableInventory == 0 ">
+			 AND (inventory-reserve_inventory)&gt;=#{minUsableInventory}
+		</if>
+		order by inventory-reserve_inventory desc
+		LIMIT #{start},#{pageSize}
+	</select>
+	<select id="queryCountInventoryInfoByParam" parameterType="map" resultType="long">
+		SELECT count(1) FROM stg_inventory
+		WHERE 1=1
+		<if test="id!=null and id!='' "> AND id = #{id}</if>
+		<if test="sku!=null and sku!='' "> AND sku = #{sku}</if>
+		<if test="spId !=null"> AND sp_id = #{spId}</if>
+		<if test="warehouseId !=null"> AND warehouse_id = #{warehouseId}</if>
+		<!-- 是否达到预警线 1是 2否 -->
+		<if test="warnFlag != null">
+			<if test="warnFlag=='1' or warnFlag==1">
+				and (inventory-reserve_inventory)&lt;=warn_inventory
+			</if>
+			<if test="warnFlag=='2' or warnFlag==2">
+				and (inventory-reserve_inventory)&gt;warn_inventory
+			</if>
+		</if>
+		<if test="maxUsableInventory!=null and maxUsableInventory!='' or maxUsableInventory == 0 ">
+			AND (inventory-reserve_inventory)&lt;=#{maxUsableInventory}
+		</if>
+		<if test="minUsableInventory!=null and minUsableInventory!='' or minUsableInventory == 0 ">
+			AND (inventory-reserve_inventory)&gt;=#{minUsableInventory}
+		</if>
+	</select>
+	<select id="queryInventoryInfoByParam" parameterType="map" resultMap="inventory">
+		SELECT * FROM stg_inventory
+		where 1=1
+		<if test="id!=null and id!='' "> AND id = #{id}</if>
+		<if test="sku!=null and sku!='' "> AND sku = #{sku}</if>
+		<if test="spId !=null"> AND sp_id = #{spId}</if>
+		<if test="warehouseId !=null"> AND warehouse_id = #{warehouseId}</if>
+		<!-- 是否达到预警线 1是 2否 -->
+		<if test="warnFlag != null">
+			<if test="warnFlag=='1' or warnFlag==1">
+				and (inventory-reserve_inventory)&lt;=warn_inventory
+			</if>
+			<if test="warnFlag=='2' or warnFlag==2">
+				and (inventory-reserve_inventory)&gt;warn_inventory
+			</if>
+		</if>
+		<if test="maxUsableInventory!=null and maxUsableInventory !=''  or maxUsableInventory == 0  ">
+			AND (inventory-occupy)&lt;=#{maxUsableInventory}
+		</if>
+		<if test="minUsableInventory!=null and minUsableInventory!=''  or minUsableInventory == 0 ">
+			AND (inventory-occupy)&gt;=#{minUsableInventory}
+		</if>
+	</select>
+	
+	<update id="reduceOccupyInventoryById" parameterType="map">
+ 		UPDATE stg_inventory set occupy=occupy-#{inventory},modify_time=now() 
+ 		WHERE id = #{inventoryId} and (occupy - #{inventory}) &gt;= 0
+ 	</update>
+ 	
+	<insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+		INSERT INTO stg_inventory(
+		<include refid="columns"></include>
+		)values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{item.sku},
+			#{item.inventory},
+			#{item.occupy},
+			#{item.reserveInventory},
+			#{item.warnInventory},
+			#{item.reject},
+			#{item.sample},
+			#{item.freeze},
+			#{item.warehouseId},
+			#{item.spId},
+			#{item.districtId},
+			#{item.createTime},
+			#{item.modifyTime}
+			)
+		</foreach>
+	</insert>
+
+	
+	<resultMap type="com.tp.dto.stg.InventoryManageDto" id="inventoryManageDtoRM" extends="inventory">
+				<result column="barcode" property="barcode"/>
+				<result column="sp_name" property="spName"/>
+				<result column="main_title" property="mainTitle"/>
+				<result column="warehouse_name" property="warehouseName"/>
+	</resultMap>	
+	
+	
+	<!-- 查询库存列表 -->
+	<select id="getInventoryList" parameterType="map" resultMap="inventoryManageDtoRM">
+		select b.barcode,b.sp_name,c.main_title,d.`name` as warehouse_name,a.* from stg_inventory a
+		LEFT JOIN prd_item_sku b on a.sku = b.sku
+		LEFT JOIN prd_item_info c on c.spu = b.spu
+		LEFT JOIN stg_warehouse d on d.id = a.warehouse_id
+		where 1=1
+		<if test="sku!=null and sku!='' ">
+			and a.sku = #{sku}
+		</if>
+		<if test="spId !=null and spId!='' or spId == 0">
+			and a.sp_id = #{spId}
+		</if>
+		<if test="barcode !=null and barcode !=''">
+			and b.barcode = #{barcode}
+		</if>
+		<if test="mainTitle !=null and mainTitle !=''">
+			and c.main_title like CONCAT(CONCAT('%', #{mainTitle}), '%')
+		</if>
+		<!-- 是否达到预警线 1是 2否 -->
+		<if test="warnFlag != null">
+			<if test="warnFlag=='1' or warnFlag==1">
+				and (a.inventory-a.occupy-a.reserve_inventory)&lt;=a.warn_inventory
+			</if>
+			<if test="warnFlag=='2' or warnFlag==2">
+				and (a.inventory-a.occupy-a.reserve_inventory)&gt;=a.warn_inventory
+			</if>
+		</if>
+		<if test="maxUsableInventory!=null and maxUsableInventory !=''  or maxUsableInventory == 0  ">
+			and (a.inventory-a.occupy-a.reserve_inventory)&lt;=#{maxUsableInventory}
+		</if>
+		<if test="minUsableInventory!=null and minUsableInventory!=''  or minUsableInventory == 0 ">
+			and (a.inventory-a.occupy-a.reserve_inventory)&gt;=#{minUsableInventory}
+		</if>
+		limit #{startPage},#{pageSize}
+	</select>
+	<!-- 查询库存列表总条数 -->
+	<select id="getInventoryListCount" parameterType="map" resultType="int">
+		select count(1) 
+		from stg_inventory a
+		LEFT JOIN prd_item_sku b on a.sku = b.sku
+		LEFT JOIN prd_item_info c on c.spu = b.spu
+		LEFT JOIN stg_warehouse d on d.id = a.warehouse_id
+		where 1=1
+		<if test="sku!=null and sku!='' ">
+			and a.sku = #{sku}
+		</if>
+		<if test="spId !=null and spId!='' or spId == 0">
+			and a.sp_id = #{spId}
+		</if>
+		<if test="barcode !=null and barcode !=''">
+			and b.barcode = #{barcode}
+		</if>
+		<if test="mainTitle !=null and mainTitle !=''">
+			and c.main_title like CONCAT(CONCAT('%', #{mainTitle}), '%')
+		</if>
+		<!-- 是否达到预警线 1是 2否 -->
+		<if test="warnFlag != null">
+			<if test="warnFlag=='1' or warnFlag==1">
+				and (a.inventory-a.occupy-a.reserve_inventory)&lt;=a.warn_inventory
+			</if>
+			<if test="warnFlag=='2' or warnFlag==2">
+				and (a.inventory-a.occupy-a.reserve_inventory)&gt;a.warn_inventory
+			</if>
+		</if>
+		<if test="maxUsableInventory!=null and maxUsableInventory !=''  or maxUsableInventory == 0  ">
+			and (a.inventory-a.occupy-a.reserve_inventory)&lt;=#{maxUsableInventory}
+		</if>
+		<if test="minUsableInventory!=null and minUsableInventory!=''  or minUsableInventory == 0 ">
+			and (a.inventory-a.occupy-a.reserve_inventory)&gt;=#{minUsableInventory}
+		</if>
+	</select>
+	
+	<!-- 查询库存列表 -->
+	<select id="getInventoryById" parameterType="map" resultMap="inventoryManageDtoRM">
+		select b.barcode,b.sp_name,c.main_title,d.`name` as warehouse_name,a.* from stg_inventory a
+		LEFT JOIN prd_item_sku b on a.sku = b.sku
+		LEFT JOIN prd_item_info c on c.spu = b.spu
+		LEFT JOIN stg_warehouse d on d.id = a.warehouse_id
+		where 
+		a.id = #{id}
+	</select>
+</mapper>

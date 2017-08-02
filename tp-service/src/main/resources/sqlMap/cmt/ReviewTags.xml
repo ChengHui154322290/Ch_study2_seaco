@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cmt.ReviewTagsDao">
+	<resultMap type="com.tp.model.cmt.ReviewTags" id="reviewTags">
+				<id column="id" property="id"/>
+				<result column="review_id" property="reviewId"/>
+				<result column="name" property="name"/>
+				<result column="type" property="type"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

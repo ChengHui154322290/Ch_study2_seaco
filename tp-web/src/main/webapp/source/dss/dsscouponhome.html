@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>我的卡券</title>
+<meta name="Keywords" content="账户详情">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no, address=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="icon" href="./../modifiable/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../css/frozen.css" />
+<link rel="stylesheet" href="../css/demo.css" />
+<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+<link rel="stylesheet" type="text/css" href="./css/couponhome.css" />
+<script src="../js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/frozen.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<header class="main-body">
+		<a href="../home.html" class="goBack"></a>
+		<div class = "top_menu"></div>
+		<div class=" main-info">
+			<div class="main-avtar detailinfo">
+				<img class="main-avtarimg" src="img/coupon-icon.png" />
+			</div>
+			<div class="main-title">
+				<div class="dss-name"><span id="shopName">我的卡券</span></div>
+				<div class="main-normal" id = "normalStatusDiv" > <!-- 正常显示-->
+					<div class="user-info">
+						<div class="info-div"><span id="userName"></span></div>
+						<div class="info-div"><span id="mobile"></span></div>
+					</div>
+					<div class="auth-info yrz" style = "display: none;">
+						<div class="auth-text"><span>已认证</span></div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-id.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/y-bank.png" />
+						</div>
+					</div>
+					<div class="auth-info wrz" style = "display: none;">
+						<div class="auth-text"><span>还未认证</span></div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/bank-auth.png" />
+						</div>
+						<div class="auth-img">
+							<img class="auth-imgsize" src="img/identify-auth.png" />
+						</div>
+					</div>
+				</div>
+				<div class="main-normal" id="unpayStatusDiv" style="display:none"> <!-- 未开通状态 -->
+					<div class="pass_btn" ordercode="" id="orders_btn_pay">
+						开通我的店铺
+					</div>
+				</div>
+				<div class="main-normal" id="forbiddenStatusDiv" style="display:none"> <!-- 被禁用状态显示-->
+					<div class="user-info">
+						<div class="info-div"><span id="fuserName"></span></div>
+						<div class="info-div"><span id="fmobile"></span></div>
+					</div>
+					<div class="auth-info">
+						<div class="auth-text"><span>该店铺已被禁用(请联系西客商城客服)</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+		<div class="money-info">
+			<div class="money-income">
+				<div class="money-box">
+					<div class="money-text"><span>累计收入(元)</span></div>
+					<div class="money-number"><span id="accumulatedAmount"></span></div>
+				</div>
+				<div class="money-split"></div>
+				<div class="money-box">
+					<div class="money-text"><span>账户余额(元)</span></div>
+					<div class="money-number"><span id="surplusAmount"></span></div>
+				</div>
+			</div>
+			<div class="money-withdraw" >
+				<div class="withdraw-button" id="canWithdrawBtn">
+					<div class="withdraw-div">
+						<img class="btnicon" src="img/time-icon.png"></img>
+						提现
+					</div>
+				</div>
+				<div  class="withdraw-button-disable" id="withdrawDisableBtn" style="display:none">
+					<div class="withdraw-div">
+						<img class="btnicon" src="img/time-icon.png"></img>
+						提现
+					</div>
+				</div>
+				<!-- <div  class="withdraw-button-disable" id="withdrawingBtn" style="display:none">
+					<div class="withdraw-div">
+						<img class="btnicon" src="img/time-icon.png"></img>
+						提现中
+					</div>
+				</div> -->
+			</div>
+ 			<div class="money-account">
+				<div class="money-box money-split1">
+					<div class="money-text"><span>&nbsp;&nbsp;&nbsp;已提现(元)</span></div>
+					<div class="money-number-black"><span id="withdrawedAmount"></span></div>
+				</div>
+				<div class="money-box money-split1">
+					<div class="money-text"><span>订单总额(元)</span></div>
+					<div class="money-number"><span id="orderAmount"></span></div>
+				</div>
+				<div class="money-box">
+					<div class="money-text"><span>卡券总数(个)</span></div>
+					<div class="money-number"><span id="couponCount"></span></div>
+				</div>
+			</div>
+			<div class="money-account">
+				<div class="money-box money-split1">
+					<div class="money-text"><span>已使用卡券(个)</span></div>
+					<div class="money-number-black"><span id="usedCount"></span></div>
+				</div>
+				<div class="money-box money-split1">
+					<div class="money-text"><span>已兑换卡券(个)</span></div>
+					<div class="money-number"><span id="exchangedCount"></span></div>
+				</div>
+				<div class="money-box">
+					<div class="money-text"><span>未兑换卡券(个)</span></div>
+					<div class="money-number"><span id="unexchangeCount"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="operation-list">
+			<div class="operation-item"  id="accountFlowQuery">
+				<div class="operation-item-box">
+					<img class="operation-item-img-account" src="img/accountflow.png"/>
+					<div class="operation-item-text"><span>账单查询</span></div>
+				</div>
+			</div>
+			<!-- <div class="operation-item-split"></div> -->
+			<div class="operation-item" id="orderQuery">
+				<div class="operation-item-box">
+					<img src="img/orderinfo.png" class="operation-item-img-order"/>
+					<div class="operation-item-text"><span>订单查询</span></div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id = "credentialcode" />
+		<input type="hidden" id = "bankName" />
+		<input type="hidden" id = "bankAccount"/>
+		<input type="hidden" id = "curWithdraw"/>
+		
+		<!--  弹出提示框    -->
+		<!--  弹出提示框    -->
+		<div class = "cover" id = "tips">
+			
+			
+		</div>
+		<div class ="cover_pop">
+			<div class ="cover_s3"></div>
+			<a class="btn-app"></a>
+		</div>
+</body>
+
+<script src="../js/xigou.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/static_data.js"></script>
+<script type="text/javascript" src="./js/dsscouponhome.js"></script>
+<script type="text/javascript" src="./js/modules/promoter.js"></script>
+<script type="text/javascript" src="./js/dssInvisterRegisterSuccess.js"></script>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.CouponRangeDao">
+	<resultMap type="com.tp.model.mmp.CouponRange" id="couponRange">
+				<id column="id" property="id"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="type" property="type"/>
+				<result column="create_time" property="createTime"/>
+				<result column="coupon_id" property="couponId"/>
+				<result column="category_middle_id" property="categoryMiddleId"/>
+				<result column="category_small_id" property="categorySmallId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="code" property="code"/>
+				<result column="attribute_name" property="attributeName"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="update_user_id" property="updateUserId"/>
+				<result column="sku_name" property="skuName"/>
+				<result column="range_type" property="rangeType"/>
+	</resultMap>
+	<sql id="columns">
+		id,category_id,brand_id,type,create_time,coupon_id,category_middle_id,category_small_id,brand_name,code,attribute_name,modify_time,create_user_id,update_user_id,sku_name,range_type
+	</sql>
+
+	<select id="selectCouponRangeByCouponId"  parameterType="long"  resultType="com.tp.dto.mmp.CouponRangeDto">
+		SELECT
+		id id,
+		coupon_id couponId,
+		category_id categoryId,
+		category_middle_id categoryMiddleId,
+		category_small_id categorySmallId,
+		brand_id brandId,
+		brand_name brandName,
+		type type,
+		code code,
+		sku_name skuName,
+		range_type as rangeType
+		from mmp_coupon_range
+		where  coupon_id = #{id}
+	</select>
+
+	<delete id="deleteByCouponId" parameterType="long" >
+		DELETE FROM mmp_coupon_range WHERE coupon_id = #{id}
+	</delete>
+
+</mapper>

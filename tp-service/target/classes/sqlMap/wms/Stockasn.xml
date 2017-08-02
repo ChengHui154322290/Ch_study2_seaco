@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockasnDao">
+    <resultMap type="com.tp.model.wms.Stockasn" id="stockasn">
+        <id column="id" property="id"/>
+        <result column="order_code" property="orderCode"/>
+        <result column="order_type" property="orderType"/>
+        <result column="contract_code" property="contractCode"/>
+        <result column="supplier_code" property="supplierCode"/>
+        <result column="supplier_name" property="supplierName"/>
+        <result column="order_create_time" property="orderCreateTime"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="warehouse_code" property="warehouseCode"/>
+        <result column="warehouse_name" property="warehouseName"/>
+        <result column="plan_start_time" property="planStartTime"/>
+        <result column="plan_over_time" property="planOverTime"/>
+        <result column="gross_weight" property="grossWeight"/>
+        <result column="net_weight" property="netWeight"/>
+        <result column="amount" property="amount"/>
+        <result column="batch_no" property="batchNo"/>
+        <result column="logistics_code" property="logisticsCode"/>
+        <result column="express_code" property="expressCode"/>
+        <result column="pre_order_code" property="preOrderCode"/>
+        <result column="consignee" property="consignee"/>
+        <result column="post_code" property="postCode"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="area" property="area"/>
+        <result column="address" property="address"/>
+        <result column="mobile" property="mobile"/>
+        <result column="tel" property="tel"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+        <result column="fail_times" property="failTimes"/>
+        <result column="create_time" property="createTime"/>
+    <!--     <result column="create_user" property="createUser"/>
+        <result column="create_user_id" property="createUserId"/> -->
+    </resultMap>
+
+    <sql id="columns">
+		id,order_code,order_type,contract_code,supplier_code,supplier_name,order_create_time,warehouse_id,warehouse_code,warehouse_name,plan_start_time,plan_over_time,gross_weight,net_weight,amount,batch_no,logistics_code,express_code,pre_order_code,consignee,post_code,province,city,area,address,mobile,tel,remark,status,fail_times,create_time<!-- ,create_user,create_user_id -->
+	</sql>
+
+    <update id="updateStatusToSuccess" parameterType="java.util.List">
+        UPDATE wms_stockasn
+        SET  status = 1
+        WHERE status is NULL AND
+        id in
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+
+
+    </update>
+
+</mapper>

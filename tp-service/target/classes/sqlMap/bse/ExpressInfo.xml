@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.ExpressInfoDao">
+	<resultMap type="com.tp.model.bse.ExpressInfo" id="expressInfo">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="code" property="code"/>
+				<result column="sort_no" property="sortNo"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+</mapper>

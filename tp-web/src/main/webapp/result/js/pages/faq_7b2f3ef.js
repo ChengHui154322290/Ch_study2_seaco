@@ -1,0 +1,1 @@
+$(function(){isWeiXin()&&($(".ui-header").hide(),$("title").html("常见问题"),$(".ui-tab-nav").css({top:"0"}),$(".ui-tab").css({"margin-top":"44px"}),$("title").html("常见问题"));var i=xigou.getQueryString("type");1==i&&($(".ui-header").hide(),$(".ui-tab-nav").css("top","0px"),$(".ui-tab").css("margin-top","50px"))});

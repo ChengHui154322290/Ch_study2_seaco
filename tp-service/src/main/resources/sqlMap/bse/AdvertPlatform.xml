@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.AdvertPlatformDao">
+	<resultMap type="com.tp.model.bse.AdvertPlatform" id="advertPlatform">
+				<id column="id" property="id"/>
+				<result column="advert_plat_name" property="advertPlatName"/>
+				<result column="advert_plat_code" property="advertPlatCode"/>
+				<result column="click_num" property="clickNum"/>
+				<result column="register_num" property="registerNum"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,advert_plat_name,advert_plat_code,click_num,register_num,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

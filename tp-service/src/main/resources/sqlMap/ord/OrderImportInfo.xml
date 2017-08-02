@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderImportInfoDao">
+	<resultMap type="com.tp.model.ord.OrderImportInfo" id="orderImportInfo">
+				<id column="id" property="id"/>
+				<result column="log_id" property="logId"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="channel_code" property="channelCode"/>
+				<result column="total" property="total"/>
+				<result column="item_total" property="itemTotal"/>
+				<result column="identity_card" property="identityCard"/>
+				<result column="true_name" property="trueName"/>
+				<result column="province_id" property="provinceId"/>
+				<result column="province" property="province"/>
+				<result column="city_id" property="cityId"/>
+				<result column="city" property="city"/>
+				<result column="county_id" property="countyId"/>
+				<result column="county" property="county"/>
+				<result column="street_id" property="streetId"/>
+				<result column="street" property="street"/>
+				<result column="address" property="address"/>
+				<result column="phone" property="phone"/>
+				<result column="name" property="name"/>
+				<result column="order_create_time" property="orderCreateTime"/>
+				<result column="sku_code1" property="skuCode1"/>
+				<result column="quantity1" property="quantity1"/>
+				<result column="sales_price1" property="salesPrice1"/>
+				<result column="warehouse_id1" property="warehouseId1"/>
+				<result column="sku_code2" property="skuCode2"/>
+				<result column="quantity2" property="quantity2"/>
+				<result column="sales_price2" property="salesPrice2"/>
+				<result column="warehouse_id2" property="warehouseId2"/>
+				<result column="sku_code3" property="skuCode3"/>
+				<result column="quantity3" property="quantity3"/>
+				<result column="sales_price3" property="salesPrice3"/>
+				<result column="warehouse_id3" property="warehouseId3"/>
+				<result column="op_message" property="opMessage"/>
+				<result column="excel_index" property="excelIndex"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,log_id,order_code,channel_code,total,item_total,identity_card,true_name,province_id,province,city_id,city,county_id,county,street_id,street,address,phone,name,order_create_time,sku_code1,quantity1,sales_price1,warehouse_id1,sku_code2,quantity2,sales_price2,warehouse_id2,sku_code3,quantity3,sales_price3,warehouse_id3,op_message,excel_index,status,create_time
+	</sql>
+</mapper>

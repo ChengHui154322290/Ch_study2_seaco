@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mem.MemberSingleCollectionDao">
+	<resultMap type="com.tp.model.mem.MemberSingleCollection" id="memberSingleCollection">
+				<id column="id" property="id"/>
+				<result column="user_id" property="userId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="prd_id" property="prdId"/>
+				<result column="prd_logo" property="prdLogo"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="item_title" property="itemTitle"/>
+				<result column="main_title" property="mainTitle"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="state" property="state"/>
+	</resultMap>
+</mapper>

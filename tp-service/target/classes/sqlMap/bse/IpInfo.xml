@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.IpInfoDao">
+	<resultMap type="com.tp.model.bse.IpInfo" id="ipInfo">
+				<id column="id" property="id"/>
+				<result column="ipstart" property="ipstart"/>
+				<result column="ipend" property="ipend"/>
+				<result column="ipstart_int" property="ipstartInt"/>
+				<result column="ipend_int" property="ipendInt"/>
+				<result column="country_id" property="countryId"/>
+				<result column="country" property="country"/>
+				<result column="province_id" property="provinceId"/>
+				<result column="province" property="province"/>
+				<result column="city_id" property="cityId"/>
+				<result column="city" property="city"/>
+				<result column="district" property="district"/>
+	</resultMap>
+</mapper>

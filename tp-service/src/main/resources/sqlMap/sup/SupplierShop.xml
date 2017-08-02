@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierShopDao">
+	<resultMap type="com.tp.model.sup.SupplierShop" id="supplierShop">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="shop_name" property="shopName"/>
+				<result column="logo_path" property="logoPath"/>
+				<result column="mobile_image" property="mobileImage"/>
+				<result column="shop_image_path" property="shopImagePath"/>
+				
+				<result column="business_time" property="businessTime"/>
+				<result column="longitude" property="longitude"/>
+				<result column="latitude" property="latitude"/>
+				<result column="shop_tel" property="shopTel"/>
+				<result column="shop_address" property="shopAddress"/>
+				
+				
+				<result column="intro_mobile" property="introMobile"/>
+				<result column="search_title1" property="searchTitle1"/>
+				<result column="search_title2" property="searchTitle2"/>
+				<result column="search_title3" property="searchTitle3"/>
+				<result column="search_title4" property="searchTitle4"/>
+				<result column="description" property="description"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,supplier_id,shop_name,logo_path,mobile_image,intro_mobile,search_title1,search_title2,search_title3,search_title4,description,status,create_time,update_time,create_user,update_user,business_time,longitude,latitude,shop_tel,shop_address
+	</sql>
+
+	<select id="queryBySupplierIds" resultMap="supplierShop" parameterType="java.util.List">
+		SELECT  <include refid="columns"></include>
+		FROM sup_supplier_shop
+		WHERE supplier_id IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+
+</mapper>

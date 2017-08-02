@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderPointDao">
+	<resultMap type="com.tp.model.ord.OrderPoint" id="orderPoint">
+				<id column="order_point_id" property="orderPointId"/>
+				<result column="order_item_id" property="orderItemId"/>
+				<result column="order_id" property="orderId"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="point_package_id" property="pointPackageId"/>
+				<result column="point" property="point"/>
+				<result column="refunded_point" property="refundedPoint"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="point_type" property="pointType"/>
+				<result column="channel_code" property="channelCode"/>
+	</resultMap>
+	
+	<sql id="columns">
+		order_point_id,<include refid="columnsByInsert"></include>
+	</sql>
+	
+	<sql id="columnsByInsert">
+		order_item_id,order_id,order_code,parent_order_id,parent_order_code,point_package_id,point,refunded_point,create_time,create_user,point_type,channel_code
+	</sql>
+	
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO ord_order_point(
+        	<include refid="columnsByInsert"></include>
+		)values
+		<foreach collection="orderPointList" item="item" index="index" separator=",">
+			(
+			#{item.orderItemId},#{item.orderId},#{item.orderCode},#{item.parentOrderId},#{item.parentOrderCode},
+			#{item.pointPackageId},#{item.point},0,new(),#{item.createUser},#{item.pointType},#{item.channelCode}
+			)
+		</foreach> 
+    </insert>
+</mapper>

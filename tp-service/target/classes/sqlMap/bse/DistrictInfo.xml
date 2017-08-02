@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.DistrictInfoDao">
+	<resultMap type="com.tp.model.bse.DistrictInfo" id="districtInfo">
+				<id column="id" property="id"/>
+				<result column="parent_id" property="parentId"/>
+				<result column="name" property="name"/>
+				<result column="spelling" property="spelling"/>
+				<result column="simple_spelling" property="simpleSpelling"/>
+				<result column="type" property="type"/>
+				<result column="path_url" property="pathUrl"/>
+				<result column="sort_no" property="sortNo"/>
+				<result column="is_delete" property="isDelete"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="national_code" property="nationalCode"/>
+	</resultMap>
+	
+	<sql id="columns">
+	      id,name,spelling,simple_spelling,parent_id,type,path_url,sort_no,is_delete,create_time,update_time
+ 	</sql>
+
+	<sql id="whereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="name != null  and name != '' "> AND name=#{name} </if>
+			<if test="spelling != null  and spelling != '' "> AND spelling=#{spelling} </if>
+			<if test="simpleSpelling != null  and simpleSpelling != '' "> AND simple_spelling=#{simpleSpelling} </if>
+			<if test="parentId != null  and parentId != '' "> AND parent_id=#{parentId} </if>
+			<if test="type != null  and type != '' "> AND type=#{type} </if>
+			<if test="pathUrl != null  and pathUrl != '' "> AND path_url=#{pathUrl} </if>
+			<if test="sortNo != null  and sortNo != '' "> AND sort_no=#{sortNo} </if>
+			<if test="isDelete != null  and isDelete != '' "> AND is_delete=#{isDelete} </if>
+		</where>
+ 	</sql>
+
+ 	   
+ 	 <select id="selectByLikeName"  resultMap="districtInfo" parameterType="DistrictInfo">
+	     SELECT
+	     	  <include refid="columns"></include>
+		 FROM
+		 	base_district_info
+	    WHERE name LIKE  "%"#{name}"%" AND type='2'
+ 	  </select>
+ 	  
+ 	  <!-- 中国到县的所有区划查询 -->
+ 	  <select id="selectChinaRegions"  resultType="com.tp.result.bse.AreaTreeDTO" >
+    	SELECT
+			id as id ,
+			parent_id as pId,
+			name ,
+			type  
+		FROM
+			base_district_info
+		WHERE
+		is_delete =1 and 
+		(
+		id = 196
+		OR parent_id = 196
+		OR type = 4
+		OR type = 5
+		OR type = 6 OR type = 7)
+ 	  </select>
+ 	  
+ 	  
+ 	  <select id="selectChinaStreets"  resultType="com.tp.result.bse.AreaTreeDTO" >
+    	SELECT
+			id as id ,
+			parent_id as pId,
+			name ,
+			type  
+		FROM
+			base_district_info
+		WHERE
+		is_delete =1 and  parent_id = #{id}
+		
+ 	  </select>
+ 	  
+ 	  <select id="selecTAllProvinceInformation"  resultMap="districtInfo" >
+    	SELECT
+			    <include refid="columns"></include>
+		FROM
+			base_district_info
+		WHERE
+		 type=4 ORDER BY sort_no ASC
+ 	  </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.FisherDeliveryLogDao">
+	<resultMap type="com.tp.model.ord.FisherDeliveryLog" id="fisherDeliveryLog">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="company_no" property="companyNo"/>
+				<result column="express_no" property="expressNo"/>
+				<result column="shipping_time" property="shippingTime"/>
+				<result column="shipping_detail" property="shippingDetail"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+		id,order_code,company_no,express_no,shipping_time,shipping_detail,create_time
+	</sql>
+	
+	<!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="list">
+        insert into ord_fisher_delivery_log
+	       (order_code,company_no,express_no,shipping_time,shipping_detail,create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+	      (#{item.orderCode},#{item.companyNo},#{item.expressNo},#{item.shippingTime},#{item.shippingDetail},now())
+   		</foreach>  
+    </insert>
+</mapper>

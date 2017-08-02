@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.StaticActivityTempletDao">
+	<resultMap type="com.tp.model.cms.StaticActivityTemplet" id="staticActivityTemplet">
+				<id column="id" property="id"/>
+				<result column="activity_id" property="activityId"/>
+				<result column="sort" property="sort"/>
+				<result column="status" property="status"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="templet_id" property="templetId"/>
+	</resultMap>
+</mapper>

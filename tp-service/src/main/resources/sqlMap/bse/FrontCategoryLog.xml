@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.FrontCategoryLogDao">
+	<resultMap type="com.tp.model.bse.FrontCategoryLog" id="frontCategoryLog">
+				<id column="id" property="id"/>
+				<result column="category_id" property="categoryId"/>
+				<result column="oper_id" property="operId"/>
+				<result column="oper_name" property="operName"/>
+				<result column="oper_time" property="operTime"/>
+				<result column="oper_content" property="operContent"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

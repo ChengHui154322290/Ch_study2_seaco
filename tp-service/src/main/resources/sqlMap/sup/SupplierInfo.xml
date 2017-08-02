@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.SupplierInfoDao">
+	<resultMap type="com.tp.model.sup.SupplierInfo" id="supplierInfo">
+				<id column="id" property="id"/>
+				<result column="supplier_code" property="supplierCode"/>
+				<result column="name" property="name"/>
+				<result column="alias" property="alias"/>
+				<result column="supplier_type" property="supplierType"/>
+				<result column="legal_person" property="legalPerson"/>
+				<result column="link_name" property="linkName"/>
+				<result column="address" property="address"/>
+				<result column="email" property="email"/>
+				<result column="phone" property="phone"/>
+				<result column="fax" property="fax"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="parent_supplier_id" property="parentSupplierId"/>
+				<result column="parent_supplier_name" property="parentSupplierName"/>
+				<result column="is_sea" property="isSea"/>
+				<result column="freight_template_id" property="freightTemplateId"/>
+				<result column="freight_template_name" property="freightTemplateName"/>
+				<result column="income_tax_rate" property="incomeTaxRate"/>
+				<result column="supplier_desc" property="supplierDesc"/>
+				<result column="key1" property="key1"/>
+				<result column="key2" property="key2"/>
+				<result column="key3" property="key3"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+</mapper>

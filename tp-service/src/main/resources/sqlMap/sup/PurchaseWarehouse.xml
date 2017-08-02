@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.PurchaseWarehouseDao">
+	<resultMap type="com.tp.model.sup.PurchaseWarehouse" id="purchaseWarehouse">
+				<id column="id" property="id"/>
+				<result column="purchase_id" property="purchaseId"/>
+				<result column="booking_code" property="bookingCode"/>
+				<result column="booking_date" property="bookingDate"/>
+				<result column="booking_desc" property="bookingDesc"/>
+				<result column="purchase_type" property="purchaseType"/>
+				<result column="purchase_code" property="purchaseCode"/>
+				<result column="purchase_date" property="purchaseDate"/>
+				<result column="purchase_desc" property="purchaseDesc"/>
+				<result column="purchase_expect_date" property="purchaseExpectDate"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="warehouse_name" property="warehouseName"/>
+				<result column="warehouse_addr" property="warehouseAddr"/>
+				<result column="warehouse_linkman_id" property="warehouseLinkmanId"/>
+				<result column="warehouse_linkman_name" property="warehouseLinkmanName"/>
+				<result column="warehouse_linkman_tel" property="warehouseLinkmanTel"/>
+				<result column="warehouse_linkman_email" property="warehouseLinkmanEmail"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+
+	<update id="updateAuditStatusByIds" parameterType="java.util.Map" >
+		UPDATE
+		sup_purchase_warehouse
+		SET
+		audit_status = #{auditStatus}
+		WHERE
+		id IN
+		<foreach collection="ids" item="item" open="(" separator="," close=")" >
+			#{item}
+		</foreach>
+
+	</update>
+
+</mapper>

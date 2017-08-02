@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.RefundInfoDao">
+	<resultMap type="com.tp.model.ord.RefundInfo" id="refundInfo">
+				<id column="refund_id" property="refundId"/>
+				<result column="refund_code" property="refundCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="refund_type" property="refundType"/>
+				<result column="refund_amount" property="refundAmount"/>
+				<result column="refund_status" property="refundStatus"/>
+				<result column="remarks" property="remarks"/>
+				<result column="refund_biz_type" property="refundBizType"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="gateway_id" property="gatewayId"/>
+	</resultMap>
+	<sql id="columns">
+		refund_id,refund_code,order_code,refund_type,refund_amount,refund_status,remarks,refund_biz_type,create_time,create_user,update_time,update_user,gateway_id
+	</sql>
+</mapper>

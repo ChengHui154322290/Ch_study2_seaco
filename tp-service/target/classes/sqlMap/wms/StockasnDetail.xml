@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockasnDetailDao">
+	<resultMap type="com.tp.model.wms.StockasnDetail" id="stockasnDetail">
+		<id column="id" property="id"/>
+		<result column="stockasn_id" property="stockasnId"/>
+		<result column="item_sku" property="itemSku"/>
+		<result column="item_barcode" property="itemBarcode"/>
+		<result column="inventory_type" property="inventoryType"/>
+		<result column="quantity" property="quantity"/>
+		<result column="actual_price" property="actualPrice"/>
+		<result column="price" property="price"/>
+		<result column="country_code" property="countryCode"/>
+		<result column="country_name" property="countryName"/>
+		<result column="create_time" property="createTime"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+
+	<sql id="columns">
+		id,stockasn_id,item_sku,item_barcode,inventory_type,quantity,actual_price,price,country_code,country_name,create_time,remark
+	</sql>
+
+	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+		INSERT INTO wms_stockasn_detail(
+		<include refid="columns"></include>
+		)values
+		<foreach collection="list" item="details" index="index" separator=",">
+			(
+			#{details.id},
+			#{details.stockasnId},
+			#{details.itemSku},
+			#{details.itemBarcode},
+			#{details.inventoryType},
+			#{details.quantity},
+			#{details.actualPrice},
+			#{details.price},
+			#{details.countryCode},
+			#{details.countryName},
+			#{details.createTime},
+			#{details.remark}
+			)
+		</foreach>
+	</insert>
+</mapper>

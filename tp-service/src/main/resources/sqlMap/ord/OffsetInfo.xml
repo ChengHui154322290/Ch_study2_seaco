@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OffsetInfoDao">
+	<resultMap type="com.tp.model.ord.OffsetInfo" id="offsetInfo">
+				<id column="offset_id" property="offsetId"/>
+				<result column="offset_code" property="offsetCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="offset_type" property="offsetType"/>
+				<result column="offset_amount" property="offsetAmount"/>
+				<result column="offset_reason" property="offsetReason"/>
+				<result column="offset_status" property="offsetStatus"/>
+				<result column="offset_biz_type" property="offsetBizType"/>
+				<result column="payee_bank" property="payeeBank"/>
+				<result column="payment_model" property="paymentModel"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="order_create_user" property="orderCreateUser"/>
+				<result column="remarks" property="remarks"/>
+				<result column="bank_account" property="bankAccount"/>
+				<result column="payee_mobile" property="payeeMobile"/>
+				<result column="payee" property="payee"/>
+				<result column="bear" property="bear"/>
+				<result column="serial_no" property="serialNo"/>
+				<result column="coupon_code" property="couponCode"/>
+				<result column="pay_bank" property="payBank"/>
+				<result column="pay_bank_account" property="payBankAccount"/>
+	</resultMap>
+	<sql id="columns">
+		offset_id,offset_code,order_code,offset_type,offset_amount,offset_reason,offset_status,offset_biz_type,payee_bank,payment_model,create_time,create_user,update_time,update_user,order_create_user,remarks,bank_account,payee_mobile,payee,bear,serial_no,coupon_code,pay_bank,pay_bank_account
+	</sql>
+</mapper>

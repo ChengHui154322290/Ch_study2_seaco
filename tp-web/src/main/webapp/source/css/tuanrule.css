@@ -1,0 +1,38 @@
+body {
+	background-color: #ffffff;
+}
+
+.ui-header {
+	border-bottom: 1px solid #999999;
+	height: 48px;
+}
+
+a.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+.title_desc {
+	height: 49px;
+	line-height: 49px;
+	font-size: 17px;
+	text-align: center;
+	color: #333333;
+}
+
+ul {
+	margin-top: 50px;
+	font-size: 14px;
+	color: #333333;
+	padding: 25px 18px 25px 36px;
+}
+
+ul li {
+	list-style-type: decimal;
+}

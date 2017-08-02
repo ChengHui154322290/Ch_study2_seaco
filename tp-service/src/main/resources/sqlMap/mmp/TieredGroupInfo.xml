@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.TieredGroupInfoDao">
+	<resultMap type="com.tp.model.mmp.TieredGroupInfo" id="tieredGroupInfo">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="group_number" property="groupNumber"/>
+				<result column="leader_id" property="leaderId"/>
+				<result column="leader_name" property="leaderName"/>
+				<result column="leader_phone" property="leaderPhone"/>
+				<result column="leader_email" property="leaderEmail"/>
+				<result column="plan_amount" property="planAmount"/>
+				<result column="fact_amount" property="factAmount"/>
+				<result column="status" property="status"/>
+				<result column="start_time" property="startTime"/>
+				<result column="end_time" property="endTime"/>
+				<result column="topic_end_time" property="topicEndTime"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_id,topic_name,group_number,leader_id,leader_name,leader_phone,leader_email,plan_amount,fact_amount,status,start_time,end_time,topic_end_time,create_time,create_user,update_time,update_user
+	</sql>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.dss.AccountDetailDao">
+	<resultMap type="com.tp.model.dss.AccountDetail" id="accountDetail">
+				<id column="account_detail_id" property="accountDetailId"/>
+				<result column="user_id" property="userId"/>
+				<result column="user_type" property="userType"/>
+				<result column="surplus_amount" property="surplusAmount"/>
+				<result column="amount" property="amount"/>
+				<result column="account_time" property="accountTime"/>
+				<result column="account_type" property="accountType"/>
+				<result column="bussiness_type" property="bussinessType"/>
+				<result column="bussiness_code" property="bussinessCode"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		account_detail_id,user_id,user_type,surplus_amount,amount,account_time,account_type,bussiness_type,bussiness_code,create_user,create_time
+	</sql>
+	
+	<select id="getWithdrawedfees" parameterType="accountDetail"  resultType="double">
+	   SELECT sum(amount) FROM dss_account_detail where user_id =#{userId}  and bussiness_type = 4;
+    </select>
+	
+</mapper>

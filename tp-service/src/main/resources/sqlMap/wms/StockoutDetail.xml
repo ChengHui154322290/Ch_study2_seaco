@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StockoutDetailDao">
+	<resultMap type="com.tp.model.wms.StockoutDetail" id="stockoutDetail">
+				<id column="id" property="id"/>
+				<result column="stockout_id" property="stockoutId"/>
+				<result column="item_sku" property="itemSku"/>
+				<result column="item_name" property="itemName"/>
+				<result column="item_barcode" property="itemBarcode"/>
+				<result column="quantity" property="quantity"/>
+				<result column="actual_price" property="actualPrice"/>
+				<result column="sales_price" property="salesPrice"/>
+				<result column="discount_amount" property="discountAmount"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,stockout_id,item_sku,item_name,item_barcode,quantity,actual_price,sales_price,discount_amount,create_time
+	</sql>
+	<insert id="insertDetails" parameterType="list">
+        INSERT INTO wms_stockout_detail
+        	(stockout_id,item_sku,item_name,item_barcode,quantity,actual_price,sales_price,discount_amount,create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.stockoutId},#{item.itemSku},#{item.itemName},#{item.itemBarcode},#{item.quantity},#{item.actualPrice},#{item.salesPrice},#{item.discountAmount},#{item.createTime})
+		</foreach>
+    </insert>
+</mapper>

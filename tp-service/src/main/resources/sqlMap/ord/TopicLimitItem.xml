@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.TopicLimitItemDao">
+	<resultMap type="com.tp.model.ord.TopicLimitItem" id="topicLimitItem">
+				<id column="id" property="id"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="limit_value" property="limitValue"/>
+				<result column="limit_type" property="limitType"/>
+				<result column="buyed_quantity" property="buyedQuantity"/>
+	</resultMap>
+	<sql id="columns">
+		id,topic_id,sku_code,limit_value,limit_type,buyed_quantity
+	</sql>
+	
+	<update id="updateTopicLimitItemQuantity" parameterType="com.tp.model.ord.TopicLimitItem">
+		UPDATE ord_topic_limit_item
+		<set>
+			<if test="buyedQuantity != null ">buyed_quantity=buyed_quantity-#{buyedQuantity},</if>
+		</set>
+		WHERE topic_id=#{topicId}
+						 and sku_code=#{skuCode}
+						 and limit_value=#{limitValue}
+						 and limit_type=#{limitType}
+	</update>
+	
+	<insert id="saveLimit" parameterType="com.tp.model.ord.TopicLimitItem">
+	 <selectKey resultType="long" keyProperty="id" order="AFTER">
+	            SELECT LAST_INSERT_ID() AS id
+	        </selectKey> 
+	        INSERT INTO ord_topic_limit_item(
+	                id,
+					topic_id,
+					sku_code,
+					limit_value,
+					limit_type,
+					buyed_quantity
+			)values(
+					#{id},
+					#{topicId},
+					#{skuCode},
+					#{limitValue},
+					#{limitType},
+					#{buyedQuantity}
+			)
+			ON DUPLICATE KEY UPDATE  buyed_quantity=buyed_quantity+#{buyedQuantity}
+    </insert>
+    
+   <insert id="batchInsert" parameterType="list">
+        INSERT INTO ord_topic_limit_item(
+			topic_id,
+			sku_code,
+			limit_value,
+			limit_type,
+			buyed_quantity
+		)values
+		<foreach collection="topicLimitItemList" item="item" index="index" separator=",">
+			(
+			#{item.topicId},#{item.skuCode},#{item.limitValue},#{item.limitType},#{item.buyedQuantity}
+			)
+		</foreach>
+    </insert>
+</mapper>

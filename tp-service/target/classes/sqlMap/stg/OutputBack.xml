@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.OutputBackDao">
+	<resultMap type="com.tp.model.stg.OutputBack" id="outputBack">
+				<id column="id" property="id"/>
+				<result column="order_no" property="orderNo"/>
+				<result column="ship_no" property="shipNo"/>
+				<result column="ship_time" property="shipTime"/>
+				<result column="carrier_id" property="carrierId"/>
+				<result column="carrier_name" property="carrierName"/>
+				<result column="customer_id" property="customerId"/>
+				<result column="bg_no" property="bgNo"/>
+				<result column="varehouse_id" property="varehouseId"/>
+				<result column="weight" property="weight"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+</mapper>

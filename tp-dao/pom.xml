@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>seaco</groupId>
+		<artifactId>tp-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>tp-dao</artifactId>
+	<name>tp-dao</name>
+	<description>DAO通用类</description>
+	<properties>
+		<tp.common.util>0.0.1-SNAPSHOT</tp.common.util>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>seaco</groupId>
+			<artifactId>tp-common</artifactId>
+			<version>${tp.common.util}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+	</dependencies>
+</project>

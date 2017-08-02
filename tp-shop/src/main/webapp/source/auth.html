@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>实名认证</title>
+		<meta name="Keywords" content="全球购商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/frozen.css" />
+		<link rel="stylesheet" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="css/auth.css" />
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frozen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/xigou.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/dropload.min.js"></script>
+	</head>
+
+	<body>
+		<!-- <header>
+			<h1>实名认证</h1>
+			<a href="javascript:history.go(-1);" class="goBack"></a>
+		</header> -->
+		<div class="ui-form ui-border-t">
+                <form action="#">
+                    <div class="ui-form-item ui-border-b auth-name">
+                    	<!-- <img class="auth-name-img" src="img/auth/name.png" alt=""> -->
+                    	<label>
+                            姓名
+                        </label>
+                        <input class="auth-name-input" type="text" id="name_input" onkeyup="checkInput()" placeholder="请输入您的真实姓名">
+                    </div>
+                    <div class="ui-form-item ui-border-b">
+                        <label>
+                            身份证号码
+                        </label>
+                        <input class="auth-num-input" type="text" id="auth_input" onkeyup="checkInput()" placeholder="请输入您的身份证号码">
+                    </div>
+                </form>
+        </div>
+<!--         <div class="auth-info">
+        	<p>
+        		<h4>请您上传身份证</h4>
+        		<a>(只限购买直邮商品的清关手续，不做其他事宜，其他人无法查看)</a>
+        	</p>
+        </div>
+        <div class="auth-photo">
+            <div class="auth-photo-left" id="btn_zheng" href="javascript:void(0);">
+               	<input class="auth-photo-left-img" id="auth-photo-left-id" type="file" style="display:none;" onchange="">
+                <img class="auth-photo-left-img" id="auth-photo-left-img" src="img/auth/default.png" data-src="">
+            </div class="auth-photo-middle">
+            <div >
+            </div>
+            <div class="auth-photo-right" id="btn_fan" href="javascript:void(0);">
+                <input class="auth-photo-right-img" id="auth-photo-right-id" type="file" style="display:none;" onchange="">
+                <img class="auth-photo-right-img" id="auth-photo-right-img" src="img/auth/default.png" data-src="">
+            </div>
+        </div> -->
+        <div class="ui-btn-wrap">
+		    <button class="ui-btn-lg ui-btn-lg-empty" id="auth-summit">
+		        确认提交
+		    </button>
+		</div>
+	</body>
+<script type="text/javascript" >
+	// 检测当前输入 修改确定提交按钮状态
+	function checkInput()
+	{
+		var bCanSubmit = false;
+		var name=document.getElementById('name_input').value;
+		var auth = document.getElementById('auth_input').value;
+
+		if (name && auth){
+			bCanSubmit = true;
+		}
+
+		if (bCanSubmit) {
+			$('#auth-summit').removeClass("ui-btn-lg-empty");
+			$('#auth-summit').addClass("ui-btn-lg-not-empty");
+		}
+		else {
+			$('#auth-summit').removeClass("ui-btn-lg-not-empty");
+			$('#auth-summit').addClass("ui-btn-lg-empty");
+		}
+	}
+</script>
+<script type="text/javascript" src="./js/static_data.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/thirdshop.js"></script>
+<script type="text/javascript" src="./js/modules/user.js"></script>
+<script type="text/javascript" src="./js/pages/auth.js"></script>
+</html>

@@ -1,0 +1,246 @@
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+header {
+	border: none;
+	border-bottom: 1px solid #aaa;
+	position: fixed;
+	z-index: 100;
+	width: 100%;
+	top: 0px;
+}
+.coupon-item{
+	width: 85%;
+	position: relative;
+}
+.coupon_selectBtn{
+	width: 15%;
+	line-height: 40px;
+	margin-top: 45px;
+	text-align: center;
+}
+.coupon-time{
+}
+.coupon-details{
+	float: left;
+}
+.ui-checkbox-s input:checked:before {
+	color: #ee3e54;
+}
+/* .confirm_coupon {
+	display: block;
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	line-height: 55px;
+	top: 0;
+	color: #333;
+	right: 0;
+	background-size: 13px;
+} */
+.coupon-unused {
+	background-color: #eeeeee;
+	padding: 10px;
+}
+.ui-flex {
+	border:0px;
+
+}
+
+.coupon_type0,.coupon_type1{
+	width:53px;
+	height:20px;
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index:90;
+}
+.coupon_type0{
+	background: url("../img/yh_img.png") no-repeat;
+	background-size: contain;
+}
+.coupon_type1{
+	background: url("../img/xj_img.png") no-repeat;
+	background-size: contain;
+}
+.cart_tip {
+	font-size: 12px;
+	color: #999999;
+	background: url("../img/cart/tip_point.png") 5px 15px no-repeat;
+	background-size: 8px 8px;
+	height: 50px;
+	padding-top: 10px;
+	padding-left: 20px;
+}
+.coupon_tips p{
+	padding-left: 60px;
+	padding-right: 10px;
+}
+.coupon_tips p span{
+	margin-left: -60px;
+}
+.coupon-unused-info {
+	height: 120px;
+	background-size:100% 100%;
+	display: -webkit-box;
+	position: relative;
+	background: url("../img/line_coupon_bg.png") no-repeat;
+	background-size: 100% 100%;
+	border-radius: 5px;
+}
+
+.coupon-unused-info .item_price {
+	font-size: 20px;
+	color: #ee3e54;
+	margin-left: 7%;
+	line-height: 120px;
+	width: 20%;
+}
+
+.item_price > span {
+	font-size: 22px;
+}
+
+.coupon-introduce {
+	-webkit-box-flex:1;
+	margin-top: 15px;
+}
+.coupon-unused-info .coupon-name{
+	height: 32px;
+	font-size: 15px;
+	color: #333333;
+	margin-right: 12px;
+	overflow: hidden;
+}
+
+.coupon-introduce ul li {
+	list-style-type: disc;
+	background: transparent;
+}
+
+.application_scope {
+	position: absolute;
+	right: 10px;
+	bottom:10px;
+	width: 65px;
+	height: 25px;
+	line-height: 25px;
+	color: #333333;
+	font-size: 12px;
+}
+
+.show_application_scope{
+	float: right;
+	width: 12px;
+	height: 100%;
+	background: url(../img/coupon/in.png) no-repeat right center;
+	background-size: 12px;
+}
+
+.item_bottom_line {
+	height: 6px;
+	background: url(../img/coupon/line-unused.png) no-repeat;
+	background-size: 100% 6px;
+}
+
+.coupon-unused-info .item_bottom_line {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.coupon-unused-info .coupon-introduce ul  {
+	margin-left: 15px;
+	margin-top: 10px;
+	font-size: 12px;
+	color: #999999;
+}
+
+.application_scope_info {
+	background-color: #ffffff;
+	position: relative;
+}
+
+.application_scope_info_bg {
+	width: 100%;
+	min-height: 48px;
+	background: url(../img/coupon/icon-bottom.png) no-repeat;
+	background-size: 95px 51px;
+	padding: 0px 16px;
+}
+
+.application_scope_info_bg ul {
+	background: transparent;
+}
+
+.application_scope_info_bg ul li{
+	background: transparent;
+}
+
+.item_bottom_line {
+	height: 6px;
+	background: url(../img/coupon/line-unused.png) no-repeat;
+	background-size: 100% 6px;
+}
+
+.coupon-img{
+	height: 50px;
+	width: 50px;
+	float: left;
+}
+.coupon-info{
+	margin-left: 30px;
+	float: left;
+}
+.coupon-exchange{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.empty_box{
+	height: 400px;
+	width: 100%;
+	background: url(../img/coupon/none.png) no-repeat center 70px;
+	/*background-position: center 170px;*/
+	background-size: 102px;
+	padding-top: 190px;
+	text-align: center;
+}
+
+.ui-tab-content{
+	margin-top: 0px;
+}
+body{
+	background: #eee;
+}
+.ui-checkbox input:before, .ui-checkbox-s input:before {
+	color: #929292;
+}
+
+.add_new{
+	width:100%;
+	height:50px;
+	border-top:1px solid #ccc;
+	position:fixed;
+	bottom:0;
+	background:#fff;
+	line-height:50px;
+}
+
+.recvaddress-add_wx{
+	background:#ee3e54;
+	width:96%;
+	height:39px;
+	margin:0 auto;
+	border-radius:6px;
+	margin-left:2%;
+	color:#fff;
+}

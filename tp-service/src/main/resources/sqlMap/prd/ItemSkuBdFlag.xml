@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.prd.ItemSkuBdFlagDao">
+	<resultMap type="com.tp.model.prd.ItemSkuBdFlag" id="itemSkuBdFlag">
+				<id column="id" property="id"/>
+				<result column="sku" property="sku"/>
+				<result column="pull_flag" property="pullFlag"/>
+				<result column="no_recommend" property="noRecommend"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="update_user_id" property="updateUserId"/>
+	</resultMap>
+</mapper>

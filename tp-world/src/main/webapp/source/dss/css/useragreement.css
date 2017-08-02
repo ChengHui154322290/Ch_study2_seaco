@@ -1,0 +1,67 @@
+body {
+	background-color: #ffffff;
+}
+
+.ui-header {
+	border: 0;
+	border-bottom: 1px solid #929292;
+	background-color: #fff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: url(../../img/back.png) no-repeat center;
+	background-size: 10px;
+}
+
+.div_title {
+	height: 78px;
+	line-height: 78px;
+	font-size: 18px;
+	color: #333333;
+	text-align: center;
+	margin-top: 45px;
+}
+
+.div_split {
+	width: 110px;
+	margin: 0px auto;
+	border-top: 1px solid #CCCCCC;
+}
+
+.div_desc {
+	margin-top: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 14px;
+	color: #666666;
+}
+
+.div_item {
+	font-size: 15px;
+	color: #333333;
+	margin-top: 25px;
+	padding: 0px 10px;
+}
+
+.div_item > div {
+	color: #666666;
+	font-size: 14px;
+}
+
+.div_item ol, .div_item ol > li > ul > li > ul {
+	margin-left: 15px;
+}
+
+.div_item ol > li {
+	list-style-type: decimal;
+}
+
+.div_appendix {
+	margin-bottom: 30px;
+}

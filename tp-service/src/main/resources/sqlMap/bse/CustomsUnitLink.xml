@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.CustomsUnitLinkDao">
+	<resultMap type="com.tp.model.bse.CustomsUnitLink" id="customsUnitLink">
+				<id column="id" property="id"/>
+				<result column="customs_unit_id" property="customsUnitId"/>
+				<result column="unit_id" property="unitId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,customs_unit_id,unit_id,create_time
+	</sql>
+</mapper>

@@ -1,0 +1,297 @@
+.ui-header {
+	border: none;
+	border-bottom: 1px solid #aaaaaa;
+	background-color: #ffffff;
+}
+
+.goBack {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 100%;
+	top: 0;
+	left: 0px;
+	background: url(../img/back.png) no-repeat center;
+	background-size: 13px;
+}
+.goIndex {
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	right: 0px;
+	background: url(../img/index.png) no-repeat center;
+	background-size: 25px;
+}
+
+.li_item_info {
+	padding: 10px;
+}
+
+/* .ui-list {
+	margin-top: 45px;
+} */
+
+.ui-list-img {
+	border: 1px solid #CCCCCC;
+	width: 75px;
+	height: 75px;
+}
+
+.ui_list_info {
+	-webkit-box-flex: 1;
+	padding-left: 20px;
+	font-size: 12px;
+}
+
+.ui_list_name {
+	font-size: 12px;
+	height: 36px;
+	overflow: hidden;
+	display: block;
+	color: #333;
+	padding-right: 10px;
+	margin-bottom: 9px;
+}
+
+.lineprice {
+	float: right;
+	color: #666666;
+}
+
+.quantity_decrease {
+	width: 30px;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.cart_shop_opt {
+	border: 1px solid #ddd;
+	overflow: hidden;
+	width: 92px;
+	float: left;
+	position: relative;
+	font-size:16px;
+	color:#666666;
+}
+
+.ui_price_info {
+	float: right;
+	color: #ec3d4e;
+	margin-top: 15px;
+}
+
+.quantity_increase {
+	width: 30px;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color:#666666;
+}
+
+.car_item {
+	float: left;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	line-height:30px;
+	border: 1px solid #ddd;
+	border-width: 0 1px;
+}
+
+.total_price {
+	padding: 10px;
+	padding-top: 24px;
+	font-size: 14px;
+	color: #666666;
+	background-color: #ffffff;
+	height: 21px;
+}
+
+.total_price_info {
+	float: right;
+}
+
+.price_fen {
+	color: #ec3d4e;
+	font-size: 12px;
+}
+
+.price_yuan {
+	font-size: 15px;
+}
+
+.return_reson {
+	height: 50px;
+	line-height: 50px;
+	color: #666666;
+	font-size: 15px;
+	border-bottom: 1px solid #eeeeee;
+	padding-right: 10px;
+}
+
+.return_info {
+	margin-top: 10px;
+	padding-left: 15px;
+	background-color: #ffffff;
+}
+
+.div_arrow {
+	float: right;
+	width: 10px;
+	height: 100%;
+	background: url("../img/arrow.png") center no-repeat;
+	background-size: 10px;
+}
+
+.span_return_reson {
+	color: #333333;
+	margin-left: 5px;
+}
+
+.return_desc_info {
+	display: -webkit-box;
+	font-size: 15px;
+}
+
+.return_desc_info > div:first-child {
+	height: 50px;
+	line-height: 50px;
+	color: #666666;
+}
+
+.div_textarea {
+	height: 84px;
+	margin-left: 10px;
+	margin-right: 10px;
+	-webkit-box-flex: 1;
+	margin-top: 15px;
+}
+
+.return_desc {
+	width: 100%;
+	height: 100%;
+	border: none;
+	color: #333333;
+}
+
+.div_updata_photo {
+	font-size: 15px;
+	background-color: #ffffff;
+	margin-top: 10px;
+}
+
+.div_updata_photo_desc {
+	padding-top: 18px;
+	padding-left: 15px;
+}
+
+.div_updata_photo_desc2 {
+	margin-left: 15px;
+	margin-top: 7px;
+	font-size: 12px;
+	color: #999999;
+	padding-bottom: 25px;
+}
+
+.div_updata_photo_box {
+	padding-left: 7px;
+	padding-right: 18px;
+	display: -webkit-box;
+}
+
+.div_updata_photo_item {
+	width: 60px;
+	height: 60px;
+	margin-left: 10px;
+	margin-top: 13px;
+	-webkit-box-flex: 1;
+	visibility: hidden;
+}
+
+.div_updata_photo_item img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.div_contacts_info {
+	margin-top: 10px;
+	background-color: #ffffff;
+	font-size: 15px;
+	color: #999999;
+}
+
+.div_contacts_info > div > div {
+	position: absolute;
+	left: 90px;
+	right: 15px;
+	height: 50px;
+}
+
+.div_contacts_info > div > div > input {
+	border: none;
+	color: #333333;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+}
+
+.div_contacts_info1 {
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #eeeeee;
+	margin-left: 15px;
+	padding-right: 15px;
+}
+
+.div_contacts_info1 label {
+	position: absolute;
+	color: #666666;
+}
+
+.div_contacts_info2 {
+	height: 50px;
+	line-height: 50px;
+	margin-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 59px;
+}
+
+.div_contacts_info2 label {
+	position: absolute;
+	color: #666666;
+}
+
+.ui-footer {
+	height: 49px;
+	background-color: #ffffff;
+	border-top: 1px solid #eeeeee;
+}
+
+.confirm {
+	margin: 5px 10px;
+	background-color: #CCCCCC;
+	border-radius: 5px;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	height: 39px;
+	line-height: 39px;
+}
+
+.confirm_enable {
+	background-color: #333333;
+}
+
+.confirm_enable:active {
+	background-color: #727272;
+}
+
+.disabled {
+	color: #CCCCCC;
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.OutputBackSkuDao">
+	<resultMap type="com.tp.model.stg.OutputBackSku" id="outputBackSku">
+				<id column="id" property="id"/>
+				<result column="output_back_id" property="outputBackId"/>
+				<result column="sku" property="sku"/>
+				<result column="barcode" property="barcode"/>
+				<result column="num" property="num"/>
+				<result column="vendor" property="vendor"/>
+				<result column="lotatt01" property="lotatt01"/>
+				<result column="lotatt02" property="lotatt02"/>
+				<result column="lotatt03" property="lotatt03"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+    <insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">  
+	     <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+	     INSERT INTO stg_output_back_sku(
+				output_back_id,
+				sku,
+				barcode,
+				num,
+				vendor,
+				lotatt01,
+				lotatt02,
+				lotatt03,
+				create_time
+		) values
+	    <foreach collection="list" item="item" index="index" separator="," >
+	         (  
+				#{item.outputBackId},
+				#{item.sku},
+				#{item.barcode},
+				#{item.num},
+				#{item.vendor},
+				#{item.lotatt01},
+				#{item.lotatt02},
+				#{item.lotatt03},
+				#{item.createTime} )  
+	    </foreach>
+	</insert>	
+</mapper>

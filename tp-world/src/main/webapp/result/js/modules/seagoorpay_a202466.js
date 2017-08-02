@@ -1,0 +1,1 @@
+(function(){var a=this;a.seagoorpay=a.seagoorpay||{},a.seagoorpay.code=function(o){var t=a.activeHost+a.activeUrl.seagoorpay.code;ajaxPost(o,t)},a.seagoorpay.querypaystatus=function(o){var t=a.activeHost+a.activeUrl.seagoorpay.querypaystatus;ajaxPost(o,t)}}).call(xigou,Zepto);

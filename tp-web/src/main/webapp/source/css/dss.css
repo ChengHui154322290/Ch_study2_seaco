@@ -1,0 +1,210 @@
+
+body {
+	background-color: white;
+}
+.div_dsslogo {
+	/* width: 100%;
+	text-align: center;
+	background: url("../img/dss/qrbg.png") no-repeat center;
+	background-size: 56%; */
+	width: 100%;
+    height: 210px;
+    text-align: center;
+    background: url(../img/dss/qrbg.png) no-repeat center;
+    background-size: 210px;
+}
+
+.div_share_image {
+	width: 100%;
+	margin:0 auto;
+	text-align: center;
+	margin-left: auto;
+    margin-right: auto;
+}
+.div_share_image img{
+	width:100%;
+}
+
+.item-r {
+	margin-left: 5px;
+	float: right;
+	color: #999999;
+}
+
+.div_name {
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 0px;
+	color: white;
+}
+.goBack {
+	color: white;
+	background: url(../img/dss/back.png) no-repeat center;
+	background-size: 15px ;
+}
+.goBack_w {
+	color: white;
+	background: url(../dss/img/back.png) no-repeat center;
+	display: block;
+	position: absolute;
+	width: 44px;
+	height: 50px;
+	top: 0;
+	left: 0px;
+	background-size: 10px;
+}
+.top_div1 {
+	padding-top: 0px;
+	background-color: #3e444f;
+	margin-top:0px;
+}
+.tip {
+	width:100%;
+	text-align: center;
+	margin-top: -20px;
+    font-size: 15px;
+    padding-top: 25px;
+}
+.qrtip {
+	height: 20px;
+	line-height: 20px;
+	color: rgb(88,99,120);
+	margin-bottom: 15px;
+}
+.qrtipimg{
+	background:url('../img/dss/qrtip.png') no-repeat center;
+	background-size: 20px 16px;
+	float:left;
+	width:20px;
+	height:20px;
+}
+.bottom_btn {
+	width: 96%;
+	height: 30px;
+	float: left;
+	margin-left: 2%;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	font-size: 14px;
+	line-height: 30px;
+	text-align: center;
+}
+
+
+
+
+.but-box{
+	/* margin: 0 auto;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56%; */
+    margin: 0 auto;
+    width: 220px;
+    margin-bottom: 10px;
+}
+
+.but-box:after{
+	content:" .";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+
+.invite_button {
+	display: block;
+    width: 47%;
+    background: url("../img/dss/invite_btn.png") no-repeat center;
+    float: right;
+    height: 50px;
+    margin-top: 8px;
+    background-size: 95px 35px;
+}
+
+.share_button {
+	display: block;
+    width: 47%;
+    background: url("../img/dss/share_btn.png") no-repeat center;
+    float: left;
+    height: 50px;
+    margin-top: 8px;
+    background-size: 95px 35px;
+}
+@media screen and (max-width: 325px) and (min-width: 320px){
+.but-box{
+    width:70%;
+}
+.invite_button {
+	width: 95px;
+}
+
+.share_button {
+	width: 95px;
+}
+}
+
+p {
+	padding: 20px;
+}
+
+.title_desc {
+	height: 49px;
+	line-height: 49px;
+	font-size: 17px;
+	text-align: center;
+	color: #333333;
+}
+
+.ui-header {
+	background-color: #ffffff;
+	border-bottom: 1px solid #999999;
+	height: 48px;
+}
+
+a.goBack {
+    color: white;
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 50px;
+    top: 0;
+    left: 0px;
+    /* background-size: 10px;
+}
+
+.div_content {
+	margin-top: 43px;
+	margin-right: 8%;
+	margin-left: 8%;
+	padding-top: 4%;
+}
+
+.ui-slider {
+	position: relative;
+	padding-top: 140%;
+}
+
+.ui-slider-indicators {
+	left: 4px;
+	bottom: 26px;
+}
+div.ui-btn-wrap{
+	padding:3px 10px;
+}
+a.invite_button:active {
+	background: url("../img/dss/invite_btn_act.png") no-repeat center;
+	background-size:100%;
+}
+.ui-slider-indicators li {
+	border: 1px solid #000;
+	background-color: rgba(0, 0, 0, 0);
+}
+.ui-slider-indicators li.current:before {
+	background-color: #000;
+}

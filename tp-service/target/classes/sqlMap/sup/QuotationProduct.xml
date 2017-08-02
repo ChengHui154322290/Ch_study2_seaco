@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.QuotationProductDao">
+	<resultMap type="com.tp.model.sup.QuotationProduct" id="quotationProduct">
+				<id column="id" property="id"/>
+				<result column="quotation_id" property="quotationId"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="product_code" property="productCode"/>
+				<result column="brand_id" property="brandId"/>
+				<result column="brand_name" property="brandName"/>
+				<result column="big_id" property="bigId"/>
+				<result column="big_name" property="bigName"/>
+				<result column="mid_id" property="midId"/>
+				<result column="mid_name" property="midName"/>
+				<result column="small_id" property="smallId"/>
+				<result column="small_name" property="smallName"/>
+				<result column="spu" property="spu"/>
+				<result column="prdid" property="prdid"/>
+				<result column="sku" property="sku"/>
+				<result column="bar_code" property="barCode"/>
+				<result column="product_name" property="productName"/>
+				<result column="product_unit" property="productUnit"/>
+				<result column="standard_price" property="standardPrice"/>
+				<result column="sale_price" property="salePrice"/>
+				<result column="supply_price" property="supplyPrice"/>
+				<result column="commission_percent" property="commissionPercent"/>
+				<result column="box_prop" property="boxProp"/>
+				<result column="product_prop" property="productProp"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+
+				<result column="base_price" property="basePrice"/>
+				<result column="freight" property="freight"/>
+				<result column="mul_tax_tate" property="mulTaxRate"/>
+				<result column="tarrif_tax_rate" property="tarrifTaxRate"/>
+				<result column="sum_price" property="sumPrice"/>
+	</resultMap>
+	<sql id="columns">
+	      id,quotation_id,supplier_id,product_code,brand_id,brand_name,big_id,big_name,mid_id,mid_name,small_id,small_name,spu,prdid,sku,bar_code,product_name,product_unit,standard_price,sale_price,supply_price,commission_percent,box_prop,product_prop,audit_status,status,create_time,update_time,create_user,update_user,base_price,freight,mul_tax_tate,tarrif_tax_rate,sum_price
+ 	</sql>
+ 	<insert id="batchInsert" parameterType="List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO sup_quotation_product(
+				id,
+				quotation_id,
+				supplier_id,
+				product_code,
+				brand_id,
+				brand_name,
+				big_id,
+				big_name,
+				mid_id,
+				mid_name,
+				small_id,
+				small_name,
+				spu,
+				prdid,
+				sku,
+				bar_code,
+				product_name,
+				product_unit,
+				standard_price,
+				sale_price,
+				supply_price,
+				commission_percent,
+				box_prop,
+				product_prop,
+				audit_status,
+				status,
+				create_time,
+				update_time,
+				create_user,
+				update_user,
+				base_price,freight,mul_tax_tate,tarrif_tax_rate,sum_price
+		)values
+		<foreach collection="list" item="quotation" index="index" separator="," >
+		(
+				#{quotation.id},
+				#{quotation.quotationId},
+				#{quotation.supplierId},
+				#{quotation.productCode},
+				#{quotation.brandId},
+				#{quotation.brandName},
+				#{quotation.bigId},
+				#{quotation.bigName},
+				#{quotation.midId},
+				#{quotation.midName},
+				#{quotation.smallId},
+				#{quotation.smallName},
+				#{quotation.spu},
+				#{quotation.prdid},
+				#{quotation.sku},
+				#{quotation.barCode},
+				#{quotation.productName},
+				#{quotation.productUnit},
+				#{quotation.standardPrice},
+				#{quotation.salePrice},
+				#{quotation.supplyPrice},
+				#{quotation.commissionPercent},
+				#{quotation.boxProp},
+				#{quotation.productProp},
+				#{quotation.auditStatus},
+				#{quotation.status},
+				now(),
+				now(),
+				#{quotation.createUser},
+				#{quotation.createUser},
+
+				#{quotation.basePrice},
+				#{quotation.freight},
+				#{quotation.mulTaxRate},
+				#{quotation.tarrifTaxRate},
+				#{quotation.sumPrice},
+		)
+		</foreach>
+    </insert>
+<update id="updateStatus" parameterType="map">
+ 	    UPDATE sup_quotation_product
+        <set>
+            <if test="status != null">status=#{status},</if>
+            update_time = now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE quotation_id = #{quoId}
+ 	</update>
+ 	
+ 	 <update id="updateAuditStatus" parameterType="map">
+ 	    UPDATE sup_quotation_product
+        <set>
+            <if test="auditStatus != null">audit_Status=#{auditStatus},</if>
+            update_time = now(),
+            <if test="updateUser != null  and updateUser != '' ">update_user=#{updateUser},</if>
+        </set>
+        WHERE quotation_id = #{quoId} and status = #{status}
+ 	</update>
+
+	<update id="deleteByIds" parameterType="java.util.Map">
+		UPDATE  sup_quotation_product
+		SET  status = #{status},update_time = #{updateTime},update_user = #{updateUser}
+		WHERE  id IN
+				<foreach collection="ids" open="(" separator="," close=")" item="item">
+					#{item}
+				</foreach>
+
+
+	</update>
+
+</mapper>

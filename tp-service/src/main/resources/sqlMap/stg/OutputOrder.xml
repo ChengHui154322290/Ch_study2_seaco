@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.OutputOrderDao">
+	<resultMap type="com.tp.model.stg.OutputOrder" id="outputOrder">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="warehouse_code" property="warehouseCode"/>
+				<result column="customer_id" property="customerId"/>
+				<result column="system_id" property="systemId"/>
+				<result column="order_type" property="orderType"/>
+				<result column="shipping" property="shipping"/>
+				<result column="issue_party_id" property="issuePartyId"/>
+				<result column="issue_party_name" property="issuePartyName"/>
+				<result column="customer_name" property="customerName"/>
+				<result column="payment" property="payment"/>
+				<result column="website" property="website"/>
+				<result column="freight" property="freight"/>
+				<result column="service_charge" property="serviceCharge"/>
+				<result column="name" property="name"/>
+				<result column="post_code" property="postCode"/>
+				<result column="phone" property="phone"/>
+				<result column="mobile" property="mobile"/>
+				<result column="prov" property="prov"/>
+				<result column="city" property="city"/>
+				<result column="district" property="district"/>
+				<result column="address" property="address"/>
+				<result column="item_value" property="itemValue"/>
+				<result column="items_origin_value" property="itemsOriginValue"/>
+				<result column="remark" property="remark"/>
+				<result column="pay_time" property="payTime"/>
+				<result column="is_cashsale" property="isCashsale"/>
+				<result column="priority" property="priority"/>
+				<result column="expected_time" property="expectedTime"/>
+				<result column="required_time" property="requiredTime"/>
+				<result column="status" property="status"/>
+				<result column="fail_times" property="failTimes"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="columns">
+	      id,warehouse_id,warehouse_code,customer_id,system_id,order_code,order_type,shipping,issue_party_id,issue_party_name,customer_name,payment,website,freight,service_charge,name,post_code,phone,mobile,prov,city,district,address,item_value,remark,pay_time,is_cashsale,priority,expected_time,required_time,fail_times,status,create_time
+ 	</sql>
+	<select id="selectFailOutputOrder" resultMap="outputOrder">
+		select 
+			<include refid="columns" />
+		 FROM
+		 	stg_output_order
+		 where fail_times &lt; #{maxTime} and fail_times &gt;= 0 and status = 0 limit #{limitSize}
+	</select>
+	
+</mapper>

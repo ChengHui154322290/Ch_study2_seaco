@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderStatusLogDao">
+	<resultMap type="com.tp.model.ord.OrderStatusLog" id="orderStatusLog">
+				<id column="id" property="id"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="type" property="type"/>
+				<result column="name" property="name"/>
+				<result column="pre_status" property="preStatus"/>
+				<result column="curr_status" property="currStatus"/>
+				<result column="content" property="content"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user_id" property="createUserId"/>
+				<result column="create_user_name" property="createUserName"/>
+				<result column="create_user_type" property="createUserType"/>
+	</resultMap>
+	<sql id="columns">
+		id,parent_order_code,order_code,type,name,pre_status,curr_status,content,create_time,create_user_id,create_user_name,create_user_type
+	</sql>
+	<insert id="batchInsert" parameterType="list">
+        INSERT INTO ord_order_status_log
+        	(type,name,order_code,parent_order_code,pre_status,curr_status,content,create_time,create_user_id,create_user_name,create_user_type)
+		values
+		<foreach collection="orderStatusLogList" item="item" index="index" separator=",">
+			(#{item.type},	#{item.name},#{item.orderCode},#{item.parentOrderCode},#{item.preStatus},#{item.currStatus},#{item.content},now(),#{item.createUserId},#{item.createUserName},#{item.createUserType})
+		</foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.VersionInfoDao">
+	<resultMap type="com.tp.model.app.VersionInfo" id="VersionInfoResultMap">
+				<id column="id" property="id"/>
+				<result column="code" property="code"/>
+				<result column="name" property="name"/>
+				<result column="version" property="version"/>
+				<result column="platform" property="platform"/>
+				<result column="down_url" property="downUrl"/>
+				<result column="push_time" property="pushTime"/>
+				<result column="remark" property="remark"/>
+				<result column="is_new" property="isNew"/>
+				<result column="status" property="status"/>
+				<result column="is_del" property="isDel"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modify_user" property="modifyUser"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	
+	<update id="updateIsNewByPlatform" parameterType="java.lang.Integer" >
+		update app_version_info
+		set 
+		     is_new = 0
+		where 
+			platform = #{platform} and is_del = 0
+	</update>
+</mapper>

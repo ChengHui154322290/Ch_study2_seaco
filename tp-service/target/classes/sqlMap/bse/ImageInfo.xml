@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.bse.ImageInfoDao">
+	<resultMap type="com.tp.model.bse.ImageInfo" id="imageInfo">
+				<id column="id" property="id"/>
+				<result column="name" property="name"/>
+				<result column="image" property="image"/>
+				<result column="bucket" property="bucket"/>
+				<result column="code" property="code"/>
+				<result column="create_time" property="createTime"/>
+				<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,name,image,bucket,code,create_time,create_user
+	</sql>
+
+	<select id="queryListWithId" resultMap="imageInfo" parameterType="java.lang.Long">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		bse_image_info
+		<if test="id != null">
+			WHERE  id <![CDATA[<]]> #{id}
+		</if>
+		ORDER  BY  id desc
+		limit 0,20
+
+
+
+	</select>
+
+</mapper>

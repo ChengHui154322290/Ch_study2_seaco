@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.app.StatisticPublicDao">
+	<resultMap type="com.tp.model.app.StatisticPublic" id="statisticPublic">
+				<id column="id" property="id"/>
+				<result column="oem" property="oem"/>
+				<result column="device_model" property="deviceModel"/>
+				<result column="os_version" property="osVersion"/>
+				<result column="screen_width" property="screenWidth"/>
+				<result column="screen_height" property="screenHeight"/>
+				<result column="app_type" property="appType"/>
+				<result column="net_type" property="netType"/>
+				<result column="operator" property="operator"/>
+				<result column="reg_code" property="regCode"/>
+				<result column="prov_code" property="provCode"/>
+				<result column="device_id" property="deviceId"/>
+				<result column="mac_address" property="macAddress"/>
+				<result column="user_id" property="userId"/>
+				<result column="bundle_id" property="bundleId"/>
+				<result column="app_name" property="appName"/>
+				<result column="partner" property="partner"/>
+				<result column="init_partner" property="initPartner"/>
+				<result column="open_udid" property="openUdid"/>
+				<result column="uuid" property="uuid"/>
+				<result column="platform" property="platform"/>
+				<result column="is_jail_break" property="isJailBreak"/>
+				<result column="manufacturer" property="manufacturer"/>
+				<result column="ads_id" property="adsId"/>
+				<result column="create_time" property="createTime"/>
+				<result column="remark" property="remark"/>
+				<result column="app_version" property="appVersion"/>
+	</resultMap>
+</mapper>

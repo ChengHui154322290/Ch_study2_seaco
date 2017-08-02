@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.SingleTepnodeDao">
+	<resultMap type="com.tp.model.cms.SingleTepnode" id="SingleTepnodeDOResultMap">
+				<id column="id" property="id"/>
+				<result column="position_name" property="positionName"/>
+				<result column="single_temple_id" property="singleTempleId"/>
+				<result column="position_size" property="positionSize"/>
+				<result column="position_sort" property="positionSort"/>
+				<result column="buried_code" property="buriedCode"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+				<result column="dr" property="dr"/>
+	</resultMap>
+	
+	<sql id="dynamicWhereFields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="singleTempleId != null  "> AND single_temple_id=#{singleTempleId} </if>
+			<if test="positionName != null  and positionName != '' "> AND position_name=#{positionName} </if>
+			<if test="positionSize != null  and positionSize != '' "> AND position_size=#{positionSize} </if>
+			<if test="positionSort != null  "> AND position_sort=#{positionSort} </if>
+			<if test="buriedCode != null  and buriedCode != '' "> AND buried_code=#{buriedCode} </if>
+			<if test="creater != null  "> AND creater=#{creater} </if>
+			<if test="create_time != null  and create_time != '' "> AND create_time=#{create_time} </if>
+			<if test="modifier != null   "> AND modifier=#{modifier} </if>
+			<if test="modify_time != null  and modify_time != '' "> AND modify_time=#{modify_time} </if>
+			<if test="dr != null "> AND dr=#{dr} </if>
+		</where>
+ 	</sql>
+	
+	<select id="selectSingleActivity" parameterType="com.tp.dto.cms.CmsSingleTempleDTO" resultMap="SingleTepnodeDOResultMap">
+		select b.id 
+			from cms_single_tepnode a
+			inner join cms_single_tepactivity b on a.id=b.single_tepnode_id
+		<where>
+			<if test="id != null  and id != '' "> AND a.id=#{id} </if>
+		</where> 
+	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_single_tepnode WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+	
+	<select id="selectDynamic" resultMap="SingleTepnodeDOResultMap" parameterType="com.tp.dto.cms.CmsSingleTempleDTO">
+	     SELECT
+	     	 id,single_temple_id,position_name,position_size,position_sort,buried_code,
+	      dr,creater,create_time,modifier,modify_time
+		 FROM
+		 	cms_single_tepnode
+			<include refid="dynamicWhereFields" />
+ 	</select>
+</mapper>

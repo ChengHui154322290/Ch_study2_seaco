@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.mmp.OlgbHsConfigDao">
+	<resultMap type="com.tp.model.mmp.OlgbHsConfig" id="olgbHsConfig">
+				<id column="id" property="id"/>
+				<result column="topic_item_id" property="topicItemId"/>
+				<result column="topic_id" property="topicId"/>
+				<result column="topic_name" property="topicName"/>
+				<result column="sku" property="sku"/>
+				<result column="item_name" property="itemName"/>
+				<result column="sort" property="sort"/>
+				<result column="status" property="status"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,topic_item_id,topic_id,topic_name,sku,item_name,sort,status,create_user,create_time,update_user,update_time
+	</sql>
+
+
+	<update id="updateStatusByIds" parameterType="java.util.List">
+		UPDATE
+		mmp_olgb_hs_config SET  status = 0
+		WHERE  id in
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+</mapper>

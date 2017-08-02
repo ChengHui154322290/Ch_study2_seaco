@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.usr.RoleMenuDao">
+	<resultMap type="com.tp.model.usr.RoleMenu" id="roleMenu">
+				<id column="id" property="id"/>
+				<result column="role_id" property="roleId"/>
+				<result column="sys_menu_id" property="sysMenuId"/>
+	</resultMap>
+	<sql id="columns">
+		id,role_id,sys_menu_id
+	</sql>
+	
+	<select id="selectByIds" parameterType="long" resultMap="roleMenu">
+		SELECT
+			<include refid="columns" />
+		FROM
+			usr_role_menu
+		WHERE
+			 id in
+		<foreach collection="list" item="rmId" index="index"
+            open="(" close=")" separator=",">
+            #{rmId}
+        </foreach>
+	</select>
+	
+	<select id="selectSysMenuIds" resultType="long" parameterType="com.tp.model.usr.RoleMenu">
+	     SELECT
+	     	sys_menu_id
+		 FROM
+		 	usr_role_menu
+		<where>
+			<if test="roleId != null"> AND role_id=#{roleId} </if>
+			<if test="sysMenuId != null"> AND sys_menu_id=#{sysMenuId} </if>
+		</where>
+ 	</select>
+</mapper>

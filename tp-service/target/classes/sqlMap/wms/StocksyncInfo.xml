@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.wms.StocksyncInfoDao">
+	<resultMap type="com.tp.model.wms.StocksyncInfo" id="stocksyncInfo">
+				<id column="id" property="id"/>
+				<result column="wh_id" property="whId"/>
+				<result column="wms_code" property="wmsCode"/>
+				<result column="sku_name" property="skuName"/>
+				<result column="stock_sku" property="stockSku"/>
+				<result column="sku" property="sku"/>
+				<result column="stock_inventory" property="stockInventory"/>
+				<result column="inventory" property="inventory"/>
+				<result column="sync_time" property="syncTime"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,wh_id,wms_code,sku_name,stock_sku,sku,stock_inventory,inventory,sync_time,create_time
+	</sql>
+	<insert id="insertDetails" parameterType="list">
+        INSERT INTO wms_stocksync_info
+        	(wh_id,wms_code,sku_name,stock_sku,sku,stock_inventory,inventory,sync_time,create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.whId},#{item.wmsCode},#{item.skuName},#{item.stockSku},#{item.sku},#{item.stockInventory},#{item.inventory},#{item.syncTime},#{item.createTime})
+		</foreach>
+    </insert>
+</mapper>

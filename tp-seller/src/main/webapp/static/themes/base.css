@@ -1,0 +1,354 @@
+/**
+ * 基准样式表，reset浏览器，提供常用样式
+ * createby：付磊
+ * QQ：402374770
+ * createDate：2011/10/26
+ */
+ 
+* {
+	font-family:"Tahoma","arial";
+	font-size:12px;
+	/*line-height:180%;*/
+}
+ 
+html {
+	color: #333;
+	background: #FFF;
+}
+/*
+	TODO remove settings on BODY since we can't namespace it.
+*/ /*
+	TODO test putting a class on HEAD.
+		- Fails on FF. 
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+	margin: 0;
+	padding: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+fieldset,img {
+	border: 0;
+}
+
+/*
+	TODO think about hanlding inheritence differently, maybe letting IE6 fail a bit...
+*/
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+caption,th {
+	text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight: normal;
+}
+
+q:before,q:after {
+	content: '';
+}
+
+abbr,acronym {
+	border: 0;
+	font-variant: normal;
+}
+
+/* to preserve line-height and selector appearance */
+.sup {vertical-align: top;}
+.sub {vertical-align: bottom;}
+input,textarea,select {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+}
+/*to enable resizing for IE*/
+input,textarea,select {font-size: 100%;}
+/*because legend doesn't inherit in IE */
+legend {color: #000;}
+/* 文字排版begin */
+/* 文字大小 */
+.f10{font-size: 10px}
+.f12{font-size: 12px}
+.f13{font-size: 13px}
+.f14{font-size: 14px}
+.f16{font-size: 16px}
+.f20{font-size: 20px}
+/* 文字粗细 */
+.fb{font-weight: bold}
+.fn{font-weight: normal}
+/* 文本缩进 */
+.t2{text-indent: 2em}
+/* 行高设置 */
+.lh100{line-height: 100%}
+.lh150{line-height: 150%}
+.lh180{line-height: 180%}
+.lh200{line-height: 200%}
+.lh250{line-height: 250%}
+/* 文本修饰 */
+.unl{text-decoration: underline}
+.no_unl{text-decoration: none}
+/* 文字排版end */
+/* 定位 */
+.tl{text-align: left}
+.tr{text-align: right}
+.tc{text-align: center}
+.bc{margin-left:auto;margin-right:auto}
+.fl{float: left;display: inline}
+.fr{float: right;display: inline}
+.cb{clear: both}
+.cl{clear: left}
+.cr{clear: right}
+* html .clearfix{height:1%}/*for IE 用来触发IE的haslayout*/
+.clearfix{display:block}/*for other except IE*/
+.clearfix{display:inline-block}/*for IE*/
+.clearfix:after{
+	content: ".";display: block;height: 0;clear: both;visibility: hidden	
+}/*for other except IE*/
+.vm{vertical-align: middle}
+.pr{position: relative}
+.pa{position: absolute}
+.abs-right{position: absolute;right: 0}
+.zoom{zoom:1}
+.hidden{visibility: hidden}
+.none{display: none}
+/* 溢出设置 */
+.os{overflow:scroll;}
+.ov{overflow:visible;}
+.oh{overflow:hidden;}
+.oa{overflow:auto;}
+/* 长度和高度 */
+.w10{width: 10px}
+.w20{width: 20px}
+.w30{width: 30px}
+.w40{width: 40px}
+.w50{width: 50px}
+.w60{width: 60px}
+.w70{width: 70px}
+.w80{width: 80px}
+.w90{width: 90px}
+.w100{width: 100px}
+.w110{width:110px;}
+.w120{width:120px;}
+.w130{width:130px;}
+.w150{width: 150px}
+.w190{width: 190px}
+.w200{width: 200px}
+.w230{width:230px;}
+.w240{width:240px;}
+.w250{width: 250px}
+.w260{width:260px;}
+.w290{width:290px;}
+.w300{width: 300px}
+.w400{width: 400px}
+.w450{width: 450px}
+.w500{width: 500px}
+.w520{width: 520px}
+.w539{width: 539px}
+.w540{width: 540px}
+.w550{width: 550px}
+.w570{width: 570px}
+.w600{width: 600px}
+.w700{width: 700px}
+.w800{width: 800px}
+.w900{width: 900px}
+.w950{width: 950px}
+.w{width: 100%}
+.h20{height: 20px}
+.h25{height: 25px}
+.h30{height: 30px}
+.h40{height: 40px}
+.h50{height: 50px}
+.h60{height: 60px}
+.h70{height: 70px}
+.h80{height: 80px}
+.h100{height: 100px}
+.h120{height: 120px}
+.h130{height: 130px}
+.h150{height: 150px}
+.h200{height: 200px}
+.h{height: 100%}
+
+/* 边距 */
+.m5{margin: 5px}
+.m10{margin: 10px}
+.m15{margin: 15px}
+.m20{margin: 20px}
+.m30{margin: 30px}
+.mt5{margin-top: 5px}
+.mt10{margin-top: 10px}
+.mt15{margin-top: 15px}
+.mt20{margin-top: 20px}
+.mt30{margin-top: 30px}
+.mt40{margin-top: 40px}
+.mt50{margin-top: 50px}
+.mt60{margin-top:60px;}
+.mt100{margin-top: 100px}
+.mr5{margin-right: 5px}
+.mr10{margin-right: 10px}
+.mr15{margin-right: 15px}
+.mr20{margin-right: 20px}
+.mr30{margin-right: 30px}
+.mr50{margin-right: 50px}
+.mr100{margin-right: 100px}
+.mr150{margin-right: 150px}
+.mr160{margin-right: 160px}
+.mr180{margin-right: 180px}
+.mb5{margin-bottom: 5px}
+.mb10{margin-bottom: 10px}
+.mb15{margin-bottom: 15px}
+.mb20{margin-bottom: 20px}
+.mb30{margin-bottom: 30px}
+.mb50{margin-bottom: 50px}
+.mb100{margin-bottom: 100px}
+.ml5{margin-left: 5px}
+.ml10{margin-left: 10px}
+.ml15{margin-left: 15px}
+.ml20{margin-left: 20px}
+.ml25{margin-left: 25px}
+.ml30{margin-left: 30px}
+.ml40{margin-left: 40px}
+.ml50{margin-left: 50px}
+.ml60{margin-left: 60px}
+.ml70{margin-left: 70px}
+.ml80{margin-left: 80px}
+.ml90{margin-left:90px;}
+.ml100{margin-left: 100px}
+.ml160{margin-left: 160px}
+.p10{padding:10px}
+.p15{padding: 15px}
+.p30{padding: 30px}
+.pt5{padding-top:5px} 
+.pt10{padding-top:10px} 
+.pt15{padding-top:15px} 
+.pt20{padding-top:20px} 
+.pt30{padding-top:30px}
+.pt35{padding-top:35px} 
+.pt50{padding-top:50px} 
+.pt100{padding-top:100px} 
+.pr5{padding-right:5px} 
+.pr10{padding-right:10px} 
+.pr15{padding-right:15px} 
+.pr20{padding-right:20px} 
+.pr30{padding-right:30px} 
+.pr50{padding-right:50px} 
+.pr100{padding-right:100px}
+.pb5{padding-bottom:5px} 
+.pb10{padding-bottom:10px} 
+.pb15{padding-bottom:15px} 
+.pb20{padding-bottom:20px} 
+.pb30{padding-bottom:30px} 
+.pb50{padding-bottom:50px} 
+.pb100{padding-bottom:100px}
+.pl5{padding-left:5px} 
+.pl10{padding-left:10px} 
+.pl15{padding-left:15px} 
+.pl20{padding-left:20px} 
+.pl30{padding-left:30px} 
+.pl50{padding-left:50px} 
+.pl100{padding-left:100px}
+/* 常用颜色 */
+.white{color:white;}
+.red{color:#F00}
+.green{color:#0F0}
+.blue{color:#00F}
+.black{color:black;}
+
+/* 项目前台后台都使用到的样式 */
+/*标签样式 标签有两种 一种是淡蓝色 .ui_tag 一种是橘黄色 ui_tag_orange */
+.ui_tag,.ui_tag_orange {
+	display: inline-block;
+	height: 18px;
+	line-height: 18px;
+	padding: 2px 10px;
+	color: #298DA7;
+	background-color: #E5EEF4;
+	text-decoration: none;
+	margin-right: 3px;
+	border:0;
+	cursor: pointer;
+}
+
+.ui_tag:hover {
+	color: white;
+	background-color: #739DBF;
+	text-decoration: none;
+}
+
+.ui_tag span {
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.ui_tag_orange {
+	color: #E25500;
+	background-color: #FBE58F;
+}
+
+.ui_tag_orange:hover {
+	color: white;
+	background-color: #F8853F;
+	text-decoration: none;
+}
+
+/*标签选择器 add by taiqichao*/
+.tag-selector {
+	border: 1px solid #fff;
+	cursor: text;
+	background: white;
+	white-space:nowrap;
+}
+/** rgb(119, 119, 119)*/
+.tag-selector .tag-is-selected {
+	border: 1px solid #739dbf;
+	box-shadow: 1pt 1pt 10px red;
+	border-radius: 3px;
+}
+.tag-selector .remove-tag{
+cursor: pointer;
+}
+.tag-selector .tag-input {
+	border: 0;
+	zoom: 1;
+	height: 25px;
+	width:240px;
+	line-height:25px;
+	outline:none
+}
+
+/*模糊查询弹出层*/
+.fuzzy_search {
+	width: 270px;
+	border: 1px solid #e2e2e2;
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+	position: absolute;
+	padding: 4px;
+}
+.fuzzy_search ul li img{margin-left:5px; margin-right:10px;}
+.fuzzy_search ul li {
+	background-color: #ffffff;
+	margin: 0 1px;
+	padding-left: 5px;
+	height: 28px;
+	line-height: 28px;
+	display: block;
+	cursor:pointer;
+}
+.fuzzy_search .ui_tag{ margin: 3px;}
+.fuzzy_search .ui_user{ margin: 3px;}
+.fuzzy_search ul li:hover {background-color: #f3f3f3;}
+.fuzzy_search ul li strong {color:#e25500;}
+.ac_loading {background: white url('../images/indicator.gif') right center no-repeat;}
+/*标签选择器end */

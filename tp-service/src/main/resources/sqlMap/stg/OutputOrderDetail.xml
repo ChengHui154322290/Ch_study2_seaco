@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.OutputOrderDetailDao">
+	<resultMap type="com.tp.model.stg.OutputOrderDetail" id="outputOrderDetail">
+				<id column="id" property="id"/>
+				<result column="output_order_id" property="outputOrderId"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="barcode" property="barcode"/>
+				<result column="item_name" property="itemName"/>
+				<result column="item_count" property="itemCount"/>
+				<result column="item_value" property="itemValue"/>
+				<result column="item_origin_price" property="itemOriginPrice"/>
+				<result column="customs_price" property="customsPrice"/>
+				<result column="batch_no" property="batchNo"/>
+				<result column="inventory_dist_id" property="inventoryDistId"/>
+				<result column="create_time" property="createTime"/>
+	</resultMap>
+	<insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO stg_output_order_detail(
+				output_order_id,
+				sku_code,
+				barcode,
+				item_name,
+				item_count,
+				item_value,
+				batch_no,
+				inventory_dist_id,
+				create_time
+		)values
+ 		<foreach collection="list" item="item" index="index" separator="," >
+	         (  
+				#{item.outputOrderId},
+				#{item.skuCode},
+				#{item.barcode},
+				#{item.itemName},
+				#{item.itemCount},
+				#{item.itemValue},
+				#{item.batchNo},
+				#{item.inventoryDistId},
+				#{item.createTime} )  
+	    </foreach>
+    </insert>
+</mapper>

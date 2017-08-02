@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>西客商城</title>
+		<meta name="Keywords" content="西客商城">
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<link rel="icon" href="./../img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="../css/frozen.css" />
+		<link rel="stylesheet" href="../css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<script src="../js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/frozen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/xigou.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<header>
+			<h1>绑定银行卡信息</h1>
+			<a href="../dssaboutus.html" class="goBack"></a>
+		</header>
+		<div class="ui-form ui-border-t">
+                <form action="#">
+                    <div class="ui-form-item ui-border-b auth-name">
+                    	<!-- <img class="auth-name-img" src="img/auth/name.png" alt=""> -->
+                    	<label>
+                            开户银行
+                        </label>
+                        <input class="auth-name-input" type="text" onkeyup="ckDom(this);" id="bankname_input" placeholder="请选择开户银行">
+                    </div>
+                    <div class="ui-form-item ui-border-b">
+                        <label>
+                            银行卡号
+                        </label>
+                        <input class="auth-num-input" type="text" onkeyup="ckDom(this);" id="bankcode_input" placeholder="请输入正确银行卡号">
+                    </div>
+                </form>
+        </div>
+        <div class="ui-btn-wrap">
+		    <button class="ui-btn-lg ui-btn-lg-empty" id="bankSummit">
+		        绑定银行卡
+		    </button>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/static_data.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="./js/checkCommon.js"></script>
+	<script type="text/javascript" src="./js/modules/promoter.js"></script>
+
+</html>

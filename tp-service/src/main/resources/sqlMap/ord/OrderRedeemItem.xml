@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.OrderRedeemItemDao">
+	<resultMap type="com.tp.model.ord.OrderRedeemItem" id="orderRedeemItem">
+				<id column="id" property="id"/>
+				<result column="parent_order_id" property="parentOrderId"/>
+				<result column="order_id" property="orderId"/>
+				<result column="parent_order_code" property="parentOrderCode"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="sku_code" property="skuCode"/>
+				<result column="redeem_code" property="redeemCode"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="shop_name" property="shopName"/>
+				<result column="sales_price" property="salesPrice"/>
+				<result column="redeem_code_state" property="redeemCodeState"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="effect_time_start" property="effectTimeStart"/>
+				<result column="effect_time_end" property="effectTimeEnd"/>
+				<result column="update_user" property="updateUser"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="spu_name" property="spuName"/>
+				
+	</resultMap>
+	
+	<sql id="columns">
+		id,parent_order_id,order_id,parent_order_code,update_user,warehouse_id,order_code,sku_code,
+		redeem_code,supplier_id,shop_name,sales_price,redeem_code_state,create_time,update_time,effect_time_start,effect_time_end,spu_name
+	</sql>
+	
+	<select id="queryStatisticsByQuery" 
+	 resultType="com.tp.result.ord.OrderRedeemItemStatistics" 
+	 parameterType="com.tp.query.ord.RedeemItemQuery">
+		select sum(sales_price) expectIncome,
+			   sum(case when redeem_code_state=2 then sales_price else 0 end ) actualIncome,
+			   sum(case when redeem_code_state not in (1,2) then sales_price else 0 end ) refunedAmount
+		  from ord_order_redeem_item
+		  <where>
+		  	<if test="warehouseId!=null"> and warehouse_id=#{warehouseId}</if>
+		  	<if test="skuCode!=null"> and sku_code=#{skuCode}</if>
+		  	<if test="beginDate!=null"> and create_time &gt;=#{beginDate}</if>
+		  	<if test="endDate!=null"> and create_time &lt;=#{endDate}</if>
+		  	<if test="redeemCodeState!=null"> and redeem_code_state=#{redeemCodeState}</if>
+		  	<if test="redeemCode!=null"> and redeem_code=#{redeemCode}</if>
+		  </where>
+		
+	</select>
+	 <select id="queryOverdueOrderRedeemItem" resultMap="orderRedeemItem" >
+		SELECT
+		<include refid="columns" />
+		FROM ord_order_redeem_item
+		WHERE  redeem_code_state=1 AND effect_time_end&lt;now()
+		ORDER BY create_time ASC   
+		Limit 0,100   
+	</select>
+</mapper>

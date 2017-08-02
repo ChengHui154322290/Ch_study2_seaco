@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.cms.AnnounceElementDao">
+	<resultMap type="com.tp.model.cms.AnnounceElement" id="AnnounceElementResultMap">
+				<id column="id" property="id"/>
+				<result column="position_id" property="positionId"/>
+				<result column="title" property="title"/>
+				<result column="type" property="type"/>
+				<result column="link" property="link"/>
+				<result column="content" property="content"/>
+				<result column="startdate" property="startdate"/>
+				<result column="enddate" property="enddate"/>
+				<result column="status" property="status"/>
+				<result column="creater" property="creater"/>
+				<result column="create_time" property="createTime"/>
+				<result column="modifier" property="modifier"/>
+				<result column="modify_time" property="modifyTime"/>
+	</resultMap>
+	
+	<sql id="MybatisCmsAnnounceElementDAO_all_column_fields">
+	      id,position_id,title,type,link,content,startdate,enddate,status,creater,create_time,modifier,modify_time
+ 	</sql>
+	<!-- 只有varchar char text类型 做 !='' 判断，生成代码时,其他类型时只做!=null 决断 0或fasle与空''是相同的，在mybatis中的动态语句中 -->
+	<sql id="MybatisCmsAnnounceElementDAO_dynamic_where_fields"><!-- xml转义字符需要 <![CDATA[   ]]> 标签-->
+		<where>
+			<if test="positionId != null "> AND position_id=#{positionId} </if>
+			<if test="title != null  and title != '' "> AND title=#{title} </if>
+			<if test="type != null "> AND type=#{type} </if>
+			<if test="link != null  and link != '' "> AND link=#{link} </if>
+			<if test="content != null  and content != '' "> AND content=#{content} </if>
+			<if test="status != null "> AND status=#{status} </if>
+			<if test="creater != null "> AND creater=#{creater} </if>
+			<if test="modifier != null "> AND modifier=#{modifier} </if>
+		</where>
+ 	</sql>
+
+	<select id="MybatisCmsAnnounceElementDAO_selectById" parameterType="long" resultMap="AnnounceElementResultMap">
+	SELECT
+		<include refid="MybatisCmsAnnounceElementDAO_all_column_fields" />
+	FROM
+		cms_announce_element
+	WHERE
+		 id = #{id}
+	</select>
+
+
+
+	<update id="updateDynamic" parameterType="com.tp.model.cms.AnnounceElement">
+		UPDATE cms_announce_element
+		<set>
+					<if test="positionId != null ">position_id=#{positionId},</if>
+					<if test="title != null  and title != '' ">title=#{title},</if>
+					<if test="type != null ">type=#{type},</if>
+					<if test="link != null  and link != '' ">link=#{link},</if>
+					<if test="content != null  and content != '' ">content=#{content},</if>
+					<if test="startdate != null ">startdate=#{startdate},</if>
+					<if test="enddate != null ">enddate=#{enddate},</if>
+					<if test="status != null ">status=#{status},</if>
+					<if test="creater != null ">creater=#{creater},</if>
+					<if test="modifier != null ">modifier=#{modifier},</if>
+					<if test="modifyTime != null ">modify_time=#{modifyTime},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+ 	<select id="selectDynamic" resultMap="AnnounceElementResultMap" parameterType="com.tp.model.cms.AnnounceElement">
+	     SELECT
+	     	<include refid="MybatisCmsAnnounceElementDAO_all_column_fields" />
+		 FROM
+		 	cms_announce_element
+			<include refid="MybatisCmsAnnounceElementDAO_dynamic_where_fields" />
+ 	</select>
+
+ 	<select id="selectDynamicCount" resultType="long" parameterType="com.tp.model.cms.AnnounceElement">
+	     SELECT
+	     	count(1)
+		 FROM
+		 	cms_announce_element
+	 	<include refid="MybatisCmsAnnounceElementDAO_dynamic_where_fields" />
+ 	</select>
+
+ 	<select id="selectDynamicPageQuery" resultMap="AnnounceElementResultMap" parameterType="com.tp.model.cms.AnnounceElement">
+	     SELECT
+	     	<include refid="MybatisCmsAnnounceElementDAO_all_column_fields" />
+		 FROM
+		 	cms_announce_element
+	 	<include refid="MybatisCmsAnnounceElementDAO_dynamic_where_fields" />
+	 	Limit #{start},#{pageSize}
+ 	</select>
+	
+	<delete id="deleteByIds" parameterType="java.util.List" >
+		DELETE FROM cms_announce_element WHERE 
+			 id in
+		<foreach collection="list" item="announceId" index="index"
+            open="(" close=")" separator=",">
+            #{announceId}
+        </foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.sup.ContractDao">
+	<resultMap type="com.tp.model.sup.Contract" id="contract">
+				<id column="id" property="id"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="is_sea" property="isSea"/>
+				<result column="contract_type" property="contractType"/>
+				<result column="contract_code" property="contractCode"/>
+				<result column="contract_name" property="contractName"/>
+				<result column="contract_desc" property="contractDesc"/>
+				<result column="signing_date" property="signingDate"/>
+				<result column="start_date" property="startDate"/>
+				<result column="end_date" property="endDate"/>
+				<result column="contract_xg" property="contractXg"/>
+				<result column="sales_channels" property="salesChannels"/>
+				<result column="template_type" property="templateType"/>
+				<result column="template_name" property="templateName"/>
+				<result column="cash" property="cash"/>
+				<result column="currency" property="currency"/>
+				<result column="is_agreement_contract" property="isAgreementContract"/>
+				<result column="agreement_contract_name" property="agreementContractName"/>
+				<result column="agreement_contract_url" property="agreementContractUrl"/>
+				<result column="contractor_id" property="contractorId"/>
+				<result column="contractor_name" property="contractorName"/>
+				<result column="contractor_dept_id" property="contractorDeptId"/>
+				<result column="contractor_dept_name" property="contractorDeptName"/>
+				<result column="contractor_email" property="contractorEmail"/>
+				<result column="contractor_phone" property="contractorPhone"/>
+				<result column="audit_status" property="auditStatus"/>
+				<result column="status" property="status"/>
+				<result column="create_time" property="createTime"/>
+				<result column="update_time" property="updateTime"/>
+				<result column="create_user" property="createUser"/>
+				<result column="update_user" property="updateUser"/>
+	</resultMap>
+</mapper>

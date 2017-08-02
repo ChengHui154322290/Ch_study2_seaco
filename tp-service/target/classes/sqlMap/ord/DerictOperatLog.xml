@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.ord.DerictOperatLogDao">
+	<resultMap type="com.tp.model.ord.DerictOperatLog" id="derictOperatLog">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="operat_type" property="operatType"/>
+				<result column="is_success" property="isSuccess"/>
+				<result column="operat_message" property="operatMessage"/>
+				<result column="create_user" property="createUser"/>
+				<result column="create_time" property="createTime"/>
+				<result column="original_result" property="originalResult"/>
+				<result column="modify_user" property="modifyUser"/>
+				<result column="modify_time" property="modifyTime"/>
+				
+	</resultMap>
+	
+	<sql id="columns">
+		id,order_code,operat_type,is_success,operat_message,create_user,create_time,original_result,modify_user,modify_time
+	</sql>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tp.dao.stg.InputOrderDao">
+	<resultMap type="com.tp.model.stg.InputOrder" id="inputOrder">
+				<id column="id" property="id"/>
+				<result column="order_code" property="orderCode"/>
+				<result column="warehouse_id" property="warehouseId"/>
+				<result column="warehouse_code" property="warehouseCode"/>
+				<result column="type" property="type"/>
+				<result column="customer_id" property="customerId"/>
+				<result column="zdrq" property="zdrq"/>
+				<result column="dhrq" property="dhrq"/>
+				<result column="zdr" property="zdr"/>
+				<result column="bz" property="bz"/>
+				<result column="status" property="status"/>
+				<result column="fail_times" property="failTimes"/>
+				<result column="create_time" property="createTime"/>
+				<result column="supplier_id" property="supplierId"/>
+				<result column="supplier_contacts" property="supplierContacts"/>
+				<result column="supplier_name" property="supplierName"/>
+				<result column="supplier_phone" property="supplierPhone"/>
+				<result column="supplier_addresses" property="supplierAddresses"/>
+	</resultMap>
+</mapper>
